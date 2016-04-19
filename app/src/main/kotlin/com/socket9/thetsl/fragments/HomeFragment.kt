@@ -1,5 +1,7 @@
 package com.socket9.thetsl.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -15,20 +17,22 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
-import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
 
 /**
  * Created by Euro on 3/10/16 AD.
  */
-class HomeFragment : Fragment() , AnkoLogger{
+class HomeFragment : Fragment(), AnkoLogger {
 
     /** Variable zone **/
     lateinit var param1: String
     lateinit var myProfile: Model.Profile;
 
+
     /** Static method zone **/
     companion object {
         val ARG_1 = "ARG_1"
+        val REQUEST_MY_PROFILE: Int = 200
 
         fun newInstance(param1: String): HomeFragment {
             var bundle: Bundle = Bundle()
@@ -66,22 +70,32 @@ class HomeFragment : Fragment() , AnkoLogger{
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_MY_PROFILE -> getProfile()
+            }
+        }
+
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
         toast("HomeFragment")
         getProfile()
         ivUser.setOnClickListener {
-            startActivity<MyProfileActivity>("myProfile" to myProfile)
+            startActivityForResult(Intent(activity, MyProfileActivity::class.java).putExtra("myProfile", myProfile), REQUEST_MY_PROFILE)
         }
     }
 
     private fun getProfile() {
-        var dialog = indeterminateProgressDialog ( "Getting profile..." )
+        var dialog = indeterminateProgressDialog ("Getting profile...")
         dialog.show()
         HttpManager.getProfile()
                 .doOnNext {
-                    if(!it.result && it.message != null ) toast(it.message)
+                    if (!it.result && it.message != null ) toast(it.message)
                 }
                 .subscribe({
                     dialog.dismiss()

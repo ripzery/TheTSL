@@ -22,8 +22,22 @@ object HttpManager{
             .unsubscribeOn(Schedulers.io())
     }
 
+    fun login(email:String, password:String, deviceId: String) : Observable<Model.User>{
+        return ApiService.getAPI().login(email, password, deviceId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
     fun loginWithFb(facebookId:String, fbPhoto:String, deviceId: String): Observable<Model.User>{
         return ApiService.getAPI().loginWithFb(facebookId, fbPhoto, deviceId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getListNews() : Observable<Model.ListNewsEvent>{
+        return ApiService.getAPI().getListNews(SharePref.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

@@ -36,7 +36,7 @@ object ApiService {
     interface TSLApi {
         @FormUrlEncoded
         @POST("checkLogin")
-        fun login(@Field("email") email: String, @Field("password") password: String)
+        fun login(@Field("email") email: String, @Field("password") password: String, @Field("deviceId") deviceId: String) : Observable<Model.User>
 
         @FormUrlEncoded
         @POST("checkLogin")
@@ -44,7 +44,7 @@ object ApiService {
 
         @FormUrlEncoded
         @POST("forgetPassword")
-        fun forgetPassword(@Field("email") email: String)
+        fun forgetPassword(@Field("email") email: String) : Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("registerUser")
@@ -64,27 +64,27 @@ object ApiService {
 
         @FormUrlEncoded
         @POST("getListNews")
-        fun getListNews(@Field("token") token: String)
+        fun getListNews(@Field("token") token: String) : Observable<Model.ListNewsEvent>
 
         @FormUrlEncoded
         @POST("getNew")
-        fun getNew(@Field("token") token: String, @Field("newid") newId: Int)
+        fun getNew(@Field("token") token: String, @Field("newid") newId: Int) : Observable<Model.NewsEvent>
 
         @FormUrlEncoded
         @POST("getListEvents")
-        fun getListEvents(@Field("token") token: String)
+        fun getListEvents(@Field("token") token: String) : Observable<Model.ListNewsEvent>
 
         @FormUrlEncoded
         @POST("getEvent")
-        fun getEvent(@Field("token") token: String, @Field("eventid") id: Int)
+        fun getEvent(@Field("token") token: String, @Field("eventid") id: Int) : Observable<Model.NewsEvent>
 
         @FormUrlEncoded
         @POST("getListContacts")
-        fun getListContacts(@Field("token") token: String)
+        fun getListContacts(@Field("token") token: String) : Observable<Model.ListContacts>
 
         @FormUrlEncoded
         @POST("getContact")
-        fun getContact(@Field("token") token: String, @Field("contactid") contactId: Int)
+        fun getContact(@Field("token") token: String, @Field("contactid") contactId: Int) : Observable<Model.Contact>
 
         @FormUrlEncoded
         @POST("emergencyCall")
@@ -92,7 +92,7 @@ object ApiService {
 
         @FormUrlEncoded
         @POST("uploadPhotoBase64")
-        fun uploadPhoto(@Field("token") token: String, @Field("photo") path: String)
+        fun uploadPhoto(@Field("token") token: String, @Field("photo") path: String) : Observable<Model.Photo>
 
         @FormUrlEncoded
         @POST("updateProfile")
@@ -101,12 +101,12 @@ object ApiService {
                           @Field("nameTh") nameTh: String,
                           @Field("phone") phone: String,
                           @Field("address") address: String,
-                          @Field("picture") picture: String)
+                          @Field("picture") picture: String) : Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("updateProfile")
         fun updatePicture(@Field("token") token: String,
-                          @Field("picture") picture: String)
+                          @Field("picture") picture: String) : Observable<Model.BaseModel>
     }
 
 }

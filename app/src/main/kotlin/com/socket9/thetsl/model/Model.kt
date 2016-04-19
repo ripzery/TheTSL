@@ -43,6 +43,8 @@ object Model {
 
     data class ListNewsEvent(val message:String? = null, val result: Boolean, val data: MutableList<NewsEventEntity>)
 
+    data class NewsEvent(val message:String? = null, val result: Boolean, val data:NewsEventEntity)
+
     data class Photo(val message:String? = null, val result: Boolean,
                      val data: PhotoEntity)
 

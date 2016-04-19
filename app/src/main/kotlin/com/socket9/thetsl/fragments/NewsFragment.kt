@@ -2,16 +2,22 @@ package com.socket9.thetsl.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
+import com.socket9.thetsl.adapter.EventAdapter
 import com.socket9.thetsl.extensions.toast
+import com.socket9.thetsl.managers.HttpManager
+import kotlinx.android.synthetic.main.fragment_event.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 /**
  * Created by Euro on 3/10/16 AD.
  */
-class NewsFragment : Fragment(){
+class NewsFragment : Fragment(), AnkoLogger{
 
     /** Variable zone **/
     lateinit var param1: String
@@ -56,6 +62,19 @@ class NewsFragment : Fragment(){
     /** Method zone **/
 
     private fun initInstance(){
-        toast("NewsFragment")
+        val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = linearLayoutManager
+//        newsAdapter = EventAdapter(mutableListOf())
+//        recyclerView.adapter = eventAdapter
+        getNews()
+    }
+
+    private fun getNews() {
+//        getListEventSubscription = HttpManager.getListEvent()
+//                .subscribe {
+//                    info{ "Hello ${it.toString()}" }
+//                    newsAdapter?.eventList = it.data
+//                }
     }
 }

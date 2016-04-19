@@ -39,11 +39,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private var homeFragment: HomeFragment? = null
-    private var newsFragment: NewsFragment? = null
+    private var newsFragment: NewsEventFragment? = null
     private var contactFragment: ContactFragment? = null
     private var emergencyFragment: EmergencyFragment? = null
     private val profileFragment: Fragment? = null
-    private var eventFragment: EventFragment? = null
+    private var eventFragment: NewsEventFragment? = null
 
     /** Lifecycle  zone **/
 
@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     fun onFragmentAttached(number: Int) {
         var mTitle = ""
         try {
-            toolbarTitle.visibility = if (number == FRAGMENT_DISPLAY_NEWS || number == FRAGMENT_DISPLAY_HOME) View.GONE else View.VISIBLE
-            layoutNewsEvent.visibility = if (number == FRAGMENT_DISPLAY_NEWS) View.VISIBLE else View.GONE
+            toolbarTitle.visibility = if (number == FRAGMENT_DISPLAY_NEWS || number == FRAGMENT_DISPLAY_NEWS || number == FRAGMENT_DISPLAY_HOME) View.GONE else View.VISIBLE
+            layoutNewsEvent.visibility = if (number == FRAGMENT_DISPLAY_NEWS || number == FRAGMENT_DISPLAY_EVENT) View.VISIBLE else View.GONE
             ivLogo.visibility = if (number == FRAGMENT_DISPLAY_HOME) View.VISIBLE else View.GONE
             when (number) {
                 FRAGMENT_DISPLAY_HOME -> {
@@ -130,8 +130,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private fun initFragment() {
         homeFragment = HomeFragment.newInstance("homeFragment")
-        newsFragment = NewsFragment.newInstance("NewsFragment")
-        eventFragment = EventFragment.newInstance("EventFragment")
+        newsFragment = NewsEventFragment.newInstance(true)
+        eventFragment = NewsEventFragment.newInstance(false)
         contactFragment = ContactFragment.newInstance("ContactFragment")
         emergencyFragment = EmergencyFragment.newInstance("EmergencyFragment")
     }
@@ -145,7 +145,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             FRAGMENT_DISPLAY_EVENT -> replaceFragment(fragment = eventFragment!!)
         }
         onFragmentAttached(mode)
-        info { mode }
     }
 
     private fun setupDrawerContent() {
@@ -156,6 +155,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     menuItem.isChecked = true
                 }
                 R.id.nav_news -> {
+                    //TODO: Save states is news or event is lastly visible
                     changeFragment(FRAGMENT_DISPLAY_NEWS)
                     menuItem.isChecked = true
                 }
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private fun setListener() {
         btnLeft.setOnClickListener {
-            if (!newsFragment!!.isVisible()) {
+            if (!newsFragment!!.isVisible) {
                 changeFragment(FRAGMENT_DISPLAY_NEWS)
             }
 
@@ -194,6 +194,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             btnRight.setTextColor(ContextCompat.getColor(this, R.color.colorTextPrimary))
             btnRight.background = ContextCompat.getDrawable(this, R.drawable.button_corner_right)
         }
+
         btnChangeLanguage.setOnClickListener {
             toast("Change lang")
         }

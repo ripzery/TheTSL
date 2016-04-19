@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="change_language">
+        <item>ไทย</item>
+        <item>อังกฤษ</item>
+    </string-array>
+</resources>

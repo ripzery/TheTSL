@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fontTitleLight">
+        <item name="fontPath">fonts/samakarn/Samakarn-Light.ttf</item>
+    </style>
+
+    <style name="fontContent">
+        <item name="fontPath">fonts/cmprasanmit/CmPrasanmit.ttf</item>
+    </style>
+
+    <style name="itemTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontPath">fonts/samakarn/Samakarn-Light.ttf</item>
+    </style>
+</resources>

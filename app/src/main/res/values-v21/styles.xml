@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:colorButtonNormal">@color/colorTextPrimary</item>
+        <item name="android:colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="ToolbarThemeOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/colorTextSecondary</item>
+        <item name="colorControlNormal">@color/colorTextSecondary</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:itemTextAppearance">@style/menuItemColor</item>
+    </style>
+
+
+    <style name="menuItemColor">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="hr">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dip</item>
+        <item name="android:background">@color/colorTextSecondary</item>
+    </style>
+
+
+    <style name="Toolbar">
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:actionMenuTextColor">@color/colorTextBlack</item>
+    </style>
+
+</resources>

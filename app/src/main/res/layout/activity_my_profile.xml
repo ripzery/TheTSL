@@ -1,0 +1,130 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivUser"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/default_photo"
+            app:civ_border_color="@color/colorTextPrimary"
+            app:civ_border_width="2dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile.name.title"/>
+
+            <EditText
+                android:id="@+id/etName"
+                style="@style/editTextContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:hint="@string/profile.name.hint"
+                android:background="@null"
+                android:inputType="text"
+                android:text="@string/profile.name.content"/>
+
+
+            <TextView
+                style="@style/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/profile.phone.title"/>
+
+
+            <EditText
+                android:id="@+id/etPhone"
+                style="@style/editTextContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile.phone.hint"
+                android:inputType="phone"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@null"
+                android:text="@string/profile.phone.content"/>
+
+
+            <TextView
+                style="@style/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/profile.email.title"/>
+
+
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/editTextContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:background="@null"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/profile.email.content"/>
+
+
+            <TextView
+                style="@style/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/profile.password.title"/>
+
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/editTextContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:hint="@string/create.account.et.password"
+                android:inputType="textPassword"
+                android:text="@string/profile.password.content"
+                android:background="@null"/>
+
+
+            <TextView
+                style="@style/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/profile.address.title"/>
+
+
+            <EditText
+                android:id="@+id/etAddress"
+                style="@style/editTextContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:hint="@string/profile.address.hint"
+                android:background="@null"
+                android:inputType="text"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+

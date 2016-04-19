@@ -1,0 +1,120 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.socket9.tsl.CreateAccountActivity">
+
+    <include layout="@layout/layout_app_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="@dimen/btn_width_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/create.account.et.name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="@dimen/btn_width_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/create.account.et.email"
+            android:inputType="textEmailAddress" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="@dimen/btn_width_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/create.account.et.password"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="@dimen/btn_width_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/create.account.et.confirmpw"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="@dimen/btn_width_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/create.account.et.mobile"
+            android:inputType="phone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="@dimen/btn_width_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/create.account.et.address"
+            android:lines="3"
+            android:maxLines="3" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/create.account.btn.register"
+        android:textColor="@color/colorTextPrimary" />
+
+
+</LinearLayout>
+
+
+

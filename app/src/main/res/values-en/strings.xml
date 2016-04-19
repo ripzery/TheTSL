@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">TSL</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="title_activity_news_event">NewsEventActivity</string>
+    <string name="title_activity_place_detail">PlaceDetailActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
+
+    <!-- Toolbar title -->
+    <string name="toolbar.branch.detail">Contact Info</string>
+    <string name="toolbar.create.account">REGISTER</string>
+    <string name="toolbar.emergency">EMERGENCY CALL</string>
+    <string name="toolbar.Contact">Contact</string>
+    <string name="toolbar.main">Main</string>
+    <string name="toolbar.home">Home</string>
+    <string name="toolbar.my.profile">PROFILE</string>
+
+    <!-- Dialog -->
+    <string name="dialog.forgot.pw.title">Forgot Password</string>
+    <string name="dialog.forgot.pw.content">Enter your email address to request a password reset.</string>
+    <string name="dialog.forgot.pw.positive">Request</string>
+    <string name="dialog.forgot.pw.negative">Cancel</string>
+    <string name="dialog.forgot.pw.input.hint">Your email</string>
+
+    <string name="dialog.update.profile.title">Confirmation</string>
+    <string name="dialog.update.profile.content">Exit without saving your changed?</string>
+    <string name="dialog.update.profile.positive">Yes</string>
+    <string name="dialog.update.profile.negative">No</string>
+
+    <string name="dialog.signout.title">Sign Out</string>
+    <string name="dialog.signout.content">Are you sure you want to sign out?</string>
+    <string name="dialog.signout.positive">Yes</string>
+    <string name="dialog.signout.negative">No</string>
+
+    <string name="dialog.call.us.title">Call us</string>
+    <string name="dialog.call.us.content">Do you want to call 02&#8211;269&#8211;9999 ?</string>
+    <string name="dialog.call.us.positive">Call</string>
+    <string name="dialog.call.us.negative">Cancel</string>
+
+    <string name="dialog.change.lang.thai">Thai</string>
+    <string name="dialog.change.lang.english">English</string>
+    <string name="dialog.change.lang.cancel">Cancel</string>
+    <string name="dialog.change.lang.title">Change Language</string>
+    <string name="dialog.change.lang.choose">Choose</string>
+
+    <!-- Toast -->
+    <string name="toast.token.invalid">Someone has access your account, please login again.</string>
+    <string name="toast.update.google.play.services">Please update Google Play Services</string>
+    <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
+
+    <!-- CreateAccount Activity -->
+    <string name="create.account.et.name">Your Name</string>
+    <string name="create.account.et.email">Your Email Address</string>
+    <string name="create.account.et.password">Your Password</string>
+    <string name="create.account.et.confirmpw">Re-Enter Your Password</string>
+    <string name="create.account.et.mobile">Your Mobile Phone</string>
+    <string name="create.account.et.address">Your Address</string>
+    <string name="create.account.btn.register">REGISTER</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav.home">Home</string>
+    <string name="nav.news">News &amp; Event</string>
+    <string name="nav.contact">Contact Us</string>
+    <string name="nav.emergency">Emergency Call</string>
+    <string name="nav.signout">Sign Out</string>
+    <string name="nav.change.lang.thai">Thai</string>
+    <string name="nav.change.lang.english">English</string>
+
+    <!-- Emergency Call -->
+    <string name="emergency.call.request">Request</string>
+
+    <!-- Profile -->
+    <string name="profile.address.title">ADDRESS</string>
+    <string name="profile.address.hint">Your address</string>
+    <string name="profile.name.title">NAME</string>
+    <string name="profile.name.content">Annop Vor</string>
+    <string name="profile.name.hint">Your name</string>
+    <string name="profile.phone.title">PHONE</string>
+    <string name="profile.phone.content">0817137036</string>
+    <string name="profile.phone.hint">Your phone number</string>
+    <string name="profile.email.title">EMAIL</string>
+    <string name="profile.email.content">pop@socket9.com</string>
+    <string name="profile.email.hint">Your email</string>
+    <string name="profile.password.title">PASSWORD</string>
+    <string name="profile.password.content">123214das</string>
+    <string name="profile.password.hint">Your password</string>
+
+    <!-- Api key -->
+    <string name="google.maps.key">AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE</string>
+
+    <!-- Branch Detail -->
+    <string name="contact.business.hours">Business Hours</string>
+    <string name="contact.email">Email</string>
+    <string name="contact.phone">Phone</string>
+    <string name="contact.fax">Fax</string>
+
+    <!-- News & Event-->
+    <string name="news">News</string>
+    <string name="event">Event</string>
+
+    <!-- Contact Us -->
+    <string name="contact.us.email">email</string>
+    <string name="contact.us.call.center">call center</string>
+    <string name="contact.us.website">website</string>
+    <string name="contact.us.facebook">facebook</string>
+    <string name="contact.us.instagram">instagram</string>
+
+    <!-- Sign In -->
+    <string name="sign.in.username.hint">Username</string>
+    <string name="sign.in.password.hint">Password</string>
+    <string name="sign.in.or">OR</string>
+    <string name="sign.in.need.help">Need Help?</string>
+    <string name="sign.in.call.us">Call Us Now</string>
+    <string name="sign.in.register">Register</string>
+    <string name="sign.in.login">Login</string>
+
+    <!-- Share -->
+    <string name="share">Share to&#8230;</string>
+
+
+    <string name="lorem">Lorem ipsum dolor sit amet, congue malesuada. Mauris integer, pellentesque purus nam. Ipsum interdum felis facilisi ipsum aliquam. Tincidunt ornare non iaculis nec vitae, consectetur in.</string>
+    <string name="toolbar.contact">CONTACT US</string>
+    <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string>
+</resources>

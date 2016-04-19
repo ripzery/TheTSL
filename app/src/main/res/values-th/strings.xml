@@ -1,0 +1,126 @@
+<resources>
+    <string name="app_name">TSL</string>
+
+    <string name="hello_world">สวัสดีโลก !</string>
+    <string name="action_settings">ตั้งค่า</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="title_activity_news_event">NewsEventActivity</string>
+    <string name="title_activity_place_detail">PlaceDetailActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
+
+    <!-- Toolbar title -->
+    <string name="toolbar.branch.detail">ข้อมูลติดต่อ</string>
+    <string name="toolbar.create.account">ลงทะเบียน</string>
+    <string name="toolbar.emergency">ฉุนเฉิน</string>
+    <string name="toolbar.main">เมนูหลัก</string>
+    <string name="toolbar.home">เมนูหลัก</string>
+    <string name="toolbar.contact">ติดต่อเรา</string>
+    <string name="toolbar.my.profile">ประวัติของฉัน</string>
+
+    <!-- Dialog -->
+    <string name="dialog.forgot.pw.title">ลืมรหัสผ่าน</string>
+    <string name="dialog.forgot.pw.content">กรุณาใส่อีเมล์ของคุณเพื่อรีเซ็ทรหัสผ่าน</string>
+    <string name="dialog.forgot.pw.positive">ตกลง</string>
+    <string name="dialog.forgot.pw.negative">ยกเลิก</string>
+    <string name="dialog.forgot.pw.input.hint">อีเมล์ของคุณ</string>
+
+    <string name="dialog.update.profile.title">ยืนยัน</string>
+    <string name="dialog.update.profile.content">คุณแน่ใจหรือว่าจะไม่บันทึกการเปลี่ยนแปลงนี้?</string>
+    <string name="dialog.update.profile.positive">ใช่</string>
+    <string name="dialog.update.profile.negative">ไม่ใช่</string>
+
+    <string name="dialog.signout.title">ออกจากระบบ</string>
+    <string name="dialog.signout.content">คุณแน่ใจหรือว่าจะออกจากระบบ</string>
+    <string name="dialog.signout.positive">ใช่</string>
+    <string name="dialog.signout.negative">ไม่ใช่</string>
+
+    <string name="dialog.call.us.title">ติดต่อเรา</string>
+    <string name="dialog.call.us.content">คุณต้องการที่จะโทรหา 02&#8211;269&#8211;9999 ?</string>
+    <string name="dialog.call.us.positive">โทร</string>
+    <string name="dialog.call.us.negative">ยกเลิก</string>
+
+    <string name="dialog.change.lang.title">เปลี่ยนภาษา</string>
+    <string name="dialog.change.lang.thai">ไทย</string>
+    <string name="dialog.change.lang.english">อังกฤษ</string>
+    <string name="dialog.change.lang.cancel">ยกเลิก</string>
+    <string name="dialog.change.lang.choose">เลือก</string>
+
+    <!-- Toast -->
+    <string name="toast.token.invalid">มีใครบางคนพยายามจะเข้าสู่บัญชีของคุณ กรุณาเข้าสู่ระบบอีกครั้ง</string>
+    <string name="toast.update.google.play.services">กรุณาอัพเดท Google Play Services</string>
+    <string name="toast.activate.account">สร้างบัญชีสำเร็จ คุณสามารถปลดล็อกบัญชีได้ที่อีเมล์ของคุณ</string>
+
+    <!-- CreateAccount Activity -->
+    <string name="create.account.et.name">ชื่อของคุณ</string>
+    <string name="create.account.et.email">อีเมล์</string>
+    <string name="create.account.et.password">รหัสผ่าน</string>
+    <string name="create.account.et.confirmpw">กรุณาใส่รหัสผ่านอีกครั้ง</string>
+    <string name="create.account.et.mobile">เบอร์โทร</string>
+    <string name="create.account.et.address">ที่อยู่</string>
+    <string name="create.account.btn.register">ลงทะเบียน</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav.home">หน้าหลัก</string>
+    <string name="nav.news">ข่าวและกิจกรรม</string>
+    <string name="nav.contact">ติดต่อเรา</string>
+    <string name="nav.emergency">โทรฉุกเฉิน</string>
+    <string name="nav.signout">ออกจากระบบ</string>
+    <string name="nav.change.lang.thai">ไทย</string>
+    <string name="nav.change.lang.english">อังกฤษ</string>
+
+    <!-- Emergency Call -->
+    <string name="emergency.call.request">แจ้งเตือน</string>
+
+    <!-- Profile -->
+    <string name="profile.address.title">ที่อยู่</string>
+    <string name="profile.address.content">31 ตึกพญาไท, พญาไท, กรุงเทพ 10400, Thailand</string>
+    <string name="profile.name.title">ชื่อ</string>
+    <string name="profile.name.content">Annop Vor</string>
+    <string name="profile.phone.title">เบอร์โทร</string>
+    <string name="profile.phone.content">0817137036</string>
+    <string name="profile.email.title">อีเมล์</string>
+    <string name="profile.email.content">pop@socket9.com</string>
+    <string name="profile.password.title">รหัสผ่าน</string>
+    <string name="profile.password.content">123214das</string>
+
+    <!-- Api key -->
+    <string name="google.maps.key">AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE</string>
+
+    <!-- Branch Detail -->
+    <string name="contact.business.hours">เวลาทำการ</string>
+    <string name="contact.email">อีเมล์</string>
+    <string name="contact.phone">เบอร์โทร</string>
+    <string name="contact.fax">แฟ็กซ์</string>
+
+    <!-- News & Event-->
+    <string name="news">ข่าว</string>
+    <string name="event">กิจกรรม</string>
+
+    <!-- Contact Us -->
+    <string name="contact.us.email">อีเมล์</string>
+    <string name="contact.us.call.center">ศูนย์รับแจ้ง</string>
+    <string name="contact.us.website">เว็บไซท์</string>
+    <string name="contact.us.facebook">เฟซบุ๊ค</string>
+    <string name="contact.us.instagram">อินสตาแกรม</string>
+
+    <!-- Sign In -->
+    <string name="sign.in.username.hint">ชื่อผู้ใช้</string>
+    <string name="sign.in.password.hint">รหัสผ่าน</string>
+    <string name="sign.in.or">หรือ</string>
+    <string name="sign.in.need.help">ต้องการความช่วยเหลือ?</string>
+    <string name="sign.in.call.us">ติดต่อเราตอนนี้</string>
+    <string name="sign.in.register">ลงทะเบียน</string>
+    <string name="sign.in.login">เข้าสู่ระบบ</string>
+
+    <!-- Share -->
+    <string name="share">แชร์ไปยัง&#8230;</string>
+
+    <string name="lorem">ลอเร็ม ยิปมันส์ ดอเลอร์ ซิท อเมท, คองกิว มาเลซูดาร์. เมาริส อินทีเจอร์, เพลเลนเทส พูรัส น้ำ. ยิปมันส์ อินเทอร์ดัม เฟลิส ฟาซิลิซิ ยิปมัน อาลิคูอัม. ทินซิดันท์ ออนาเร่ นอน อิอาคูลิส เนส วิต้า, คอนเซคคัว อิน.</string>
+    <string name="toolbar.Contact">ติดต่อ</string>
+    <string name="profile.address.hint">ที่อยู่ของคุณ</string>
+    <string name="profile.email.hint">อีเมล์</string>
+    <string name="profile.name.hint">ชื่อ</string>
+    <string name="profile.password.hint">รหัสผ่าน</string>
+    <string name="profile.phone.hint">เบอร์โทรศัพท์</string>
+</resources>

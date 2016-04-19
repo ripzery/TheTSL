@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="textTitle" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontPath">fonts/samakarn/Samakarn-Bold.ttf</item>
+    </style>
+
+    <style name="editTextContent" parent="android:Widget.EditText">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">30</item>
+        <item name="fontPath">fonts/samakarn/Samakarn-Light.ttf</item>
+    </style>
+
+</resources>

@@ -1,6 +1,7 @@
 package com.socket9.thetsl.activities
 
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -8,9 +9,11 @@ import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
+import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.model.Model
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.indeterminateProgressDialog
 
 /**
  * Created by Euro on 3/10/16 AD.
@@ -103,7 +106,11 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun updateProfile() {
+        val progressDialog:ProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
+        progressDialog.show()
 
+        /* call updateProfile api */
+        HttpManager.getProfile()
     }
 
 

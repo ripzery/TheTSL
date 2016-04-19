@@ -46,6 +46,9 @@
     <string name="dialog.change.lang.title">Change Language</string>
     <string name="dialog.change.lang.choose">Choose</string>
 
+    <string name="dialog.progress.title">Please wait</string>
+    <string name="dialog.progress.profile.content">Updating profile…</string>
+
     <!-- Toast -->
     <string name="toast.token.invalid">Someone has access your account, please login again.</string>
     <string name="toast.update.google.play.services">Please update Google Play Services</string>

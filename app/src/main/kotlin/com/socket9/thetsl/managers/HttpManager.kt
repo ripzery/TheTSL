@@ -43,6 +43,13 @@ object HttpManager{
                 .unsubscribeOn(Schedulers.io())
     }
 
+    fun updateProfile(nameEn: String, nameTh:String, phone:String, address:String, picture:String) : Observable<Model.BaseModel>{
+        return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, phone, address, picture)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
     fun getProfile(): Observable<Model.Profile> {
         return ApiService.getAPI().getProfile(SharePref.getToken())
                 .subscribeOn(Schedulers.io())

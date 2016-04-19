@@ -165,6 +165,7 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
 
     private fun updateProfile() {
         val progressDialog: ProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
+        progressDialog.setCancelable(false)
         progressDialog.show()
 
         val picturePath = photo?.pathSave ?: ""

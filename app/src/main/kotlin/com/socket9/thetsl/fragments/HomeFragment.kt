@@ -18,6 +18,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.startActivityForResult
+import rx.Subscription
 
 /**
  * Created by Euro on 3/10/16 AD.
@@ -27,6 +28,7 @@ class HomeFragment : Fragment(), AnkoLogger {
     /** Variable zone **/
     lateinit var param1: String
     lateinit var myProfile: Model.Profile;
+    private var getProfileSubscriber: Subscription? = null
 
 
     /** Static method zone **/
@@ -67,7 +69,11 @@ class HomeFragment : Fragment(), AnkoLogger {
 
     override fun onResume() {
         super.onResume()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        getProfileSubscriber?.unsubscribe()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,10 +96,12 @@ class HomeFragment : Fragment(), AnkoLogger {
         }
     }
 
+
     private fun getProfile() {
         var dialog = indeterminateProgressDialog ("Getting profile...")
+        dialog.setCancelable(false)
         dialog.show()
-        HttpManager.getProfile()
+        getProfileSubscriber = HttpManager.getProfile()
                 .doOnNext {
                     if (!it.result && it.message != null ) toast(it.message)
                 }

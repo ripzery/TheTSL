@@ -11,7 +11,6 @@ import com.socket9.thetsl.adapter.EventAdapter
 import com.socket9.thetsl.managers.HttpManager
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import rx.Subscription
 
 /**
@@ -81,17 +80,15 @@ class NewsEventFragment : Fragment(), AnkoLogger {
         when (isNews) {
             true -> {
                 getListNewsEventSubscription = HttpManager.getListNews()
-                    .subscribe {
-                        info { "Hello News ${it.toString()}" }
-                        eventNewsAdapter?.setList(it.data)
-                    }
+                        .subscribe {
+                            eventNewsAdapter?.setList(it.data)
+                        }
             }
             false -> {
                 getListNewsEventSubscription = HttpManager.getListEvent()
-                    .subscribe {
-                        info { "Hello Event ${it.toString()}" }
-                        eventNewsAdapter?.setList(it.data)
-                    }
+                        .subscribe {
+                            eventNewsAdapter?.setList(it.data)
+                        }
             }
         }
 

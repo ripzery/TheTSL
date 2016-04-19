@@ -36,13 +36,6 @@ object HttpManager{
                 .unsubscribeOn(Schedulers.io())
     }
 
-    fun getListNews() : Observable<Model.ListNewsEvent>{
-        return ApiService.getAPI().getListNews(SharePref.getToken())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-    }
-
     fun emergencyCall(lat:String, lng:String, type:String): Observable<Model.BaseModel>{
         return ApiService.getAPI().emergencyCall(SharePref.getToken(), lat, lng, type)
                 .subscribeOn(Schedulers.io())
@@ -52,6 +45,62 @@ object HttpManager{
 
     fun getProfile(): Observable<Model.Profile> {
         return ApiService.getAPI().getProfile(SharePref.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getListNews() : Observable<Model.ListNewsEvent>{
+        return ApiService.getAPI().getListNews(SharePref.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun forgetPassword(email:String) : Observable<Model.BaseModel>{
+        return ApiService.getAPI().forgetPassword(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getNews(newsId:Int) : Observable<Model.NewsEvent>{
+        return ApiService.getAPI().getNews(SharePref.getToken(), newsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getListEvent() : Observable<Model.ListNewsEvent>{
+        return ApiService.getAPI().getListEvents(SharePref.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getEvent(eventId : Int): Observable<Model.NewsEvent>{
+        return ApiService.getAPI().getEvent(SharePref.getToken(), eventId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getListContact() : Observable<Model.ListContacts> {
+        return ApiService.getAPI().getListContacts(SharePref.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun uploadPhoto(path:String) : Observable<Model.Photo>{
+        return ApiService.getAPI().uploadPhoto(SharePref.getToken(), path)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun updatePicture(picture: String) : Observable<Model.BaseModel>{
+        return ApiService.getAPI().updatePicture(SharePref.getToken(), picture)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

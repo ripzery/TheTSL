@@ -68,7 +68,7 @@ object ApiService {
 
         @FormUrlEncoded
         @POST("getNew")
-        fun getNew(@Field("token") token: String, @Field("newid") newId: Int) : Observable<Model.NewsEvent>
+        fun getNews(@Field("token") token: String, @Field("newid") newId: Int) : Observable<Model.NewsEvent>
 
         @FormUrlEncoded
         @POST("getListEvents")

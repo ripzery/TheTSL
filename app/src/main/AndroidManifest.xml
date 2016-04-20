@@ -45,6 +45,9 @@
 
         </activity>
 
+        <activity android:name=".activities.BranchDetailActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".activities.NewsEventActivity"
             android:theme="@style/AppThemeWithActionbar"
             android:screenOrientation="portrait"/>

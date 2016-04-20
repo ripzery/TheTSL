@@ -39,16 +39,16 @@ object Model {
 
     data class Contact(val message: String? = null, val result: Boolean, val data: ContactEntity)
 
-    data class ListContacts(val message:String? = null, val result: Boolean, val data: MutableList<ContactEntity>)
+    data class ListContacts(val message: String? = null, val result: Boolean, val data: MutableList<ContactEntity>)
 
-    data class ListNewsEvent(val message:String? = null, val result: Boolean, val data: MutableList<NewsEventEntity>)
+    data class ListNewsEvent(val message: String? = null, val result: Boolean, val data: MutableList<NewsEventEntity>)
 
-    data class NewsEvent(val message:String? = null, val result: Boolean, val data:NewsEventEntity)
+    data class NewsEvent(val message: String? = null, val result: Boolean, val data: NewsEventEntity)
 
-    data class Photo(val message:String? = null, val result: Boolean,
+    data class Photo(val message: String? = null, val result: Boolean,
                      val data: PhotoEntity)
 
-    data class PhotoEntity(val pathUse:String, val pathSave: String)
+    data class PhotoEntity(val pathUse: String, val pathSave: String)
 
     @PaperParcel
     data class ProfileEntity(val nameTh: String,
@@ -63,6 +63,7 @@ object Model {
         }
     }
 
+    @PaperParcel
     data class NewsEventEntity(val id: Int,
                                val titleTh: String,
                                val titleEn: String,
@@ -70,11 +71,16 @@ object Model {
                                val type: String,
                                val date: String,
                                val contentEn: String,
-                               val contentTh: String)
+                               val contentTh: String){
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(NewsEventEntity::class.java)
+        }
+    }
 
+    @PaperParcel
     data class ContactEntity(val id: Int,
                              val titleEn: String,
-                             val subTitle: String,
+                             val subTitle: String? = null,
                              val icon: Int,
                              val titleTh: String? = null,
                              @SerializedName("Phone") val phone: String? = null,
@@ -83,8 +89,11 @@ object Model {
                              @SerializedName("Email") val email: String? = null,
                              @SerializedName("Business Hours") val businessHours: String? = null,
                              val lng: Double? = null,
-                             val lat: Double? = null){
+                             val lat: Double? = null) : PaperParcelable {
 
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(ContactEntity::class.java)
+        }
 
     }
 }

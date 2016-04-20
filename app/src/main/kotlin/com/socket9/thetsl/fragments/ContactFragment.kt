@@ -1,5 +1,6 @@
 package com.socket9.thetsl.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -7,14 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
+import com.socket9.thetsl.activities.BranchDetailActivity
 import com.socket9.thetsl.adapter.ContactAdapter
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.model.Model
 import kotlinx.android.synthetic.main.fragment_contact.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.startActivity
 import rx.Observable
 import rx.Subscription
 
@@ -29,6 +33,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
     lateinit var param1: String
     private val BASE_ID = 1000
     private var contactSubscription:Subscription? = null
+    private var progressDialog:ProgressDialog? = null
 
 
     /** Static method zone **/
@@ -68,19 +73,21 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     override fun onPause() {
         super.onPause()
+        progressDialog?.dismiss()
         contactSubscription?.unsubscribe()
     }
 
     /** Method zone **/
 
     private fun initInstance(){
-        val progressDialog = indeterminateProgressDialog(R.string.dialog_progress_contact_content, R.string.dialog_progress_title)
-        progressDialog.setCancelable(false)
-        progressDialog.show()
+        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_contact_content, R.string.dialog_progress_title)
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
 
         contactSubscription = loadContacts()
             .subscribe ({
-                progressDialog.dismiss()
+                info { it }
+                progressDialog?.dismiss()
                 val contactAdapter = ContactAdapter(addContact(it.data), this)
                 val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
                 linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -88,7 +95,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
                 recyclerView.adapter = contactAdapter
 
             }, {error ->
-                progressDialog.dismiss()
+                progressDialog?.dismiss()
                 error.printStackTrace()
                 info { error.message }
             })
@@ -109,6 +116,6 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     /** Listener zone **/
     override fun onContactClicked(index: Int, model: Model.ContactEntity) {
-        //TODO: startActivity BranchDetail
+        startActivity<BranchDetailActivity>("contact" to model)
     }
 }

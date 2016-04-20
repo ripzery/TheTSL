@@ -4,7 +4,7 @@
     tools:context="com.socket9.tsl.NewsEventActivity">
     <item
         android:id="@+id/menu_item_share"
-        android:actionProviderClass="android.widget.ShareActionProvider"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         android:icon="@drawable/share"
         android:title="Share"
         app:showAsAction="ifRoom" />

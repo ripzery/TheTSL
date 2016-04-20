@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.socket9.tsl.NewsEventActivity">
-
-    <include layout="@layout/layout_app_bar" />
+    tools:context="com.socket9.thetsl.activities.NewsEventActivity">
 
     <WebView
         android:id="@+id/webView"

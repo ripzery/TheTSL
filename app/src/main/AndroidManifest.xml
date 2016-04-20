@@ -45,6 +45,10 @@
 
         </activity>
 
+        <activity android:name=".activities.NewsEventActivity"
+            android:theme="@style/AppThemeWithActionbar"
+            android:screenOrientation="portrait"/>
+
         <activity android:name="com.soundcloud.android.crop.CropImageActivity"/>
 
         <activity

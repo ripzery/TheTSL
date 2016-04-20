@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -17,15 +18,16 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.PublishSubject
 
-class EventViewGroup : BaseCustomViewGroup, AnkoLogger {
+class ContactViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Variable zone **/
+    private val BASE_ID = 1000
     lateinit private var viewContainer: View
-    lateinit private var tvTag: TextView
+    lateinit private var tvContent: TextView
     lateinit private var tvTitle: TextView
-    lateinit private var ivPhoto: ImageView
-    lateinit private var cardNews: CardView
-    private var cardClickedObservable: PublishSubject<Int> = PublishSubject.create()
+    lateinit private var ivIcon: ImageView
+    lateinit private var row: FrameLayout
+    private var rowClickedObservable: PublishSubject<Int> = PublishSubject.create()
 
 
     /** Override method zone **/
@@ -54,24 +56,24 @@ class EventViewGroup : BaseCustomViewGroup, AnkoLogger {
     }
 
     private fun initInflate() {
-        viewContainer = inflate(context, R.layout.viewgroup_news_event, this)
+        viewContainer = inflate(context, R.layout.viewgroup_contact, this)
     }
 
     private fun initInstances() {
         // findViewById here
         tvTitle = viewContainer.findViewById(R.id.tvTitle) as TextView
-        tvTag = viewContainer.findViewById(R.id.tvTag) as TextView
-        ivPhoto = viewContainer.findViewById(R.id.ivPhoto) as ImageView
-        cardNews = viewContainer.findViewById(R.id.cardNews) as CardView
+        tvContent = viewContainer.findViewById(R.id.tvContent) as TextView
+        ivIcon = viewContainer.findViewById(R.id.ivIcon) as ImageView
+        row = viewContainer.findViewById(R.id.rootView) as FrameLayout
 
-        cardNews.setOnClickListener {
-            cardClickedObservable.onNext(1)
+        row.setOnClickListener {
+            rowClickedObservable.onNext(1)
         }
 
     }
 
-    fun getCardClickedObservable(): Observable<Int> {
-        return cardClickedObservable.subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
+    fun getRowClickedObservable(): Observable<Int> {
+        return rowClickedObservable.subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun initWithAttrs(attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) {
@@ -91,14 +93,14 @@ class EventViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Method zone **/
 
-    fun setModel(model: Model.NewsEventEntity) {
+    fun setModel(model: Model.ContactEntity) {
         with(model) {
-            val isBlue = type.equals("service")
             tvTitle.text = titleEn
-            tvTag.setBackgroundColor(ContextCompat.getColor(tvTitle.context, if (isBlue) R.color.colorPrimary else R.color.colorTextSecondary))
-            tvTag.text = type
-            Glide.with(ivPhoto.context).load(pic).into(ivPhoto)
-
+            if(subTitle != null && id > BASE_ID){
+                tvContent.text = subTitle
+                tvContent.visibility = View.VISIBLE
+            }
+            if(icon != 0) ivIcon.setImageDrawable(ContextCompat.getDrawable(ivIcon.context, icon))
         }
     }
 }

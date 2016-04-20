@@ -12,6 +12,7 @@ import org.jetbrains.anko.AnkoLogger
 /**
  * Created by Euro on 3/10/16 AD.
  */
+
 class ContactFragment : Fragment(), AnkoLogger{
 
     /** Variable zone **/

@@ -7,16 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
+import com.socket9.thetsl.activities.NewsEventActivity
 import com.socket9.thetsl.adapter.EventAdapter
+import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.model.Model
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
+import org.jetbrains.anko.info
+import org.jetbrains.anko.support.v4.startActivity
 import rx.Subscription
 
 /**
  * Created by Euro on 3/10/16 AD.
  */
-class NewsEventFragment : Fragment(), AnkoLogger {
+class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionListener {
 
     /** Variable zone **/
     private var getListNewsEventSubscription: Subscription? = null
@@ -73,6 +79,7 @@ class NewsEventFragment : Fragment(), AnkoLogger {
         recyclerView.layoutManager = linearLayoutManager
         eventNewsAdapter = EventAdapter(mutableListOf())
         recyclerView.adapter = eventNewsAdapter
+        eventNewsAdapter?.setListener(this)
         getListNewsEvent()
     }
 
@@ -92,5 +99,10 @@ class NewsEventFragment : Fragment(), AnkoLogger {
             }
         }
 
+    }
+
+    /** Listener zone **/
+    override fun onClickedEvent(index: Int, model: Model.NewsEventEntity) {
+        startActivity<NewsEventActivity>("id" to model.id, "isNews" to isNews)
     }
 }

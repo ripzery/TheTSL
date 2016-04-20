@@ -48,6 +48,7 @@
 
     <string name="dialog.progress.title">Please wait</string>
     <string name="dialog.progress.profile.content">Updating profile…</string>
+    <string name="dialog.progress.news.content">Loading web…</string>
 
     <!-- Toast -->
     <string name="toast.token.invalid">Someone has access your account, please login again.</string>

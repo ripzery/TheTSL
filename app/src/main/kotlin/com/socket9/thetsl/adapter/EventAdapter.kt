@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.model.Model
 import com.socket9.thetsl.viewgroup.EventViewGroup
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 /**
  * Created by Euro (ripzery@gmail.com) on 4/19/16 AD.
  */
 
-class EventAdapter(var eventNewsList: MutableList<Model.NewsEventEntity>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+class EventAdapter(var eventNewsList: MutableList<Model.NewsEventEntity>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>(), AnkoLogger {
 
     var eventInteractionListener: EventInteractionListener? = null
 
@@ -49,7 +51,9 @@ class EventAdapter(var eventNewsList: MutableList<Model.NewsEventEntity>) : Recy
         init{
             eventViewGroup = itemView?.findViewById(R.id.eventViewGroup) as EventViewGroup
 
-            eventViewGroup.setOnClickListener { eventInteractionListener?.onClickedEvent(adapterPosition) }
+            eventViewGroup.getCardClickedObservable().subscribe{
+                eventInteractionListener?.onClickedEvent(adapterPosition, eventNewsList[adapterPosition])
+            }
         }
 
         fun setModel(eventModel: Model.NewsEventEntity){
@@ -59,7 +63,7 @@ class EventAdapter(var eventNewsList: MutableList<Model.NewsEventEntity>) : Recy
 
     /** Listener zone **/
     interface EventInteractionListener {
-        fun onClickedEvent(index:Int)
+        fun onClickedEvent(index:Int, model: Model.NewsEventEntity)
     }
 
 }

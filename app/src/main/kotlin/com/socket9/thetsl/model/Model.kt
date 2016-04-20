@@ -76,7 +76,7 @@ object Model {
                              @SerializedName("Phone") val phone: String,
                              val titleTh: String,
                              val titleEn: String,
-                             val subTitle: String,
+                             val subTitle: String? = null,
                              @SerializedName("Address") val address: String,
                              @SerializedName("Fax") val fax: String,
                              @SerializedName("Email") val email: String,

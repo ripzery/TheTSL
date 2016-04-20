@@ -110,7 +110,6 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
     /** Method zone **/
 
     private fun initInstance(){
-        toast("EmergencyFragment")
         supportMapsFragment = SupportMapFragment.newInstance()
         replaceFragment(R.id.mapContainer, supportMapsFragment)
         supportMapsFragment.getMapAsync(this)

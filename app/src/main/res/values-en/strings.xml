@@ -124,4 +124,10 @@
     <string name="lorem">Lorem ipsum dolor sit amet, congue malesuada. Mauris integer, pellentesque purus nam. Ipsum interdum felis facilisi ipsum aliquam. Tincidunt ornare non iaculis nec vitae, consectetur in.</string>
     <string name="toolbar.contact">CONTACT US</string>
     <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string>
+    <string name="dialog.progress.contact.content">Loading contact...</string>
+    <string name="dialog.progress.event_list.content" translatable="false">Loading events...</string>
+    <string name="dialog.progress.news_list.content">Loading news...</string>
+    <string name="dialog.progress.title">Please wait</string>
+    <string name="dialog.progress.profile.content">Updating profile...</string>
+    <string name="dialog.progress.web.content">Loading web...</string>
 </resources>

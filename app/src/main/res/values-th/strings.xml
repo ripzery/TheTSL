@@ -123,4 +123,10 @@
     <string name="profile.name.hint">ชื่อ</string>
     <string name="profile.password.hint">รหัสผ่าน</string>
     <string name="profile.phone.hint">เบอร์โทรศัพท์</string>
+    <string name="dialog.progress.contact.content">กำลังโหลดข้อมูลผู้ติดต่อ...</string>
+    <string name="dialog.progress.event_list.content">กำลังโหลดกิจกรรม...</string>
+    <string name="dialog.progress.news_list.content">กำลังโหลดข่าว...</string>
+    <string name="dialog.progress.profile.content">กำลังโหลดข้อมูลผู้ใช้</string>
+    <string name="dialog.progress.title">กรุณารอสักครู่</string>
+    <string name="dialog.progress.web.content">กำลังโหลดเว็บไซต์</string>
 </resources>

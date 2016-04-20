@@ -1,5 +1,6 @@
 package com.socket9.thetsl.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,14 +10,13 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewsEventActivity
 import com.socket9.thetsl.adapter.EventAdapter
-import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.model.Model
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
-import org.jetbrains.anko.info
+import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 
 /**
@@ -27,6 +27,8 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
     /** Variable zone **/
     private var getListNewsEventSubscription: Subscription? = null
     private var eventNewsAdapter: EventAdapter? = null
+    private var dialogEventProgress: ProgressDialog? = null
+    private var dialogNewsProgress: ProgressDialog? = null
     var isNews: Boolean = true
 
 
@@ -68,6 +70,8 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
 
     override fun onPause() {
         super.onPause()
+        dialogEventProgress?.dismiss()
+        dialogNewsProgress?.dismiss()
         getListNewsEventSubscription?.unsubscribe()
     }
 
@@ -86,16 +90,32 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
     private fun getListNewsEvent() {
         when (isNews) {
             true -> {
+                dialogNewsProgress = indeterminateProgressDialog(R.string.dialog_progress_news_list_content, R.string.dialog_progress_title)
+                dialogNewsProgress?.setCancelable(false)
+                dialogNewsProgress?.show()
                 getListNewsEventSubscription = HttpManager.getListNews()
-                        .subscribe {
+                        .subscribe ({
+                            dialogNewsProgress?.dismiss()
                             eventNewsAdapter?.setList(it.data)
-                        }
+                        }, { error ->
+                            dialogNewsProgress?.dismiss()
+                            error.printStackTrace()
+                            toast("An error has occurred, please try again")
+                        })
             }
             false -> {
+                dialogEventProgress= indeterminateProgressDialog(R.string.dialog_progress_event_list_content, R.string.dialog_progress_title)
+                dialogEventProgress?.setCancelable(false)
+                dialogEventProgress?.show()
                 getListNewsEventSubscription = HttpManager.getListEvent()
-                        .subscribe {
+                        .subscribe ({
+                            dialogEventProgress?.dismiss()
                             eventNewsAdapter?.setList(it.data)
-                        }
+                        }, { error ->
+                            dialogEventProgress?.dismiss()
+                            error.printStackTrace()
+                            toast("An error has occurred, please try again")
+                        })
             }
         }
 

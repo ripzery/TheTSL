@@ -89,7 +89,6 @@ class HomeFragment : Fragment(), AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
-        toast("HomeFragment")
         getProfile()
         ivUser.setOnClickListener {
             startActivityForResult(Intent(activity, MyProfileActivity::class.java).putExtra("myProfile", myProfile), REQUEST_MY_PROFILE)

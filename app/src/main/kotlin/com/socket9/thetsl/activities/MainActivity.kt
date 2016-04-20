@@ -12,14 +12,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.afollestad.materialdialogs.DialogAction
+import com.afollestad.materialdialogs.MaterialDialog
 import com.facebook.FacebookSdk
+import com.facebook.login.LoginManager
 import com.socket9.thetsl.R
+import com.socket9.thetsl.SignInActivity
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.replaceFragment
+import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.fragments.*
+import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
+import java.util.*
 
 /**
  * Created by Euro on 3/10/16 AD.
@@ -196,10 +203,24 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
 
         btnChangeLanguage.setOnClickListener {
-            toast("Change lang")
+            DialogUtil.getChangeLangDialog(this, MaterialDialog.ListCallbackSingleChoice { materialDialog, view, i, charSequence ->
+                if (i == 0) {
+                    setLocale("th")
+                } else {
+                    setLocale("en")
+                }
+                startActivity(Intent(this@MainActivity, MainActivity::class.java))
+                finish()
+                true
+            }).show()
         }
         btnSignOut.setOnClickListener {
-
+            DialogUtil.getSignOutDialog(this@MainActivity, MaterialDialog.SingleButtonCallback { materialDialog, dialogAction ->
+                LoginManager.getInstance().logOut()
+                saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "")
+                startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+                finish()
+            }).show()
         }
     }
 
@@ -212,6 +233,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         mActionBar?.setDisplayShowTitleEnabled(false)
         mActionBar?.setDisplayHomeAsUpEnabled(true)
         if (!isBackVisible) mActionBar?.setHomeAsUpIndicator(R.drawable.menu)
+    }
+
+    private fun setLocale(lang: String) {
+        val myLocale = Locale(lang)
+        val res = resources
+        val dm = res.displayMetrics
+        val conf = res.configuration
+        conf.locale = myLocale
+        res.updateConfiguration(conf, dm)
+        saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, lang)
     }
 
     /** Listener zone **/

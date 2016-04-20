@@ -89,7 +89,6 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         mRegistrationBroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 info { "Register complete!" }
-                toast("Register complete")
                 //mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
             }
         }

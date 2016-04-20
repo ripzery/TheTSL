@@ -81,7 +81,7 @@ class NewsEventActivity : AppCompatActivity() {
     private fun setInfo(data: Model.NewsEventEntity) {
         with(data) {
             webView.loadUrl(contentEn)
-            val progressDialog = indeterminateProgressDialog(R.string.dialog_progress_news_content, R.string.dialog_progress_title)
+            val progressDialog = indeterminateProgressDialog(R.string.dialog_progress_web_content, R.string.dialog_progress_title)
             progressDialog.setCancelable(false)
             progressDialog.show()
 

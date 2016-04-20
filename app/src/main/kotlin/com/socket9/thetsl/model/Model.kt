@@ -73,15 +73,18 @@ object Model {
                                val contentTh: String)
 
     data class ContactEntity(val id: Int,
-                             @SerializedName("Phone") val phone: String,
-                             val titleTh: String,
                              val titleEn: String,
-                             val subTitle: String? = null,
-                             @SerializedName("Address") val address: String,
-                             @SerializedName("Fax") val fax: String,
-                             @SerializedName("Email") val email: String,
-                             @SerializedName("Business Hours") val businessHours: String,
-                             val lng: Double,
-                             val lat: Double,
-                             val icon: Int)
+                             val subTitle: String,
+                             val icon: Int,
+                             val titleTh: String? = null,
+                             @SerializedName("Phone") val phone: String? = null,
+                             @SerializedName("Address") val address: String? = null,
+                             @SerializedName("Fax") val fax: String? = null,
+                             @SerializedName("Email") val email: String? = null,
+                             @SerializedName("Business Hours") val businessHours: String? = null,
+                             val lng: Double? = null,
+                             val lat: Double? = null){
+
+
+    }
 }

@@ -19,7 +19,7 @@ import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.managers.PickImageChooserManager
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.PhotoUtil
 import com.soundcloud.android.crop.Crop

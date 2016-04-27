@@ -17,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.plainText
 import com.socket9.thetsl.extensions.replaceFragment
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.activity_branch_detail.*
 
 /**

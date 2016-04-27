@@ -8,4 +8,18 @@
     <color name="colorTextBlack">#000</color>
     <color name="colorDivider">#B6B6B6</color>
     <color name="colorFacebook">#3b5998</color>
+
+
+    <!-- material color 500's shade -->
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorTeal">#009688</color>
+    <color name="colorRed">#F44336</color>
+    <color name="colorGrey">#9E9E9E</color>
+    <color name="colorIndigo">#3F51B5</color>
+
+    <!--material color 300's shade -->
+    <color name="colorIndigoLighter">#7986CB</color>
+    <color name="colorRedLighter">#E57373</color>
+    <color name="colorPinkLighter">#F06292</color>
+    <color name="colorTealLighter">#4DB6AC</color>
 </resources>

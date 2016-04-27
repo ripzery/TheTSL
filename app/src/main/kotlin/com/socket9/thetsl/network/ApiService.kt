@@ -1,6 +1,6 @@
 package com.socket9.thetsl.network
 
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

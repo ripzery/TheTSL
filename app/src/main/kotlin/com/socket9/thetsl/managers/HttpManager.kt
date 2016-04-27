@@ -1,7 +1,7 @@
 package com.socket9.thetsl.managers
 
 import com.socket9.thetsl.extensions.getSp
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.network.ApiService
 import com.socket9.thetsl.utils.SharePref
 import rx.Observable

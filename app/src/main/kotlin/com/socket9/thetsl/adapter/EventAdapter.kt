@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
-import com.socket9.thetsl.model.Model
-import com.socket9.thetsl.viewgroup.EventViewGroup
+import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.viewgroups.EventViewGroup
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 

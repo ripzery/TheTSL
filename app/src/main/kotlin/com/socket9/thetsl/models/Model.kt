@@ -1,4 +1,4 @@
-package com.socket9.thetsl.model
+package com.socket9.thetsl.models
 
 import com.google.gson.annotations.SerializedName
 import nz.bradcampbell.paperparcel.PaperParcel

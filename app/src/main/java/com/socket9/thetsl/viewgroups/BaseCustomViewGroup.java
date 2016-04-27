@@ -1,4 +1,4 @@
-package com.socket9.thetsl.viewgroup;
+package com.socket9.thetsl.viewgroups;
 
 import android.annotation.TargetApi;
 import android.content.Context;

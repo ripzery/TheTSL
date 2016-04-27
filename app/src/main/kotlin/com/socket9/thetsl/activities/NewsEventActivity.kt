@@ -12,7 +12,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.socket9.thetsl.R
 import com.socket9.thetsl.managers.HttpManager
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.activity_news_event.*
 import org.jetbrains.anko.indeterminateProgressDialog
 

@@ -12,7 +12,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.MyProfileActivity
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -97,7 +97,7 @@ class HomeFragment : Fragment(), AnkoLogger {
 
 
     private fun getProfile() {
-        var dialog = indeterminateProgressDialog ("Getting profile...")
+        var dialog = indeterminateProgressDialog (R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
         dialog.setCancelable(false)
         dialog.show()
         getProfileSubscriber = HttpManager.getProfile()

@@ -8,4 +8,14 @@
     <style name="fontContent">
         <item name="fontPath">fonts/cmprasanmit/CmPrasanmit.ttf</item>
     </style>
+
+    <style name="BasicText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="BasicText.White">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

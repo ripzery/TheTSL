@@ -11,7 +11,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewsEventActivity
 import com.socket9.thetsl.adapter.EventAdapter
 import com.socket9.thetsl.managers.HttpManager
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog

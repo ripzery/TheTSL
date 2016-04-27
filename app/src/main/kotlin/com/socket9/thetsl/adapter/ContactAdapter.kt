@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
-import com.socket9.thetsl.model.Model
-import com.socket9.thetsl.viewgroup.ContactViewGroup
+import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.viewgroups.ContactViewGroup
 
 /**
  * Created by Euro (ripzery@gmail.com) on 4/20/16 AD.

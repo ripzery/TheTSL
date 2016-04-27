@@ -12,7 +12,7 @@ import com.socket9.thetsl.activities.BranchDetailActivity
 import com.socket9.thetsl.adapter.ContactAdapter
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
-import com.socket9.thetsl.model.Model
+import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_contact.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug

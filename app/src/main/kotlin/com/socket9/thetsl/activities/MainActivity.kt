@@ -43,14 +43,17 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val FRAGMENT_DISPLAY_EMERGENCY = 4
         val FRAGMENT_DISPLAY_PROFILE = 5
         val FRAGMENT_DISPLAY_EVENT = 6
+        val FRAGMENT_DISPLAY_SERVICE = 7
+        val FRAGMENT_DISPLAY_CAR_TRACKING = 8
     }
 
     private var homeFragment: HomeFragment? = null
     private var newsFragment: NewsEventFragment? = null
     private var contactFragment: ContactFragment? = null
     private var emergencyFragment: EmergencyFragment? = null
-    private val profileFragment: Fragment? = null
     private var eventFragment: NewsEventFragment? = null
+    private var serviceFragment: ServiceFragment? = null
+    private var carTrackingFragment: CarTrackingFragment? = null
 
     /** Lifecycle  zone **/
 
@@ -125,6 +128,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 }
                 FRAGMENT_DISPLAY_EMERGENCY -> mTitle = getString(R.string.nav_emergency)
                 FRAGMENT_DISPLAY_CONTACT -> mTitle = getString(R.string.nav_contact)
+                FRAGMENT_DISPLAY_SERVICE -> mTitle = getString(R.string.nav_service)
+                FRAGMENT_DISPLAY_CAR_TRACKING -> mTitle = getString(R.string.nav_car_tracking)
                 FRAGMENT_DISPLAY_NEWS -> {
                 }
             }
@@ -141,6 +146,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         eventFragment = NewsEventFragment.newInstance(false)
         contactFragment = ContactFragment.newInstance("ContactFragment")
         emergencyFragment = EmergencyFragment.newInstance("EmergencyFragment")
+        carTrackingFragment = CarTrackingFragment.newInstance("CarTrackingFragment")
+        serviceFragment = ServiceFragment.newInstance("ServiceFragment")
     }
 
     private fun changeFragment(mode: Int) {
@@ -150,6 +157,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             FRAGMENT_DISPLAY_CONTACT -> replaceFragment(fragment = contactFragment!!)
             FRAGMENT_DISPLAY_EMERGENCY -> replaceFragment(fragment = emergencyFragment!!)
             FRAGMENT_DISPLAY_EVENT -> replaceFragment(fragment = eventFragment!!)
+            FRAGMENT_DISPLAY_SERVICE -> replaceFragment(fragment = serviceFragment!!)
+            FRAGMENT_DISPLAY_CAR_TRACKING -> replaceFragment(fragment = carTrackingFragment!!)
         }
         onFragmentAttached(mode)
     }
@@ -172,6 +181,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 }
                 R.id.nav_emergency_call -> {
                     changeFragment(FRAGMENT_DISPLAY_EMERGENCY)
+                    menuItem.isChecked = true
+                }
+                R.id.nav_service -> {
+                    changeFragment(FRAGMENT_DISPLAY_SERVICE)
+                    menuItem.isChecked = true
+                }
+                R.id.nav_car_tracking -> {
+                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
                     menuItem.isChecked = true
                 }
             }

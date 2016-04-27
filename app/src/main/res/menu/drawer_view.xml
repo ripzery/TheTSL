@@ -27,6 +27,14 @@
             android:title="@string/nav.emergency" />
 
         <item
+            android:id="@+id/nav_service"
+            android:title="@string/nav_service" />
+
+        <item
+            android:id="@+id/nav_car_tracking"
+            android:title="@string/nav_car_tracking" />
+
+        <item
             android:id="@+id/nav_news"
             android:icon="@drawable/news"
             android:title="@string/nav.news" />

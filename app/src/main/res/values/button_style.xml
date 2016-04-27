@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseButton" parent="ThemeOverlay.AppCompat.Dark">
+    </style>
+
+    <style name="BaseButton.ButtonTeal">
+        <item name="colorButtonNormal">@color/colorTeal</item>
+    </style>
+
+</resources>

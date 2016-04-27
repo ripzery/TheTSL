@@ -94,6 +94,21 @@ object Model {
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ContactEntity::class.java)
         }
-
     }
+
+    data class BasicData(val id:Int, val nameEn:String, val nameTh:String)
+
+    data class BasicDataList(val branches: MutableList<BasicData>,
+                                    val serviceTypes: MutableList<BasicData>,
+                                    val modelCategories: MutableList<BasicData>)
+
+    data class ServiceBasicData(val result:Boolean, val data: BasicDataList)
+
+    data class NewBooking(val licensePlate:String,
+                          val model:BasicData,
+                          val date:String,
+                          val type: BasicData,
+                          val branch: BasicData,
+                          val note: String,
+                          val phone: String)
 }

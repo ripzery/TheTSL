@@ -107,6 +107,21 @@ object ApiService {
         @POST("updateProfile")
         fun updatePicture(@Field("token") token: String,
                           @Field("picture") picture: String) : Observable<Model.BaseModel>
+
+        @FormUrlEncoded
+        @POST("getServiceBasicData")
+        fun getServiceBasicData(@Field("token") token: String) : Observable<Model.ServiceBasicData>
+
+        @FormUrlEncoded
+        @POST("serviceBooking")
+        fun bookService(@Field("token") token: String,
+                                @Field("licensePlate") licensePlate: String,
+                                @Field("dateBooking") dateBooking: String,
+                                @Field("modelCategoriesid") modelCategoriesid: Int,
+                                @Field("serviceTypes") serviceTypes: Int,
+                                @Field("note") note:String,
+                                @Field("phone") phone:String,
+                                @Field("branchesid") branchesid: Int) : Observable<Model.BaseModel>
     }
 
 }

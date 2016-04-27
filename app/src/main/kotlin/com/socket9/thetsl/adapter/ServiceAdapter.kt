@@ -21,7 +21,6 @@ class ServiceAdapter(var serviceList: MutableList<Model.NewsEventEntity>) : Recy
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ServiceViewHolder? {
         val v:View = LayoutInflater.from(parent?.context).inflate(R.layout.item_view_service, parent!!, false)
-
         return ServiceViewHolder(v)
     }
 

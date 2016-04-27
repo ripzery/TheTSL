@@ -11,9 +11,10 @@
         android:padding="@dimen/activity_horizontal_margin">
 
         <Button
+            android:id="@+id/btnAddService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/BaseButton.ButtonTeal"
+            android:theme="@style/BaseButton.Primary"
             android:text="Add new service"
             android:drawableLeft="@drawable/ic_action_add"
             android:drawablePadding="16dp"

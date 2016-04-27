@@ -3,8 +3,12 @@
     <style name="BaseButton" parent="ThemeOverlay.AppCompat.Dark">
     </style>
 
-    <style name="BaseButton.ButtonTeal">
+    <style name="BaseButton.Teal">
         <item name="colorButtonNormal">@color/colorTeal</item>
+    </style>
+
+    <style name="BaseButton.Primary">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>
 
 </resources>

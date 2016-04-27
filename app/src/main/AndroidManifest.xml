@@ -64,6 +64,10 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
+        <activity android:name=".activities.NewBookingActivity"
+            android:theme="@style/AppThemeWithActionbar"
+            android:screenOrientation="portrait"/>
+
         <service
             android:name=".gcm.MyGcmListenerService"
             android:exported="false">

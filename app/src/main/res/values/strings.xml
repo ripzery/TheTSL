@@ -54,6 +54,7 @@
     <string name="dialog.progress.event_list.content">Loading events…</string>
     <string name="dialog.progress.service.content">Loading service data…</string>
     <string name="dialog.progress.save.service.content">Saving service data…</string>
+    <string name="dialog.progress.service.list.content">Loading service booking list…</string>
 
     <!-- Toast -->
     <string name="toast.token.invalid">Someone has access your account, please login again.</string>

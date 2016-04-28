@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
+import kotlinx.android.synthetic.main.viewgroup_service.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import rx.Observable
@@ -93,9 +94,13 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Method zone **/
 
-    fun setModel(model: Model.NewsEventEntity) {
+    fun setModel(model: Model.ServiceBookingEntity) {
 
     //  TODO: SetModel for service view group
+        tvServiceName.text = model.serviceTypeEn
+        tvStatus.text = if(model.dateConfirm.isNullOrEmpty()) "Pending" else "Confirmed"
+        tvLastUpdate.text = if(model.dateConfirm.isNullOrEmpty()) model.dateBooking else model.dateConfirm
+        tvLicensePlate.text = model.licensePlate
 
     }
 }

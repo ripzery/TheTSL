@@ -111,4 +111,25 @@ object Model {
                           val branch: BasicData,
                           val note: String,
                           val phone: String)
+
+    @PaperParcel
+    data class ServiceBookingEntity(val licensePlate: String,
+                                    val dateBooking: String,
+                                    val modelCategoryTh: String,
+                                    val modelCategoryEn: String,
+                                    val serviceTypeTh: String,
+                                    val serviceTypeEn: String,
+                                    val note: String,
+                                    val phone: String,
+                                    val branchesTh: String,
+                                    val branchesEn: String,
+                                    val isCancel: Boolean,
+                                    val dateConfirm: String) : PaperParcelable{
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(ServiceBookingEntity::class.java)
+        }
+
+    }
+
+    data class ServiceBookingList(val result:Boolean,val message: String? = null, val data: MutableList<ServiceBookingEntity>)
 }

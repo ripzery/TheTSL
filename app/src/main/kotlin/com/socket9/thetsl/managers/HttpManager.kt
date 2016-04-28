@@ -132,4 +132,11 @@ object HttpManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
+
+    fun getServiceBookingList(order: String): Observable<Model.ServiceBookingList> {
+        return ApiService.getAPI().getServiceBookingList(SharePref.getToken(), order)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
 }

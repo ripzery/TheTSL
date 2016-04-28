@@ -11,7 +11,7 @@ import com.socket9.thetsl.viewgroups.ServiceViewGroup
 /**
  * Created by Euro (ripzery@gmail.com) on 4/27/16 AD.
  */
-class ServiceAdapter(var serviceList: MutableList<Model.NewsEventEntity>) : RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
+class ServiceAdapter(var serviceList: MutableList<Model.ServiceBookingEntity>) : RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
     var serviceInteractionListener: ServiceInteractionListener? = null
 
@@ -35,7 +35,7 @@ class ServiceAdapter(var serviceList: MutableList<Model.NewsEventEntity>) : Recy
     /** Listener zone **/
 
     interface ServiceInteractionListener {
-        fun onCardClicked()
+        fun onCardClicked(position:Int)
     }
 
     /** Inner class zone **/
@@ -48,12 +48,12 @@ class ServiceAdapter(var serviceList: MutableList<Model.NewsEventEntity>) : Recy
             serviceViewGroup = itemView.findViewById(R.id.serviceViewGroup) as ServiceViewGroup
 
             serviceViewGroup?.getCardClickedObservable()?.subscribe {
-                serviceInteractionListener?.onCardClicked()
+                serviceInteractionListener?.onCardClicked(position)
             }
         }
 
-        fun setModel(newsEventEntity: Model.NewsEventEntity) {
-            serviceViewGroup?.setModel(newsEventEntity)
+        fun setModel(serviceBookingEntity: Model.ServiceBookingEntity) {
+            serviceViewGroup?.setModel(serviceBookingEntity)
         }
     }
 }

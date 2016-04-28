@@ -122,6 +122,11 @@ object ApiService {
                                 @Field("note") note:String,
                                 @Field("phone") phone:String,
                                 @Field("branchesid") branchesid: Int) : Observable<Model.BaseModel>
+
+        @FormUrlEncoded
+        @POST("getServiceBookingByUser")
+        fun getServiceBookingList(@Field("token") token: String,
+                                  @Field("order") order: String) : Observable<Model.ServiceBookingList>
     }
 
 }

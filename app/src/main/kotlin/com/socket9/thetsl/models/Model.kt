@@ -131,13 +131,26 @@ object Model {
 
     }
 
-    data class ServiceTrackingStatus(val dateFinish:String, val dateReceive: String, val iconId:Int, val statusTh: String, val statusEn: String)
+    @PaperParcel
+    data class ServiceTrackingStatus(val dateFinish:String, val dateReceive: String, val iconId:Int, val statusTh: String, val statusEn: String): PaperParcelable{
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingStatus::class.java)
+        }
 
+    }
+
+    @PaperParcel
     data class ServiceTrackingEntity(val detail: MutableList<ServiceTrackingStatus>,
                                      val licensePlate: String,
                                      val model:String,
                                      val serviceJobNumber: String,
-                                     val trackingid: String)
+                                     val trackingid: String)  : PaperParcelable {
+
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingEntity::class.java)
+        }
+
+    }
 
     data class ServiceBookingList(val result:Boolean,val message: String? = null, val data: MutableList<ServiceBookingEntity>)
 

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.ServiceDetailFragment
+import com.socket9.thetsl.models.Model
 
 /**
  * Created by Euro on 3/10/16 AD.
@@ -17,6 +18,12 @@ class ServiceDetailActivity : AppCompatActivity() {
 
     /** Variable zone **/
     private var serviceDetailFragment: ServiceDetailFragment? = null
+    private var serviceTrackingEntity: Model.ServiceTrackingEntity? = null
+
+    /** Static method zone **/
+    companion object{
+        val ARG_1 = "trackingEntity"
+    }
 
     /** Lifecycle  zone **/
 
@@ -53,7 +60,11 @@ class ServiceDetailActivity : AppCompatActivity() {
 
     private fun initInstance() {
         setToolbar()
-        serviceDetailFragment = ServiceDetailFragment.newInstance("ServiceDetailFragment")
+
+        /* get intent serviceTrackingEntity */
+        serviceTrackingEntity = intent.getParcelableExtra<Model.ServiceTrackingEntity>(ARG_1)
+
+        serviceDetailFragment = ServiceDetailFragment.newInstance(serviceTrackingEntity!!)
 
         replaceFragment(fragment = serviceDetailFragment!!)
     }

@@ -2,10 +2,14 @@ package com.socket9.thetsl.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
+import com.socket9.thetsl.adapter.ServiceDetailAdapter
+import com.socket9.thetsl.models.Model
+import kotlinx.android.synthetic.main.fragment_service_detail.*
 
 /**
  * Created by Euro on 3/10/16 AD.
@@ -13,16 +17,16 @@ import com.socket9.thetsl.R
 class ServiceDetailFragment : Fragment(){
 
     /** Variable zone **/
-    lateinit var param1: String
+    lateinit var serviceTrackingEntity: Model.ServiceTrackingEntity
 
 
     /** Static method zone **/
     companion object{
         val ARG_1 = "ARG_1"
 
-        fun newInstance(param1:String) : ServiceDetailFragment {
+        fun newInstance(param1: Model.ServiceTrackingEntity) : ServiceDetailFragment {
             var bundle: Bundle = Bundle()
-            bundle.putString(ARG_1, param1)
+            bundle.putParcelable(ARG_1, param1)
             val serviceDetailFragment: ServiceDetailFragment = ServiceDetailFragment()
             serviceDetailFragment.arguments = bundle
             return serviceDetailFragment
@@ -36,7 +40,7 @@ class ServiceDetailFragment : Fragment(){
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
             /* if newly created */
-            param1 = arguments.getString(ARG_1)
+            serviceTrackingEntity = arguments.getParcelable(ARG_1)
         }
     }
 
@@ -54,6 +58,13 @@ class ServiceDetailFragment : Fragment(){
     /** Method zone **/
 
     private fun initInstance(){
+        val linearLayoutManager = LinearLayoutManager(activity)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = linearLayoutManager
 
+        val adapter = ServiceDetailAdapter(serviceTrackingEntity.detail)
+        recyclerView.adapter = adapter
+
+        serviceViewGroup.setModel(serviceTrackingEntity)
     }
 }

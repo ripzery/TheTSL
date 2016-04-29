@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewBookingActivity
+import com.socket9.thetsl.activities.ServiceDetailActivity
 import com.socket9.thetsl.adapter.ServiceAdapter
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -158,6 +159,12 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
 
     /** Listener zone **/
     override fun onCardClicked(position: Int) {
-        toast("$position")
+
+        /* click on tracking list card */
+        if(position >= serviceList!!.data.size){
+            startActivity<ServiceDetailActivity>(ServiceDetailActivity.ARG_1 to trackingList!!.data[position - serviceList!!.data.size])
+        }else{
+            toast("Waiting for confirmation...")
+        }
     }
 }

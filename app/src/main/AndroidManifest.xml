@@ -2,8 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.socket9.thetsl">
 
+    <!-- [START gcm_permission] -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- [END gcm_permission] -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <permission android:name="com.socket9.thetsl.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.socket9.thetsl.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -72,6 +81,23 @@
             android:theme="@style/AppThemeWithActionbar"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activities.ServiceDetailActivity"
+            android:theme="@style/AppThemeWithActionbar"
+            android:screenOrientation="portrait" />
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.socket9.thetsl" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+
         <service
             android:name=".gcm.MyGcmListenerService"
             android:exported="false">
@@ -79,6 +105,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
             </intent-filter>
         </service>
+
         <service
             android:name=".gcm.MyInstanceIDListenerService"
             android:exported="false">

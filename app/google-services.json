@@ -1,18 +1,14 @@
 {
   "project_info": {
-    "project_id": "sanguine-form-108712",
     "project_number": "197311876504",
-    "name": "The TSL"
+    "project_id": "sanguine-form-108712"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:197311876504:android:ef64430c824b2347",
-        "client_id": "android:com.socket9.thetsl",
-        "client_type": 1,
+        "mobilesdk_app_id": "1:197311876504:android:f36173e948059ccb",
         "android_client_info": {
-          "package_name": "com.socket9.thetsl",
-          "certificate_hash": []
+          "package_name": "gcm.play.android.samples.com.gcmquickstart"
         }
       },
       "oauth_client": [],
@@ -21,16 +17,35 @@
         "analytics_service": {
           "status": 1
         },
-        "cloud_messaging_service": {
-          "status": 2,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
-        "google_signin_service": {
+        "ads_service": {
           "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197311876504:android:ef64430c824b2347",
+        "android_client_info": {
+          "package_name": "com.socket9.thetsl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3InqXOUiZ86MP2tAdPuvcKkDBL6VBc8o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 1
@@ -38,6 +53,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

@@ -27,7 +27,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
     lateinit private var tvLastUpdate: TextView
     lateinit private var ivLogo: ImageView
     lateinit private var cardService: CardView
-    private var cardClickedObservable: PublishSubject<Int> = PublishSubject.create()
+    private var cardClickedObservable: PublishSubject<Int>? = null
 
 
     /** Override method zone **/
@@ -60,7 +60,10 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
     }
 
     private fun initInstances() {
-        // findViewById here
+        if (!isInEditMode) {
+            cardClickedObservable = PublishSubject.create()
+        }
+            // findViewById here
         tvServiceName = viewContainer.findViewById(R.id.tvServiceName) as TextView
         tvStatus = viewContainer.findViewById(R.id.tvStatus) as TextView
         tvLastUpdate = viewContainer.findViewById(R.id.tvLastUpdate) as TextView
@@ -68,13 +71,13 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         cardService = viewContainer.findViewById(R.id.cardService) as CardView
 
         cardService.setOnClickListener {
-            cardClickedObservable.onNext(1)
+            cardClickedObservable?.onNext(1)
         }
 
     }
 
     fun getCardClickedObservable(): Observable<Int> {
-        return cardClickedObservable.subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
+        return cardClickedObservable?.subscribeOn(AndroidSchedulers.mainThread())!!.observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun initWithAttrs(attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) {

@@ -92,6 +92,7 @@
         app:itemIconTint="@color/colorTextPrimary"
         app:itemTextAppearance="@style/itemTextStyle"
         app:itemTextColor="@color/colorTextPrimary"
+        app:headerLayout="@layout/layout_navigation_header"
         app:menu="@menu/drawer_view">
 
         <LinearLayout

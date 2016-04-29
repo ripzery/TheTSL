@@ -90,14 +90,16 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode != Crop.REQUEST_CROP) {
-            cacheCropImg = File(cacheDir, "cropped")
-            val destination = Uri.fromFile(cacheCropImg)
-            ivUser.setImageDrawable(null) // clear image before start crop activity
-            val px = PhotoUtil.convertDpToPx(this, 128)
-            Crop.of(PickImageChooserManager.getPickImageResultUri(data, this), destination).withMaxSize(px, px).asSquare().start(this)
-        } else {
-            handleCrop(resultCode, data!!)
+        if(resultCode == RESULT_OK) {
+            if ( requestCode != Crop.REQUEST_CROP) {
+                cacheCropImg = File(cacheDir, "cropped")
+                val destination = Uri.fromFile(cacheCropImg)
+                ivUser.setImageDrawable(null) // clear image before start crop activity
+                val px = PhotoUtil.convertDpToPx(this, 128)
+                Crop.of(PickImageChooserManager.getPickImageResultUri(data, this), destination).withMaxSize(px, px).asSquare().start(this)
+            } else {
+                handleCrop(resultCode, data!!)
+            }
         }
     }
 

@@ -1,9 +1,9 @@
 package com.socket9.thetsl.activities
 
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
@@ -12,8 +12,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.Glide
 import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
 import com.socket9.thetsl.R
@@ -21,11 +21,18 @@ import com.socket9.thetsl.SignInActivity
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.extensions.saveSp
+import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.fragments.*
+import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.layout_navigation_header.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.info
+import rx.Subscription
 import java.util.*
 
 /**
@@ -54,6 +61,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private var eventFragment: NewsEventFragment? = null
     private var serviceFragment: ServiceFragment? = null
     private var carTrackingFragment: CarTrackingFragment? = null
+    lateinit var myProfile: Model.Profile;
+    private var getProfileSubscriber: Subscription? = null
+    private var dialog: ProgressDialog ? = null
+    private var tvName: TextView ? = null
+    private var headerView: View? = null
+
 
     /** Lifecycle  zone **/
 
@@ -70,6 +83,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onPause() {
         super.onPause()
+        dialog?.dismiss()
+        getProfileSubscriber?.unsubscribe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,18 +105,19 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-            when(requestCode){
-                EmergencyFragment.REQUEST_CODE_LOCATION_SETTING -> {
-                    if(resultCode == RESULT_OK){
-                        emergencyFragment?.userEnabledLocation()
-                    }else{
-                        emergencyFragment?.userNotEnabledLocation()
+        when (requestCode) {
+            EmergencyFragment.REQUEST_CODE_LOCATION_SETTING -> {
+                if (resultCode == RESULT_OK) {
+                    emergencyFragment?.userEnabledLocation()
+                } else {
+                    emergencyFragment?.userNotEnabledLocation()
 
-                    }
                 }
-
             }
+
+        }
     }
+
 
     /** Method zone **/
 
@@ -109,12 +125,19 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val isEnglish = (getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "") as String).equals("en")
         btnChangeLanguage.text = getString(if (isEnglish) R.string.dialog_change_lang_english else R.string.dialog_change_lang_thai)
 
+        headerView = navView.getHeaderView(0)
+        tvName = headerView?.findViewById(R.id.tvName) as TextView
+
+
         initToolbar(toolbar, getString(R.string.toolbar_main), false)
         initFragment()
         setListener()
+        getProfile()
         setupDrawerContent()
-        changeFragment(FRAGMENT_DISPLAY_HOME)
-        navView.setCheckedItem(R.id.nav_home)
+        changeFragment(FRAGMENT_DISPLAY_EMERGENCY)
+
+        navView.setCheckedItem(R.id.nav_emergency_call)
+
     }
 
     fun onFragmentAttached(number: Int) {
@@ -166,10 +189,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private fun setupDrawerContent() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    changeFragment(FRAGMENT_DISPLAY_HOME)
-                    menuItem.isChecked = true
-                }
+//                R.id.nav_home -> {
+//                    changeFragment(FRAGMENT_DISPLAY_HOME)
+//                    menuItem.isChecked = true
+//                }
                 R.id.nav_news -> {
                     //TODO: Save states is news or event is lastly visible
                     changeFragment(FRAGMENT_DISPLAY_NEWS)
@@ -187,10 +210,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     changeFragment(FRAGMENT_DISPLAY_SERVICE)
                     menuItem.isChecked = true
                 }
-//                R.id.nav_car_tracking -> {
-//                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
-//                    menuItem.isChecked = true
-//                }
+            //                R.id.nav_car_tracking -> {
+            //                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
+            //                    menuItem.isChecked = true
+            //                }
             }
             drawerLayout.closeDrawers()
             true
@@ -239,6 +262,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 finish()
             }).show()
         }
+
+        headerView?.setOnClickListener {
+            startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE)
+        }
+
     }
 
     fun initToolbar(myToolbar: Toolbar, title: String, isBackVisible: Boolean) {
@@ -260,6 +288,27 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         conf.locale = myLocale
         res.updateConfiguration(conf, dm)
         saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, lang)
+    }
+
+    private fun getProfile() {
+        dialog = indeterminateProgressDialog (R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
+        dialog?.setCancelable(false)
+        dialog?.show()
+
+        getProfileSubscriber = HttpManager.getProfile()
+                .doOnNext {
+                    if (!it.result && it.message != null ) toast(it.message)
+                }
+                .subscribe({
+                    dialog?.dismiss()
+                    myProfile = it
+                    Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
+                    tvName?.text = it.data?.nameEn
+                    info { it }
+                }, { error ->
+                    dialog?.dismiss()
+                    kotlin.error { error }
+                })
     }
 
     /** Listener zone **/

@@ -18,7 +18,7 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.PublishSubject
 
-class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
+class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Variable zone **/
     lateinit private var viewContainer: View
@@ -94,23 +94,12 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Method zone **/
 
-    fun setModel(model: Model.ServiceBookingEntity) {
-
-    //  TODO: SetModel for service view group
-        tvServiceName.text = model.serviceTypeEn
-        tvStatus.text = if(model.dateConfirm.isNullOrEmpty()) "Pending" else "Confirmed"
-        tvLastUpdate.text = if(model.dateConfirm.isNullOrEmpty()) model.dateBooking else model.dateConfirm
-        tvLicensePlate.text = model.licensePlate
-
-    }
-
     fun setModel(model: Model.ServiceTrackingEntity) {
 
     //  TODO: SetModel for service view group
-        val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = model.model
-        tvStatus.text = lastStatus.statusEn
-        tvLastUpdate.text = if(lastStatus.dateFinish.isNullOrEmpty()) lastStatus.dateReceive else lastStatus.dateFinish
+        tvStatus.text = "Status"
+        tvLastUpdate.text = model.detail[model.detail.size-1].dateFinish
         tvLicensePlate.text = model.licensePlate
 
     }

@@ -17,7 +17,8 @@ object ApiService {
 
     //        val BASE_URL = "http://uat.tsl.co.th/api";
     var retrofit: Retrofit? = null
-    val BASE_URL = "http://tsl.socket9.com/api/"
+//    val BASE_URL = "http://192.168.100.31:91/api/"
+        val BASE_URL = "http://www.tsl.co.th/api/"
 
     fun getAPI(): TSLApi {
         if (retrofit == null) {
@@ -127,6 +128,11 @@ object ApiService {
         @POST("getServiceBookingByUser")
         fun getServiceBookingList(@Field("token") token: String,
                                   @Field("order") order: String) : Observable<Model.ServiceBookingList>
+
+        @FormUrlEncoded
+        @POST("getServiceTrackingByUser")
+        fun getServiceTrackingList(@Field("token") token: String,
+                                  @Field("order") order: String) : Observable<Model.ServiceTrackingList>
     }
 
 }

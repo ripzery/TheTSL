@@ -187,10 +187,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     changeFragment(FRAGMENT_DISPLAY_SERVICE)
                     menuItem.isChecked = true
                 }
-                R.id.nav_car_tracking -> {
-                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
-                    menuItem.isChecked = true
-                }
+//                R.id.nav_car_tracking -> {
+//                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
+//                    menuItem.isChecked = true
+//                }
             }
             drawerLayout.closeDrawers()
             true

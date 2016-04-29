@@ -28,11 +28,12 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
     /** Variable zone **/
     lateinit var param1: String
     private val serviceAddedType = listOf("New booking service", "Known service number")
-//    private var orderType = "first"
+    //    private var orderType = "first"
     private var loadDataSubscription: Subscription? = null
     private var dialog: ProgressDialog? = null
     private var serviceAdapter: ServiceAdapter? = null
     private var serviceList: Model.ServiceBookingList? = null
+    private var trackingList: Model.ServiceTrackingList? = null
 
     /** Static method zone **/
     companion object {
@@ -127,32 +128,36 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         dialog?.setCancelable(false)
         dialog?.show()
 
-        loadDataSubscription = HttpManager.getServiceBookingList(orderType).subscribe({
-            serviceList = it
+        // TODO: Load data from tracking and booking
 
-            dialog?.dismiss()
-            tvEmpty.visibility = if (it.data.size > 0) View.VISIBLE else View.GONE
+        loadDataSubscription = HttpManager.getServiceBookingList(orderType)
+            .flatMap {
+                serviceList = it
+                HttpManager.getServiceTrackingList(orderType)
+            }.subscribe ({
+                dialog?.dismiss()
+                trackingList = it
 
-            if (serviceAdapter == null) {
-                serviceAdapter = ServiceAdapter(it.data)
-            }else{
-                serviceAdapter!!.serviceList = it.data
-                serviceAdapter!!.notifyDataSetChanged()
-            }
+                if (serviceAdapter == null) {
+                    serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
+                } else {
+                    serviceAdapter!!.serviceBookingList = serviceList!!.data
+                    serviceAdapter!!.serviceTrackingList = trackingList!!.data
+                    serviceAdapter!!.notifyDataSetChanged()
+                }
 
-            recyclerView.adapter = serviceAdapter
+                recyclerView.adapter = serviceAdapter
 
-            serviceAdapter?.setListener(this)
+                serviceAdapter?.setListener(this)
 
-        }, { error ->
-            dialog?.dismiss()
-            toast("An error has occurred")
-            error.printStackTrace()
-        })
+            }, { error ->
+                error.printStackTrace()
+                dialog?.dismiss()
+            })
     }
 
     /** Listener zone **/
-    override fun onCardClicked(position:Int) {
+    override fun onCardClicked(position: Int) {
         toast("$position")
     }
 }

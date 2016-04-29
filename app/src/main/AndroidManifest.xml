@@ -68,6 +68,10 @@
             android:theme="@style/AppThemeWithActionbar"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activities.NewCarTrackingActivity"
+            android:theme="@style/AppThemeWithActionbar"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".gcm.MyGcmListenerService"
             android:exported="false">

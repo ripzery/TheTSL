@@ -1,12 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--  Layout add new service -->
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="FragmentCarTracking"/>
+        android:padding="@dimen/activity_horizontal_margin">
 
-</FrameLayout>
+        <Button
+            android:id="@+id/btnAddService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/BaseButton.Primary"
+            android:text="Add new car"
+            android:drawableLeft="@drawable/ic_action_add"
+            android:drawablePadding="16dp"
+            android:padding="16dp"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <!-- Layout new/last toggle button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="first"
+            android:layout_marginRight="-4dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_corner_left"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-4dp"
+            android:text="last"
+            android:background="@drawable/button_corner_right_white"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="Empty list"
+            android:textSize="36sp"
+            android:alpha="0.38"/>
+
+        <!-- Layout for list -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

@@ -184,6 +184,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                 .subscribe ({
                     info { it.toString() }
                     startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                    finish()
                 }, { error ->
                     toast("Error has occurred ${error.message}")
                     error { error.message }

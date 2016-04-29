@@ -131,5 +131,15 @@ object Model {
 
     }
 
+    data class ServiceTrackingStatus(val dateFinish:String, val dateReceive: String, val iconId:Int, val statusTh: String, val statusEn: String)
+
+    data class ServiceTrackingEntity(val detail: MutableList<ServiceTrackingStatus>,
+                                     val licensePlate: String,
+                                     val model:String,
+                                     val serviceJobNumber: String,
+                                     val trackingid: String)
+
     data class ServiceBookingList(val result:Boolean,val message: String? = null, val data: MutableList<ServiceBookingEntity>)
+
+    data class ServiceTrackingList(val result:Boolean, val message: String? = null, val data: MutableList<ServiceTrackingEntity>)
 }

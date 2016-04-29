@@ -139,4 +139,11 @@ object HttpManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
+
+    fun getServiceTrackingList(order: String): Observable<Model.ServiceTrackingList>{
+        return ApiService.getAPI().getServiceTrackingList(SharePref.getToken(), order)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
 }

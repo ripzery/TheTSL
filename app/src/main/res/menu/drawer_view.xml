@@ -30,9 +30,10 @@
             android:id="@+id/nav_service"
             android:title="@string/nav_service" />
 
-        <item
-            android:id="@+id/nav_car_tracking"
-            android:title="@string/nav_car_tracking" />
+        <!-- Hide car tracking for now -->
+        <!--<item-->
+            <!--android:id="@+id/nav_car_tracking"-->
+            <!--android:title="@string/nav_car_tracking" />-->
 
         <item
             android:id="@+id/nav_news"

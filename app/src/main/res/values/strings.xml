@@ -35,6 +35,11 @@
     <string name="dialog.signout.positive">Yes</string>
     <string name="dialog.signout.negative">No</string>
 
+    <string name="dialog.quit.title">Exit Application</string>
+    <string name="dialog.quit.content">Are you sure to exit?</string>
+    <string name="dialog.quit.positive">Yes</string>
+    <string name="dialog.quit.negative">No</string>
+
     <string name="dialog.call.us.title">Call us</string>
     <string name="dialog.call.us.content">Do you want to call 02&#8211;269&#8211;9999 ?</string>
     <string name="dialog.call.us.positive">Call</string>

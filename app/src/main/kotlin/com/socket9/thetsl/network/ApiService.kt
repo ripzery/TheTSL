@@ -15,10 +15,10 @@ import rx.Observable
 
 object ApiService {
 
-    //        val BASE_URL = "http://uat.tsl.co.th/api";
+    val BASE_URL = "http://tsl.socket9.com/api/";
     var retrofit: Retrofit? = null
-//    val BASE_URL = "http://192.168.100.31:91/api/"
-        val BASE_URL = "http://www.tsl.co.th/api/"
+    //    val BASE_URL = "http://192.168.100.31:91/api/"
+    //        val BASE_URL = "http://www.tsl.co.th/api/"
 
     fun getAPI(): TSLApi {
         if (retrofit == null) {
@@ -29,7 +29,7 @@ object ApiService {
                     .build()
         }
 
-        val apiService:TSLApi = retrofit!!.create(TSLApi::class.java)
+        val apiService: TSLApi = retrofit!!.create(TSLApi::class.java)
 
         return apiService
     }
@@ -37,15 +37,15 @@ object ApiService {
     interface TSLApi {
         @FormUrlEncoded
         @POST("checkLogin")
-        fun login(@Field("email") email: String, @Field("password") password: String, @Field("deviceId") deviceId: String) : Observable<Model.User>
+        fun login(@Field("email") email: String, @Field("password") password: String, @Field("deviceId") deviceId: String): Observable<Model.User>
 
         @FormUrlEncoded
         @POST("checkLogin")
-        fun loginWithFb(@Field("facebookid") facebookId: String, @Field("facebookpic") facebookpic: String,@Field("deviceid") deviceId: String): Observable<Model.User>
+        fun loginWithFb(@Field("facebookid") facebookId: String, @Field("facebookpic") facebookpic: String, @Field("deviceid") deviceId: String): Observable<Model.User>
 
         @FormUrlEncoded
         @POST("forgetPassword")
-        fun forgetPassword(@Field("email") email: String) : Observable<Model.BaseModel>
+        fun forgetPassword(@Field("email") email: String): Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("registerUser")
@@ -57,43 +57,43 @@ object ApiService {
                          @Field("address") address: String,
                          @Field("phone") phone: String,
                          @Field("facebookid") facebookId: String,
-                         @Field("facebookpic") facebookPic: String) : Observable<Model.User>
+                         @Field("facebookpic") facebookPic: String): Observable<Model.User>
 
         @FormUrlEncoded
         @POST("getProfile")
-        fun getProfile(@Field("token") token: String) : Observable<Model.Profile>
+        fun getProfile(@Field("token") token: String): Observable<Model.Profile>
 
         @FormUrlEncoded
         @POST("getListNews")
-        fun getListNews(@Field("token") token: String) : Observable<Model.ListNewsEvent>
+        fun getListNews(@Field("token") token: String): Observable<Model.ListNewsEvent>
 
         @FormUrlEncoded
         @POST("getNew")
-        fun getNews(@Field("token") token: String, @Field("newid") newId: Int) : Observable<Model.NewsEvent>
+        fun getNews(@Field("token") token: String, @Field("newid") newId: Int): Observable<Model.NewsEvent>
 
         @FormUrlEncoded
         @POST("getListEvents")
-        fun getListEvents(@Field("token") token: String) : Observable<Model.ListNewsEvent>
+        fun getListEvents(@Field("token") token: String): Observable<Model.ListNewsEvent>
 
         @FormUrlEncoded
         @POST("getEvent")
-        fun getEvent(@Field("token") token: String, @Field("eventid") id: Int) : Observable<Model.NewsEvent>
+        fun getEvent(@Field("token") token: String, @Field("eventid") id: Int): Observable<Model.NewsEvent>
 
         @FormUrlEncoded
         @POST("getListContacts")
-        fun getListContacts(@Field("token") token: String) : Observable<Model.ListContacts>
+        fun getListContacts(@Field("token") token: String): Observable<Model.ListContacts>
 
         @FormUrlEncoded
         @POST("getContact")
-        fun getContact(@Field("token") token: String, @Field("contactid") contactId: Int) : Observable<Model.Contact>
+        fun getContact(@Field("token") token: String, @Field("contactid") contactId: Int): Observable<Model.Contact>
 
         @FormUrlEncoded
         @POST("emergencyCall")
-        fun emergencyCall(@Field("token") token: String, @Field("lat") lat: String, @Field("lng") lng: String, @Field("type") type: String) : Observable<Model.BaseModel>
+        fun emergencyCall(@Field("token") token: String, @Field("lat") lat: String, @Field("lng") lng: String, @Field("type") type: String): Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("uploadPhotoBase64")
-        fun uploadPhoto(@Field("token") token: String, @Field("photo") path: String) : Observable<Model.Photo>
+        fun uploadPhoto(@Field("token") token: String, @Field("photo") path: String): Observable<Model.Photo>
 
         @FormUrlEncoded
         @POST("updateProfile")
@@ -102,37 +102,37 @@ object ApiService {
                           @Field("nameTh") nameTh: String,
                           @Field("phone") phone: String,
                           @Field("address") address: String,
-                          @Field("picture") picture: String) : Observable<Model.BaseModel>
+                          @Field("picture") picture: String): Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("updateProfile")
         fun updatePicture(@Field("token") token: String,
-                          @Field("picture") picture: String) : Observable<Model.BaseModel>
+                          @Field("picture") picture: String): Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("getServiceBasicData")
-        fun getServiceBasicData(@Field("token") token: String) : Observable<Model.ServiceBasicData>
+        fun getServiceBasicData(@Field("token") token: String): Observable<Model.ServiceBasicData>
 
         @FormUrlEncoded
         @POST("serviceBooking")
         fun bookService(@Field("token") token: String,
-                                @Field("licensePlate") licensePlate: String,
-                                @Field("dateBooking") dateBooking: String,
-                                @Field("modelCategoriesid") modelCategoriesid: Int,
-                                @Field("serviceTypes") serviceTypes: Int,
-                                @Field("note") note:String,
-                                @Field("phone") phone:String,
-                                @Field("branchesid") branchesid: Int) : Observable<Model.BaseModel>
+                        @Field("licensePlate") licensePlate: String,
+                        @Field("dateBooking") dateBooking: String,
+                        @Field("modelCategoriesid") modelCategoriesid: Int,
+                        @Field("serviceTypes") serviceTypes: Int,
+                        @Field("note") note: String,
+                        @Field("phone") phone: String,
+                        @Field("branchesid") branchesid: Int): Observable<Model.BaseModel>
 
         @FormUrlEncoded
         @POST("getServiceBookingByUser")
         fun getServiceBookingList(@Field("token") token: String,
-                                  @Field("order") order: String) : Observable<Model.ServiceBookingList>
+                                  @Field("order") order: String): Observable<Model.ServiceBookingList>
 
         @FormUrlEncoded
         @POST("getServiceTrackingByUser")
         fun getServiceTrackingList(@Field("token") token: String,
-                                  @Field("order") order: String) : Observable<Model.ServiceTrackingList>
+                                   @Field("order") order: String): Observable<Model.ServiceTrackingList>
     }
 
 }

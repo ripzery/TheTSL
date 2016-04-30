@@ -102,7 +102,7 @@ object Model {
                                     val serviceTypes: MutableList<BasicData>,
                                     val modelCategories: MutableList<BasicData>)
 
-    data class ServiceBasicData(val result:Boolean, val data: BasicDataList)
+    data class ServiceBasicData(val result:Boolean, val message:String? = null, val data: BasicDataList)
 
     data class NewBooking(val licensePlate:String,
                           val model:BasicData,

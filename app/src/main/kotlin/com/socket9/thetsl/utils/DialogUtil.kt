@@ -25,6 +25,10 @@ object DialogUtil {
         return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_signout_title)).content(getString(context, R.string.dialog_signout_content)).positiveText(getString(context, R.string.dialog_signout_positive)).negativeText(getString(context, R.string.dialog_signout_negative)).onPositive(callback).build()
     }
 
+    fun getQuitDialog(context: Context, callback: MaterialDialog.SingleButtonCallback): MaterialDialog {
+        return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_quit_title)).content(getString(context, R.string.dialog_quit_content)).positiveText(getString(context, R.string.dialog_quit_positive)).negativeText(getString(context, R.string.dialog_quit_negative)).onPositive(callback).build()
+    }
+
     fun getChangeLangDialog(context: Context, callback: MaterialDialog.ListCallbackSingleChoice): MaterialDialog {
         return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_change_lang_title)).items(R.array.change_language).itemsCallbackSingleChoice(if (getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "").equals("en")) 1 else 0, callback).negativeText(getString(context, R.string.dialog_change_lang_cancel)).positiveText(getString(context, R.string.dialog_change_lang_choose)).build()
     }

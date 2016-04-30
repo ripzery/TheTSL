@@ -1,7 +1,12 @@
 package com.socket9.thetsl.managers
 
+import android.content.Intent
+import android.widget.Toast
+import com.socket9.thetsl.SignInActivity
+import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.network.ApiService
+import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -37,6 +42,9 @@ object HttpManager {
 
     fun emergencyCall(lat: String, lng: String, type: String): Observable<Model.BaseModel> {
         return ApiService.getAPI().emergencyCall(SharePref.getToken(), lat, lng, type)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -44,6 +52,9 @@ object HttpManager {
 
     fun updateProfile(nameEn: String, nameTh: String, phone: String, address: String, picture: String): Observable<Model.BaseModel> {
         return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, phone, address, picture)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -51,6 +62,9 @@ object HttpManager {
 
     fun getProfile(): Observable<Model.Profile> {
         return ApiService.getAPI().getProfile(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -58,6 +72,9 @@ object HttpManager {
 
     fun getListNews(): Observable<Model.ListNewsEvent> {
         return ApiService.getAPI().getListNews(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -72,6 +89,9 @@ object HttpManager {
 
     fun getNews(newsId: Int): Observable<Model.NewsEvent> {
         return ApiService.getAPI().getNews(SharePref.getToken(), newsId)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -79,6 +99,9 @@ object HttpManager {
 
     fun getListEvent(): Observable<Model.ListNewsEvent> {
         return ApiService.getAPI().getListEvents(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -86,6 +109,9 @@ object HttpManager {
 
     fun getEvent(eventId: Int): Observable<Model.NewsEvent> {
         return ApiService.getAPI().getEvent(SharePref.getToken(), eventId)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -93,6 +119,9 @@ object HttpManager {
 
     fun getListContact(): Observable<Model.ListContacts> {
         return ApiService.getAPI().getListContacts(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -100,6 +129,9 @@ object HttpManager {
 
     fun uploadPhoto(path: String): Observable<Model.Photo> {
         return ApiService.getAPI().uploadPhoto(SharePref.getToken(), path)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -107,6 +139,9 @@ object HttpManager {
 
     fun updatePicture(picture: String): Observable<Model.BaseModel> {
         return ApiService.getAPI().updatePicture(SharePref.getToken(), picture)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -114,6 +149,9 @@ object HttpManager {
 
     fun getServiceBasicData(): Observable<Model.ServiceBasicData> {
         return ApiService.getAPI().getServiceBasicData(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -128,6 +166,9 @@ object HttpManager {
                 newBooking.note,
                 newBooking.phone,
                 newBooking.branch.id)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -135,15 +176,36 @@ object HttpManager {
 
     fun getServiceBookingList(order: String): Observable<Model.ServiceBookingList> {
         return ApiService.getAPI().getServiceBookingList(SharePref.getToken(), order)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
 
-    fun getServiceTrackingList(order: String): Observable<Model.ServiceTrackingList>{
+    fun getServiceTrackingList(order: String): Observable<Model.ServiceTrackingList> {
         return ApiService.getAPI().getServiceTrackingList(SharePref.getToken(), order)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
+    }
+
+    private fun checkToken(result: Boolean, message: String? = null) {
+        try {
+            if (!result && message!!.contains("token")) {
+                saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "")
+                Contextor.context!!.startActivity(Intent(Contextor.context, SignInActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+
+                Toast.makeText(Contextor.context, "Token is invalid", Toast.LENGTH_SHORT).show()
+            }
+        }catch(e: Exception){
+
+        }
     }
 }

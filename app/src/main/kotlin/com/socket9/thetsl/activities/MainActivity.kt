@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.facebook.FacebookSdk
@@ -84,6 +85,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onPause() {
         super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
         dialog?.dismiss()
         getProfileSubscriber?.unsubscribe()
     }
@@ -121,6 +126,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    override fun onBackPressed() {
+        DialogUtil.getQuitDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
+            finish()
+        }).show()
+    }
 
     /** Method zone **/
 
@@ -321,9 +331,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         dialog?.show()
 
         getProfileSubscriber = HttpManager.getProfile()
-                .doOnNext {
-                    if (!it.result && it.message != null ) toast(it.message)
-                }
                 .subscribe({
                     dialog?.dismiss()
                     myProfile = it

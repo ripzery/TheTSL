@@ -200,12 +200,12 @@ object HttpManager {
                 saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "")
                 Contextor.context!!.startActivity(Intent(Contextor.context, SignInActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra("invalidToken", true))
 
-                Toast.makeText(Contextor.context, "Token is invalid", Toast.LENGTH_SHORT).show()
             }
         }catch(e: Exception){
-
+//            e.printStackTrace()
         }
     }
 }

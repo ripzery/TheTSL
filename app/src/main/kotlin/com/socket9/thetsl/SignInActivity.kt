@@ -59,6 +59,10 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
             val intent = Intent(this, RegistrationIntentService::class.java)
             startService(intent)
         }
+
+        if(intent.getBooleanExtra("invalidToken", false)){
+            toast("Token is invalid")
+        }
     }
 
     override fun onResume() {

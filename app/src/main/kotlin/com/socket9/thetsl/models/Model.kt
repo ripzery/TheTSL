@@ -53,11 +53,11 @@ object Model {
     @PaperParcel
     data class ProfileEntity(val nameTh: String,
                              val nameEn: String,
-                             val phone: String,
-                             val address: String,
+                             val phone: String? = null,
+                             val address: String ? = null,
                              val email: String,
                              val pic: String? = null,
-                             val facebookPic: String) : PaperParcelable {
+                             val facebookPic: String? = null) : PaperParcelable {
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ProfileEntity::class.java)
         }

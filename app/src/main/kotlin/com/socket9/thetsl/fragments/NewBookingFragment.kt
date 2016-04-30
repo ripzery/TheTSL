@@ -105,15 +105,8 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 .setDoneText("Done")
                 .setCancelText("Cancel")
 
-        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
-        progressDialog?.setCancelable(false)
 
-        /* Loading spinner data */
-        dataSubscription = loadData().subscribe {
-            basicData = it
-            progressDialog?.dismiss()
-            setSpinnerData(it)
-        }
+        loadData()
 
         initListener()
     }
@@ -135,7 +128,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 book(newBooking)
             } catch(e: Exception) {
 
-                toast("An error has occurred")
+                toast("Please fill all the fields")
 
                 e.printStackTrace()
             }
@@ -153,12 +146,15 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         progressDialog?.setCancelable(false)
 
         HttpManager.bookService(newBooking)
-                .subscribe {
+                .subscribe ({
                     progressDialog?.dismiss()
                     toast("Service has been booked successful")
                     info { it }
                     activity.finish()
-                }
+                },{
+                    progressDialog?.dismiss()
+                    toast("Please check your internet connection and try again")
+                })
     }
 
     private fun setSpinnerData(it: Model.ServiceBasicData) {
@@ -173,8 +169,20 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         spinnerType.adapter = typeAdapter
     }
 
-    private fun loadData(): Observable<Model.ServiceBasicData> {
-        return HttpManager.getServiceBasicData()
+    private fun loadData(){
+        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
+
+        /* Loading spinner data */
+        dataSubscription = HttpManager.getServiceBasicData().subscribe ({
+            basicData = it
+            progressDialog?.dismiss()
+            setSpinnerData(it)
+        }, {error ->
+            progressDialog?.dismiss()
+            toast("Please check your internet connection and try again")
+        })
     }
 
     private fun getListNameFromBasicData(dataList: MutableList<Model.BasicData>): List<String> {

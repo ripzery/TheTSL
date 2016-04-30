@@ -1,5 +1,6 @@
 package com.socket9.thetsl
 
+import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.socket9.thetsl.activities.CreateAccountActivity
 import com.socket9.thetsl.activities.MainActivity
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.saveSp
@@ -21,9 +23,7 @@ import com.socket9.thetsl.gcm.RegistrationIntentService
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import org.json.JSONException
 import rx.Subscription
 import timber.log.Timber
@@ -37,6 +37,8 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
     private var mRegistrationBroadcastReceiver: BroadcastReceiver? = null
     private var isReceiverRegistered = false
     private var loginFbSubscription: Subscription? = null
+    private var loginSubscription: Subscription? = null
+    private var loginProgressDialog: ProgressDialog? = null
 
     /** Lifecycle method zone **/
 
@@ -68,8 +70,10 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
     override fun onPause() {
         super.onPause()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver)
+        loginProgressDialog?.dismiss()
         isReceiverRegistered = false
         loginFbSubscription?.unsubscribe()
+        loginSubscription?.unsubscribe()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -101,11 +105,38 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+
     private fun setListener() {
         //ivForgotPassword.setOnClickListener(this);
         btnFbLoginFake.setOnClickListener {
             LoginManager.getInstance().logOut()
             btnFbLoginReal.performClick()
+        }
+
+        btnRegister.setOnClickListener {
+            startActivity<CreateAccountActivity>()
+        }
+
+        btnLogin.setOnClickListener {
+            loginProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_login_content, R.string.dialog_progress_title)
+            loginProgressDialog?.setCancelable(false)
+            loginProgressDialog?.show()
+
+            loginSubscription = HttpManager.login(etUsername.text.toString(), etPassword.text.toString(), getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)
+                    .subscribe ({
+                        loginProgressDialog?.dismiss()
+                        info { it.message }
+                        if(it.result){
+                            toast("Login succesful")
+                        }else{
+                            toast(it.message)
+                        }
+
+                    }, { error ->
+                        toast("Something went wrong, please try again")
+                        loginProgressDialog?.dismiss()
+
+                    })
         }
     }
 
@@ -169,7 +200,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
 
     private fun loginWithFb(email: String, facebookId: String, fbPhoto: String, hometown: String, name: String) {
 
-        info{ facebookId }
+        info { facebookId }
 
         loginFbSubscription = HttpManager.registerUser(email, name, hometown, facebookId, fbPhoto)
                 .flatMap { response ->

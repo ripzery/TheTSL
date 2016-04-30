@@ -1,6 +1,7 @@
 package com.socket9.thetsl.activities
 
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -111,8 +112,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     emergencyFragment?.userEnabledLocation()
                 } else {
                     emergencyFragment?.userNotEnabledLocation()
-
                 }
+            }
+            HomeFragment.REQUEST_MY_PROFILE -> {
+                getProfile(false)
             }
 
         }
@@ -122,6 +125,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
+        checkIfEnterFromUrl()
+
         val isEnglish = (getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "") as String).equals("en")
         btnChangeLanguage.text = getString(if (isEnglish) R.string.dialog_change_lang_english else R.string.dialog_change_lang_thai)
 
@@ -132,12 +137,24 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         initToolbar(toolbar, getString(R.string.toolbar_main), false)
         initFragment()
         setListener()
-        getProfile()
+        getProfile(false)
         setupDrawerContent()
         changeFragment(FRAGMENT_DISPLAY_EMERGENCY)
 
         navView.setCheckedItem(R.id.nav_emergency_call)
 
+    }
+
+    private fun checkIfEnterFromUrl() {
+        if (intent.data != null) {
+            try {
+                val data = intent.data
+                saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, data.getQueryParameter("token"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
     }
 
     fun onFragmentAttached(number: Int) {
@@ -264,9 +281,17 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
 
         headerView?.setOnClickListener {
-            startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE)
+            startEditProfile()
         }
 
+    }
+
+    private fun startEditProfile() {
+        try {
+            startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE)
+        } catch (e: Exception) {
+            getProfile(true)
+        }
     }
 
     fun initToolbar(myToolbar: Toolbar, title: String, isBackVisible: Boolean) {
@@ -290,7 +315,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, lang)
     }
 
-    private fun getProfile() {
+    private fun getProfile(isFromEditProfile: Boolean) {
         dialog = indeterminateProgressDialog (R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
         dialog?.setCancelable(false)
         dialog?.show()
@@ -305,9 +330,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
                     tvName?.text = it.data?.nameEn
                     info { it }
+
+                    if(isFromEditProfile){
+                        startEditProfile()
+                    }
+
                 }, { error ->
                     dialog?.dismiss()
-                    kotlin.error { error }
+                    toast("Please check your internet connect and try again")
                 })
     }
 

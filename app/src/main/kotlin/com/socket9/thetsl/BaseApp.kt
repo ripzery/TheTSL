@@ -2,8 +2,10 @@ package com.socket9.thetsl
 
 import android.app.Application
 import android.content.SharedPreferences
+import com.crashlytics.android.Crashlytics
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref
+import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
@@ -16,6 +18,7 @@ class BaseApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Fabric.with(this, Crashlytics());
         SharePref.sharePref = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE)
         Contextor.context = this
         Timber.plant(Timber.DebugTree())

@@ -3,20 +3,21 @@
     package="com.socket9.thetsl">
 
     <!-- [START gcm_permission] -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <!-- [END gcm_permission] -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-    <permission android:name="com.socket9.thetsl.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
+    <permission
+        android:name="com.socket9.thetsl.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
 
-    <uses-permission android:name="com.socket9.thetsl.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.socket9.thetsl.permission.C2D_MESSAGE"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_app_512"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".BaseApp"
@@ -28,13 +29,18 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_api_key" />
+            android:value="@string/google_maps_api_key"/>
 
         <meta-data
             android:name="com.socket9.thetsl.utils.GlideConfiguration"
             android:value="GlideModule"/>
 
-        <activity android:name=".SignInActivity"
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="afecd6b52175568d2af1c42b69cd51e92dd7bff4"/>
+
+        <activity
+            android:name=".SignInActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -46,22 +52,35 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MainActivity"
+        <activity
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
+
+            <intent-filter>
+
+                <data android:scheme="tsl"/>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
 
         </activity>
 
-        <activity android:name=".activities.MyProfileActivity"
+        <activity
+            android:name=".activities.MyProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWithActionbar"
             android:windowSoftInputMode="stateHidden">
 
         </activity>
 
-        <activity android:name=".activities.BranchDetailActivity"
-            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BranchDetailActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".activities.NewsEventActivity"
+        <activity
+            android:name=".activities.NewsEventActivity"
             android:theme="@style/AppThemeWithActionbar"
             android:screenOrientation="portrait"/>
 
@@ -73,27 +92,37 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-        <activity android:name=".activities.NewBookingActivity"
+        <activity
+            android:name=".activities.NewBookingActivity"
             android:theme="@style/AppThemeWithActionbar"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".activities.NewCarTrackingActivity"
+        <activity
+            android:name=".activities.NewCarTrackingActivity"
             android:theme="@style/AppThemeWithActionbar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".activities.ServiceDetailActivity"
+        <activity
+            android:name=".activities.ServiceDetailActivity"
             android:theme="@style/AppThemeWithActionbar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+
+
+        <activity
+            android:name=".activities.CreateAccountActivity"
+            android:theme="@style/AppThemeWithActionbar"
+            android:screenOrientation="portrait"/>
 
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.socket9.thetsl" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+
+                <category android:name="com.socket9.thetsl"/>
             </intent-filter>
         </receiver>
         <!-- [END gcm_receiver] -->

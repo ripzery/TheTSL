@@ -98,6 +98,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
                 progressDialog?.dismiss()
                 error.printStackTrace()
                 info { error.message }
+                toast("Please check your internet connection and try again")
             })
     }
 

@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.signature.MediaStoreSignature
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.managers.PickImageChooserManager
 import com.socket9.thetsl.models.Model
@@ -174,20 +175,24 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
 
         /* call updateProfile api */
         HttpManager.updateProfile(etName.text.toString(), etName.text.toString(), etPhone.text.toString(), etAddress.text.toString(), picturePath)
-                .subscribe {
+                .subscribe ({
                     progressDialog.dismiss()
                     toast(it.message)
                     setResult(RESULT_OK)
                     finish()
-                }
+                }, { error ->
+                    toast("Please check your internet connection and try again")
+                })
     }
 
     private fun uploadPhoto(imagePath: String) {
         HttpManager.uploadPhoto(imagePath)
-                .subscribe {
+                .subscribe ({
                     photo = it.data
                     Glide.with(this).load(photo?.pathUse).into(ivUser)
-                }
+                }, { error ->
+                    toast("Please check your internet connection and try again")
+                })
     }
 
     /** Listener zone **/

@@ -154,6 +154,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             }, { error ->
                 error.printStackTrace()
                 dialog?.dismiss()
+                toast("Please check your internet connection and try again")
             })
     }
 

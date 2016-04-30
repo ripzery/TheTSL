@@ -119,7 +119,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
         locationProvider.checkLocationSettings(LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
                 .setAlwaysShow(true).build())
-                .subscribe {
+                .subscribe ({
                     val status = it.status
                     if (status.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
                         try {
@@ -128,7 +128,9 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
                             e.printStackTrace()
                         }
                     }
-                }
+                }, { error ->
+                    toast("An error has occurred, please try again")
+                })
 
         ivTowCar.setOnClickListener {
             if(isMechanic){
@@ -169,7 +171,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
     fun userNotEnabledLocation() {
         toast("Please enabled location setting first")
-        activity.finish()
+//        activity.finish()
     }
 
     fun userEnabledLocation() {
@@ -178,16 +180,20 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
     private fun startSubscribeUserLocation() {
         locationRequestSubscription = locationProvider.getUpdatedLocation(locationRequest)
-                .subscribe {
+                .subscribe ({
                     moveToLocation(mMap, it)
-                }
+                }, {
+                    toast("An error has occurred, please try again")
+                })
     }
 
     private fun startSubscribeUserLastKnownLocation() {
         lastKnownLocationSubscription = ReactiveLocationProvider(activity).lastKnownLocation
-                .subscribe {
+                .subscribe ({
                     moveToLocation(mMap, it)
-                }
+                }, {
+                    toast("An error has occurred, please try again")
+                })
     }
 
 

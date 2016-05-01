@@ -112,7 +112,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
     //  TODO: SetModel for service view group
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = model.model
-        tvStatus.text = lastStatus.statusEn
+        tvStatus.text = lastStatus.getStatus()
         tvLastUpdate.text = if(lastStatus.dateFinish.isNullOrEmpty()) lastStatus.dateReceive else lastStatus.dateFinish
         tvLicensePlate.text = model.licensePlate
 

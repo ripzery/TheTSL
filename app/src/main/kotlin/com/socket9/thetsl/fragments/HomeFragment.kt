@@ -108,7 +108,7 @@ class HomeFragment : Fragment(), AnkoLogger {
                     dialog.dismiss()
                     myProfile = it
                     Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(ivUser)
-                    tvName.text = it.data?.nameEn
+                    tvName.text = it.data?.getName()
                     info { it }
                 }, { error ->
                     dialog.dismiss()

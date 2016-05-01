@@ -37,7 +37,7 @@ object ApiService {
     interface TSLApi {
         @FormUrlEncoded
         @POST("checkLogin")
-        fun login(@Field("email") email: String, @Field("password") password: String, @Field("deviceId") deviceId: String): Observable<Model.User>
+        fun login(@Field("email") email: String, @Field("password") password: String, @Field("deviceid") deviceId: String): Observable<Model.User>
 
         @FormUrlEncoded
         @POST("checkLogin")

@@ -95,7 +95,7 @@ class ContactViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     fun setModel(model: Model.ContactEntity) {
         with(model) {
-            tvTitle.text = titleEn
+            tvTitle.text = getTitle()
             if(subTitle != null && id > BASE_ID){
                 tvContent.text = subTitle
                 tvContent.visibility = View.VISIBLE

@@ -94,7 +94,7 @@ class EventViewGroup : BaseCustomViewGroup, AnkoLogger {
     fun setModel(model: Model.NewsEventEntity) {
         with(model) {
             val isBlue = type.equals("service")
-            tvTitle.text = titleEn
+            tvTitle.text = getTitle()
             tvTag.setBackgroundColor(ContextCompat.getColor(tvTitle.context, if (isBlue) R.color.colorPrimary else R.color.colorTextSecondary))
             tvTag.text = type
             Glide.with(ivPhoto.context).load(pic).into(ivPhoto)

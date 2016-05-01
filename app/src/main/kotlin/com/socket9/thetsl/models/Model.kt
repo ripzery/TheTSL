@@ -1,6 +1,7 @@
 package com.socket9.thetsl.models
 
 import com.google.gson.annotations.SerializedName
+import com.socket9.thetsl.utils.SharePref
 import nz.bradcampbell.paperparcel.PaperParcel
 import nz.bradcampbell.paperparcel.PaperParcelable
 
@@ -24,7 +25,7 @@ object Model {
     }
 
     @PaperParcel
-    data class User(val message: String, val result: Boolean, val data: TokenEntity) : PaperParcelable {
+    data class User(val message: String? = null, val result: Boolean, val data: TokenEntity) : PaperParcelable {
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(User::class.java)
         }
@@ -58,6 +59,11 @@ object Model {
                              val email: String,
                              val pic: String? = null,
                              val facebookPic: String? = null) : PaperParcelable {
+
+        fun getName(): String{
+            return if(SharePref.isEnglish()) nameEn else nameTh
+        }
+
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ProfileEntity::class.java)
         }
@@ -72,6 +78,15 @@ object Model {
                                val date: String,
                                val contentEn: String,
                                val contentTh: String){
+
+        fun getTitle(): String{
+            return if(SharePref.isEnglish()) titleEn else titleTh
+        }
+
+        fun getContent(): String{
+            return if(SharePref.isEnglish()) contentEn else contentTh
+        }
+
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(NewsEventEntity::class.java)
         }
@@ -90,6 +105,10 @@ object Model {
                              @SerializedName("Business Hours") val businessHours: String? = null,
                              val lng: Double? = null,
                              val lat: Double? = null) : PaperParcelable {
+
+        fun getTitle(): String{
+            return if(SharePref.isEnglish()) titleEn else titleTh ?: titleEn
+        }
 
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ContactEntity::class.java)
@@ -125,6 +144,19 @@ object Model {
                                     val branchesEn: String,
                                     val isCancel: Boolean,
                                     val dateConfirm: String) : PaperParcelable{
+
+        fun getModelCategory(): String{
+            return if(SharePref.isEnglish()) modelCategoryEn else modelCategoryTh
+        }
+
+        fun getBranch(): String{
+            return if(SharePref.isEnglish()) branchesEn else branchesTh
+        }
+
+        fun getService(): String{
+            return if(SharePref.isEnglish()) serviceTypeEn else serviceTypeTh
+        }
+
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceBookingEntity::class.java)
         }
@@ -135,6 +167,10 @@ object Model {
     data class ServiceTrackingStatus(val dateFinish:String, val dateReceive: String, val iconId:Int, val statusTh: String, val statusEn: String): PaperParcelable{
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingStatus::class.java)
+        }
+
+        fun getStatus(): String{
+            return if(SharePref.isEnglish()) statusEn else statusTh
         }
 
     }

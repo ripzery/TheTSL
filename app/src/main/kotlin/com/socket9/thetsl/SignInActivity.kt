@@ -10,6 +10,7 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
+import com.afollestad.materialdialogs.MaterialDialog
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -21,6 +22,7 @@ import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.gcm.RegistrationIntentService
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.jetbrains.anko.*
@@ -39,6 +41,13 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
     private var loginFbSubscription: Subscription? = null
     private var loginSubscription: Subscription? = null
     private var loginProgressDialog: ProgressDialog? = null
+
+
+    /** Static method zone **/
+    companion object {
+        private val TAG = "SignInActivity"
+        private val REGISTRATION_COMPLETE = "REGISTER_COMPLETE"
+    }
 
     /** Lifecycle method zone **/
 
@@ -60,7 +69,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
             startService(intent)
         }
 
-        if(intent.getBooleanExtra("invalidToken", false)){
+        if (intent.getBooleanExtra("invalidToken", false)) {
             toast("Token is invalid")
         }
     }
@@ -109,7 +118,6 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-
     private fun setListener() {
         //ivForgotPassword.setOnClickListener(this);
         btnFbLoginFake.setOnClickListener {
@@ -122,25 +130,11 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         }
 
         btnLogin.setOnClickListener {
-            loginProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_login_content, R.string.dialog_progress_title)
-            loginProgressDialog?.setCancelable(false)
-            loginProgressDialog?.show()
+            login()
+        }
 
-            loginSubscription = HttpManager.login(etUsername.text.toString(), etPassword.text.toString(), getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)
-                    .subscribe ({
-                        loginProgressDialog?.dismiss()
-                        info { it.message }
-                        if(it.result){
-                            toast("Login succesful")
-                        }else{
-                            toast(it.message)
-                        }
-
-                    }, { error ->
-                        toast("Something went wrong, please try again")
-                        loginProgressDialog?.dismiss()
-
-                    })
+        ivForgotPassword.setOnClickListener {
+            forgetPassword()
         }
     }
 
@@ -202,9 +196,40 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         request.executeAsync()
     }
 
+    /* Manual login with username and password */
+    private fun login() {
+        loginProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_login_content, R.string.dialog_progress_title)
+        loginProgressDialog?.setCancelable(false)
+        loginProgressDialog?.show()
+
+        loginSubscription = HttpManager.login(etUsername.text.toString(), etPassword.text.toString(), getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)
+                .subscribe ({
+                    loginProgressDialog?.dismiss()
+                    info { it.message }
+                    if (it.result) {
+                        saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, it.data.token)
+                        toast("Login successful")
+                        startActivity<MainActivity>()
+                    } else {
+                        toast(it.message!!)
+                    }
+
+                }, { error ->
+                    info { error.message }
+                    toast("Something went wrong, please try again")
+                    loginProgressDialog?.dismiss()
+
+                })
+    }
+
+    /* Login by using facebook account */
     private fun loginWithFb(email: String, facebookId: String, fbPhoto: String, hometown: String, name: String) {
 
         info { facebookId }
+
+        loginProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_login_content, R.string.dialog_progress_title)
+        loginProgressDialog?.setCancelable(false)
+        loginProgressDialog?.show()
 
         loginFbSubscription = HttpManager.registerUser(email, name, hometown, facebookId, fbPhoto)
                 .flatMap { response ->
@@ -217,13 +242,34 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                 }
                 .filter { it.result }
                 .subscribe ({
+                    loginProgressDialog?.dismiss()
                     info { it.toString() }
                     startActivity(Intent(this@SignInActivity, MainActivity::class.java))
                     finish()
                 }, { error ->
+                    loginProgressDialog?.dismiss()
                     toast("Error has occurred ${error.message}")
                     error { error.message }
                 })
+    }
+
+    /* Show dialog forget password */
+    private fun forgetPassword() {
+        DialogUtil.getForgotDialog(this, MaterialDialog.InputCallback { dialog, input ->
+
+            loginProgressDialog = indeterminateProgressDialog(R.string.dialog_progress_forgot_password_content, R.string.dialog_progress_title)
+            loginProgressDialog?.setCancelable(false)
+            loginProgressDialog?.show()
+
+            HttpManager.forgetPassword(input.toString())
+                    .subscribe ({
+                        loginProgressDialog?.dismiss()
+                        toast(it.message)
+                    }, {
+                        loginProgressDialog?.dismiss()
+                        toast("Something went wrong, please try again")
+                    })
+        }).show()
     }
 
     /**
@@ -245,12 +291,6 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
             return false
         }
         return true
-    }
-
-    /** Static method zone **/
-    companion object {
-        private val TAG = "SignInActivity"
-        private val REGISTRATION_COMPLETE = "REGISTER_COMPLETE"
     }
 
 }

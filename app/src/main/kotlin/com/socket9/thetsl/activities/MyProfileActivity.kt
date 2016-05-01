@@ -117,7 +117,7 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
 
         with(myProfile.data!!) {
             Glide.with(this@MyProfileActivity).load(pic ?: facebookPic).into(ivUser)
-            etName.setText(if (nameEn.isNullOrBlank()) "Blank" else nameEn)
+            etName.setText(if (getName().isNullOrBlank()) "Blank" else getName())
             etAddress.setText(if (address.isNullOrBlank()) "Blank" else address)
             etPhone.setText(if (phone.isNullOrBlank()) "Blank" else phone)
             etEmail.setText(if (email.isNullOrBlank()) "Blank" else email)

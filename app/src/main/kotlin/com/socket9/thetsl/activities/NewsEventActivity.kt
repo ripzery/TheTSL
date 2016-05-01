@@ -80,7 +80,7 @@ class NewsEventActivity : AppCompatActivity() {
 
     private fun setInfo(data: Model.NewsEventEntity) {
         with(data) {
-            webView.loadUrl(contentEn)
+            webView.loadUrl(getContent())
             val progressDialog = indeterminateProgressDialog(R.string.dialog_progress_web_content, R.string.dialog_progress_title)
             progressDialog.setCancelable(false)
             progressDialog.show()
@@ -94,7 +94,7 @@ class NewsEventActivity : AppCompatActivity() {
                     sendIntent.action = Intent.ACTION_SEND
                     sendIntent.type = "text/plain"
                     sendIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, titleEn)
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, getTitle())
                     sendIntent.putExtra(Intent.EXTRA_TEXT, url)
                     setShareIntent(sendIntent)
                 }

@@ -38,4 +38,8 @@ object SharePref {
         return getSp(SHARE_PREF_KEY_API_TOKEN, "") as String
     }
 
+    fun isEnglish(): Boolean{
+        return (getSp(SHARE_PREF_KEY_APP_LANG, "") as String).equals("en")
+    }
+
 }

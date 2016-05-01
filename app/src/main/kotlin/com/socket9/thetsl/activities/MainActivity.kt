@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private fun initInstance() {
         checkIfEnterFromUrl()
 
-        val isEnglish = (getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "") as String).equals("en")
+        val isEnglish = SharePref.isEnglish()
         btnChangeLanguage.text = getString(if (isEnglish) R.string.dialog_change_lang_english else R.string.dialog_change_lang_thai)
 
         headerView = navView.getHeaderView(0)

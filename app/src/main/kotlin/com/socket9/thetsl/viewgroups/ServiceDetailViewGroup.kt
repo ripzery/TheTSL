@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.utils.SharePref
 import com.socket9.thetsl.views.SquareImageView
 import org.jetbrains.anko.AnkoLogger
 import rx.Observable
@@ -87,9 +88,8 @@ class ServiceDetailViewGroup : BaseCustomViewGroup, AnkoLogger {
     fun setModel(model: Model.ServiceTrackingStatus) {
 
         //  TODO: SetModel for service view group
-        tvStatus.text = model.statusEn
+        tvStatus.text = model.getStatus()
         tvDateTime.text = model.dateFinish
-
     }
 
 }

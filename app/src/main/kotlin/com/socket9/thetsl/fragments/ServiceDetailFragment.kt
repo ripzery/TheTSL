@@ -12,7 +12,7 @@ import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_service_detail.*
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class ServiceDetailFragment : Fragment(){
 

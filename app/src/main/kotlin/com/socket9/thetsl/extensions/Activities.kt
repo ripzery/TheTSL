@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.socket9.thetsl.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by Euro (ripzery@gmail.com) on 4/10/16 AD.

@@ -17,11 +17,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
-import org.jetbrains.anko.support.v4.startActivityForResult
 import rx.Subscription
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class HomeFragment : Fragment(), AnkoLogger {
 

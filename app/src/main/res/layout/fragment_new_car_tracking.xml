@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Service number"
+            android:text="@string/fragment.known.service.number.service.number"
             android:theme="@style/BasicText"/>
 
         <EditText
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Citizen ID"
+            android:text="@string/fragment.new.car.tracking.citizen.id"
             android:theme="@style/BasicText"/>
 
         <EditText
@@ -52,7 +52,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_64"
-        android:text="Submit"
+        android:text="@string/fragment.new.car.tracking.submit"
         android:theme="@style/BaseButton.Primary"/>
 
 </LinearLayout>

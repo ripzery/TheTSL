@@ -23,12 +23,11 @@ import kotlinx.android.synthetic.main.fragment_emergency.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
-import org.jetbrains.anko.support.v4.progressDialog
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import rx.Subscription
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
@@ -129,7 +128,8 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
                         }
                     }
                 }, { error ->
-                    toast("An error has occurred, please try again")
+                    toast(getString(R.string.toast_unknown_error_try_again))
+
                 })
 
         ivTowCar.setOnClickListener {
@@ -152,7 +152,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
         btnRequest.setOnClickListener {
             info { myPosition }
-            var dialog = indeterminateProgressDialog("Please wait a minute", "Requesting...")
+            var dialog = indeterminateProgressDialog(getString(R.string.dialog_progress_title), "Requesting...")
             dialog.show()
 //            indeterminateProgressDialog("Requesting")
             HttpManager.emergencyCall(myPosition?.latitude.toString(), myPosition?.longitude.toString(), requestEmergency)
@@ -170,7 +170,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
 
     fun userNotEnabledLocation() {
-        toast("Please enabled location setting first")
+        toast(getString(R.string.toast_enable_location))
 //        activity.finish()
     }
 
@@ -183,7 +183,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
                 .subscribe ({
                     moveToLocation(mMap, it)
                 }, {
-                    toast("An error has occurred, please try again")
+                    toast(getString(R.string.toast_unknown_error_try_again))
                 })
     }
 
@@ -192,7 +192,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
                 .subscribe ({
                     moveToLocation(mMap, it)
                 }, {
-                    toast("An error has occurred, please try again")
+                    toast(getString(R.string.toast_unknown_error_try_again))
                 })
     }
 

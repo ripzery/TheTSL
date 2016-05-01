@@ -24,14 +24,14 @@
                 android:theme="@style/BasicText"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.5"
-                android:text="License Plate"/>
+                android:text="@string/fragment.new.booking.service.license.plate"/>
 
             <EditText
                 android:id="@+id/etLicensePlate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:hint="Put license plate"
+                android:hint="@string/fragment.new.booking.service.license.plate.hint"
                 android:layout_weight="1"
                 android:textSize="16sp"
                 />
@@ -50,14 +50,14 @@
                 android:layout_gravity="center_vertical"
                 android:theme="@style/BasicText"
                 android:layout_weight="0.5"
-                android:text="Model"/>
+                android:text="@string/fragment.new.booking.service.model"/>
 
             <fr.ganfra.materialspinner.MaterialSpinner
                 android:id="@+id/spinnerModel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:ms_hint="Select model"
+                app:ms_hint="@string/fragment.new.booking.service.select.model.hint"
                 android:layout_marginLeft="16dp"/>
 
         </LinearLayout>
@@ -74,7 +74,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.6"
                 android:theme="@style/BasicText"
-                android:text="Date time"/>
+                android:text="@string/fragment.new.booking.service.date.time"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
@@ -104,14 +104,14 @@
                 android:theme="@style/BasicText"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.5"
-                android:text="Type"/>
+                android:text="@string/fragment.new.booking.service.type"/>
 
             <fr.ganfra.materialspinner.MaterialSpinner
                 android:id="@+id/spinnerType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:ms_hint="Select service"
+                app:ms_hint="@string/fragment.new.booking.service.select.service.hint"
                 android:layout_marginLeft="16dp"/>
 
 
@@ -129,14 +129,14 @@
                 android:theme="@style/BasicText"
                 android:layout_weight="0.5"
                 android:layout_gravity="center_vertical"
-                android:text="Branch"/>
+                android:text="@string/fragment.new.booking.service.branch"/>
 
             <fr.ganfra.materialspinner.MaterialSpinner
                 android:id="@+id/spinnerBranch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:ms_hint="Select branch"
+                app:ms_hint="@string/fragment.new.booking.service.branch.hint"
                 android:layout_marginLeft="16dp"/>
 
 
@@ -152,14 +152,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/BasicText"
-                android:text="More information"/>
+                android:text="@string/fragment.new.booking.service.more.info"/>
 
             <EditText
                 android:id="@+id/etMoreInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
-                android:hint="Put additional information here"
+                android:hint="@string/fragment.new.booking.service.more.info.hint"
                 android:maxLines="3"/>
 
         </LinearLayout>
@@ -173,7 +173,7 @@
             android:id="@+id/btnBook"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_64"
-            android:text="Book"
+            android:text="@string/fragment.new.booking.service.book"
             android:theme="@style/BaseButton.Primary"
             />
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.viewgroups.ServiceDetailViewGroup
-import org.jetbrains.anko.find
 
 /**
  * Created by Euro (ripzery@gmail.com) on 4/29/16 AD.

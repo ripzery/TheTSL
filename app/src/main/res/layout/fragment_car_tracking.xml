@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/BaseButton.Primary"
-            android:text="Add new car"
+            android:text="@string/fragment.car.tracking.add.new.car"
             android:drawableLeft="@drawable/ic_action_add"
             android:drawablePadding="16dp"
             android:padding="16dp"
@@ -35,7 +35,7 @@
             android:id="@+id/btnLeft"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="first"
+            android:text="@string/fragment.car.tracking.first"
             android:layout_marginRight="-4dp"
             android:textColor="@android:color/white"
             android:background="@drawable/button_corner_left"
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="-4dp"
-            android:text="last"
+            android:text="@string/fragment.car.tracking.last"
             android:background="@drawable/button_corner_right_white"
             android:layout_weight="1"/>
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:text="Empty list"
+            android:text="@string/fragment.car.tracking.empty.list"
             android:textSize="36sp"
             android:alpha="0.38"/>
 

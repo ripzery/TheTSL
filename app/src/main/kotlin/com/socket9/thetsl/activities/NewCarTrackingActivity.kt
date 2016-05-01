@@ -10,7 +10,7 @@ import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.NewCarTrackingFragment
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class NewCarTrackingActivity : AppCompatActivity() {

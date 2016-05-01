@@ -23,12 +23,12 @@ import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractionListener {
     /** Variable zone **/
     lateinit var param1: String
-    private val serviceAddedType = listOf("New booking service", "Known service number")
+    private var serviceAddedType = listOf("")
     //    private var orderType = "first"
     private var loadDataSubscription: Subscription? = null
     private var dialog: ProgressDialog? = null
@@ -58,6 +58,8 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             /* if newly created */
             param1 = arguments.getString(ARG_1)
         }
+
+        serviceAddedType = listOf(getString(R.string.booking_service_type_new_booking_service), getString(R.string.booking_service_type_known_service_number))
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,7 +95,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
 
     private fun initListener() {
         btnAddService.setOnClickListener {
-            selector("Which one do you want to add?", serviceAddedType) { position ->
+            selector(getString(R.string.booking_service_type_title), serviceAddedType) { position ->
                 when (position) {
                     0 -> startActivity<NewBookingActivity>("isNewBooking" to true)
                     1 -> startActivity<NewBookingActivity>("isNewBooking" to false)
@@ -132,40 +134,40 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         // TODO: Load data from tracking and booking
 
         loadDataSubscription = HttpManager.getServiceBookingList(orderType)
-            .flatMap {
-                serviceList = it
-                HttpManager.getServiceTrackingList(orderType)
-            }.subscribe ({
-                dialog?.dismiss()
-                trackingList = it
+                .flatMap {
+                    serviceList = it
+                    HttpManager.getServiceTrackingList(orderType)
+                }.subscribe ({
+            dialog?.dismiss()
+            trackingList = it
 
-                if (serviceAdapter == null) {
-                    serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
-                } else {
-                    serviceAdapter!!.serviceBookingList = serviceList!!.data
-                    serviceAdapter!!.serviceTrackingList = trackingList!!.data
-                    serviceAdapter!!.notifyDataSetChanged()
-                }
+            if (serviceAdapter == null) {
+                serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
+            } else {
+                serviceAdapter!!.serviceBookingList = serviceList!!.data
+                serviceAdapter!!.serviceTrackingList = trackingList!!.data
+                serviceAdapter!!.notifyDataSetChanged()
+            }
 
-                recyclerView.adapter = serviceAdapter
+            recyclerView.adapter = serviceAdapter
 
-                serviceAdapter?.setListener(this)
+            serviceAdapter?.setListener(this)
 
-            }, { error ->
-                error.printStackTrace()
-                dialog?.dismiss()
-                toast("Please check your internet connection and try again")
-            })
+        }, { error ->
+            error.printStackTrace()
+            dialog?.dismiss()
+            toast(getString(R.string.toast_internet_connection_problem))
+        })
     }
 
     /** Listener zone **/
     override fun onCardClicked(position: Int) {
 
         /* click on tracking list card */
-        if(position >= serviceList!!.data.size){
+        if (position >= serviceList!!.data.size) {
             startActivity<ServiceDetailActivity>(ServiceDetailActivity.ARG_1 to trackingList!!.data[position - serviceList!!.data.size])
-        }else{
-            toast("Waiting for confirmation...")
+        } else {
+            toast(getString(R.string.toast_waiting_confirmation))
         }
     }
 }

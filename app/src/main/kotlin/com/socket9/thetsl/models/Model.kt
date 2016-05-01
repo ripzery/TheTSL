@@ -38,7 +38,12 @@ object Model {
         }
     }
 
-    data class Contact(val message: String? = null, val result: Boolean, val data: ContactEntity)
+    @PaperParcel
+    data class Contact(val message: String? = null, val result: Boolean, val data: ContactEntity) : PaperParcelable {
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(Contact::class.java)
+        }
+    }
 
     data class ListContacts(val message: String? = null, val result: Boolean, val data: MutableList<ContactEntity>)
 

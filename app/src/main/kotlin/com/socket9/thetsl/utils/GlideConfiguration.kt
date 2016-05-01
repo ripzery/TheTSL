@@ -7,7 +7,7 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.module.GlideModule
 
 /**
- * Created by Euro on 10/4/15 AD.
+ * Created by Euro (ripzery@gmail.com) on 10/4/15 AD.
  */
 class GlideConfiguration : GlideModule {
     override fun applyOptions(context: Context, builder: GlideBuilder) {

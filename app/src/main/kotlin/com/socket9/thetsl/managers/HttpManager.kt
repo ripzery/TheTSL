@@ -1,7 +1,6 @@
 package com.socket9.thetsl.managers
 
 import android.content.Intent
-import android.widget.Toast
 import com.socket9.thetsl.SignInActivity
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.models.Model
@@ -119,6 +118,16 @@ object HttpManager {
 
     fun getListContact(): Observable<Model.ListContacts> {
         return ApiService.getAPI().getListContacts(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getContact(contactId: Int): Observable<Model.Contact> {
+        return ApiService.getAPI().getContact(SharePref.getToken(), contactId)
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }

@@ -4,7 +4,7 @@
     tools:context="com.socket9.tsl.MyProfileActivity">
     <item
         android:id="@+id/action_save"
-        android:title="Save"
+        android:title="@string/menu.profile.save"
         android:visible="false"
         app:showAsAction="always" />
 </menu>

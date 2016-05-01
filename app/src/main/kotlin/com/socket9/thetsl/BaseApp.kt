@@ -1,7 +1,6 @@
 package com.socket9.thetsl
 
 import android.app.Application
-import android.content.SharedPreferences
 import com.crashlytics.android.Crashlytics
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref

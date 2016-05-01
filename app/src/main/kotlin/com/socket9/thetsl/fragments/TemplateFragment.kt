@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class TemplateFragment : Fragment(){
 

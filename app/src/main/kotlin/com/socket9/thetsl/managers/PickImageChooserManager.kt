@@ -3,16 +3,14 @@ package com.socket9.thetsl.managers
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.MediaStore
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 
 /**
- * Created by Euro on 10/7/15 AD.
+ * Created by Euro (ripzery@gmail.com) on 10/7/15 AD.
  */
 object PickImageChooserManager {
     fun getPickCaptureChooserIntent(context: Context): Intent {

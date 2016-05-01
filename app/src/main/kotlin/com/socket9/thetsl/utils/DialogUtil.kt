@@ -6,7 +6,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.getSp
 
 /**
- * Created by Euro on 10/7/15 AD.
+ * Created by Euro (ripzery@gmail.com) on 10/7/15 AD.
  */
 object DialogUtil {
     fun getForgotDialog(context: Context, callback: MaterialDialog.InputCallback): MaterialDialog {

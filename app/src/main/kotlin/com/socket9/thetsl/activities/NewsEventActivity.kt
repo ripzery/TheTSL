@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_news_event.*
 import org.jetbrains.anko.indeterminateProgressDialog
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class NewsEventActivity : AppCompatActivity() {

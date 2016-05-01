@@ -7,15 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
-import com.socket9.thetsl.adapter.EventAdapter
-import com.socket9.thetsl.extensions.toast
-import com.socket9.thetsl.managers.HttpManager
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class NewsFragment : Fragment(), AnkoLogger{
 

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -27,11 +26,10 @@ import com.soundcloud.android.crop.Crop
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.toast
 import java.io.File
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class MyProfileActivity : AppCompatActivity(), AnkoLogger {
@@ -181,7 +179,8 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
                     setResult(RESULT_OK)
                     finish()
                 }, { error ->
-                    toast("Please check your internet connection and try again")
+                    toast(getString(R.string.toast_internet_connection_problem))
+
                 })
     }
 
@@ -191,7 +190,7 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
                     photo = it.data
                     Glide.with(this).load(photo?.pathUse).into(ivUser)
                 }, { error ->
-                    toast("Please check your internet connection and try again")
+                    toast(getString(R.string.toast_internet_connection_problem))
                 })
     }
 

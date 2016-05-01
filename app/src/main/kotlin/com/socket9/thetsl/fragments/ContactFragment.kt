@@ -15,15 +15,13 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_contact.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
-import org.jetbrains.anko.support.v4.indeterminateProgressDialog
-import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.*
 import rx.Observable
 import rx.Subscription
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractionListener{
@@ -31,7 +29,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     /** Variable zone **/
     lateinit var param1: String
-    private val BASE_ID = 1000
+    private val BASE_ID = 1000000
     private var contactSubscription:Subscription? = null
     private var progressDialog:ProgressDialog? = null
 
@@ -98,7 +96,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
                 progressDialog?.dismiss()
                 error.printStackTrace()
                 info { error.message }
-                toast("Please check your internet connection and try again")
+                toast(getString(R.string.toast_internet_connection_problem))
             })
     }
 
@@ -108,7 +106,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     private fun addContact(listContact: MutableList<Model.ContactEntity>): MutableList<Model.ContactEntity> {
         listContact.add(Model.ContactEntity(BASE_ID + 1, getString(R.string.contact_us_email), "services@tsl.co.th", R.drawable.ic_email_grey_500_24dp))
-        listContact.add(Model.ContactEntity(BASE_ID + 2, getString(R.string.contact_us_call_center), "1234", R.drawable.call_grey))
+        listContact.add(Model.ContactEntity(BASE_ID + 2, getString(R.string.contact_us_call_center), "02-269-9999", R.drawable.call_grey))
         listContact.add(Model.ContactEntity(BASE_ID + 3, getString(R.string.contact_us_website), "www.tsl.co.th", R.drawable.www_grey))
         listContact.add(Model.ContactEntity(BASE_ID + 4, getString(R.string.contact_us_facebook), "TSL Auto Corporation", R.drawable.fb_grey))
         listContact.add(Model.ContactEntity(BASE_ID + 5, getString(R.string.contact_us_instagram), "TSL_Auto", R.drawable.ig_grey))
@@ -117,6 +115,42 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     /** Listener zone **/
     override fun onContactClicked(index: Int, model: Model.ContactEntity) {
-        startActivity<BranchDetailActivity>("contact" to model)
+        if (model.id < BASE_ID) {
+            progressDialog = indeterminateProgressDialog(R.string.dialog_progress_contact_content, R.string.dialog_progress_title)
+            progressDialog?.setCancelable(false)
+            progressDialog?.show()
+
+            HttpManager.getContact(model.id)
+                    .subscribe({
+                        progressDialog?.dismiss()
+                        val contact = it.data.copy(titleEn = model.titleEn, subTitle = model.subTitle)
+                        startActivity<BranchDetailActivity>("contact" to contact)
+
+                    }, {
+                        progressDialog?.dismiss()
+                        toast(getString(R.string.toast_internet_connection_problem))
+                    })
+        } else {
+
+            val id = model.id - BASE_ID
+
+            when (id) {
+                1 -> {
+                    email(model.subTitle!!)
+                }
+                2 -> {
+                    makeCall(model.subTitle!!)
+                }
+                3 -> {
+                    browse("http://${model.subTitle!!}")
+                }
+                4 -> {
+                    browse("https://www.facebook.com/tslauto")
+                }
+                5 -> {
+                    browse("https://www.instagram.com/tsl_auto/")
+                }
+            }
+        }
     }
 }

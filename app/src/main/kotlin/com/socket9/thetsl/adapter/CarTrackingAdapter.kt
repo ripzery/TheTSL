@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.viewgroups.CarTrackingViewGroup
-import com.socket9.thetsl.viewgroups.ServiceViewGroup
 
 /**
  * Created by Euro (ripzery@gmail.com) on 4/27/16 AD.

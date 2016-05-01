@@ -15,7 +15,7 @@ import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class CreateAccountActivity : AppCompatActivity(), AnkoLogger {
@@ -69,7 +69,7 @@ class CreateAccountActivity : AppCompatActivity(), AnkoLogger {
                 .subscribe ({
                     dialog?.dismiss()
                     info { it.message }
-                    toast("Creating account successful")
+                    toast(getString(R.string.toast_activate_account))
                     finish()
 
                 }, { error ->

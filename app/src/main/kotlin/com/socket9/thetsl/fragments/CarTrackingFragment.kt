@@ -9,21 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
-import com.socket9.thetsl.activities.NewBookingActivity
 import com.socket9.thetsl.activities.NewCarTrackingActivity
 import com.socket9.thetsl.adapter.CarTrackingAdapter
-import com.socket9.thetsl.adapter.ServiceAdapter
+import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_service.*
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
-import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractionListener{
 
@@ -133,7 +130,7 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
 
         }, { error ->
             dialog?.dismiss()
-            toast("An error has occurred")
+            toast(getString(R.string.toast_internet_connection_problem))
             error.printStackTrace()
         })
     }

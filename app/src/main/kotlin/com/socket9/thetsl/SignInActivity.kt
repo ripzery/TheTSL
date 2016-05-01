@@ -70,7 +70,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         }
 
         if (intent.getBooleanExtra("invalidToken", false)) {
-            toast("Token is invalid")
+            toast(getString(R.string.toast_token_invalid))
         }
     }
 
@@ -208,7 +208,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                     info { it.message }
                     if (it.result) {
                         saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, it.data.token)
-                        toast("Login successful")
+                        toast(getString(R.string.toast_login_successful))
                         startActivity<MainActivity>()
                     } else {
                         toast(it.message!!)
@@ -216,7 +216,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
 
                 }, { error ->
                     info { error.message }
-                    toast("Something went wrong, please try again")
+                    toast(getString(R.string.toast_unknown_error_try_again))
                     loginProgressDialog?.dismiss()
 
                 })
@@ -248,7 +248,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                     finish()
                 }, { error ->
                     loginProgressDialog?.dismiss()
-                    toast("Error has occurred ${error.message}")
+                    toast(getString(R.string.toast_unknown_error_try_again))
                     error { error.message }
                 })
     }
@@ -267,7 +267,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                         toast(it.message)
                     }, {
                         loginProgressDialog?.dismiss()
-                        toast("Something went wrong, please try again")
+                        toast(getString(R.string.toast_unknown_error_try_again))
                     })
         }).show()
     }

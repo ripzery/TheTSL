@@ -11,7 +11,7 @@ import com.socket9.thetsl.fragments.ServiceDetailFragment
 import com.socket9.thetsl.models.Model
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class ServiceDetailActivity : AppCompatActivity() {

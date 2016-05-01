@@ -17,12 +17,11 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.toast
-import rx.Observable
 import rx.Subscription
 import java.util.*
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class NewBookingFragment : Fragment(), AnkoLogger {
 
@@ -128,7 +127,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 book(newBooking)
             } catch(e: Exception) {
 
-                toast("Please fill all the fields")
+                toast(getString(R.string.toast_fill_all_field))
 
                 e.printStackTrace()
             }
@@ -148,12 +147,12 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         HttpManager.bookService(newBooking)
                 .subscribe ({
                     progressDialog?.dismiss()
-                    toast("Service has been booked successful")
+                    toast(getString(R.string.toast_service_booking_successful))
                     info { it }
                     activity.finish()
                 },{
                     progressDialog?.dismiss()
-                    toast("Please check your internet connection and try again")
+                    toast(getString(R.string.toast_internet_connection_problem))
                 })
     }
 
@@ -181,7 +180,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
             setSpinnerData(it)
         }, {error ->
             progressDialog?.dismiss()
-            toast("Please check your internet connection and try again")
+            toast(getString(R.string.toast_internet_connection_problem))
         })
     }
 

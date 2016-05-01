@@ -1,16 +1,16 @@
 package com.socket9.thetsl.activities
 
-import com.socket9.thetsl.R
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.KnownServiceNumberFragment
 import com.socket9.thetsl.fragments.NewBookingFragment
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class NewBookingActivity : AppCompatActivity(){

@@ -20,7 +20,7 @@ import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionListener {
 
@@ -100,7 +100,7 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
                         }, { error ->
                             dialogNewsProgress?.dismiss()
                             error.printStackTrace()
-                            toast("An error has occurred, please try again")
+                            toast(getString(R.string.toast_internet_connection_problem))
                         })
             }
             false -> {
@@ -114,7 +114,7 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
                         }, { error ->
                             dialogEventProgress?.dismiss()
                             error.printStackTrace()
-                            toast("An error has occurred, please try again")
+                            toast(getString(R.string.toast_internet_connection_problem))
                         })
             }
         }

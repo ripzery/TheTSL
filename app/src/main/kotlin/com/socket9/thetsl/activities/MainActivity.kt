@@ -1,7 +1,6 @@
 package com.socket9.thetsl.activities
 
 
-import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -13,14 +12,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
 import com.socket9.thetsl.R
 import com.socket9.thetsl.SignInActivity
-import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.extensions.toast
@@ -38,7 +35,7 @@ import rx.Subscription
 import java.util.*
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
@@ -344,7 +341,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
                 }, { error ->
                     dialog?.dismiss()
-                    toast("Please check your internet connect and try again")
+                    toast(getString(R.string.toast_internet_connection_problem))
                 })
     }
 

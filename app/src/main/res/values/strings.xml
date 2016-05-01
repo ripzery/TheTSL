@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">TSL</string>
+    <string name="app.name">TSL</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_sign_in">SignInActivity</string>
-    <string name="title_activity_create_account">CreateAccountActivity</string>
-    <string name="title_activity_news_event">NewsEventActivity</string>
-    <string name="title_activity_place_detail">PlaceDetailActivity</string>
-    <string name="title_activity_my_profile">MyProfileActivity</string>
+    <string name="hello.world">Hello world!</string>
+    <string name="action.settings">Settings</string>
+    <string name="title.activity.sign.in">SignInActivity</string>
+    <string name="title.activity.create.account">CreateAccountActivity</string>
+    <string name="title.activity.news.event">NewsEventActivity</string>
+    <string name="title.activity.place.detail">PlaceDetailActivity</string>
+    <string name="title.activity.my.profile">MyProfileActivity</string>
 
     <!-- Toolbar title -->
     <string name="toolbar.branch.detail">Contact Info</string>
@@ -25,48 +25,63 @@
     <string name="dialog.forgot.pw.negative">Cancel</string>
     <string name="dialog.forgot.pw.input.hint">Your email</string>
 
+    <!-- Update profile dialog -->
     <string name="dialog.update.profile.title">Confirmation</string>
     <string name="dialog.update.profile.content">Exit without saving your changed?</string>
     <string name="dialog.update.profile.positive">Yes</string>
     <string name="dialog.update.profile.negative">No</string>
 
+    <!-- Signout dialog -->
     <string name="dialog.signout.title">Sign Out</string>
     <string name="dialog.signout.content">Are you sure you want to sign out?</string>
     <string name="dialog.signout.positive">Yes</string>
     <string name="dialog.signout.negative">No</string>
 
+    <!-- Quit app dialog -->
     <string name="dialog.quit.title">Exit Application</string>
     <string name="dialog.quit.content">Are you sure to exit?</string>
     <string name="dialog.quit.positive">Yes</string>
     <string name="dialog.quit.negative">No</string>
 
+    <!-- Call us dialog -->
     <string name="dialog.call.us.title">Call us</string>
     <string name="dialog.call.us.content">Do you want to call 02&#8211;269&#8211;9999 ?</string>
     <string name="dialog.call.us.positive">Call</string>
     <string name="dialog.call.us.negative">Cancel</string>
 
+    <!-- Change language dialog -->
     <string name="dialog.change.lang.thai">Thai</string>
     <string name="dialog.change.lang.english">English</string>
     <string name="dialog.change.lang.cancel">Cancel</string>
     <string name="dialog.change.lang.title">Change Language</string>
     <string name="dialog.change.lang.choose">Choose</string>
 
+
+    <!-- Progress dialog -->
     <string name="dialog.progress.title">Please wait</string>
     <string name="dialog.progress.profile.content">Updating profile…</string>
     <string name="dialog.progress.forgot.password.content">Sending email…</string>
     <string name="dialog.progress.web.content">Loading web…</string>
     <string name="dialog.progress.contact.content">Loading contact…</string>
-    <string name="dialog.progress.news_list.content">Loading news…</string>
-    <string name="dialog.progress.event_list.content">Loading events…</string>
+    <string name="dialog.progress.news.list.content">Loading news…</string>
+    <string name="dialog.progress.event.list.content">Loading events…</string>
     <string name="dialog.progress.service.content">Loading service data…</string>
     <string name="dialog.progress.save.service.content">Saving service data…</string>
     <string name="dialog.progress.service.list.content">Loading service booking list…</string>
     <string name="dialog.progress.create.account.content">Creating account…</string>
-    <string name="dialog.progress.login.content">Logging in...</string>
+    <string name="dialog.progress.emergency.call.content">Requesting…</string>
+    <string name="dialog.progress.login.content">Logging in…</string>
 
     <!-- Toast -->
     <string name="toast.token.invalid">Someone has access your account, please login again.</string>
     <string name="toast.update.google.play.services">Please update Google Play Services</string>
+    <string name="toast.login.successful">Login successful</string>
+    <string name="toast.unknown.error.try.again">Something went wrong, please try again</string>
+    <string name="toast.internet.connection.problem">Please check your internet connect and try again</string>
+    <string name="toast.fill.all.field">Please fill all fields</string>
+    <string name="toast.service.booking.successful">Service has been booked successful</string>
+    <string name="toast.waiting.confirmation">Waiting for confirmation…</string>
+    <string name="toast.enable.location">Please enable location setting first</string>
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
 
     <!-- CreateAccount Activity -->
@@ -86,6 +101,11 @@
     <string name="nav.signout">Sign Out</string>
     <string name="nav.change.lang.thai">Thai</string>
     <string name="nav.change.lang.english">English</string>
+
+    <!-- New booking service type dialog -->
+    <string name="booking.service.type.title">Choose booking type</string>
+    <string name="booking.service.type.new.booking.service">New booking service</string>
+    <string name="booking.service.type.known.service.number">Known service number</string>
 
     <!-- Emergency Call -->
     <string name="emergency.call.request">Request</string>
@@ -108,7 +128,7 @@
 
     <!-- Api key -->
     <string name="google.maps.key">AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE</string>
-    <string name="facebook_app_id">1622350878031018</string>
+    <string name="facebook.app.id">1622350878031018</string>
 
     <!-- Branch Detail -->
     <string name="contact.business.hours">Business Hours</string>
@@ -143,6 +163,52 @@
     <string name="lorem">Lorem ipsum dolor sit amet, congue malesuada. Mauris integer, pellentesque purus nam. Ipsum interdum felis facilisi ipsum aliquam. Tincidunt ornare non iaculis nec vitae, consectetur in.</string>
     <string name="toolbar.contact">CONTACT US</string>
     <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string>
-    <string name="nav_service">Service</string>
-    <string name="nav_car_tracking">Car tracking</string>
+    <string name="nav.service">Service</string>
+    <string name="nav.car.tracking">Car tracking</string>
+    <string name="menu.profile.save">Save</string>
+    <string name="menu.event.share">Share</string>
+
+
+    <!-- Known service number -->
+    <string name="fragment.known.service.number.service.number">Service number</string>
+    <string name="fragment.known.service.number.license.plate">License plate</string>
+    <string name="fragment.known.service.number.submit">Submit</string>
+
+    <!-- New car tracking -->
+    <string name="fragment.new.car.tracking.citizen.id">Citizen ID</string>
+    <string name="fragment.new.car.tracking.submit">Submit</string>
+
+    <!-- car tracking -->
+    <string name="fragment.car.tracking.add.new.car">Add new car</string>
+
+    <!-- service -->
+    <string name="fragment.service.add.new.service">Add new service</string>
+    <string name="fragment.service.detail.receive.date">Receive car date : dd/MM/yyyy</string>
+    <string name="fragment.service.first">first</string>
+    <string name="fragment.service.last">last</string>
+    <string name="fragment.service.empty.list">Empty list</string>
+
+    <!-- view group contact-->
+    <string name="viewgroup.contact">TSL SATORN</string>
+
+
+    <!-- New booking service -->
+    <string name="fragment.new.booking.service.license.plate">License Plate</string>
+    <string name="fragment.new.booking.service.license.plate.hint">Put license plate</string>
+    <string name="fragment.new.booking.service.model">Model</string>
+    <string name="fragment.new.booking.service.select.model.hint">Select model</string>
+    <string name="fragment.new.booking.service.date.time">Date time</string>
+    <string name="fragment.new.booking.service.type">Type</string>
+    <string name="fragment.new.booking.service.select.service.hint">Select service</string>
+    <string name="fragment.new.booking.service.branch">Branch</string>
+    <string name="fragment.new.booking.service.branch.hint">Select branch</string>
+    <string name="fragment.new.booking.service.more.info">More information</string>
+    <string name="fragment.new.booking.service.more.info.hint">Put additional information here</string>
+    <string name="fragment.new.booking.service.book">Book</string>
+
+
+    <!-- Car tracking-->
+    <string name="fragment.car.tracking.first">first</string>
+    <string name="fragment.car.tracking.last">last</string>
+    <string name="fragment.car.tracking.empty.list">Empty list</string>
 </resources>

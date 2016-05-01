@@ -4,10 +4,10 @@ package com.socket9.thetsl.activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
+import android.view.MotionEvent
+import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,15 +16,17 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.plainText
-import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.activity_branch_detail.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.email
+import org.jetbrains.anko.makeCall
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback {
+class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback, AnkoLogger {
     /** Variable zone **/
     lateinit private var supportMapsFragment: SupportMapFragment
     lateinit private var mMap: GoogleMap
@@ -63,8 +65,29 @@ class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap?) {
         mMap = map!!
 
+        ivTransparent.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_MOVE -> {
+                        scrollView.requestDisallowInterceptTouchEvent(true)
+                        return false
+                    }
+                    MotionEvent.ACTION_DOWN -> {
+                        scrollView.requestDisallowInterceptTouchEvent(true)
+                        return false
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        scrollView.requestDisallowInterceptTouchEvent(false)
+                        return true
+                    }
+                    else -> return false
+                }
+            }
+
+        })
+
         if(contactLatLng != null){
-            mMap.addMarker(MarkerOptions().position(contactLatLng).title(contact.titleEn))
+            mMap.addMarker(MarkerOptions().position(contactLatLng).title(contact.getTitle()))
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(contactLatLng, 15f))
         }
     }
@@ -72,21 +95,23 @@ class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     /** Method zone **/
 
     private fun initInstance() {
-        setToolbar()
         contact = intent.getParcelableExtra<Model.ContactEntity>("contact")
         if(contact.lat != null && contact.lng != null)
             contactLatLng = LatLng(contact.lat!!, contact.lng!!)
 
+        setToolbar()
         setData()
 
-        supportMapsFragment = SupportMapFragment.newInstance()
-        replaceFragment(R.id.mapContainer, supportMapsFragment)
+        supportMapsFragment = mapFragment as SupportMapFragment
         supportMapsFragment.getMapAsync(this)
+
+        tvPhone.setOnClickListener { makeCall(contact.phone!!.plainText().split(" ")[0]) }
+        tvEmail.setOnClickListener { email(contact.email!!.plainText()) }
     }
 
     private fun setData() {
-        toolbarTitle.text = contact.titleEn
-        toolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+        //        toolbarTitle.text = contact.getTitle()
+        //        toolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
         tvPhone.text = contact.phone?.plainText()
         tvEmail.text = contact.email?.plainText()
         if(contact.businessHours != null) tvHours.text = Html.fromHtml(contact.businessHours)
@@ -94,11 +119,12 @@ class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setToolbar() {
-        setSupportActionBar(toolbar)
+        //        setSupportActionBar(toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val tvTitle: TextView = toolbar.findViewById(R.id.toolbarTitle) as TextView
-        tvTitle.text = getString(R.string.toolbar_branch_detail)
+        supportActionBar?.title = contact.getTitle()
+        //        val tvTitle: TextView = toolbar.findViewById(R.id.toolbarTitle) as TextView
+        //        tvTitle.text = getString(R.string.toolbar_branch_detail)
 
     }
 

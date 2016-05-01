@@ -1,6 +1,5 @@
 package com.socket9.thetsl.adapter
 
-import android.support.v4.view.LayoutInflaterCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.viewgroups.EventViewGroup
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
  * Created by Euro (ripzery@gmail.com) on 4/19/16 AD.

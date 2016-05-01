@@ -7,7 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 
 /**
- * Created by Euro on 3/10/16 AD.
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
 class TemplateActivity : AppCompatActivity(){

@@ -7,7 +7,7 @@ import android.util.TypedValue
 import java.io.ByteArrayOutputStream
 
 /**
- * Created by Euro on 10/8/15 AD.
+ * Created by Euro (ripzery@gmail.com) on 10/8/15 AD.
  */
 object PhotoUtil {
     private fun compress(bitmap: Bitmap, percent: Int): ByteArray {

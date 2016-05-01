@@ -28,7 +28,7 @@
 
         <item
             android:id="@+id/nav_service"
-            android:title="@string/nav_service" />
+            android:title="@string/nav.service"/>
 
         <!-- Hide car tracking for now -->
         <!--<item-->

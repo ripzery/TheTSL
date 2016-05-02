@@ -16,11 +16,29 @@
 
 package com.socket9.thetsl.gcm
 
+import android.app.Notification
+import android.media.RingtoneManager
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.google.android.gms.gcm.GcmListenerService
+import com.socket9.thetsl.R
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.jetbrains.anko.notificationManager
 
-class MyGcmListenerService : GcmListenerService() {
+class MyGcmListenerService : GcmListenerService(), AnkoLogger {
+
+    companion object {
+        private val TAG = "MyGcmListenerService"
+
+        val EMERGENCY_CALL = "EMERGENCY CALL"
+        val SERVICE_BOOKING = "SERVICE BOOKING"
+        val SERVICE_TRACKING = "SERVICE TRACKING"
+        val NEW_CAR = "NEW CAR"
+
+    }
+
 
     /**
      * Called when message is received.
@@ -35,10 +53,42 @@ class MyGcmListenerService : GcmListenerService() {
         val message = data!!.getString("message")
         Log.d(TAG, "From: " + from!!)
         Log.d(TAG, "Message: " + message)
+
+        notify(data)
     }
 
-    companion object {
+    private fun notify(data: Bundle?) {
 
-        private val TAG = "MyGcmListenerService"
+        info { data.toString() }
+
+        try {
+            val message = data?.getString("message")
+            val type = data?.getString("type")
+
+            when (type) {
+                EMERGENCY_CALL -> {
+                }
+                SERVICE_BOOKING -> {
+                }
+                SERVICE_TRACKING -> {
+                }
+                NEW_CAR -> {
+                }
+            }
+
+            val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_noti)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setContentTitle("Hello")
+                    .setContentText(message);
+
+            notificationManager.notify(1, mBuilder.build())
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
+
 }

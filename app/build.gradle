@@ -20,7 +20,7 @@ android {
       resValue "string", "google_maps_api_key", "AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE"
     }
     release {
-      resValue "string", "google_maps_api_key", "AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE"
+      resValue "string", "google_maps_api_key", "AIzaSyCghQrFiYVuZsotTPfgwvUZAWJSD9lIjKE"
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }

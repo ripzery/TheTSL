@@ -1,5 +1,6 @@
 package com.socket9.thetsl.fragments
 
+import android.app.ProgressDialog
 import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
@@ -19,10 +21,12 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.utils.DialogUtil
 import kotlinx.android.synthetic.main.fragment_emergency.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.makeCall
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import rx.Subscription
 
@@ -37,6 +41,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
     private var isMechanic = true
     private var myPosition: LatLng? = null
     private var requestEmergency = "MECHANIC"
+    private var dialog: ProgressDialog ? = null
     lateinit private var supportMapsFragment: SupportMapFragment
     lateinit private var locationProvider: ReactiveLocationProvider
     lateinit private var locationRequestSubscription: Subscription
@@ -49,13 +54,13 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
 
     /** Static method zone **/
-    companion object{
+    companion object {
         val ARG_1 = "ARG_1"
         val REQUEST_CODE_LOCATION_SETTING = 100
         val MECHANIC = "REQUIRE MECHANIC"
         val TOWCAR = "TOW CAR"
 
-        fun newInstance(param1:String) : EmergencyFragment {
+        fun newInstance(param1: String): EmergencyFragment {
             var bundle: Bundle = Bundle()
             bundle.putString(ARG_1, param1)
             val emergencyFragment: EmergencyFragment = EmergencyFragment()
@@ -69,7 +74,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             /* if newly created */
             param1 = arguments.getString(ARG_1)
         }
@@ -99,16 +104,19 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
     override fun onStop() {
         super.onStop()
         try {
+            dialog?.dismiss()
             lastKnownLocationSubscription.unsubscribe()
             locationRequestSubscription.unsubscribe()
-        }catch(e: Exception){
+
+        } catch(e: Exception) {
             e.printStackTrace()
         }
     }
 
+
     /** Method zone **/
 
-    private fun initInstance(){
+    private fun initInstance() {
         supportMapsFragment = SupportMapFragment.newInstance()
         replaceFragment(R.id.mapContainer, supportMapsFragment)
         supportMapsFragment.getMapAsync(this)
@@ -133,7 +141,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
                 })
 
         ivTowCar.setOnClickListener {
-            if(isMechanic){
+            if (isMechanic) {
                 ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_active_en))
                 ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_en))
                 requestEmergency = TOWCAR
@@ -152,26 +160,36 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
         btnRequest.setOnClickListener {
             info { myPosition }
-            var dialog = indeterminateProgressDialog(getString(R.string.dialog_progress_title), "Requesting...")
-            dialog.show()
-//            indeterminateProgressDialog("Requesting")
+            dialog = indeterminateProgressDialog(getString(R.string.dialog_progress_emergency_call_content), getString(R.string.dialog_progress_title))
+            dialog?.setCancelable(false)
+            dialog?.show()
+            //            indeterminateProgressDialog("Requesting")
             HttpManager.emergencyCall(myPosition?.latitude.toString(), myPosition?.longitude.toString(), requestEmergency)
-                .subscribe({
-                    dialog.dismiss()
-                    info { it }
-                    toast(it.message)
-                }, {error ->
-                    dialog.dismiss()
-                    toast(error.message.toString())
-                })
+                    .subscribe({
+                        dialog?.dismiss()
+                        toast(it.message)
+
+                        if (it.result) {
+                            info { it }
+                            val callusDialog = DialogUtil.getCallUsDialog(activity, MaterialDialog.SingleButtonCallback { dialog, which ->
+                                makeCall("022699999")
+                            })
+
+                            callusDialog.setCancelable(false)
+                            callusDialog.show()
+                        }
+
+                    }, { error ->
+                        dialog?.dismiss()
+                        toast(error.message.toString())
+                    })
         }
 
     }
 
-
     fun userNotEnabledLocation() {
         toast(getString(R.string.toast_enable_location))
-//        activity.finish()
+        //        activity.finish()
     }
 
     fun userEnabledLocation() {
@@ -196,12 +214,10 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
                 })
     }
 
-
-    private fun moveToLocation(map: GoogleMap?, location: Location){
+    private fun moveToLocation(map: GoogleMap?, location: Location) {
         myPosition = LatLng(location.latitude, location.longitude)
         map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(with(location) { LatLng(latitude, longitude) }, 17.0f))
 
     }
-
 
 }

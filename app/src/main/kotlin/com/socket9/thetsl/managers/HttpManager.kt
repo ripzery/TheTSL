@@ -203,6 +203,16 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
+    fun serviceCarTracking(serviceJobNumber: String, trackingId: String): Observable<Model.ServiceTrackingList> {
+        return ApiService.getAPI().serviceCarTracking(SharePref.getToken(), serviceJobNumber, trackingId)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
     private fun checkToken(result: Boolean, message: String? = null) {
         try {
             if (!result && message!!.contains("token")) {
@@ -217,4 +227,5 @@ object HttpManager {
 //            e.printStackTrace()
         }
     }
+
 }

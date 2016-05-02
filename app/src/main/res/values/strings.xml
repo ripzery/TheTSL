@@ -71,6 +71,7 @@
     <string name="dialog.progress.create.account.content">Creating account…</string>
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.login.content">Logging in…</string>
+    <string name="dialog.progress.service.car.tracking.content">Checking data…</string>
 
     <!-- Toast -->
     <string name="toast.token.invalid">Someone has access your account, please login again.</string>
@@ -108,7 +109,7 @@
     <string name="booking.service.type.known.service.number">Known service number</string>
 
     <!-- Emergency Call -->
-    <string name="emergency.call.request">Request</string>
+    <string name="emergency.call.request">Call</string>
 
     <!-- Profile -->
     <string name="profile.address.title">ADDRESS</string>
@@ -171,11 +172,11 @@
 
     <!-- Known service number -->
     <string name="fragment.known.service.number.service.number">Service number</string>
-    <string name="fragment.known.service.number.license.plate">License plate</string>
+    <string name="fragment.known.service.number.tracking.id">Tracking ID</string>
     <string name="fragment.known.service.number.submit">Submit</string>
 
     <!-- New car tracking -->
-    <string name="fragment.new.car.tracking.citizen.id">Citizen ID</string>
+    <string name="fragment.new.car.tracking.tracking.id">Tracking ID</string>
     <string name="fragment.new.car.tracking.submit">Submit</string>
 
     <!-- car tracking -->

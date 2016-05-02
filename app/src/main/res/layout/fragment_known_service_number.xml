@@ -17,6 +17,7 @@
             android:theme="@style/BasicText"/>
 
         <EditText
+            android:id="@+id/etServiceNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"/>
@@ -32,10 +33,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment.known.service.number.license.plate"
+            android:text="@string/fragment.known.service.number.tracking.id"
             android:theme="@style/BasicText"/>
 
         <EditText
+            android:id="@+id/etTrackingId"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -49,6 +51,7 @@
         android:layout_weight="1"/>
 
     <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_64"
         android:text="@string/fragment.known.service.number.submit"

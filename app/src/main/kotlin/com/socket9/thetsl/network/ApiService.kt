@@ -133,6 +133,12 @@ object ApiService {
         @POST("getServiceTrackingByUser")
         fun getServiceTrackingList(@Field("token") token: String,
                                    @Field("order") order: String): Observable<Model.ServiceTrackingList>
+
+        @FormUrlEncoded
+        @POST("serviceCarTracking")
+        fun serviceCarTracking(@Field("token") token: String,
+                               @Field("serviceJobNumber") order: String,
+                               @Field("trackingid") trackingId: String): Observable<Model.ServiceTrackingList>
     }
 
 }

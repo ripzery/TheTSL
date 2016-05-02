@@ -2,6 +2,8 @@ package com.socket9.thetsl
 
 import android.app.Application
 import com.crashlytics.android.Crashlytics
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref
 import io.fabric.sdk.android.Fabric
@@ -18,6 +20,8 @@ class BaseApp: Application() {
     override fun onCreate() {
         super.onCreate()
         Fabric.with(this, Crashlytics());
+        FacebookSdk.sdkInitialize(applicationContext);
+        AppEventsLogger.activateApp(this);
         SharePref.sharePref = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE)
         Contextor.context = this
         Timber.plant(Timber.DebugTree())

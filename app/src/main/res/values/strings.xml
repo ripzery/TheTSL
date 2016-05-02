@@ -128,8 +128,7 @@
     <string name="profile.password.hint">Your password</string>
 
     <!-- Api key -->
-    <string name="google.maps.key">AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE</string>
-    <string name="facebook.app.id">1622350878031018</string>
+    <string name="facebook.app.id" translatable="false">1622350878031018</string>
 
     <!-- Branch Detail -->
     <string name="contact.business.hours">Business Hours</string>

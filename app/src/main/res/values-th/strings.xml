@@ -84,9 +84,6 @@
     <string name="profile.password.title">รหัสผ่าน</string>
     <string name="profile.password.content">123214das</string>
 
-    <!-- Api key -->
-    <string name="google.maps.key">AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE</string>
-
     <!-- Branch Detail -->
     <string name="contact.business.hours">เวลาทำการ</string>
     <string name="contact.email">อีเมล์</string>
@@ -181,4 +178,5 @@
     <string name="toast.waiting.confirmation">โปรดรอการยืนยัน...</string>
     <string name="viewgroup.contact">ทีเอสแอล สาธร</string>
     <string name="dialog.progress.emergency.call.content">กำลังแจ้ง...</string>
+    <string name="dialog.progress.service.car.tracking.content">กำลังตรวจสอบข้อมูล...</string>
 </resources>

@@ -88,9 +88,6 @@
     <string name="profile.password.content">123214das</string>
     <string name="profile.password.hint">Your password</string>
 
-    <!-- Api key -->
-    <string name="google.maps.key">AIzaSyBWzfHaOayY9QUlzwzVV4VWYqGhxclOIXE</string>
-
     <!-- Branch Detail -->
     <string name="contact.business.hours">Business Hours</string>
     <string name="contact.email">Email</string>
@@ -182,4 +179,5 @@
     <string name="viewgroup.contact">TSL SATORN</string>
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.event.list.content">Loading events…</string>
+    <string name="dialog.progress.service.car.tracking.content">Checking data...</string>
 </resources>

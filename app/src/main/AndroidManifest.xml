@@ -114,6 +114,7 @@
         <activity
             android:name=".activities.CreateAccountActivity"
             android:theme="@style/AppThemeWithActionbar"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
 
         <!-- [START gcm_receiver] -->

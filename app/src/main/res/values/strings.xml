@@ -83,16 +83,23 @@
     <string name="toast.service.booking.successful">Service has been booked successful</string>
     <string name="toast.waiting.confirmation">Waiting for confirmation…</string>
     <string name="toast.enable.location">Please enable location setting first</string>
+    <string name="toast.create.account.failed">Please fill all required fields</string>
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
 
     <!-- CreateAccount Activity -->
-    <string name="create.account.et.name">Your Name</string>
-    <string name="create.account.et.email">Your Email Address</string>
-    <string name="create.account.et.password">Your Password</string>
-    <string name="create.account.et.confirmpw">Re-Enter Your Password</string>
-    <string name="create.account.et.mobile">Your Mobile Phone</string>
-    <string name="create.account.et.address">Your Address</string>
-    <string name="create.account.btn.register">REGISTER</string>
+    <string name="create.account.et.name">Name (required)</string>
+    <string name="create.account.et.email">Email Address (required)</string>
+    <string name="create.account.et.password">Password (required)</string>
+    <string name="create.account.et.confirmpw">Re-Enter Password (required)</string>
+    <string name="create.account.et.mobile">Mobile Phone (optional)</string>
+    <string name="create.account.et.address">Address (optional)</string>
+    <string name="create.account.btn.register">REGISTER </string>
+
+    <string name="create.account.required.name">Please fill name</string>
+    <string name="create.account.required.email">Please fill email</string>
+    <string name="create.account.required.password">Please fill password</string>
+    <string name="create.account.required.confirmpw">Please fill confirmpw</string>
+    <string name="create.account.not.match.confirmpw">Your password and confirmation password do not match </string>
 
     <!-- Navigation Drawer -->
     <string name="nav.home">Home</string>
@@ -198,7 +205,7 @@
     <string name="fragment.new.booking.service.model">Model</string>
     <string name="fragment.new.booking.service.select.model.hint">Select model</string>
     <string name="fragment.new.booking.service.date.time">Date time</string>
-    <string name="fragment.new.booking.service.type" translatable="false">Type</string>
+    <string name="fragment.new.booking.service.type">Type</string>
     <string name="fragment.new.booking.service.select.service.hint">Select service</string>
     <string name="fragment.new.booking.service.branch">Branch</string>
     <string name="fragment.new.booking.service.branch.hint">Select branch</string>

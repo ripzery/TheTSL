@@ -136,6 +136,12 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         ivForgotPassword.setOnClickListener {
             forgetPassword()
         }
+
+        tvCall.setOnClickListener {
+            DialogUtil.getCallUsDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
+                makeCall("022699999")
+            }).show()
+        }
     }
 
     private fun setupFacebook() {

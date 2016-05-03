@@ -52,12 +52,12 @@
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
 
     <!-- CreateAccount Activity -->
-    <string name="create.account.et.name">Your Name</string>
-    <string name="create.account.et.email">Your Email Address</string>
-    <string name="create.account.et.password">Your Password</string>
-    <string name="create.account.et.confirmpw">Re-Enter Your Password</string>
-    <string name="create.account.et.mobile">Your Mobile Phone</string>
-    <string name="create.account.et.address">Your Address</string>
+    <string name="create.account.et.name">Name (required)</string>
+    <string name="create.account.et.email">Email Address (required)</string>
+    <string name="create.account.et.password">Password (required)</string>
+    <string name="create.account.et.confirmpw">Re-Enter Password (required)</string>
+    <string name="create.account.et.mobile">Mobile Phone (optional)</string>
+    <string name="create.account.et.address">Address (optional)</string>
     <string name="create.account.btn.register">REGISTER</string>
 
     <!-- Navigation Drawer -->
@@ -180,4 +180,10 @@
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.event.list.content">Loading events…</string>
     <string name="dialog.progress.service.car.tracking.content">Checking data...</string>
+    <string name="toast.create.account.failed">Please fill all required fields</string>
+    <string name="create.account.not.match.confirmpw">Your password and confirmation password do not match</string>
+    <string name="create.account.required.confirmpw">Please fill confirmpw</string>
+    <string name="create.account.required.email">Please fill email</string>
+    <string name="create.account.required.password">Please fill password</string>
+    <string name="create.account.required.name">Please fill name</string>
 </resources>

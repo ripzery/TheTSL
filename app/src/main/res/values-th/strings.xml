@@ -52,12 +52,12 @@
     <string name="toast.activate.account">สร้างบัญชีสำเร็จ คุณสามารถปลดล็อกบัญชีได้ที่อีเมล์ของคุณ</string>
 
     <!-- CreateAccount Activity -->
-    <string name="create.account.et.name">ชื่อของคุณ</string>
-    <string name="create.account.et.email">อีเมล์</string>
-    <string name="create.account.et.password">รหัสผ่าน</string>
-    <string name="create.account.et.confirmpw">กรุณาใส่รหัสผ่านอีกครั้ง</string>
-    <string name="create.account.et.mobile">เบอร์โทร</string>
-    <string name="create.account.et.address">ที่อยู่</string>
+    <string name="create.account.et.name">ชื่อของคุณ (จำเป็น)</string>
+    <string name="create.account.et.email">อีเมล์ (จำเป็น)</string>
+    <string name="create.account.et.password">รหัสผ่าน (จำเป็น)</string>
+    <string name="create.account.et.confirmpw">กรุณาใส่รหัสผ่านอีกครั้ง (จำเป็น)</string>
+    <string name="create.account.et.mobile">เบอร์โทร (จำเป็น)</string>
+    <string name="create.account.et.address">ที่อยู่ (เพิ่มเติม)</string>
     <string name="create.account.btn.register">ลงทะเบียน</string>
 
     <!-- Navigation Drawer -->
@@ -179,4 +179,10 @@
     <string name="viewgroup.contact">ทีเอสแอล สาธร</string>
     <string name="dialog.progress.emergency.call.content">กำลังแจ้ง...</string>
     <string name="dialog.progress.service.car.tracking.content">กำลังตรวจสอบข้อมูล...</string>
+    <string name="toast.create.account.failed">กรุณากรอกข้อมูลที่จำเป็นให้ครบ</string>
+    <string name="create.account.required.confirmpw">กรุณากรอกรหัสผ่านอีกครั้ง</string>
+    <string name="create.account.required.email">กรุณากรอกอีเมล</string>
+    <string name="create.account.required.name">กรุณากรอกชื่อ</string>
+    <string name="create.account.required.password">กรุณากรอกรหัสผ่าน</string>
+    <string name="create.account.not.match.confirmpw">รหัสผ่านไม่ตรงกัน</string>
 </resources>

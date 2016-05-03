@@ -17,12 +17,15 @@
 package com.socket9.thetsl.gcm
 
 import android.app.Notification
+import android.app.PendingIntent
+import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
+import com.socket9.thetsl.activities.MainActivity
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.notificationManager
@@ -64,23 +67,39 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
         try {
             val message = data?.getString("message")
             val type = data?.getString("type")
+            var intent: Intent = Intent(this, MainActivity::class.java)
 
             when (type) {
                 EMERGENCY_CALL -> {
+                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_EMERGENCY)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_BOOKING -> {
+                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_TRACKING -> {
+                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 NEW_CAR -> {
+                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
                 }
             }
+
+
+            val intentPending: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+
 
             val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.ic_noti)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setDefaults(Notification.DEFAULT_ALL)
-                    .setContentTitle("Hello")
+                    .setAutoCancel(true)
+                    .setContentTitle(type)
+                    .setContentIntent(intentPending)
                     .setContentText(message);
 
             notificationManager.notify(1, mBuilder.build())

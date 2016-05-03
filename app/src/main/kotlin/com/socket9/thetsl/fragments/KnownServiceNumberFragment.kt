@@ -81,6 +81,8 @@ class KnownServiceNumberFragment : Fragment(), AnkoLogger {
                         if (it.result) {
                             toast("Add successfully")
                             activity.finish()
+                        } else {
+                            toast(it.message!!)
                         }
                     }, {
                         it.printStackTrace()

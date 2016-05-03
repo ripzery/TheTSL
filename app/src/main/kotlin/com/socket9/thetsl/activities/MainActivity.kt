@@ -18,6 +18,7 @@ import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
 import com.socket9.thetsl.R
 import com.socket9.thetsl.SignInActivity
+import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.extensions.toast
@@ -60,12 +61,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private var eventFragment: NewsEventFragment? = null
     private var serviceFragment: ServiceFragment? = null
     private var carTrackingFragment: CarTrackingFragment? = null
+    private var currentFragmentIndex: Int = 4
     lateinit var myProfile: Model.Profile;
     private var getProfileSubscriber: Subscription? = null
     private var dialog: ProgressDialog ? = null
     private var tvName: TextView ? = null
     private var headerView: View? = null
-
 
     /** Lifecycle  zone **/
 
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 }
             }
             HomeFragment.REQUEST_MY_PROFILE -> {
-                getProfile(false)
+                if (resultCode == RESULT_OK) getProfile(false)
             }
 
         }
@@ -146,10 +147,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         setListener()
         getProfile(false)
         setupDrawerContent()
-        changeFragment(FRAGMENT_DISPLAY_EMERGENCY)
 
-        navView.setCheckedItem(R.id.nav_emergency_call)
-
+        currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
+        changeFragment(currentFragmentIndex)
+        setCheckedItem(currentFragmentIndex)
     }
 
     private fun checkIfEnterFromUrl() {
@@ -207,16 +208,27 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             FRAGMENT_DISPLAY_SERVICE -> replaceFragment(fragment = serviceFragment!!)
             FRAGMENT_DISPLAY_CAR_TRACKING -> replaceFragment(fragment = carTrackingFragment!!)
         }
+        currentFragmentIndex = mode
         onFragmentAttached(mode)
+    }
+
+    private fun setCheckedItem(itemIndex: Int) {
+        when (itemIndex) {
+            FRAGMENT_DISPLAY_NEWS -> navView.setCheckedItem(R.id.nav_news)
+            FRAGMENT_DISPLAY_EVENT -> navView.setCheckedItem(R.id.nav_news)
+            FRAGMENT_DISPLAY_CONTACT -> navView.setCheckedItem(R.id.nav_contact)
+            FRAGMENT_DISPLAY_EMERGENCY -> navView.setCheckedItem(R.id.nav_emergency_call)
+            FRAGMENT_DISPLAY_SERVICE -> navView.setCheckedItem(R.id.nav_service)
+        }
     }
 
     private fun setupDrawerContent() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-//                R.id.nav_home -> {
-//                    changeFragment(FRAGMENT_DISPLAY_HOME)
-//                    menuItem.isChecked = true
-//                }
+            //                R.id.nav_home -> {
+            //                    changeFragment(FRAGMENT_DISPLAY_HOME)
+            //                    menuItem.isChecked = true
+            //                }
                 R.id.nav_news -> {
                     //TODO: Save states is news or event is lastly visible
                     changeFragment(FRAGMENT_DISPLAY_NEWS)
@@ -239,6 +251,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             //                    menuItem.isChecked = true
             //                }
             }
+
+            //            navView.setChe
+
             drawerLayout.closeDrawers()
             true
         }
@@ -268,13 +283,20 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         btnChangeLanguage.setOnClickListener {
             DialogUtil.getChangeLangDialog(this, MaterialDialog.ListCallbackSingleChoice { materialDialog, view, i, charSequence ->
+                val lastLocale = if (SharePref.isEnglish()) "en" else "th"
+
                 if (i == 0) {
                     setLocale("th")
                 } else {
                     setLocale("en")
                 }
-                startActivity(Intent(this@MainActivity, MainActivity::class.java))
-                finish()
+
+                if (!lastLocale.equals(getSp(SharePref.SHARE_PREF_KEY_APP_LANG, ""))) {
+                    startActivity(Intent(this@MainActivity, MainActivity::class.java)
+                            .putExtra("currentFragmentIndex", currentFragmentIndex))
+                    finish()
+                }
+
                 true
             }).show()
         }
@@ -335,7 +357,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     tvName?.text = it.data?.nameEn
                     info { it }
 
-                    if(isFromEditProfile){
+                    if (isFromEditProfile) {
                         startEditProfile()
                     }
 

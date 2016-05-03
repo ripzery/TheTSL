@@ -160,7 +160,7 @@
     <string name="fragment.new.booking.service.type">Type</string>
     <string name="fragment.new.car.tracking.tracking.id">Tracking ID</string>
     <string name="fragment.new.car.tracking.submit">Submit</string>
-    <string name="fragment.service.detail.receive.date">Receive car date : dd/MM/yyyy</string>
+    <string name="fragment.service.detail.receive.date">Receive car date : </string>
     <string name="fragment.service.add.new.service">Add new service</string>
     <string name="fragment.service.empty.list">Empty list</string>
     <string name="fragment.service.first">first</string>

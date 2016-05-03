@@ -58,13 +58,18 @@ class ServiceDetailFragment : Fragment(){
     /** Method zone **/
 
     private fun initInstance(){
+
+        /* Init recyclerview */
         val linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = linearLayoutManager
-
         val adapter = ServiceDetailAdapter(serviceTrackingEntity.detail)
         recyclerView.adapter = adapter
 
+        /* Init service viewgroup */
         serviceViewGroup.setModel(serviceTrackingEntity)
+
+        /* Init car receive date  */
+        tvCarReceiveDate.text = tvCarReceiveDate.text.toString() + serviceTrackingEntity.detail[0].dateReceive
     }
 }

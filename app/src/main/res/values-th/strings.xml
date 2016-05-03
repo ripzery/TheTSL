@@ -163,7 +163,7 @@
     <string name="fragment.new.car.tracking.tracking.id">หมายเลขติดตาม</string>
     <string name="fragment.new.car.tracking.submit">ส่งข้อมูล</string>
     <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
-    <string name="fragment.service.detail.receive.date">ได้รับรถวันที่ วัน/เดือน/ปี</string>
+    <string name="fragment.service.detail.receive.date">ได้รับรถวันที่ : </string>
     <string name="fragment.service.empty.list">ว่าง</string>
     <string name="nav.car.tracking">ติดตามรถ</string>
     <string name="menu.profile.save">บันทึก</string>

@@ -183,7 +183,7 @@
 
     <!-- service -->
     <string name="fragment.service.add.new.service">Add new service</string>
-    <string name="fragment.service.detail.receive.date">Receive car date : dd/MM/yyyy</string>
+    <string name="fragment.service.detail.receive.date">Receive car date : </string>
     <string name="fragment.service.first">first</string>
     <string name="fragment.service.last">last</string>
     <string name="fragment.service.empty.list">Empty list</string>
@@ -198,7 +198,7 @@
     <string name="fragment.new.booking.service.model">Model</string>
     <string name="fragment.new.booking.service.select.model.hint">Select model</string>
     <string name="fragment.new.booking.service.date.time">Date time</string>
-    <string name="fragment.new.booking.service.type">Type</string>
+    <string name="fragment.new.booking.service.type" translatable="false">Type</string>
     <string name="fragment.new.booking.service.select.service.hint">Select service</string>
     <string name="fragment.new.booking.service.branch">Branch</string>
     <string name="fragment.new.booking.service.branch.hint">Select branch</string>

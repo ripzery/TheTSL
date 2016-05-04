@@ -138,6 +138,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
                     serviceList = it
                     HttpManager.getServiceTrackingList(orderType)
                 }.subscribe ({
+
             dialog?.dismiss()
             trackingList = it
 
@@ -148,6 +149,8 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
                 serviceAdapter!!.serviceTrackingList = trackingList!!.data
                 serviceAdapter!!.notifyDataSetChanged()
             }
+
+            if (serviceList!!.data.size + it.data.size > 0) tvEmpty.visibility = View.GONE
 
             recyclerView.adapter = serviceAdapter
 

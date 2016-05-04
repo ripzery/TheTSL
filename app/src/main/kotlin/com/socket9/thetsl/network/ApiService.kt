@@ -15,10 +15,10 @@ import rx.Observable
 
 object ApiService {
 
-    val BASE_URL = "http://tsl.socket9.com/api/";
+    //    val BASE_URL = "http://tsl.socket9.com/api/";
     var retrofit: Retrofit? = null
     //    val BASE_URL = "http://192.168.100.31:91/api/"
-    //        val BASE_URL = "http://www.tsl.co.th/api/"
+    val BASE_URL = "http://www.tsl.co.th/api/"
 
     fun getAPI(): TSLApi {
         if (retrofit == null) {

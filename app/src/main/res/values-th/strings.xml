@@ -79,25 +79,25 @@
     <string name="profile.name.content">Annop Vor</string>
     <string name="profile.phone.title">เบอร์โทร</string>
     <string name="profile.phone.content">0817137036</string>
-    <string name="profile.email.title">อีเมล์</string>
+    <string name="profile.email.title">อีเมล์&#160;</string>
     <string name="profile.email.content">pop@socket9.com</string>
     <string name="profile.password.title">รหัสผ่าน</string>
     <string name="profile.password.content">123214das</string>
 
     <!-- Branch Detail -->
     <string name="contact.business.hours">เวลาทำการ</string>
-    <string name="contact.email">อีเมล์</string>
+    <string name="contact.email">อีเมล์&#160;</string>
     <string name="contact.phone">เบอร์โทร</string>
-    <string name="contact.fax">แฟ็กซ์</string>
+    <string name="contact.fax">แฟ็กซ์&#160;</string>
 
     <!-- News & Event-->
     <string name="news">ข่าว</string>
     <string name="event">กิจกรรม</string>
 
     <!-- Contact Us -->
-    <string name="contact.us.email">อีเมล์</string>
+    <string name="contact.us.email">อีเมล์&#160;</string>
     <string name="contact.us.call.center">ศูนย์รับแจ้ง</string>
-    <string name="contact.us.website">เว็บไซท์</string>
+    <string name="contact.us.website">เว็บไซท์&#160;</string>
     <string name="contact.us.facebook">เฟซบุ๊ค</string>
     <string name="contact.us.instagram">อินสตาแกรม</string>
 
@@ -116,16 +116,16 @@
     <string name="lorem">ลอเร็ม ยิปมันส์ ดอเลอร์ ซิท อเมท, คองกิว มาเลซูดาร์. เมาริส อินทีเจอร์, เพลเลนเทส พูรัส น้ำ. ยิปมันส์ อินเทอร์ดัม เฟลิส ฟาซิลิซิ ยิปมัน อาลิคูอัม. ทินซิดันท์ ออนาเร่ นอน อิอาคูลิส เนส วิต้า, คอนเซคคัว อิน.</string>
     <string name="toolbar.Contact">ติดต่อ</string>
     <string name="profile.address.hint">ที่อยู่ของคุณ</string>
-    <string name="profile.email.hint">อีเมล์</string>
+    <string name="profile.email.hint">อีเมล์&#160;</string>
     <string name="profile.name.hint">ชื่อ</string>
     <string name="profile.password.hint">รหัสผ่าน</string>
-    <string name="profile.phone.hint">เบอร์โทรศัพท์</string>
+    <string name="profile.phone.hint">เบอร์โทรศัพท์&#160;</string>
     <string name="dialog.progress.contact.content">กำลังโหลดข้อมูลผู้ติดต่อ...</string>
     <string name="dialog.progress.event.list.content">กำลังโหลดกิจกรรม...</string>
     <string name="dialog.progress.news.list.content">กำลังโหลดข่าว...</string>
     <string name="dialog.progress.profile.content">กำลังโหลดข้อมูลผู้ใช้...</string>
     <string name="dialog.progress.title">กรุณารอสักครู่</string>
-    <string name="dialog.progress.web.content">กำลังโหลดเว็บไซต์</string>
+    <string name="dialog.progress.web.content">กำลังโหลดเว็บไซต์&#160;</string>
     <string name="booking.service.type.known.service.number">รู้เลขที่ใบแจ้งซ่อม</string>
     <string name="booking.service.type.new.booking.service">จองซ่อม</string>
     <string name="booking.service.type.title">เลือกการจอง</string>
@@ -167,7 +167,7 @@
     <string name="fragment.service.empty.list">ว่าง</string>
     <string name="nav.car.tracking">ติดตามรถ</string>
     <string name="menu.profile.save">บันทึก</string>
-    <string name="menu.event.share">แชร์</string>
+    <string name="menu.event.share">แชร์&#160;</string>
     <string name="nav.service">บริการ</string>
     <string name="toast.enable.location">กรุณาโหมดเปิดการเข้าถึงตำแหน่งก่อน</string>
     <string name="toast.fill.all.field">กรุณากรอกข้อมูลให้ครบ</string>

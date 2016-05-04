@@ -36,5 +36,4 @@ object DialogUtil {
     private fun getString(context: Context, id: Int): String {
         return context.getString(id)
     }
-
 }

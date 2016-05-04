@@ -100,6 +100,7 @@ object ApiService {
         fun updateProfile(@Field("token") token: String,
                           @Field("nameEn") nameEn: String,
                           @Field("nameTh") nameTh: String,
+                          @Field("password") password: String,
                           @Field("phone") phone: String,
                           @Field("address") address: String,
                           @Field("picture") picture: String): Observable<Model.BaseModel>
@@ -139,6 +140,10 @@ object ApiService {
         fun serviceCarTracking(@Field("token") token: String,
                                @Field("serviceJobNumber") order: String,
                                @Field("trackingid") trackingId: String): Observable<Model.ServiceTrackingList>
+
+        @FormUrlEncoded
+        @POST("saveDeviceByToken")
+        fun saveDeviceByToken(@Field("token") token: String, @Field("deviceid") deviceId: String): Observable<Model.BaseModel>
     }
 
 }

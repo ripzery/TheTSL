@@ -103,7 +103,15 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (save!!.isVisible) {
+            DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
+                setResult(RESULT_CANCELED)
+                finish()
+            }).show()
+        } else {
+            setResult(RESULT_CANCELED)
+            finish()
+        }
     }
 
     /** Method zone **/
@@ -115,10 +123,11 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
 
         with(myProfile.data!!) {
             Glide.with(this@MyProfileActivity).load(pic ?: facebookPic).into(ivUser)
-            etName.setText(if (getName().isNullOrBlank()) "Blank" else getName())
-            etAddress.setText(if (address.isNullOrBlank()) "Blank" else address)
-            etPhone.setText(if (phone.isNullOrBlank()) "Blank" else phone)
-            etEmail.setText(if (email.isNullOrBlank()) "Blank" else email)
+            etName.setText(if (getName().isNullOrBlank()) "" else getName())
+            etAddress.setText(if (address.isNullOrBlank()) "" else address)
+            etPhone.setText(if (phone.isNullOrBlank()) "" else phone)
+            tvEmail.text = if (email.isNullOrBlank()) "" else email
+            etPassword.setText(if (password.isNullOrBlank()) "" else password)
         }
 
         ivUser.setOnClickListener { startActivityForResult(PickImageChooserManager.getPickCaptureChooserIntent(this), 200) }
@@ -132,9 +141,6 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
         RxTextView.afterTextChangeEvents(etPhone)
                 .subscribe { save?.isVisible = true }
 
-        RxTextView.afterTextChangeEvents(etEmail)
-                .subscribe { save?.isVisible = true }
-
         RxTextView.afterTextChangeEvents(etPassword)
                 .subscribe { save?.isVisible = true }
 
@@ -142,7 +148,7 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
 
     private fun handleCrop(resultCode: Int, result: Intent) {
         if (resultCode == RESULT_OK) {
-            save?.setVisible(true)
+            save?.isVisible = true
             val px: Int = PhotoUtil.convertDpToPx(this, 128)
 
             Glide.with(this).load(Crop.getOutput(result))
@@ -172,7 +178,7 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
         val picturePath = photo?.pathSave ?: ""
 
         /* call updateProfile api */
-        HttpManager.updateProfile(etName.text.toString(), etName.text.toString(), etPhone.text.toString(), etAddress.text.toString(), picturePath)
+        HttpManager.updateProfile(etName.text.toString(), etName.text.toString(), etPassword.text.toString(), etPhone.text.toString(), etAddress.text.toString(), picturePath)
                 .subscribe ({
                     progressDialog.dismiss()
                     toast(it.message)

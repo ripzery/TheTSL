@@ -62,7 +62,7 @@
 
     <!-- Navigation Drawer -->
     <string name="nav.home">Home</string>
-    <string name="nav.news">News &amp; Event</string>
+    <string name="nav.news">News &amp; Events</string>
     <string name="nav.contact">Contact Us</string>
     <string name="nav.emergency">Emergency Call</string>
     <string name="nav.signout">Sign Out</string>

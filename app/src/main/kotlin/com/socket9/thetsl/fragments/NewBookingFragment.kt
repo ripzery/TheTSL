@@ -1,14 +1,17 @@
 package com.socket9.thetsl.fragments
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
+import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -34,7 +37,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     private var datePicker: CalendarDatePickerDialogFragment? = null
     private var timePicker: RadialTimePickerDialogFragment? = null
     private var dateTime: String = ""
-
+    private var isModified: Boolean = false
 
     /** Static method zone **/
     companion object {
@@ -100,14 +103,15 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                     info { "$hour:$minute" }
                     dateTime += "${String.format("%02d", hour)}:${String.format("%02d", minute)}:00"
                     btnDate.text = dateTime
+                    isModified = true
                 })
                 .setDoneText("Done")
                 .setCancelText("Cancel")
 
+        initListener()
 
         loadData()
 
-        initListener()
     }
 
     private fun initListener() {
@@ -137,6 +141,36 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         btnDate.setOnClickListener {
             datePicker?.show(childFragmentManager, "DatePicker")
         }
+
+        val spinSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+            }
+        }
+
+        RxTextView.textChangeEvents(etLicensePlate)
+                .skip(1)
+                .subscribe {
+                    isModified = true
+                }
+        RxTextView.textChangeEvents(etMoreInfo)
+                .skip(1)
+                .subscribe {
+                    isModified = true
+                }
+
+        spinnerBranch.onItemSelectedListener = spinSelectedListener
+        spinnerModel.onItemSelectedListener = spinSelectedListener
+        spinnerType.onItemSelectedListener = spinSelectedListener
+
+    }
+
+    fun isModified(): Boolean {
+        return isModified
     }
 
     private fun book(newBooking: Model.NewBooking) {
@@ -149,8 +183,9 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                     progressDialog?.dismiss()
                     toast(getString(R.string.toast_service_booking_successful))
                     info { it }
+                    activity.setResult(Activity.RESULT_OK)
                     activity.finish()
-                },{
+                }, {
                     progressDialog?.dismiss()
                     toast(getString(R.string.toast_internet_connection_problem))
                 })
@@ -168,7 +203,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         spinnerType.adapter = typeAdapter
     }
 
-    private fun loadData(){
+    private fun loadData() {
         progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
         progressDialog?.setCancelable(false)
         progressDialog?.show()
@@ -178,7 +213,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
             basicData = it
             progressDialog?.dismiss()
             setSpinnerData(it)
-        }, {error ->
+        }, { error ->
             progressDialog?.dismiss()
             toast(getString(R.string.toast_internet_connection_problem))
         })

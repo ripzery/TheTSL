@@ -71,6 +71,7 @@
     <string name="dialog.progress.create.account.content">Creating account…</string>
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.login.content">Logging in…</string>
+    <string name="dialog.progress.save.device.content">Saving deviceId for notification…</string>
     <string name="dialog.progress.service.car.tracking.content">Checking data…</string>
 
     <!-- Toast -->
@@ -103,7 +104,7 @@
 
     <!-- Navigation Drawer -->
     <string name="nav.home">Home</string>
-    <string name="nav.news">News &amp; Event</string>
+    <string name="nav.news">News &amp; Events</string>
     <string name="nav.contact">Contact Us</string>
     <string name="nav.emergency">Emergency Call</string>
     <string name="nav.signout">Sign Out</string>

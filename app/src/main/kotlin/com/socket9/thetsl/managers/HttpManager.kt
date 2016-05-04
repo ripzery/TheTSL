@@ -39,6 +39,13 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
+    fun saveDeviceId(deviceId: String): Observable<Model.BaseModel> {
+        return ApiService.getAPI().saveDeviceByToken(SharePref.getToken(), deviceId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
     fun emergencyCall(lat: String, lng: String, type: String): Observable<Model.BaseModel> {
         return ApiService.getAPI().emergencyCall(SharePref.getToken(), lat, lng, type)
                 .doOnNext {
@@ -49,8 +56,8 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
-    fun updateProfile(nameEn: String, nameTh: String, phone: String, address: String, picture: String): Observable<Model.BaseModel> {
-        return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, phone, address, picture)
+    fun updateProfile(nameEn: String, nameTh: String, password: String, phone: String, address: String, picture: String): Observable<Model.BaseModel> {
+        return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, password, phone, address, picture)
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }

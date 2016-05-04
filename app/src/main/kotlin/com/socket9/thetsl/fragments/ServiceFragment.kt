@@ -1,6 +1,8 @@
 package com.socket9.thetsl.fragments
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -35,6 +37,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
     private var serviceAdapter: ServiceAdapter? = null
     private var serviceList: Model.ServiceBookingList? = null
     private var trackingList: Model.ServiceTrackingList? = null
+    private var isLast: Boolean = false
 
     /** Static method zone **/
     companion object {
@@ -80,6 +83,17 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            NewBookingActivity.NEW_BOOKING_ACTIVITY -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    loadData("first")
+                }
+            }
+        }
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
@@ -90,14 +104,18 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         initListener()
 
         /* Loading data */
-        loadData("first")
+        loadData(if (isLast) "last" else "first")
     }
 
     private fun initListener() {
         btnAddService.setOnClickListener {
             selector(getString(R.string.booking_service_type_title), serviceAddedType) { position ->
                 when (position) {
-                    0 -> startActivity<NewBookingActivity>("isNewBooking" to true)
+                    0 -> {
+                        val intent = Intent(activity, NewBookingActivity::class.java)
+                        intent.putExtra("isNewBooking", true)
+                        startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY)
+                    }
                     1 -> startActivity<NewBookingActivity>("isNewBooking" to false)
                 }
             }
@@ -111,6 +129,8 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
 
             /* Loading new booking by first order */
             loadData("first")
+
+            isLast = false
         }
 
         btnRight.setOnClickListener {
@@ -121,6 +141,8 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
 
             /* Loading new booking by last order */
             loadData("last")
+
+            isLast = true
         }
 
 

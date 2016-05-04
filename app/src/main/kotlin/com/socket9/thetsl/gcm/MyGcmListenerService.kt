@@ -26,9 +26,12 @@ import android.util.Log
 import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.MainActivity
+import com.socket9.thetsl.extensions.getSp
+import com.socket9.thetsl.utils.SharePref
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.notificationManager
+import org.json.JSONObject
 
 class MyGcmListenerService : GcmListenerService(), AnkoLogger {
 
@@ -67,6 +70,17 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
         try {
             val message = data?.getString("message")
             val type = data?.getString("type")
+
+            var messageData: String = message!!
+
+            try {
+                val language = getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "en") as String
+                messageData = JSONObject(message).getString(language)
+
+            } catch (e: Exception) {
+                info { "Can't parse json" }
+            }
+
             var intent: Intent = Intent(this, MainActivity::class.java)
 
             when (type) {
@@ -85,7 +99,6 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                 NEW_CAR -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
                 }
             }
 
@@ -100,7 +113,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     .setAutoCancel(true)
                     .setContentTitle(type)
                     .setContentIntent(intentPending)
-                    .setContentText(message);
+                    .setContentText(messageData);
 
             notificationManager.notify(1, mBuilder.build())
 

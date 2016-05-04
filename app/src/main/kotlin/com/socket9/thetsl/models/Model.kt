@@ -60,6 +60,7 @@ object Model {
     data class ProfileEntity(val nameTh: String,
                              val nameEn: String,
                              val phone: String? = null,
+                             val password: String? = null,
                              val address: String ? = null,
                              val email: String,
                              val pic: String? = null,

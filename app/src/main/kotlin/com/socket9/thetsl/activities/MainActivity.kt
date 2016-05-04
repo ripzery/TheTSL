@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     lateinit var myProfile: Model.Profile;
     private var getProfileSubscriber: Subscription? = null
     private var dialog: ProgressDialog ? = null
+    private var dialogDeviceId: ProgressDialog ? = null
     private var tvName: TextView ? = null
     private var headerView: View? = null
 
@@ -158,6 +159,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             try {
                 val data = intent.data
                 saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, data.getQueryParameter("token"))
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -349,22 +351,46 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         dialog?.setCancelable(false)
         dialog?.show()
 
-        getProfileSubscriber = HttpManager.getProfile()
-                .subscribe({
-                    dialog?.dismiss()
-                    myProfile = it
-                    Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
-                    tvName?.text = it.data?.nameEn
-                    info { it }
 
-                    if (isFromEditProfile) {
-                        startEditProfile()
+        if (intent.data != null) {
+            getProfileSubscriber = HttpManager.saveDeviceId(getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)
+                    .flatMap {
+                        info { it }
+                        HttpManager.getProfile()
                     }
+                    .subscribe({
+                        dialog?.dismiss()
+                        myProfile = it
+                        Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
+                        tvName?.text = it.data?.nameEn
+                        info { it }
 
-                }, { error ->
-                    dialog?.dismiss()
-                    toast(getString(R.string.toast_internet_connection_problem))
-                })
+                        if (isFromEditProfile) {
+                            startEditProfile()
+                        }
+
+                    }, { error ->
+                        dialog?.dismiss()
+                        toast(getString(R.string.toast_internet_connection_problem))
+                    })
+        } else {
+            getProfileSubscriber = HttpManager.getProfile()
+                    .subscribe({
+                        dialog?.dismiss()
+                        myProfile = it
+                        Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
+                        tvName?.text = it.data?.nameEn
+                        info { it }
+
+                        if (isFromEditProfile) {
+                            startEditProfile()
+                        }
+
+                    }, { error ->
+                        dialog?.dismiss()
+                        toast(getString(R.string.toast_internet_connection_problem))
+                    })
+        }
     }
 
     /** Listener zone **/

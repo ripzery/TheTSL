@@ -216,6 +216,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                         saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, it.data.token)
                         toast(getString(R.string.toast_login_successful))
                         startActivity<MainActivity>()
+                        finish()
                     } else {
                         toast(it.message!!)
                     }

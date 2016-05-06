@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
+import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
@@ -38,6 +39,8 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     private var timePicker: RadialTimePickerDialogFragment? = null
     private var dateTime: String = ""
     private var isModified: Boolean = false
+    private var isDateSet: Boolean = false
+    private var isTimeSet: Boolean = false
 
     /** Static method zone **/
     companion object {
@@ -88,11 +91,17 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
     private fun initInstance() {
 
+        val now: Calendar = Calendar.getInstance()
+        val minDate: MonthAdapter.CalendarDay = MonthAdapter.CalendarDay(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH))
+
         datePicker = CalendarDatePickerDialogFragment()
+                .setDateRange(minDate, null)
                 .setOnDateSetListener({ calendarDatePickerDialogFragment, year, monthOfYear, dayOfMonth ->
                     info { "$dayOfMonth/$monthOfYear/$year" }
                     dateTime = "$year-${String.format("%02d", monthOfYear)}-${String.format("%02d", dayOfMonth)} "
-                    timePicker?.show(childFragmentManager, "TimePicker")
+                    isDateSet = true
+                    btnDate.text = dateTime
+                    //                    timePicker?.show(childFragmentManager, "TimePicker")
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
                 .setDoneText("Done")
@@ -101,10 +110,12 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         timePicker = RadialTimePickerDialogFragment()
                 .setOnTimeSetListener({ radialTimePickerDialogFragment, hour, minute ->
                     info { "$hour:$minute" }
+                    btnTime.text = "${String.format("%02d", hour)}:${String.format("%02d", minute)}:00"
                     dateTime += "${String.format("%02d", hour)}:${String.format("%02d", minute)}:00"
-                    btnDate.text = dateTime
                     isModified = true
+                    isTimeSet = true
                 })
+                .setStartTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE))
                 .setDoneText("Done")
                 .setCancelText("Cancel")
 
@@ -127,8 +138,8 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                         "087-1234567")
 
                 info { newBooking }
-
                 book(newBooking)
+
             } catch(e: Exception) {
 
                 toast(getString(R.string.toast_fill_all_field))
@@ -141,6 +152,8 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         btnDate.setOnClickListener {
             datePicker?.show(childFragmentManager, "DatePicker")
         }
+
+        btnTime.setOnClickListener { timePicker?.show(childFragmentManager, "TimePicker") }
 
         val spinSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {

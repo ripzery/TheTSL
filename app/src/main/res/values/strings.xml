@@ -86,6 +86,7 @@
     <string name="toast.enable.location">Please enable location setting first</string>
     <string name="toast.create.account.failed">Please fill all required fields</string>
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
+    <string name="toast.create.booking.validate.date.time">Please set date and time</string>
 
     <!-- CreateAccount Activity -->
     <string name="create.account.et.name">Name (required)</string>
@@ -205,7 +206,8 @@
     <string name="fragment.new.booking.service.license.plate.hint">Put license plate</string>
     <string name="fragment.new.booking.service.model">Model</string>
     <string name="fragment.new.booking.service.select.model.hint">Select model</string>
-    <string name="fragment.new.booking.service.date.time">Date time</string>
+    <string name="fragment.new.booking.service.date">Date</string>
+    <string name="fragment.new.booking.service.time">Time</string>
     <string name="fragment.new.booking.service.type">Type</string>
     <string name="fragment.new.booking.service.select.service.hint">Select service</string>
     <string name="fragment.new.booking.service.branch">Branch</string>
@@ -219,4 +221,5 @@
     <string name="fragment.car.tracking.first">first</string>
     <string name="fragment.car.tracking.last">last</string>
     <string name="fragment.car.tracking.empty.list">Empty list</string>
+    <string name="fragment.new.booking.service.date.time">Date time</string>
 </resources>

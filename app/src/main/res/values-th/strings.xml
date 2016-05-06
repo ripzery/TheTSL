@@ -185,4 +185,8 @@
     <string name="create.account.required.name">กรุณากรอกชื่อ</string>
     <string name="create.account.required.password">กรุณากรอกรหัสผ่าน</string>
     <string name="create.account.not.match.confirmpw">รหัสผ่านไม่ตรงกัน</string>
+    <string name="dialog.progress.save.device.content">กำลังส่งข้อมูลสำหรับรับการแจ้งเตือน...</string>
+    <string name="fragment.new.booking.service.time">เลือกเวลา</string>
+    <string name="fragment.new.booking.service.date">เลือกวันที่</string>
+    <string name="toast.create.booking.validate.date.time">กรุณาใส่วันที่และเวลา</string>
 </resources>

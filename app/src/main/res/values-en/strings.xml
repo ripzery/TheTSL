@@ -186,4 +186,8 @@
     <string name="create.account.required.email">Please fill email</string>
     <string name="create.account.required.password">Please fill password</string>
     <string name="create.account.required.name">Please fill name</string>
+    <string name="dialog.progress.save.device.content">Saving deviceId for notification…</string>
+    <string name="fragment.new.booking.service.time">Time</string>
+    <string name="fragment.new.booking.service.date">Date</string>
+    <string name="toast.create.booking.validate.date.time">Please set date and time</string>
 </resources>

@@ -97,8 +97,8 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         datePicker = CalendarDatePickerDialogFragment()
                 .setDateRange(minDate, null)
                 .setOnDateSetListener({ calendarDatePickerDialogFragment, year, monthOfYear, dayOfMonth ->
-                    info { "$dayOfMonth/$monthOfYear/$year" }
-                    dateTime = "$year-${String.format("%02d", monthOfYear)}-${String.format("%02d", dayOfMonth)} "
+                    info { "$dayOfMonth/${monthOfYear + 1}/$year" }
+                    dateTime = "$year-${String.format("%02d", monthOfYear + 1)}-${String.format("%02d", dayOfMonth)} "
                     isDateSet = true
                     btnDate.text = dateTime
                     //                    timePicker?.show(childFragmentManager, "TimePicker")

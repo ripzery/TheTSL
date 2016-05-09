@@ -193,6 +193,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
 
                 //BusProvider.post(new ApiFire.LoginWithFb(email, name, name, email, hometown, facebookId, fbPhoto));
             } catch (e: JSONException) {
+                toast(e.message ?: "")
                 e.printStackTrace()
             }
         }

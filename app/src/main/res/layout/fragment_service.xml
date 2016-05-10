@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/BaseButton.Primary"
             android:text="@string/fragment.service.add.new.service"
+            fontPath="fonts/samakarn/Samakarn-Bold.ttf"
             android:drawableLeft="@drawable/ic_action_add"
             android:drawablePadding="16dp"
             android:padding="16dp"

@@ -14,6 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment.known.service.number.service.number"
+            fontPath="fonts/samakarn/Samakarn-Bold.ttf"
             android:theme="@style/BasicText"/>
 
         <EditText
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment.known.service.number.tracking.id"
+            fontPath="fonts/samakarn/Samakarn-Bold.ttf"
             android:theme="@style/BasicText"/>
 
         <EditText
@@ -60,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_64"
         android:text="@string/fragment.known.service.number.submit"
+        fontPath="fonts/samakarn/Samakarn-Bold.ttf"
         android:theme="@style/BaseButton.Primary"/>
 
 </LinearLayout>

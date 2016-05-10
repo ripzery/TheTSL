@@ -59,7 +59,6 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
             /* if newly created */
             bottomBarIndex = arguments.getInt(ARG_1)
             isLaunchedByGcm = arguments.getBoolean(ARG_2)
-            initFragment()
         }
     }
 
@@ -74,10 +73,16 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
         initInstance(view, savedInstanceState)
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
     /** Method zone **/
 
     private fun initInstance(view: View?, savedInstanceState: Bundle?) {
+        initFragment()
         initListener()
+        bottomBar?.selectTabAtPosition(bottomBarIndex, true)
     }
 
     private fun initFragment() {
@@ -110,14 +115,13 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
             override fun onMenuTabReSelected(menuItemId: Int) {
 
             }
-
         })
+
+
     }
 
     fun setTab(index: Int, isLaunchedByGcm: Boolean) {
         try {
-            bottomBar?.selectTabAtPosition(index, true)
-
             if (isLaunchedByGcm) {
                 when (index) {
                     0 -> {

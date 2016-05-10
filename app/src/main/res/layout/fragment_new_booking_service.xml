@@ -27,6 +27,7 @@
                     android:theme="@style/BasicText.Primary"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:text="@string/fragment.new.booking.service.license.plate"/>
 
                 <EditText
@@ -53,6 +54,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:theme="@style/BasicText.Primary"
                     android:layout_weight="0.5"
                     android:text="@string/fragment.new.booking.service.model"/>
@@ -90,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.6"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:theme="@style/BasicText.Primary"
                     android:text="@string/fragment.new.booking.service.date"/>
 
@@ -120,6 +123,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:layout_weight="0.6"
                     android:theme="@style/BasicText.Primary"
                     android:text="@string/fragment.new.booking.service.time"/>
@@ -150,6 +154,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:theme="@style/BasicText.Primary"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
@@ -177,6 +182,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:theme="@style/BasicText.Primary"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:layout_weight="0.5"
                     android:layout_gravity="center_vertical"
                     android:text="@string/fragment.new.booking.service.branch"/>
@@ -203,6 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/BasicText.Primary"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                     android:text="@string/fragment.new.booking.service.more.info"/>
 
                 <EditText
@@ -227,6 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_64"
                 android:text="@string/fragment.new.booking.service.book"
+                fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                 android:theme="@style/BaseButton.Primary"
                 />
 

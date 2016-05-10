@@ -229,17 +229,20 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
             FRAGMENT_DISPLAY_CONTACT -> replaceFragment(fragment = contactFragment!!)
             FRAGMENT_DISPLAY_EMERGENCY -> {
                 //                replaceFragment(fragment = emergencyFragment!!)
+                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
                 bottomNavigationFragment!!.setTab(BottomNavigationFragment.EMERGENCY, isLaunchedByGcm)
             }
             FRAGMENT_DISPLAY_EVENT -> replaceFragment(fragment = eventFragment!!)
             FRAGMENT_DISPLAY_SERVICE -> {
                 //                replaceFragment(fragment = serviceFragment!!)
+                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.SERVICE_TRACKING, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
                 bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm)
             }
             FRAGMENT_DISPLAY_CAR_TRACKING -> {
                 //                replaceFragment(fragment = carTrackingFragment!!)
+                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.CAR_TRACKING, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
                 bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, isLaunchedByGcm)
             }

@@ -2,6 +2,7 @@ package com.socket9.thetsl.activities
 
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -14,6 +15,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -55,6 +57,10 @@ class CreateAccountActivity : AppCompatActivity(), AnkoLogger {
         }
 
         return false
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     /** Method zone **/

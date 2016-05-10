@@ -85,19 +85,28 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
 
             when (type) {
                 EMERGENCY_CALL -> {
-                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_EMERGENCY)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.putExtra("currentFragmentIndex",
+                            if (message.equals("เปิดใบแจ้งซ่อมแล้ว") || message.equals("Start service job")) {
+                                MainActivity.FRAGMENT_DISPLAY_SERVICE
+                            } else {
+                                MainActivity.FRAGMENT_DISPLAY_EMERGENCY
+                            }
+                    )
+                            .putExtra("isGcm", true).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_BOOKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                            .putExtra("isGcm", true)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_TRACKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                            .putExtra("isGcm", true)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 NEW_CAR -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                            .putExtra("isGcm", true)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
             }

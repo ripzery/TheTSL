@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
@@ -20,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_new_booking_service.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 import java.util.*
@@ -41,6 +40,9 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     private var isModified: Boolean = false
     private var isDateSet: Boolean = false
     private var isTimeSet: Boolean = false
+    private var choosenModelIndex = -1
+    private var choosenTypeIndex = -1
+    private var choosenBranchIndex = -1
 
     /** Static method zone **/
     companion object {
@@ -130,10 +132,10 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
             try {
                 val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
-                        basicData!!.data.modelCategories[spinnerModel.selectedItemPosition - 1],
+                        basicData!!.data.modelCategories[choosenModelIndex],
                         dateTime,
-                        basicData!!.data.serviceTypes[spinnerType.selectedItemPosition - 1],
-                        basicData!!.data.branches[spinnerBranch.selectedItemPosition - 1],
+                        basicData!!.data.serviceTypes[choosenTypeIndex],
+                        basicData!!.data.branches[choosenBranchIndex],
                         etMoreInfo.text.toString(),
                         "087-1234567")
 
@@ -155,16 +157,6 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
         btnTime.setOnClickListener { timePicker?.show(childFragmentManager, "TimePicker") }
 
-        val spinSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-            }
-        }
-
         RxTextView.textChangeEvents(etLicensePlate)
                 .skip(1)
                 .subscribe {
@@ -176,9 +168,33 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                     isModified = true
                 }
 
-        spinnerBranch.onItemSelectedListener = spinSelectedListener
-        spinnerModel.onItemSelectedListener = spinSelectedListener
-        spinnerType.onItemSelectedListener = spinSelectedListener
+        //        spinnerBranch.onItemSelectedListener = spinSelectedListener
+        //        spinnerModel.onItemSelectedListener = spinSelectedListener
+        //        spinnerType.onItemSelectedListener = spinSelectedListener
+
+        btnChooseModel.setOnClickListener {
+            selector(getString(R.string.fragment_new_booking_service_select_model_hint), getListNameFromBasicData(basicData!!.data.modelCategories), {
+                btnChooseModel.text = basicData!!.data.modelCategories[it].getName()
+                choosenModelIndex = it
+                isModified = true
+            })
+        }
+
+        btnChooseType.setOnClickListener {
+            selector(getString(R.string.fragment_new_booking_service_type_hint), getListNameFromBasicData(basicData!!.data.serviceTypes), {
+                btnChooseType.text = basicData!!.data.serviceTypes[it].getName()
+                choosenTypeIndex = it
+                isModified = true
+            })
+        }
+
+        btnChooseBranch.setOnClickListener {
+            selector(getString(R.string.fragment_new_booking_service_branch_hint), getListNameFromBasicData(basicData!!.data.branches), {
+                btnChooseBranch.text = basicData!!.data.branches[it].getName()
+                choosenBranchIndex = it
+                isModified = true
+            })
+        }
 
     }
 
@@ -204,17 +220,18 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 })
     }
 
-    private fun setSpinnerData(it: Model.ServiceBasicData) {
-        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
-        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerBranch.adapter = branchAdapter
-        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
-        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerModel.adapter = modelAdapter
-        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerType.adapter = typeAdapter
-    }
+
+    //    private fun setSpinnerData(it: Model.ServiceBasicData) {
+    //        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
+    //        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    //        spinnerBranch.adapter = branchAdapter
+    ////        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
+    ////        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    ////        spinnerModel.adapter = modelAdapter
+    //        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
+    //        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    //        spinnerType.adapter = typeAdapter
+    //    }
 
     private fun loadData() {
         progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
@@ -225,7 +242,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         dataSubscription = HttpManager.getServiceBasicData().subscribe ({
             basicData = it
             progressDialog?.dismiss()
-            setSpinnerData(it)
+            //            setSpinnerData(it)
         }, { error ->
             progressDialog?.dismiss()
             toast(getString(R.string.toast_internet_connection_problem))
@@ -235,7 +252,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     private fun getListNameFromBasicData(dataList: MutableList<Model.BasicData>): List<String> {
         var list: MutableList<String> = mutableListOf()
         for (item in dataList) {
-            list.add(item.nameEn)
+            list.add(item.getName())
         }
         return list
     }

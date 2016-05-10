@@ -17,8 +17,24 @@ object DialogUtil {
         return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_call_us_title)).content(getString(context, R.string.dialog_call_us_content)).positiveText(getString(context, R.string.dialog_call_us_positive)).negativeText(getString(context, R.string.dialog_call_us_negative)).onPositive(callback).build()
     }
 
+    fun getEmergencyCallDialog(context: Context, callback: MaterialDialog.SingleButtonCallback): MaterialDialog {
+        return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_emergency_call_title)).content(getString(context, R.string.dialog_emergency_call_content)).positiveText(getString(context, R.string.dialog_emergency_call_positive)).negativeText(getString(context, R.string.dialog_emergency_call_negative)).onPositive(callback).build()
+    }
+
+    fun getEmergencyConfirmationDialog(context: Context): MaterialDialog {
+        return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_emergency_confirmation_title)).content(getString(context, R.string.dialog_emergency_confirmation_content)).positiveText(getString(context, R.string.dialog_emergency_confirmation_positive)).build()
+    }
+
     fun getUpdateProfileDialog(context: Context, callback: MaterialDialog.SingleButtonCallback): MaterialDialog {
         return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_update_profile_title)).content(getString(context, R.string.dialog_update_profile_content)).positiveText(getString(context, R.string.dialog_update_profile_positive)).negativeText(getString(context, R.string.dialog_update_profile_negative)).onPositive(callback).build()
+    }
+
+    fun getServiceBookingConfirmationDialog(context: Context): MaterialDialog {
+        return MaterialDialog.Builder(context)
+                .title(getString(context, R.string.dialog_update_profile_title))
+                .content(R.layout.dialog_booking_confirmation)
+                .positiveText(getString(context, R.string.dialog_emergency_confirmation_positive))
+                .build()
     }
 
     fun getSignOutDialog(context: Context, callback: MaterialDialog.SingleButtonCallback): MaterialDialog {

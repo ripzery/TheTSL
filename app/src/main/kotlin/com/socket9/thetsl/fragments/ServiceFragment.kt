@@ -10,14 +10,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewBookingActivity
 import com.socket9.thetsl.activities.ServiceDetailActivity
 import com.socket9.thetsl.adapter.ServiceAdapter
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.utils.DialogUtil
 import kotlinx.android.synthetic.main.fragment_service.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.startActivity
@@ -148,6 +151,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
 
     }
 
+    /* Load booking service data, then load service tracking data, and push to the stack. */
     private fun loadData(orderType: String) {
         dialog = indeterminateProgressDialog(R.string.dialog_progress_service_list_content, R.string.dialog_progress_title)
         dialog?.setCancelable(false)
@@ -183,6 +187,22 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             dialog?.dismiss()
             toast(getString(R.string.toast_internet_connection_problem))
         })
+    }
+
+    /* show dialog if coming from gcm */
+    fun showConfirmationDialog() {
+        val dialog = DialogUtil.getServiceBookingConfirmationDialog(activity)
+        val view = dialog.customView!!
+
+        with(view) {
+            val tvType = find<TextView>(R.id.tvType)
+            val tvDate = find<TextView>(R.id.tvDate)
+            val tvTime = find<TextView>(R.id.tvTime)
+            val tvBranch = find<TextView>(R.id.tvBranch)
+        }
+
+        dialog.show()
+
     }
 
     /** Listener zone **/

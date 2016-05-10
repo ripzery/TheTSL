@@ -74,12 +74,6 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        registerReceiver()
-
-    }
-
     override fun onPause() {
         super.onPause()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver)
@@ -88,6 +82,13 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         loginFbSubscription?.unsubscribe()
         loginSubscription?.unsubscribe()
     }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver()
+
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)

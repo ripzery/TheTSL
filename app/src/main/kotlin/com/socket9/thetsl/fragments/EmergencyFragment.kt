@@ -171,20 +171,25 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
                         if (it.result) {
                             info { it }
-                            val callusDialog = DialogUtil.getCallUsDialog(activity, MaterialDialog.SingleButtonCallback { dialog, which ->
-                                makeCall("022699999")
-                            })
-
-                            callusDialog.setCancelable(false)
-                            callusDialog.show()
+                            showCallDialog()
                         }
 
                     }, { error ->
                         dialog?.dismiss()
                         toast(error.message.toString())
+                        showCallDialog()
                     })
         }
 
+    }
+
+    private fun showCallDialog() {
+        val callusDialog = DialogUtil.getCallUsDialog(activity, MaterialDialog.SingleButtonCallback { dialog, which ->
+            makeCall("022699999")
+        })
+
+        callusDialog.setCancelable(false)
+        callusDialog.show()
     }
 
     fun userNotEnabledLocation() {

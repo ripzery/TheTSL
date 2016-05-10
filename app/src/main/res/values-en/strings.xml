@@ -1,6 +1,4 @@
 <resources>
-    <string name="app.name">TSL</string>
-
     <string name="hello.world">Hello world!</string>
     <string name="action.settings">Settings</string>
     <string name="title.activity.sign.in">SignInActivity</string>
@@ -163,8 +161,8 @@
     <string name="fragment.service.detail.receive.date">Receive car date : </string>
     <string name="fragment.service.add.new.service">Add new service</string>
     <string name="fragment.service.empty.list">Empty list</string>
-    <string name="fragment.service.first">first</string>
-    <string name="fragment.service.last">last</string>
+    <string name="fragment.service.first">current</string>
+    <string name="fragment.service.last">service history</string>
     <string name="menu.event.share">Share</string>
     <string name="menu.profile.save">Save</string>
     <string name="nav.car.tracking">Car tracking</string>
@@ -190,4 +188,15 @@
     <string name="fragment.new.booking.service.time">Time</string>
     <string name="fragment.new.booking.service.date">Date</string>
     <string name="toast.create.booking.validate.date.time">Please set date and time</string>
+    <string name="dialog.emergency.call.content">Do you want to call a technician?</string>
+    <string name="dialog.emergency.call.negative">Cancel</string>
+    <string name="dialog.emergency.call.positive">Call</string>
+    <string name="dialog.emergency.call.title">Are you sure?</string>
+    <string name="dialog.emergency.confirmation.content">Thank you for using TSL Emergency call service. The technician will get back to you within 30 mins.</string>
+    <string name="dialog.emergency.confirmation.positive">OK</string>
+    <string name="dialog.emergency.confirmation.title">Confirmation</string>
+    <string name="fragment.new.booking.service.title">New Booking</string>
+    <string name="fragment.new.booking.service.date.hint">Choose date</string>
+    <string name="fragment.new.booking.service.time.hint">Choose time</string>
+    <string name="fragment.new.booking.service.type.hint">Choose type</string>
 </resources>

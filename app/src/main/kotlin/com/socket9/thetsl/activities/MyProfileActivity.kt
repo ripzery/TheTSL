@@ -2,6 +2,7 @@ package com.socket9.thetsl.activities
 
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -26,6 +27,7 @@ import com.soundcloud.android.crop.Crop
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.File
 
 /**
@@ -112,6 +114,10 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
             setResult(RESULT_CANCELED)
             finish()
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     /** Method zone **/

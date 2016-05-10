@@ -1,6 +1,4 @@
 <resources>
-    <string name="app.name">TSL</string>
-
     <string name="hello.world">สวัสดีโลก !</string>
     <string name="action.settings">ตั้งค่า</string>
     <string name="title.activity.sign.in">SignInActivity</string>
@@ -140,11 +138,11 @@
     <string name="dialog.quit.negative">ไม่</string>
     <string name="dialog.quit.content">คุณแน่ใจว่าต้องการออกหรือไม่</string>
     <string name="fragment.car.tracking.add.new.car">เพิ่มรถซ่อม</string>
-    <string name="fragment.car.tracking.empty.list">ว่าง</string>
+    <string name="fragment.car.tracking.empty.list">ไม่มีรายการในขณะนี้</string>
     <string name="fragment.car.tracking.first">ก่อน</string>
     <string name="fragment.car.tracking.last">ล่าสุด</string>
-    <string name="fragment.service.first">ก่อน</string>
-    <string name="fragment.service.last">ล่าสุด</string>
+    <string name="fragment.service.first">ขณะนี้</string>
+    <string name="fragment.service.last">ประวัติการใช้บริการ</string>
     <string name="fragment.known.service.number.tracking.id">หมายเลขติดตาม</string>
     <string name="fragment.known.service.number.service.number">เลขที่ใบแจ้งซ่อม</string>
     <string name="fragment.known.service.number.submit">ส่งข้อมูล</string>
@@ -159,12 +157,12 @@
     <string name="fragment.new.booking.service.more.info.hint">ใส่รายละเอียดเพิ่มเติมที่นี่</string>
     <string name="fragment.new.booking.service.select.model.hint">เลือกรุ่น</string>
     <string name="fragment.new.booking.service.select.service.hint">เลือกบริการ</string>
-    <string name="fragment.new.booking.service.type">ชนิด</string>
+    <string name="fragment.new.booking.service.type">ประเภท</string>
     <string name="fragment.new.car.tracking.tracking.id">หมายเลขติดตาม</string>
     <string name="fragment.new.car.tracking.submit">ส่งข้อมูล</string>
     <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
     <string name="fragment.service.detail.receive.date">ได้รับรถวันที่ : </string>
-    <string name="fragment.service.empty.list">ว่าง</string>
+    <string name="fragment.service.empty.list">ไม่มีรายการในขณะนี้</string>
     <string name="nav.car.tracking">ติดตามรถ</string>
     <string name="menu.profile.save">บันทึก</string>
     <string name="menu.event.share">แชร์&#160;</string>
@@ -186,7 +184,18 @@
     <string name="create.account.required.password">กรุณากรอกรหัสผ่าน</string>
     <string name="create.account.not.match.confirmpw">รหัสผ่านไม่ตรงกัน</string>
     <string name="dialog.progress.save.device.content">กำลังส่งข้อมูลสำหรับรับการแจ้งเตือน...</string>
-    <string name="fragment.new.booking.service.time">เลือกเวลา</string>
-    <string name="fragment.new.booking.service.date">เลือกวันที่</string>
+    <string name="fragment.new.booking.service.time">เวลา</string>
+    <string name="fragment.new.booking.service.date">วันที่</string>
     <string name="toast.create.booking.validate.date.time">กรุณาใส่วันที่และเวลา</string>
+    <string name="dialog.emergency.call.content">คุณต้องการติดต่อช่างเทคนิคหรือไม่</string>
+    <string name="dialog.emergency.call.positive">โทร</string>
+    <string name="dialog.emergency.call.negative">ยกเลิก</string>
+    <string name="dialog.emergency.call.title">คุณแน่ใจไหม?</string>
+    <string name="dialog.emergency.confirmation.content">ขอบคุณที่ใช้บริการ TSL. เราจะติดต่อกลับไปภายใน 30 นาที</string>
+    <string name="dialog.emergency.confirmation.positive">ตกลง</string>
+    <string name="dialog.emergency.confirmation.title">ยืนยัน</string>
+    <string name="fragment.new.booking.service.title">นัดหมายเข้ารับบริการ</string>
+    <string name="fragment.new.booking.service.date.hint">เลือกวัน</string>
+    <string name="fragment.new.booking.service.time.hint">เลือกเวลา</string>
+    <string name="fragment.new.booking.service.type.hint">เลือกประเภท</string>
 </resources>

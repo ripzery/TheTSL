@@ -1,5 +1,6 @@
 package com.socket9.thetsl.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -10,6 +11,7 @@ import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.KnownServiceNumberFragment
 import com.socket9.thetsl.fragments.NewBookingFragment
 import com.socket9.thetsl.utils.DialogUtil
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -70,6 +72,10 @@ class NewBookingActivity : AppCompatActivity(){
         }
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
@@ -86,7 +92,7 @@ class NewBookingActivity : AppCompatActivity(){
     private fun initToolbar(newBooking: Boolean) {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = if(newBooking) "New Booking" else "Service Tracking"
+        supportActionBar?.title = if (newBooking) getString(R.string.fragment_new_booking_service_title) else "Service Tracking"
     }
 
     /** Listener zone **/

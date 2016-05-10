@@ -112,6 +112,7 @@ object Model {
                              val lng: Double? = null,
                              val lat: Double? = null) : PaperParcelable {
 
+
         fun getTitle(): String{
             return if(SharePref.isEnglish()) titleEn else titleTh ?: titleEn
         }
@@ -121,7 +122,11 @@ object Model {
         }
     }
 
-    data class BasicData(val id:Int, val nameEn:String, val nameTh:String)
+    data class BasicData(val id: Int, val nameEn: String, val nameTh: String) {
+        fun getName(): String {
+            return if (SharePref.isEnglish()) nameEn else nameTh
+        }
+    }
 
     data class BasicDataList(val branches: MutableList<BasicData>,
                                     val serviceTypes: MutableList<BasicData>,

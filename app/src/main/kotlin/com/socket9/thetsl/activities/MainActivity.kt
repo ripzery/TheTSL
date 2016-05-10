@@ -2,6 +2,7 @@ package com.socket9.thetsl.activities
 
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -33,13 +34,14 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.info
 import rx.Subscription
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class MainActivity : AppCompatActivity(), AnkoLogger {
+class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.OnChangeTabListener {
 
     /** Variable zone **/
 
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private var eventFragment: NewsEventFragment? = null
     private var serviceFragment: ServiceFragment? = null
     private var carTrackingFragment: CarTrackingFragment? = null
+    private var bottomNavigationFragment: BottomNavigationFragment? = null
     private var currentFragmentIndex: Int = 4
     lateinit var myProfile: Model.Profile;
     private var getProfileSubscriber: Subscription? = null
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private var dialogDeviceId: ProgressDialog ? = null
     private var tvName: TextView ? = null
     private var headerView: View? = null
+    private var isLaunchedByGcm: Boolean = false
 
     /** Lifecycle  zone **/
 
@@ -131,27 +135,43 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }).show()
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
+
+        /* check if coming from verification url in email */
         checkIfEnterFromUrl()
 
+        /* init language */
         val isEnglish = SharePref.isEnglish()
         btnChangeLanguage.text = getString(if (isEnglish) R.string.dialog_change_lang_english else R.string.dialog_change_lang_thai)
 
+        /* Init toolbar text */
         headerView = navView.getHeaderView(0)
         tvName = headerView?.findViewById(R.id.tvName) as TextView
-
-
         initToolbar(toolbar, getString(R.string.toolbar_main), false)
-        initFragment()
-        setListener()
-        getProfile(false)
-        setupDrawerContent()
 
+        /* Init fragment */
+        initFragment()
+
+        /* setup listener's sake*/
+        setListener()
+
+        /* get user profile from api */
+        getProfile(false)
+
+        /* set boolean if this activity is launched by gcm  */
+        isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
+
+        /* set currentFragment when change language */
         currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
         changeFragment(currentFragmentIndex)
         setCheckedItem(currentFragmentIndex)
+
     }
 
     private fun checkIfEnterFromUrl() {
@@ -190,14 +210,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
+
     private fun initFragment() {
         homeFragment = HomeFragment.newInstance("homeFragment")
         newsFragment = NewsEventFragment.newInstance(true)
         eventFragment = NewsEventFragment.newInstance(false)
         contactFragment = ContactFragment.newInstance("ContactFragment")
-        emergencyFragment = EmergencyFragment.newInstance("EmergencyFragment")
         carTrackingFragment = CarTrackingFragment.newInstance("CarTrackingFragment")
+        emergencyFragment = EmergencyFragment.newInstance("EmergencyFragment")
         serviceFragment = ServiceFragment.newInstance("ServiceFragment")
+        bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, isLaunchedByGcm)
     }
 
     private fun changeFragment(mode: Int) {
@@ -205,10 +227,22 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             FRAGMENT_DISPLAY_HOME -> replaceFragment(fragment = homeFragment!!)
             FRAGMENT_DISPLAY_NEWS -> replaceFragment(fragment = newsFragment!!)
             FRAGMENT_DISPLAY_CONTACT -> replaceFragment(fragment = contactFragment!!)
-            FRAGMENT_DISPLAY_EMERGENCY -> replaceFragment(fragment = emergencyFragment!!)
+            FRAGMENT_DISPLAY_EMERGENCY -> {
+                //                replaceFragment(fragment = emergencyFragment!!)
+                replaceFragment(fragment = bottomNavigationFragment!!)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.EMERGENCY, isLaunchedByGcm)
+            }
             FRAGMENT_DISPLAY_EVENT -> replaceFragment(fragment = eventFragment!!)
-            FRAGMENT_DISPLAY_SERVICE -> replaceFragment(fragment = serviceFragment!!)
-            FRAGMENT_DISPLAY_CAR_TRACKING -> replaceFragment(fragment = carTrackingFragment!!)
+            FRAGMENT_DISPLAY_SERVICE -> {
+                //                replaceFragment(fragment = serviceFragment!!)
+                replaceFragment(fragment = bottomNavigationFragment!!)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm)
+            }
+            FRAGMENT_DISPLAY_CAR_TRACKING -> {
+                //                replaceFragment(fragment = carTrackingFragment!!)
+                replaceFragment(fragment = bottomNavigationFragment!!)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, isLaunchedByGcm)
+            }
         }
         currentFragmentIndex = mode
         onFragmentAttached(mode)
@@ -221,43 +255,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             FRAGMENT_DISPLAY_CONTACT -> navView.setCheckedItem(R.id.nav_contact)
             FRAGMENT_DISPLAY_EMERGENCY -> navView.setCheckedItem(R.id.nav_emergency_call)
             FRAGMENT_DISPLAY_SERVICE -> navView.setCheckedItem(R.id.nav_service)
-        }
-    }
-
-    private fun setupDrawerContent() {
-        navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-            //                R.id.nav_home -> {
-            //                    changeFragment(FRAGMENT_DISPLAY_HOME)
-            //                    menuItem.isChecked = true
-            //                }
-                R.id.nav_news -> {
-                    //TODO: Save states is news or event is lastly visible
-                    changeFragment(FRAGMENT_DISPLAY_NEWS)
-                    menuItem.isChecked = true
-                }
-                R.id.nav_contact -> {
-                    changeFragment(FRAGMENT_DISPLAY_CONTACT)
-                    menuItem.isChecked = true
-                }
-                R.id.nav_emergency_call -> {
-                    changeFragment(FRAGMENT_DISPLAY_EMERGENCY)
-                    menuItem.isChecked = true
-                }
-                R.id.nav_service -> {
-                    changeFragment(FRAGMENT_DISPLAY_SERVICE)
-                    menuItem.isChecked = true
-                }
-            //                R.id.nav_car_tracking -> {
-            //                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
-            //                    menuItem.isChecked = true
-            //                }
-            }
-
-            //            navView.setChe
-
-            drawerLayout.closeDrawers()
-            true
         }
     }
 
@@ -315,6 +312,41 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startEditProfile()
         }
 
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+            //                R.id.nav_home -> {
+            //                    changeFragment(FRAGMENT_DISPLAY_HOME)
+            //                    menuItem.isChecked = true
+            //                }
+                R.id.nav_news -> {
+                    //TODO: Save states is news or event is lastly visible
+                    changeFragment(FRAGMENT_DISPLAY_NEWS)
+                    menuItem.isChecked = true
+                }
+                R.id.nav_contact -> {
+                    changeFragment(FRAGMENT_DISPLAY_CONTACT)
+                    menuItem.isChecked = true
+                }
+                R.id.nav_emergency_call -> {
+                    changeFragment(FRAGMENT_DISPLAY_EMERGENCY)
+                    menuItem.isChecked = true
+                }
+                R.id.nav_service -> {
+                    changeFragment(FRAGMENT_DISPLAY_SERVICE)
+                    menuItem.isChecked = true
+                }
+            //                R.id.nav_car_tracking -> {
+            //                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
+            //                    menuItem.isChecked = true
+            //                }
+            }
+
+            //            navView.setChe
+
+            drawerLayout.closeDrawers()
+            true
+        }
     }
 
     private fun startEditProfile() {
@@ -393,6 +425,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    /** Listener zone **/
-
+    /* ButtomBar onchanged tab listener */
+    override fun onChangedTab(index: Int) {
+        setCheckedItem(index)
+    }
 }

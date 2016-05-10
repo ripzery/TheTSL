@@ -1,5 +1,5 @@
 <resources>
-    <string name="app.name">TSL</string>
+    <string name="tsl.app.name" translatable="false">TSL</string>
 
     <string name="hello.world">Hello world!</string>
     <string name="action.settings">Settings</string>
@@ -48,6 +48,17 @@
     <string name="dialog.call.us.content">Do you want to call 02&#8211;269&#8211;9999 ?</string>
     <string name="dialog.call.us.positive">Call</string>
     <string name="dialog.call.us.negative">Cancel</string>
+
+    <!-- Emergency call dialog -->
+    <string name="dialog.emergency.call.title">Are you sure?</string>
+    <string name="dialog.emergency.call.content">Do you want to call a technician?</string>
+    <string name="dialog.emergency.call.positive">Call</string>
+    <string name="dialog.emergency.call.negative">Cancel</string>
+
+    <!-- Emergency confirmation dialog -->
+    <string name="dialog.emergency.confirmation.title">Confirmation</string>
+    <string name="dialog.emergency.confirmation.content">Thank you for using TSL Emergency call service. The technician will get back to you within 30 mins.</string>
+    <string name="dialog.emergency.confirmation.positive">OK</string>
 
     <!-- Change language dialog -->
     <string name="dialog.change.lang.thai">Thai</string>
@@ -193,8 +204,8 @@
     <!-- service -->
     <string name="fragment.service.add.new.service">Add new service</string>
     <string name="fragment.service.detail.receive.date">Receive car date : </string>
-    <string name="fragment.service.first">first</string>
-    <string name="fragment.service.last">last</string>
+    <string name="fragment.service.first">current service</string>
+    <string name="fragment.service.last">service history</string>
     <string name="fragment.service.empty.list">Empty list</string>
 
     <!-- view group contact-->
@@ -202,16 +213,20 @@
 
 
     <!-- New booking service -->
+    <string name="fragment.new.booking.service.title">New Booking</string>
     <string name="fragment.new.booking.service.license.plate">License Plate</string>
     <string name="fragment.new.booking.service.license.plate.hint">Put license plate</string>
     <string name="fragment.new.booking.service.model">Model</string>
-    <string name="fragment.new.booking.service.select.model.hint">Select model</string>
+    <string name="fragment.new.booking.service.select.model.hint">Choose model</string>
     <string name="fragment.new.booking.service.date">Date</string>
     <string name="fragment.new.booking.service.time">Time</string>
+    <string name="fragment.new.booking.service.date.hint">Choose date</string>
+    <string name="fragment.new.booking.service.time.hint">Choose time</string>
     <string name="fragment.new.booking.service.type">Type</string>
-    <string name="fragment.new.booking.service.select.service.hint">Select service</string>
+    <string name="fragment.new.booking.service.type.hint">Choose type</string>
+    <string name="fragment.new.booking.service.select.service.hint">Choose service</string>
     <string name="fragment.new.booking.service.branch">Branch</string>
-    <string name="fragment.new.booking.service.branch.hint">Select branch</string>
+    <string name="fragment.new.booking.service.branch.hint">Choose branch</string>
     <string name="fragment.new.booking.service.more.info">More information</string>
     <string name="fragment.new.booking.service.more.info.hint">Put additional information here</string>
     <string name="fragment.new.booking.service.book">Book</string>

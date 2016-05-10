@@ -1,6 +1,7 @@
 package com.socket9.thetsl.activities
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
@@ -15,6 +16,7 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.activity_news_event.*
 import org.jetbrains.anko.indeterminateProgressDialog
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -60,6 +62,10 @@ class NewsEventActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     /** Method zone **/

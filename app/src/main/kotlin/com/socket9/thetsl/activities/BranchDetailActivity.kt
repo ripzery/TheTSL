@@ -1,6 +1,7 @@
 package com.socket9.thetsl.activities
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_branch_detail.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.email
 import org.jetbrains.anko.makeCall
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -90,6 +92,10 @@ class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback, AnkoLogger
             mMap.addMarker(MarkerOptions().position(contactLatLng).title(contact.getTitle()))
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(contactLatLng, 15f))
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     /** Method zone **/

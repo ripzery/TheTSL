@@ -1,6 +1,7 @@
 package com.socket9.thetsl.activities
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -9,6 +10,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.ServiceDetailFragment
 import com.socket9.thetsl.models.Model
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -54,6 +56,10 @@ class ServiceDetailActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     /** Method zone **/

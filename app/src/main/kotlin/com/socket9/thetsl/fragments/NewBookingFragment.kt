@@ -225,9 +225,9 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     //        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
     //        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     //        spinnerBranch.adapter = branchAdapter
-    ////        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
-    ////        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    ////        spinnerModel.adapter = modelAdapter
+    //        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
+    //        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    //        spinnerModel.adapter = modelAdapter
     //        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
     //        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     //        spinnerType.adapter = typeAdapter

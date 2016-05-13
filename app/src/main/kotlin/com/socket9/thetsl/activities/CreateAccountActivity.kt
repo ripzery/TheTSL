@@ -6,14 +6,20 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.jakewharton.rxbinding.widget.RxTextView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.jakewharton.rxbinding.widget.textChanges
+import com.rengwuxian.materialedittext.validation.METValidator
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.*
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.utils.Contextor
+import com.socket9.thetsl.utils.DialogUtil
 import kotlinx.android.synthetic.main.activity_create_account.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
+import rx.Subscription
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -24,7 +30,11 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
 
     /** Variable zone **/
     private var dialog: ProgressDialog? = null
-    private var isRegisterClicked: Boolean = false
+    private var isUserAlreadyInput = false
+    private var usernameSubscription: Subscription? = null
+    private var phoneSubscription: Subscription? = null
+    private var emailSubscription: Subscription? = null
+    private var passwordSubscription: Subscription? = null
 
     /** Lifecycle  zone **/
 
@@ -32,6 +42,11 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
         initInstance()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        textListener()
     }
 
     override fun onResume() {
@@ -43,6 +58,14 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
         dialog?.dismiss()
     }
 
+    override fun onStop() {
+        super.onStop()
+        usernameSubscription?.unsubscribe()
+        emailSubscription?.unsubscribe()
+        phoneSubscription?.unsubscribe()
+        passwordSubscription?.unsubscribe()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         return super.onCreateOptionsMenu(menu)
     }
@@ -50,7 +73,11 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                finish()
+                if (!isFormEmpty()) {
+                    DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which -> finish() }).show()
+                } else {
+                    finish()
+                }
                 return true
             }
         }
@@ -62,143 +89,113 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    override fun onBackPressed() {
+
+        if (!isFormEmpty()) {
+            DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which -> finish() }).show()
+        } else {
+            finish()
+        }
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
         setupToolbar("Create Account")
 
         btnRegister.setOnClickListener() {
-            registerUser()
+            val requirement = etUsername.validateName() && etEmail.validateEmail() && etPassword.validatePassword()
+                    && etConfirmPassword.validateConfirmPassword(etPassword.text.toString()) && etPhone.validatePhone()
+
+            if (requirement) {
+                registerUser()
+            } else {
+                validate()
+            }
         }
 
     }
 
-    private fun setEditTextListener() {
+    private fun textListener() {
+        usernameSubscription = etUsername.textChanges().subscribe { isUserAlreadyInput = it.length > 0 }
+        phoneSubscription = etPhone.textChanges().subscribe { isUserAlreadyInput = it.length > 0 }
+        passwordSubscription = etPassword.textChanges().subscribe { isUserAlreadyInput = it.length > 0 }
+        emailSubscription = etEmail.textChanges().subscribe { isUserAlreadyInput = it.length > 0 }
+    }
 
-
-        RxTextView.textChangeEvents(etUsername).subscribe {
-            if (isRegisterClicked) return@subscribe
-
-            val isEmpty = it.count() == 0
-            if (isEmpty) {
-                textInputUsername.error = getString(R.string.create_account_required_name)
-            } else {
-                textInputUsername.isErrorEnabled = false
-            }
-        }
-
-        RxTextView.textChangeEvents(etEmail).subscribe {
-            if (isRegisterClicked) return@subscribe
-
-            val isEmpty = it.count() == 0
-            if (isEmpty) {
-                textInputEmail.error = getString(R.string.create_account_required_email)
-            } else {
-                textInputEmail.isErrorEnabled = false
-            }
-        }
-
-        RxTextView.textChangeEvents(etPassword).subscribe {
-            if (isRegisterClicked) return@subscribe
-
-            val isEmpty = it.count() == 0
-
-            if (isEmpty) {
-                textInputPassword.error = getString(R.string.create_account_required_password)
-            } else {
-                textInputPassword.isErrorEnabled = false
-            }
-        }
-
-        RxTextView.textChangeEvents(etConfirmPassword).subscribe {
-            if (isRegisterClicked) return@subscribe
-
-            val isEmpty = it.count() == 0
-            val isPasswordMatched = it.text().toString().equals(etPassword.text.toString())
-
-            textInputConfirmPassword.isErrorEnabled = isEmpty || !isPasswordMatched
-
-            if (isEmpty) {
-                textInputConfirmPassword.error = getString(R.string.create_account_required_confirmpw)
-            } else if (!isPasswordMatched) {
-                textInputConfirmPassword.error = getString(R.string.create_account_not_match_confirmpw)
-                btnRegister.isEnabled = false
-            } else {
-                btnRegister.isEnabled = true
-                textInputConfirmPassword.isErrorEnabled = false
-            }
-        }
+    private fun isFormEmpty(): Boolean {
+        return etUsername.text.isEmpty() && etPhone.text.isEmpty() && etPassword.text.isEmpty() && etEmail.text.isEmpty()
     }
 
     private fun registerUser() {
 
-        if (!etPassword.text.toString().equals(etConfirmPassword.text.toString())) {
-            toast(getString(R.string.create_account_not_match_confirmpw))
-        } else {
+        dialog = indeterminateProgressDialog(R.string.dialog_progress_create_account_content, R.string.dialog_progress_title)
+        dialog?.setCancelable(false)
+        dialog?.show()
 
-            dialog = indeterminateProgressDialog(R.string.dialog_progress_create_account_content, R.string.dialog_progress_title)
-            dialog?.setCancelable(false)
-            dialog?.show()
+        HttpManager.registerUser(etEmail.text.toString(), etPassword.text.toString(), etUsername.text.toString(),
+                etAddress.text.toString(), etPhone.text.toString(), "", "")
+                .subscribe ({
+                    if (it.result) {
+                        toast(getString(R.string.toast_activate_account))
+                        finish()
+                    } else if (it.message!!.contains("required")) {
+                        toast(getString(R.string.toast_create_account_failed))
+                    } else {
+                        toast(it.message)
+                    }
 
-            HttpManager.registerUser(etEmail.text.toString(), etUsername.text.toString(), etAddress.text.toString(), "", "")
-                    .subscribe ({
-                        if (it.result) {
-                            toast(getString(R.string.toast_activate_account))
-                            finish()
-                        } else if (it.message!!.contains("required")) {
-                            toast(getString(R.string.toast_create_account_failed))
-                        } else {
-                            toast(it.message)
-                            //                        setEditTextListener()
-                            //                        validateRequiredField()
-                        }
+                    dialog?.dismiss()
+                    info { it.message }
 
-                        dialog?.dismiss()
-                        info { it.message }
+                }, { error ->
+                    toast(getString(R.string.toast_unknown_error_try_again))
+                    dialog?.dismiss()
+                    error.printStackTrace()
 
-                    }, { error ->
-                        toast(getString(R.string.toast_unknown_error_try_again))
-                        dialog?.dismiss()
-                        error.printStackTrace()
-
-                    })
-        }
+                })
 
 
     }
 
-    private fun validateRequiredField() {
-        if (etUsername.text.length == 0) {
-            textInputUsername.error = getString(R.string.create_account_required_name)
-        } else {
-            textInputUsername.isErrorEnabled = false
-        }
+    private fun validate() {
+        etUsername.validateWith(usernameValidator)
+        etEmail.validateWith(emailValidator)
+        etPhone.validateWith(phoneValidator)
+        etPassword.validateWith(passwordValidator)
+        etConfirmPassword.validateWith(confirmPasswordValidator)
+    }
 
-        if (etEmail.text.length == 0) {
-            textInputEmail.error = getString(R.string.create_account_required_email)
-        } else {
-            textInputEmail.isErrorEnabled = false
-        }
+    /** Validator zone **/
 
-        if (etPassword.text.length == 0) {
-            textInputPassword.error = getString(R.string.create_account_required_password)
-        } else {
-            textInputPassword.isErrorEnabled = false
-        }
-
-        if (etConfirmPassword.text.length == 0) {
-            textInputConfirmPassword.error = getString(R.string.create_account_required_confirmpw)
-        } else {
-            textInputConfirmPassword.isErrorEnabled = false
+    val usernameValidator: METValidator = object : METValidator(Contextor.context!!.getString(R.string.validate_name)) {
+        override fun isValid(text: CharSequence, isEmpty: Boolean): Boolean {
+            return text.toString().validateName()
         }
     }
 
-    private fun setToolbar() {
-        supportActionBar?.title = "Create Account"
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    val confirmPasswordValidator: METValidator = object : METValidator(Contextor.context!!.getString(R.string.validate_confirm_password)) {
+        override fun isValid(text: CharSequence, isEmpty: Boolean): Boolean {
+            return text.toString().validateConfirmPassword(etPassword.text.toString())
+        }
     }
 
-    /** Listener zone **/
+    val phoneValidator: METValidator = object : METValidator(Contextor.context!!.getString(R.string.validate_phone)) {
+        override fun isValid(text: CharSequence, isEmpty: Boolean): Boolean {
+            return text.toString().validatePhone()
+        }
+    }
+
+    val passwordValidator: METValidator = object : METValidator(Contextor.context!!.getString(R.string.validate_password)) {
+        override fun isValid(text: CharSequence, isEmpty: Boolean): Boolean {
+            return text.toString().validatePassword()
+        }
+    }
+
+    val emailValidator: METValidator = object : METValidator(Contextor.context!!.getString(R.string.validate_email)) {
+        override fun isValid(text: CharSequence, isEmpty: Boolean): Boolean {
+            return text.toString().validateEmail()
+        }
+    }
 
 }

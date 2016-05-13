@@ -20,8 +20,8 @@ object HttpManager {
     val BASE_IMAGE_PATH = "http://www.tsl.co.th/"
     // TODO: use compose to subscribeOn, observeOn, and unsubscribeOn (DON'T REPEAT YOURSELF!)
 
-    fun registerUser(email: String, name: String, hometown: String, facebookId: String, fbPhoto: String): Observable<Model.User> {
-        return ApiService.getAPI().registerUser(email, "123456", name, name, email, hometown, "", facebookId, fbPhoto)
+    fun registerUser(email: String, password: String, name: String, hometown: String, phone: String, facebookId: String, fbPhoto: String): Observable<Model.User> {
+        return ApiService.getAPI().registerUser(email, password, name, name, email, hometown, phone, facebookId, fbPhoto)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

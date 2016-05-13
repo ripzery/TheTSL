@@ -240,7 +240,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         loginProgressDialog?.setCancelable(false)
         loginProgressDialog?.show()
 
-        loginFbSubscription = HttpManager.registerUser(email, name, hometown, facebookId, fbPhoto)
+        loginFbSubscription = HttpManager.registerUser(email, email, name, hometown, "", facebookId, fbPhoto)
                 .flatMap { response ->
                     info { response.toString() }
                     HttpManager.loginWithFb(facebookId, fbPhoto, getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)

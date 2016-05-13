@@ -51,6 +51,7 @@ dependencies {
   compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
     transitive = true
   }
+  compile 'com.rengwuxian.materialedittext:library:2.1.4'
   compile 'org.jetbrains.anko:anko-sdk15:0.8.3'
   compile 'org.jetbrains.anko:anko-support-v4:0.8.3'
   compile 'de.hdodenhof:circleimageview:2.0.0'

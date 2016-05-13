@@ -95,7 +95,7 @@
     <string name="toast.service.booking.successful">Service has been booked successful</string>
     <string name="toast.waiting.confirmation">Waiting for confirmation…</string>
     <string name="toast.enable.location">Please enable location setting first</string>
-    <string name="toast.create.account.failed">Please fill all required fields</string>
+    <string name="toast.create.account.failed">Please fill all required fields correctly</string>
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
     <string name="toast.create.booking.validate.date.time">Please set date and time</string>
 
@@ -242,6 +242,7 @@
     <string name="validate.name">Name must not be empty</string>
     <string name="validate.email">Email is invalid</string>
     <string name="validate.password">Password must not less than 8 characters</string>
+    <string name="validate.confirm.password">Your password and confirmation password do not match</string>
     <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
 
 

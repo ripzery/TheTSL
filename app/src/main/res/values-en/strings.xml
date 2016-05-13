@@ -178,7 +178,7 @@
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.event.list.content">Loading events…</string>
     <string name="dialog.progress.service.car.tracking.content">Checking data...</string>
-    <string name="toast.create.account.failed">Please fill all required fields</string>
+    <string name="toast.create.account.failed">Please fill all required fields correctly</string>
     <string name="create.account.not.match.confirmpw">Your password and confirmation password do not match</string>
     <string name="create.account.required.confirmpw">Please fill confirmpw</string>
     <string name="create.account.required.email">Please fill email</string>

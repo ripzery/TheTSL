@@ -11,7 +11,7 @@ fun String.plainText() : String{
 }
 
 fun String.validatePhone(): Boolean {
-    return length == 10 && android.util.Patterns.PHONE.matcher(this).matches()
+    return length == 0 || (length == 10 && android.util.Patterns.PHONE.matcher(this).matches())
 }
 
 fun String.validateEmail(): Boolean {

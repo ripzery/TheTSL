@@ -178,7 +178,7 @@
     <string name="viewgroup.contact">ทีเอสแอล สาธร</string>
     <string name="dialog.progress.emergency.call.content">กำลังแจ้ง...</string>
     <string name="dialog.progress.service.car.tracking.content">กำลังตรวจสอบข้อมูล...</string>
-    <string name="toast.create.account.failed">กรุณากรอกข้อมูลที่จำเป็นให้ครบ</string>
+    <string name="toast.create.account.failed">กรุณากรอกข้อมูลที่จำเป็นให้ถูกต้อง</string>
     <string name="create.account.required.confirmpw">กรุณากรอกรหัสผ่านอีกครั้ง</string>
     <string name="create.account.required.email">กรุณากรอกอีเมล</string>
     <string name="create.account.required.name">กรุณากรอกชื่อ</string>

@@ -336,7 +336,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
             startEditProfile()
         }
 
-
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
             //                R.id.nav_home -> {

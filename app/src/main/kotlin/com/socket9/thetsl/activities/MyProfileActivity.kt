@@ -17,11 +17,15 @@ import com.bumptech.glide.signature.MediaStoreSignature
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.toast
+import com.socket9.thetsl.extensions.validateName
+import com.socket9.thetsl.extensions.validatePassword
+import com.socket9.thetsl.extensions.validatePhone
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.managers.PickImageChooserManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.PhotoUtil
+import com.socket9.thetsl.utils.ValidatorUtil
 import com.soundcloud.android.crop.Crop
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import org.jetbrains.anko.AnkoLogger
@@ -80,7 +84,14 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
                 return true
             }
             R.id.action_save -> {
-                updateProfile()
+                val requirement = etPhone.validatePhone() && etName.validateName() && etPassword.validatePassword()
+
+                if (requirement) {
+                    updateProfile()
+                } else {
+                    toast(ValidatorUtil.getErrorMsgUpdateProfile(etPhone.text.toString(), etPassword.text.toString(), etName.text.toString()))
+                }
+
                 return true
             }
         }

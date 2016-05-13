@@ -232,10 +232,17 @@
     <string name="fragment.new.booking.service.more.info.hint">Put additional information here</string>
     <string name="fragment.new.booking.service.book">Book</string>
 
-
     <!-- Car tracking-->
     <string name="fragment.car.tracking.first">first</string>
     <string name="fragment.car.tracking.last">last</string>
     <string name="fragment.car.tracking.empty.list">Empty list</string>
     <string name="fragment.new.booking.service.date.time">Date time</string>
+
+    <!-- Validator -->
+    <string name="validate.name">Name must not be empty</string>
+    <string name="validate.email">Email is invalid</string>
+    <string name="validate.password">Password must not less than 8 characters</string>
+    <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
+
+
 </resources>

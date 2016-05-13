@@ -72,19 +72,19 @@
         <activity
             android:name=".activities.MyProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWithActionbar"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
             android:name=".activities.BranchDetailActivity"
-            android:theme="@style/AppThemeWithActionbar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activities.NewsEventActivity"
-            android:theme="@style/AppThemeWithActionbar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
 
         <activity android:name="com.soundcloud.android.crop.CropImageActivity"/>
@@ -97,7 +97,7 @@
 
         <activity
             android:name=".activities.NewBookingActivity"
-            android:theme="@style/AppThemeWithActionbar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -107,13 +107,13 @@
 
         <activity
             android:name=".activities.ServiceDetailActivity"
-            android:theme="@style/AppThemeWithActionbar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
 
 
         <activity
             android:name=".activities.CreateAccountActivity"
-            android:theme="@style/AppThemeWithActionbar"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
 

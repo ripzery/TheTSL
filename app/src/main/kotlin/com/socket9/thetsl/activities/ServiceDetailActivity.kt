@@ -3,7 +3,6 @@ package com.socket9.thetsl.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.socket9.thetsl.R
@@ -16,7 +15,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class ServiceDetailActivity : AppCompatActivity() {
+class ServiceDetailActivity : ToolbarActivity() {
 
     /** Variable zone **/
     private var serviceDetailFragment: ServiceDetailFragment? = null
@@ -65,7 +64,8 @@ class ServiceDetailActivity : AppCompatActivity() {
     /** Method zone **/
 
     private fun initInstance() {
-        setToolbar()
+        //        setToolbar()
+        setupToolbar("Service Detail")
 
         /* get intent serviceTrackingEntity */
         serviceTrackingEntity = intent.getParcelableExtra<Model.ServiceTrackingEntity>(ARG_1)

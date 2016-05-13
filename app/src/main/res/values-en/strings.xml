@@ -199,4 +199,5 @@
     <string name="fragment.new.booking.service.date.hint">Choose date</string>
     <string name="fragment.new.booking.service.time.hint">Choose time</string>
     <string name="fragment.new.booking.service.type.hint">Choose type</string>
+    <string name="bottom.emergency">Emergency</string>
 </resources>

@@ -2,7 +2,6 @@ package com.socket9.thetsl.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
@@ -17,7 +16,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class NewBookingActivity : AppCompatActivity(){
+class NewBookingActivity : ToolbarActivity() {
 
     /** Variable zone **/
     lateinit private var knownServiceNumberFragment: KnownServiceNumberFragment
@@ -81,7 +80,7 @@ class NewBookingActivity : AppCompatActivity(){
     private fun initInstance() {
         val isNewBooking: Boolean = intent.getBooleanExtra("isNewBooking", true)
 
-        initToolbar(isNewBooking)
+        setupToolbar(if (isNewBooking) getString(R.string.fragment_new_booking_service_title) else "Service Tracking")
 
         newBookingFragment = NewBookingFragment.newInstance("NewBookingFragment")
         knownServiceNumberFragment = KnownServiceNumberFragment.newInstance("KnownServiceNumberFragment")

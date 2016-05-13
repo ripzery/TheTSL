@@ -7,7 +7,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
@@ -34,7 +33,7 @@ import java.io.File
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class MyProfileActivity : AppCompatActivity(), AnkoLogger {
+class MyProfileActivity : ToolbarActivity(), AnkoLogger {
 
     /** Variable zone **/
     lateinit var myProfile: Model.Profile
@@ -123,7 +122,7 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
-        initToolbar()
+        setupToolbar("My Profile")
 
         myProfile = intent.getParcelableExtra<Model.Profile>("myProfile")
 
@@ -168,12 +167,6 @@ class MyProfileActivity : AppCompatActivity(), AnkoLogger {
         } else if (resultCode == Crop.RESULT_ERROR) {
             toast(Crop.getError(result).message!!)
         }
-    }
-
-    private fun initToolbar() {
-        supportActionBar?.title = "My Profile"
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun updateProfile() {

@@ -4,11 +4,14 @@ package com.socket9.thetsl.activities
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.text.Spannable
+import android.text.SpannableString
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -35,6 +38,7 @@ import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.info
 import rx.Subscription
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan
 import java.util.*
 
 /**
@@ -161,6 +165,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         /* setup listener's sake*/
         setListener()
 
+        /* setup navigation view font */
+        setupNavigationViewFont()
+
         /* get user profile from api */
         getProfile(false)
 
@@ -172,6 +179,17 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         changeFragment(currentFragmentIndex)
         setCheckedItem(currentFragmentIndex)
 
+    }
+
+    private fun setupNavigationViewFont() {
+        for (i in 0..navView.menu.size() - 1) {
+            val menuItem = navView.menu.getItem(i)
+            val t = CalligraphyTypefaceSpan(Typeface.createFromAsset(assets, "fonts/samakarn/Samakarn-Regular.ttf"))
+            val spannableString = SpannableString(menuItem.title)
+            info { menuItem.title }
+            spannableString.setSpan(t, 0, spannableString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            menuItem?.title = spannableString
+        }
     }
 
     private fun checkIfEnterFromUrl() {
@@ -209,7 +227,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         }
 
     }
-
 
     private fun initFragment() {
         homeFragment = HomeFragment.newInstance("homeFragment")

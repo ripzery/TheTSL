@@ -63,6 +63,7 @@
     <string name="nav.news">ข่าวและกิจกรรม</string>
     <string name="nav.contact">ติดต่อเรา</string>
     <string name="nav.emergency">โทรฉุกเฉิน</string>
+    <string name="bottom.emergency">โทรฉุกเฉิน</string>
     <string name="nav.signout">ออกจากระบบ</string>
     <string name="nav.change.lang.thai">ไทย</string>
     <string name="nav.change.lang.english">อังกฤษ</string>
@@ -161,7 +162,7 @@
     <string name="fragment.new.car.tracking.tracking.id">หมายเลขติดตาม</string>
     <string name="fragment.new.car.tracking.submit">ส่งข้อมูล</string>
     <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
-    <string name="fragment.service.detail.receive.date">ได้รับรถวันที่ : </string>
+    <string name="fragment.service.detail.receive.date">กำหนดการรับรถ :&#160;</string>
     <string name="fragment.service.empty.list">ไม่มีรายการในขณะนี้</string>
     <string name="nav.car.tracking">ติดตามรถ</string>
     <string name="menu.profile.save">บันทึก</string>

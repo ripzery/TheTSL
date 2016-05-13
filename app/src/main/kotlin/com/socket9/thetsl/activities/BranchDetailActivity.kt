@@ -3,7 +3,6 @@ package com.socket9.thetsl.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
@@ -28,7 +27,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback, AnkoLogger {
+class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
     /** Variable zone **/
     lateinit private var supportMapsFragment: SupportMapFragment
     lateinit private var mMap: GoogleMap
@@ -105,7 +104,8 @@ class BranchDetailActivity : AppCompatActivity(), OnMapReadyCallback, AnkoLogger
         if(contact.lat != null && contact.lng != null)
             contactLatLng = LatLng(contact.lat!!, contact.lng!!)
 
-        setToolbar()
+        //        setToolbar()
+        setupToolbar(contact.getTitle())
         setData()
 
         supportMapsFragment = mapFragment as SupportMapFragment

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/menu_bottom_emergency"
         android:icon="@drawable/icon_app_512"
-        android:title="@string/nav.emergency"/>
+        android:title="@string/bottom.emergency"/>
     <item
         android:id="@+id/menu_bottom_service_tracking"
         android:icon="@drawable/icon_app_512"

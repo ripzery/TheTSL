@@ -4,7 +4,6 @@ package com.socket9.thetsl.activities
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.jakewharton.rxbinding.widget.RxTextView
@@ -21,7 +20,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class CreateAccountActivity : AppCompatActivity(), AnkoLogger {
+class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
 
     /** Variable zone **/
     private var dialog: ProgressDialog? = null
@@ -66,7 +65,7 @@ class CreateAccountActivity : AppCompatActivity(), AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
-        setToolbar()
+        setupToolbar("Create Account")
 
         btnRegister.setOnClickListener() {
             registerUser()

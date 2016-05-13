@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.ShareActionProvider
 import android.view.Menu
 import android.view.MenuItem
@@ -22,7 +21,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class NewsEventActivity : AppCompatActivity() {
+class NewsEventActivity : ToolbarActivity() {
 
     /** Variable zone **/
     lateinit private var sendIntent: Intent
@@ -71,7 +70,7 @@ class NewsEventActivity : AppCompatActivity() {
     /** Method zone **/
 
     private fun initInstance() {
-        initToolbar()
+        setupToolbar("")
 
         val isNews: Boolean = intent.getBooleanExtra("isNews", true)
         val id: Int = intent.getIntExtra("id", 1)

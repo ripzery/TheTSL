@@ -184,6 +184,8 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
                     setResult(RESULT_OK)
                     finish()
                 }, { error ->
+                    progressDialog.dismiss()
+                    error.printStackTrace()
                     toast(getString(R.string.toast_internet_connection_problem))
 
                 })

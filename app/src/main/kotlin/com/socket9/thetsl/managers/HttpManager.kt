@@ -1,6 +1,7 @@
 package com.socket9.thetsl.managers
 
 import android.content.Intent
+import android.util.Log
 import com.socket9.thetsl.SignInActivity
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.models.Model
@@ -16,6 +17,7 @@ import rx.schedulers.Schedulers
  */
 object HttpManager {
 
+    val BASE_IMAGE_PATH = "http://www.tsl.co.th/"
     // TODO: use compose to subscribeOn, observeOn, and unsubscribeOn (DON'T REPEAT YOURSELF!)
 
     fun registerUser(email: String, name: String, hometown: String, facebookId: String, fbPhoto: String): Observable<Model.User> {
@@ -60,6 +62,11 @@ object HttpManager {
         return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, password, phone, address, picture)
                 .doOnNext {
                     checkToken(it.result, it.message)
+                    val originalProfile = SharePref.getProfile()
+                    val profile = originalProfile.copy(data = Model.ProfileEntity(nameTh, nameEn, phone, password, address, originalProfile.data!!.email,
+                            if (!picture.isEmpty()) BASE_IMAGE_PATH + picture else originalProfile.data.pic, originalProfile.data.facebookPic))
+                    Log.d("HttpManager", "testUpdateProfile " + profile.toString())
+                    SharePref.saveProfile(profile)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,13 +74,29 @@ object HttpManager {
     }
 
     fun getProfile(): Observable<Model.Profile> {
-        return ApiService.getAPI().getProfile(SharePref.getToken())
-                .doOnNext {
-                    checkToken(it.result, it.message)
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
+
+        try {
+            /* if profile has existed in share preference then just grab it! */
+            return Observable.just(SharePref.getProfile())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+
+        } catch(e: IllegalStateException) {
+
+            /* user has not been save in share preference, fetch from API */
+            Log.d("SharePref", e.message)
+
+            return ApiService.getAPI().getProfile(SharePref.getToken())
+                    .doOnNext {
+                        checkToken(it.result, it.message)
+                        SharePref.saveProfile(it)
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+        }
+
     }
 
     fun getListNews(): Observable<Model.ListNewsEvent> {

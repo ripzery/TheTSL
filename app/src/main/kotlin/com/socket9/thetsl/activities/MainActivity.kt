@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                 }
             }
             HomeFragment.REQUEST_MY_PROFILE -> {
-                if (resultCode == RESULT_OK) getProfile(false)
+                if (resultCode == RESULT_OK) loadProfile(false)
             }
 
         }
@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         setupNavigationViewFont()
 
         /* get user profile from api */
-        getProfile(false)
+        loadProfile(false)
 
         /* set boolean if this activity is launched by gcm  */
         isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
@@ -373,7 +373,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         try {
             startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE)
         } catch (e: Exception) {
-            getProfile(true)
+            loadProfile(true)
         }
     }
 
@@ -398,7 +398,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, lang)
     }
 
-    private fun getProfile(isFromEditProfile: Boolean) {
+    private fun loadProfile(isFromEditProfile: Boolean) {
         dialog = indeterminateProgressDialog (R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
         dialog?.setCancelable(false)
         dialog?.show()
@@ -411,15 +411,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                         HttpManager.getProfile()
                     }
                     .subscribe({
-                        dialog?.dismiss()
-                        myProfile = it
-                        Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
-                        tvName?.text = it.data?.nameEn
-                        info { it }
-
-                        if (isFromEditProfile) {
-                            startEditProfile()
-                        }
+                        updateProfileUI(isFromEditProfile, it)
 
                     }, { error ->
                         dialog?.dismiss()
@@ -428,20 +420,25 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         } else {
             getProfileSubscriber = HttpManager.getProfile()
                     .subscribe({
-                        dialog?.dismiss()
-                        myProfile = it
-                        Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
-                        tvName?.text = it.data?.nameEn
-                        info { it }
-
-                        if (isFromEditProfile) {
-                            startEditProfile()
-                        }
-
+                        updateProfileUI(isFromEditProfile, it)
                     }, { error ->
                         dialog?.dismiss()
                         toast(getString(R.string.toast_internet_connection_problem))
                     })
+        }
+    }
+
+    private fun updateProfileUI(isFromEditProfile: Boolean, it: Model.Profile) {
+        dialog?.dismiss()
+        myProfile = it
+        Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
+        tvName?.text = it.data?.nameEn
+
+        /* check if load data because user tap on user profile
+        * (and also doesn't have profile yet or not?) */
+
+        if (isFromEditProfile) {
+            startEditProfile()
         }
     }
 

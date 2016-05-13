@@ -45,7 +45,6 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
 
     }
 
-
     /**
      * Called when message is received.
 
@@ -60,7 +59,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
         Log.d(TAG, "From: " + from!!)
         Log.d(TAG, "Message: " + message)
 
-        notify(data)
+        if (!SharePref.getToken().isNullOrEmpty()) notify(data)
     }
 
     private fun notify(data: Bundle?) {

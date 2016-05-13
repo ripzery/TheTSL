@@ -26,6 +26,7 @@ import com.soundcloud.android.crop.Crop
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.info
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.File
 
@@ -90,11 +91,12 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        info { "result code : $resultCode, requestCode : $requestCode" }
+
         if(resultCode == RESULT_OK) {
             if ( requestCode != Crop.REQUEST_CROP) {
                 cacheCropImg = File(cacheDir, "cropped")
                 val destination = Uri.fromFile(cacheCropImg)
-                ivUser.setImageDrawable(null) // clear image before start crop activity
                 val px = PhotoUtil.convertDpToPx(this, 128)
                 Crop.of(PickImageChooserManager.getPickImageResultUri(data, this), destination).withMaxSize(px, px).asSquare().start(this)
             } else {

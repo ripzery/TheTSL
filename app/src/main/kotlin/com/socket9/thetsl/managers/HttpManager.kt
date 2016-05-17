@@ -73,6 +73,21 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
+    fun updatePhone(nameEn: String, nameTh: String, password: String, phone: String, address: String, picture: String): Observable<Model.BaseModel> {
+        return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, password, phone, address, picture)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                    val originalProfile = SharePref.getProfile()
+                    val profile = originalProfile.copy(data = Model.ProfileEntity(nameTh, nameEn, phone, password, address, originalProfile.data!!.email,
+                            if (!picture.isEmpty()) BASE_IMAGE_PATH + picture else originalProfile.data.pic, originalProfile.data.facebookPic))
+                    Log.d("HttpManager", "testUpdateProfile " + profile.toString())
+                    SharePref.saveProfile(profile)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
     fun getProfile(): Observable<Model.Profile> {
 
         try {

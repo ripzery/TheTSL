@@ -199,4 +199,14 @@
     <string name="fragment.new.booking.service.date.hint">เลือกวัน</string>
     <string name="fragment.new.booking.service.time.hint">เลือกเวลา</string>
     <string name="fragment.new.booking.service.type.hint">เลือกประเภท</string>
+    <string name="dialog.update.phone.content">กรุณาใส่หมายเลขโทรศัพท์</string>
+    <string name="dialog.update.phone.negative">ยกเลิก</string>
+    <string name="dialog.update.phone.input.hint">หมายเลขโทรศัพท์</string>
+    <string name="dialog.update.phone.positive">อัพเดท</string>
+    <string name="dialog.update.phone.title">เปลี่ยนแปลงเบอร์โทรศัพท์</string>
+    <string name="validate.confirm.password">รหัสผ่านไม่ตรงกัน</string>
+    <string name="validate.email">อีเมล์ไม่ถูกต้อง</string>
+    <string name="validate.name">กรุณาใส่ชื่อ</string>
+    <string name="validate.password">รหัสผ่านต้องมีจำนวน 8 ตัวขึ้นไป</string>
+    <string name="validate.phone">เบอร์โทรศัพท์ต้องมีจำนวน 10 ตัวอักษร (กรูณาใส่ให้ถูกต้อง)</string>
 </resources>

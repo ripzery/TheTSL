@@ -200,4 +200,14 @@
     <string name="fragment.new.booking.service.time.hint">Choose time</string>
     <string name="fragment.new.booking.service.type.hint">Choose type</string>
     <string name="bottom.emergency">Emergency</string>
+    <string name="dialog.update.phone.content">Enter your mobile phone number</string>
+    <string name="dialog.update.phone.input.hint">Phone number</string>
+    <string name="dialog.update.phone.negative">Cancel</string>
+    <string name="dialog.update.phone.positive">Update</string>
+    <string name="dialog.update.phone.title">Update phone number</string>
+    <string name="validate.confirm.password">Your password and confirmation password do not match</string>
+    <string name="validate.email">Email is invalid</string>
+    <string name="validate.name">Name must not be empty</string>
+    <string name="validate.password">Password must not less than 8 characters</string>
+    <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
 </resources>

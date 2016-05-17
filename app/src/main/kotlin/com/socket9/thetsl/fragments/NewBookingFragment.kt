@@ -7,13 +7,17 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.afollestad.materialdialogs.MaterialDialog
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.validatePhone
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.utils.DialogUtil
+import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.fragment_new_booking_service.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -130,23 +134,37 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     private fun initListener() {
         btnBook.setOnClickListener {
 
-            try {
-                val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
-                        basicData!!.data.modelCategories[choosenModelIndex],
-                        dateTime,
-                        basicData!!.data.serviceTypes[choosenTypeIndex],
-                        basicData!!.data.branches[choosenBranchIndex],
-                        etMoreInfo.text.toString(),
-                        "087-1234567")
+            val phone = SharePref.getProfile().data!!.phone
 
-                info { newBooking }
-                book(newBooking)
+            if (!phone.validatePhone()) {
 
-            } catch(e: Exception) {
+                DialogUtil.getUpdatePhoneDialog(activity, object : MaterialDialog.InputCallback {
+                    override fun onInput(dialog: MaterialDialog, input: CharSequence?) {
 
-                toast(getString(R.string.toast_fill_all_field))
+                    }
 
-                e.printStackTrace()
+                })
+
+            } else {
+
+                try {
+                    val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
+                            basicData!!.data.modelCategories[choosenModelIndex],
+                            dateTime,
+                            basicData!!.data.serviceTypes[choosenTypeIndex],
+                            basicData!!.data.branches[choosenBranchIndex],
+                            etMoreInfo.text.toString(),
+                            phone)
+
+                    info { newBooking }
+                    book(newBooking)
+
+                } catch(e: Exception) {
+
+                    toast(getString(R.string.toast_fill_all_field))
+
+                    e.printStackTrace()
+                }
             }
 
         }

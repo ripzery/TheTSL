@@ -59,7 +59,7 @@ object Model {
     @PaperParcel
     data class ProfileEntity(val nameTh: String,
                              val nameEn: String,
-                             val phone: String? = null,
+                             val phone: String,
                              val password: String? = null,
                              val address: String ? = null,
                              val email: String,

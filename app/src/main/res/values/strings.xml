@@ -25,6 +25,13 @@
     <string name="dialog.forgot.pw.negative">Cancel</string>
     <string name="dialog.forgot.pw.input.hint">Your email</string>
 
+    <!-- Update phone dialog -->
+    <string name="dialog.update.phone.title">Update phone number</string>
+    <string name="dialog.update.phone.content">Enter your mobile phone number</string>
+    <string name="dialog.update.phone.positive">Update</string>
+    <string name="dialog.update.phone.negative">Cancel</string>
+    <string name="dialog.update.phone.input.hint">Phone number</string>
+
     <!-- Update profile dialog -->
     <string name="dialog.update.profile.title">Confirmation</string>
     <string name="dialog.update.profile.content">Exit without saving your changed?</string>

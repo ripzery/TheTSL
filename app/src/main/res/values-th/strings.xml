@@ -209,4 +209,6 @@
     <string name="validate.name">กรุณาใส่ชื่อ</string>
     <string name="validate.password">รหัสผ่านต้องมีจำนวน 8 ตัวขึ้นไป</string>
     <string name="validate.phone">เบอร์โทรศัพท์ต้องมีจำนวน 10 ตัวอักษร (กรูณาใส่ให้ถูกต้อง)</string>
+    <string name="fragment.new.booking.service.brand">ยี่ห้อ</string>
+    <string name="fragment.new.booking.service.select.brand.hint">เลือกยี่ห้อ</string>
 </resources>

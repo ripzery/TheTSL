@@ -66,8 +66,8 @@ object Model {
                              val pic: String? = null,
                              val facebookPic: String? = null) : PaperParcelable {
 
-        fun getName(): String{
-            return if(SharePref.isEnglish()) nameEn else nameTh
+        fun getName(): String {
+            return if (SharePref.isEnglish()) nameEn else nameTh
         }
 
         companion object {
@@ -83,14 +83,14 @@ object Model {
                                val type: String,
                                val date: String,
                                val contentEn: String,
-                               val contentTh: String){
+                               val contentTh: String) {
 
-        fun getTitle(): String{
-            return if(SharePref.isEnglish()) titleEn else titleTh
+        fun getTitle(): String {
+            return if (SharePref.isEnglish()) titleEn else titleTh
         }
 
-        fun getContent(): String{
-            return if(SharePref.isEnglish()) contentEn else contentTh
+        fun getContent(): String {
+            return if (SharePref.isEnglish()) contentEn else contentTh
         }
 
         companion object {
@@ -113,8 +113,8 @@ object Model {
                              val lat: Double? = null) : PaperParcelable {
 
 
-        fun getTitle(): String{
-            return if(SharePref.isEnglish()) titleEn else titleTh ?: titleEn
+        fun getTitle(): String {
+            return if (SharePref.isEnglish()) titleEn else titleTh ?: titleEn
         }
 
         companion object {
@@ -128,17 +128,20 @@ object Model {
         }
     }
 
+    data class BrandServiceData(val name: String, val modelServices: MutableList<String>)
+
     data class BasicDataList(val branches: MutableList<BasicData>,
-                                    val serviceTypes: MutableList<BasicData>,
-                                    val modelCategories: MutableList<BasicData>)
+                             val serviceTypes: MutableList<BasicData>,
+                             val brandServices: MutableList<BrandServiceData>)
 
-    data class ServiceBasicData(val result:Boolean, val message:String? = null, val data: BasicDataList)
+    data class ServiceBasicData(val result: Boolean, val message: String? = null, val data: BasicDataList)
 
-    data class NewBooking(val licensePlate:String,
-                          val model:BasicData,
-                          val date:String,
-                          val type: BasicData,
-                          val branch: BasicData,
+    data class NewBooking(val licensePlate: String,
+                          val modelService: String,
+                          val brandService: String,
+                          val dateBooking: String,
+                          val serviceTypes: Int,
+                          val branchesid: Int,
                           val note: String,
                           val phone: String)
 
@@ -154,18 +157,18 @@ object Model {
                                     val branchesTh: String,
                                     val branchesEn: String,
                                     val isCancel: Boolean,
-                                    val dateConfirm: String) : PaperParcelable{
+                                    val dateConfirm: String) : PaperParcelable {
 
-        fun getModelCategory(): String{
-            return if(SharePref.isEnglish()) modelCategoryEn else modelCategoryTh
+        fun getModelCategory(): String {
+            return if (SharePref.isEnglish()) modelCategoryEn else modelCategoryTh
         }
 
-        fun getBranch(): String{
-            return if(SharePref.isEnglish()) branchesEn else branchesTh
+        fun getBranch(): String {
+            return if (SharePref.isEnglish()) branchesEn else branchesTh
         }
 
-        fun getService(): String{
-            return if(SharePref.isEnglish()) serviceTypeEn else serviceTypeTh
+        fun getService(): String {
+            return if (SharePref.isEnglish()) serviceTypeEn else serviceTypeTh
         }
 
         companion object {
@@ -175,13 +178,13 @@ object Model {
     }
 
     @PaperParcel
-    data class ServiceTrackingStatus(val dateFinish:String, val dateReceive: String, val iconId:Int, val statusTh: String, val statusEn: String): PaperParcelable{
+    data class ServiceTrackingStatus(val dateFinish: String, val dateReceive: String, val iconId: Int, val statusTh: String, val statusEn: String) : PaperParcelable {
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingStatus::class.java)
         }
 
-        fun getStatus(): String{
-            return if(SharePref.isEnglish()) statusEn else statusTh
+        fun getStatus(): String {
+            return if (SharePref.isEnglish()) statusEn else statusTh
         }
 
     }
@@ -189,9 +192,9 @@ object Model {
     @PaperParcel
     data class ServiceTrackingEntity(val detail: MutableList<ServiceTrackingStatus>,
                                      val licensePlate: String,
-                                     val model:String,
+                                     val model: String,
                                      val serviceJobNumber: String,
-                                     val trackingid: String)  : PaperParcelable {
+                                     val trackingid: String) : PaperParcelable {
 
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingEntity::class.java)
@@ -199,7 +202,7 @@ object Model {
 
     }
 
-    data class ServiceBookingList(val result:Boolean,val message: String? = null, val data: MutableList<ServiceBookingEntity>)
+    data class ServiceBookingList(val result: Boolean, val message: String? = null, val data: MutableList<ServiceBookingEntity>)
 
-    data class ServiceTrackingList(val result:Boolean, val message: String? = null, val data: MutableList<ServiceTrackingEntity>)
+    data class ServiceTrackingList(val result: Boolean, val message: String? = null, val data: MutableList<ServiceTrackingEntity>)
 }

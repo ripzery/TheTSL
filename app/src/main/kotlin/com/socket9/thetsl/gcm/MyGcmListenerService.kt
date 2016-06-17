@@ -92,20 +92,24 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                             }
                     )
                             .putExtra("isGcm", true).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .putExtra("type", EMERGENCY_CALL)
                 }
                 SERVICE_BOOKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("isGcm", true)
+                            .putExtra("type", SERVICE_BOOKING)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_TRACKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("isGcm", true)
+                            .putExtra("type", SERVICE_TRACKING)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 NEW_CAR -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("isGcm", true)
+                            .putExtra("type", NEW_CAR)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
             }

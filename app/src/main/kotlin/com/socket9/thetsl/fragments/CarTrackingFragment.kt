@@ -68,6 +68,15 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
         initInstance()
     }
 
+    override fun onPause() {
+        super.onPause()
+        loadDataSubscription?.unsubscribe()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
     /** Method zone **/
 
     private fun initInstance(){

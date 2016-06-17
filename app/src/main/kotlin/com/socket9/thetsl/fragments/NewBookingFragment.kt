@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.afollestad.materialdialogs.MaterialDialog
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import com.jakewharton.rxbinding.widget.RxTextView
+import com.rengwuxian.materialedittext.MaterialEditText
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.validatePhone
 import com.socket9.thetsl.managers.HttpManager
@@ -20,7 +22,10 @@ import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.fragment_new_booking_service.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.find
 import org.jetbrains.anko.info
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.toast
@@ -34,7 +39,6 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
     /** Variable zone **/
     lateinit var param1: String
-    var modelList: MutableList<Model.BaseModel>? = null
     private var dataSubscription: Subscription? = null
     private var progressDialog: ProgressDialog? = null
     private var basicData: Model.ServiceBasicData? = null
@@ -44,16 +48,17 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     private var isModified: Boolean = false
     private var isDateSet: Boolean = false
     private var isTimeSet: Boolean = false
-    private var choosenModelIndex = -1
-    private var choosenTypeIndex = -1
-    private var choosenBranchIndex = -1
+    private var chosenBrandIndex = -1
+    private var chosenModelIndex = -1
+    private var chosenTypeIndex = -1
+    private var chosenBranchIndex = -1
 
     /** Static method zone **/
     companion object {
         val ARG_1 = "ARG_1"
 
         fun newInstance(param1: String): NewBookingFragment {
-            var bundle: Bundle = Bundle()
+            val bundle: Bundle = Bundle()
             bundle.putString(ARG_1, param1)
             val newBookingFragment: NewBookingFragment = NewBookingFragment()
             newBookingFragment.arguments = bundle
@@ -138,26 +143,21 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
             if (!phone.validatePhone()) {
 
-                DialogUtil.getUpdatePhoneDialog(activity, object : MaterialDialog.InputCallback {
-                    override fun onInput(dialog: MaterialDialog, input: CharSequence?) {
-
-                    }
-
-                })
+                DialogUtil.getUpdatePhoneDialog(activity, MaterialDialog.InputCallback { dialog, input -> })
 
             } else {
 
                 try {
-                    val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
-                            basicData!!.data.modelCategories[choosenModelIndex],
-                            dateTime,
-                            basicData!!.data.serviceTypes[choosenTypeIndex],
-                            basicData!!.data.branches[choosenBranchIndex],
-                            etMoreInfo.text.toString(),
-                            phone)
+//                    val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
+//                            basicData!!.data.brandServices[choosenModelIndex],
+//                            dateTime,
+//                            basicData!!.data.serviceTypes[    choosenTypeIndex],
+//                            basicData!!.data.branches[choosenBranchIndex],
+//                            etMoreInfo.text.toString(),
+//                            phone)
 
-                    info { newBooking }
-                    book(newBooking)
+//                    info { newBooking }
+//                    book(newBooking)
 
                 } catch(e: Exception) {
 
@@ -190,18 +190,84 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         //        spinnerModel.onItemSelectedListener = spinSelectedListener
         //        spinnerType.onItemSelectedListener = spinSelectedListener
 
-        btnChooseModel.setOnClickListener {
-            selector(getString(R.string.fragment_new_booking_service_select_model_hint), getListNameFromBasicData(basicData!!.data.modelCategories), {
-                btnChooseModel.text = basicData!!.data.modelCategories[it].getName()
-                choosenModelIndex = it
+        btnChooseBrand.onClick {
+            val brandList = getListBrandNameFromBranchService(basicData!!.data.brandServices)
+
+            /* show brand list  */
+            selector(getString(R.string.fragment_new_booking_service_select_model_hint), brandList, { index ->
+
+                /* if user doesn't select other  */
+                if (!brandList[index].equals("OTHER")) {
+
+                    /* set text to the one that user has selected*/
+                    btnChooseBrand.text = basicData!!.data.brandServices[index].name
+
+                    /* set selected index */
+                    chosenBrandIndex = index
+                } else {
+
+                    /* if user chosen other then show dialog to let user input brand by manually */
+                    showCustomInputDialog("Enter brand name") {
+                        btnChooseBrand.text = it
+                        chosenBrandIndex = index
+                    }
+                }
+
+                if (chosenBrandIndex != -1) {
+                    btnChooseModel.isEnabled = true
+                    btnChooseModel.hint = getString(R.string.fragment_new_booking_service_select_model_hint)
+                    btnChooseModel.text = ""
+                }
+
                 isModified = true
             })
+        }
+
+        btnChooseModel.setOnClickListener {
+
+            val brandList = getListBrandNameFromBranchService(basicData!!.data.brandServices)
+
+            /* If user doesn't select other brand */
+            if (!brandList[chosenBrandIndex].equals("OTHER")) {
+
+                val brandServiceData = basicData!!.data.brandServices[chosenBrandIndex]
+
+                /* show model list */
+                selector(getString(R.string.fragment_new_booking_service_select_model_hint), brandServiceData.modelServices, { index ->
+
+                    /* if user doesn't select other model */
+                    if (!brandServiceData.modelServices[index].equals("Other")) {
+                        btnChooseModel.text = brandServiceData.modelServices[index]
+                        chosenModelIndex = index
+
+                    } else {
+
+                        /* if user select other model, then let user type it manually */
+
+                        showCustomInputDialog("Enter model name") {
+                            btnChooseModel.text = it
+                            chosenModelIndex = index
+                        }
+
+                    }
+                    isModified = true
+                })
+
+            } else {/* User select other brand */
+
+                /* show dialog to let user type the model name manually */
+                showCustomInputDialog("Enter model name") {
+                    btnChooseModel.text = it
+                    chosenModelIndex = -1
+                }
+            }
+
         }
 
         btnChooseType.setOnClickListener {
             selector(getString(R.string.fragment_new_booking_service_type_hint), getListNameFromBasicData(basicData!!.data.serviceTypes), {
                 btnChooseType.text = basicData!!.data.serviceTypes[it].getName()
-                choosenTypeIndex = it
+                chosenTypeIndex = it
                 isModified = true
             })
         }
@@ -209,14 +275,31 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         btnChooseBranch.setOnClickListener {
             selector(getString(R.string.fragment_new_booking_service_branch_hint), getListNameFromBasicData(basicData!!.data.branches), {
                 btnChooseBranch.text = basicData!!.data.branches[it].getName()
-                choosenBranchIndex = it
+                chosenBranchIndex = it
                 isModified = true
             })
         }
 
     }
 
-    fun isModified(): Boolean {
+    private fun showCustomInputDialog(hint: String, action: (name: String) -> Unit) {
+        val customInput: View = LayoutInflater.from(context).inflate(R.layout.dialog_enter_other, null)
+
+        val alertInput = alert {
+            customView(customInput)
+        }.show()
+
+        val etOther = customInput.find<MaterialEditText>(R.id.etOther)
+        val btnEnter = customInput.find<Button>(R.id.btnEnter)
+        etOther.hint = hint
+        etOther.floatingLabelText = hint
+        btnEnter.onClick {
+            action(etOther.text.toString())
+            alertInput.dismiss()
+        }
+    }
+
+    public fun isModified(): Boolean {
         return isModified
     }
 
@@ -239,17 +322,17 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     }
 
 
-    //    private fun setSpinnerData(it: Model.ServiceBasicData) {
-    //        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
-    //        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    //        spinnerBranch.adapter = branchAdapter
-    //        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
-    //        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    //        spinnerModel.adapter = modelAdapter
-    //        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
-    //        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    //        spinnerType.adapter = typeAdapter
-    //    }
+//    private fun setSpinnerData(it: Model.ServiceBasicData) {
+//        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
+//        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerBranch.adapter = branchAdapter
+//        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
+//        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerModel.adapter = modelAdapter
+//        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
+//        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerType.adapter = typeAdapter
+//    }
 
     private fun loadData() {
         progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
@@ -268,9 +351,17 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     }
 
     private fun getListNameFromBasicData(dataList: MutableList<Model.BasicData>): List<String> {
-        var list: MutableList<String> = mutableListOf()
+        val list: MutableList<String> = mutableListOf()
         for (item in dataList) {
             list.add(item.getName())
+        }
+        return list
+    }
+
+    private fun getListBrandNameFromBranchService(dataList: MutableList<Model.BrandServiceData>): MutableList<String> {
+        val list: MutableList<String> = mutableListOf()
+        for (item in dataList) {
+            list.add(item.name)
         }
         return list
     }

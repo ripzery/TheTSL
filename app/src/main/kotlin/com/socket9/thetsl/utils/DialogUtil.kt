@@ -33,11 +33,10 @@ object DialogUtil {
         return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_update_phone_title)).content(getString(context, R.string.dialog_update_phone_content)).positiveText(getString(context, R.string.dialog_update_phone_positive)).negativeText(getString(context, R.string.dialog_update_phone_negative)).input(getString(context, R.string.dialog_update_phone_input_hint), "", false, callback).build()
     }
 
-
     fun getServiceBookingConfirmationDialog(context: Context): MaterialDialog {
         return MaterialDialog.Builder(context)
                 .title(getString(context, R.string.dialog_update_profile_title))
-                .content(R.layout.dialog_booking_confirmation)
+                .customView(R.layout.dialog_booking_confirmation, false)
                 .positiveText(getString(context, R.string.dialog_emergency_confirmation_positive))
                 .build()
     }

@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
     private var tvName: TextView ? = null
     private var headerView: View? = null
     private var isLaunchedByGcm: Boolean = false
+    private var type: String = ""
 
     /** Lifecycle  zone **/
 
@@ -173,6 +174,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
 
         /* set boolean if this activity is launched by gcm  */
         isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
+        type = intent.getStringExtra("type") ?: ""
 
         /* set currentFragment when change language */
         currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
@@ -248,20 +250,20 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                 //                replaceFragment(fragment = emergencyFragment!!)
                 bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.EMERGENCY, isLaunchedByGcm)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.EMERGENCY, isLaunchedByGcm, type)
             }
             FRAGMENT_DISPLAY_EVENT -> replaceFragment(fragment = eventFragment!!)
             FRAGMENT_DISPLAY_SERVICE -> {
                 //                replaceFragment(fragment = serviceFragment!!)
                 bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.SERVICE_TRACKING, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm, type)
             }
             FRAGMENT_DISPLAY_CAR_TRACKING -> {
                 //                replaceFragment(fragment = carTrackingFragment!!)
                 bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.CAR_TRACKING, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, isLaunchedByGcm)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, isLaunchedByGcm, type)
             }
         }
         currentFragmentIndex = mode
@@ -275,6 +277,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
             FRAGMENT_DISPLAY_CONTACT -> navView.setCheckedItem(R.id.nav_contact)
             FRAGMENT_DISPLAY_EMERGENCY -> navView.setCheckedItem(R.id.nav_emergency_call)
             FRAGMENT_DISPLAY_SERVICE -> navView.setCheckedItem(R.id.nav_service)
+            FRAGMENT_DISPLAY_CAR_TRACKING -> navView.setCheckedItem(R.id.nav_car_tracking)
         }
     }
 
@@ -359,10 +362,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                     changeFragment(FRAGMENT_DISPLAY_SERVICE)
                     menuItem.isChecked = true
                 }
-            //                R.id.nav_car_tracking -> {
-            //                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
-            //                    menuItem.isChecked = true
-            //                }
+                R.id.nav_car_tracking -> {
+                    changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
+                    menuItem.isChecked = true
+                }
             }
 
             //            navView.setChe

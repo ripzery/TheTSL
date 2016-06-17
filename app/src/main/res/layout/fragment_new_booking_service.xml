@@ -47,6 +47,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    fontPath="fonts/samakarn/Samakarn-Bold.ttf"
+                    android:theme="@style/BasicText.Primary"
+                    android:layout_weight="0.5"
+                    android:text="@string/fragment.new.booking.service.brand"/>
+
+                <Button
+                    android:id="@+id/btnChooseBrand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fragment.new.booking.service.select.brand.hint"
+                    android:maxLines="1"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
                 android:orientation="horizontal">
 
@@ -59,22 +86,12 @@
                     android:layout_weight="0.5"
                     android:text="@string/fragment.new.booking.service.model"/>
 
-                <!--<fr.ganfra.materialspinner.MaterialSpinner-->
-                <!--android:id="@+id/spinnerModel"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--app:ms_hint="@string/fragment.new.booking.service.select.model.hint"-->
-                <!--android:gravity="right"-->
-                <!--android:background="@null"-->
-                <!--android:layout_marginLeft="16dp"/>-->
-
                 <Button
                     android:id="@+id/btnChooseModel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/fragment.new.booking.service.select.model.hint"
                     android:maxLines="1"
+                    android:enabled="false"
                     android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/colorPrimary"/>

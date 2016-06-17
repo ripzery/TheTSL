@@ -210,4 +210,6 @@
     <string name="validate.name">Name must not be empty</string>
     <string name="validate.password">Password must not less than 8 characters</string>
     <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
+    <string name="fragment.new.booking.service.brand">Brand</string>
+    <string name="fragment.new.booking.service.select.brand.hint">Choose brand</string>
 </resources>

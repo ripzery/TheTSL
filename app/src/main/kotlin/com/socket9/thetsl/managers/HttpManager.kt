@@ -214,12 +214,13 @@ object HttpManager {
     fun bookService(newBooking: Model.NewBooking): Observable<Model.BaseModel> {
         return ApiService.getAPI().bookService(SharePref.getToken(),
                 newBooking.licensePlate,
-                newBooking.date,
-                newBooking.model.id,
-                newBooking.type.id,
+                newBooking.dateBooking,
+                newBooking.modelService,
+                newBooking.brandService,
+                newBooking.serviceTypes,
                 newBooking.note,
                 newBooking.phone,
-                newBooking.branch.id)
+                newBooking.branchesid)
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }

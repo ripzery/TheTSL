@@ -224,7 +224,9 @@
     <string name="fragment.new.booking.service.title">New Booking</string>
     <string name="fragment.new.booking.service.license.plate">License Plate</string>
     <string name="fragment.new.booking.service.license.plate.hint">Put license plate</string>
+    <string name="fragment.new.booking.service.brand">Brand</string>
     <string name="fragment.new.booking.service.model">Model</string>
+    <string name="fragment.new.booking.service.select.brand.hint">Choose brand</string>
     <string name="fragment.new.booking.service.select.model.hint">Choose model</string>
     <string name="fragment.new.booking.service.date">Date</string>
     <string name="fragment.new.booking.service.time">Time</string>

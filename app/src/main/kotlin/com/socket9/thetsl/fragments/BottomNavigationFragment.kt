@@ -12,7 +12,7 @@ import com.roughike.bottombar.OnMenuTabClickListener
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.MainActivity
 import com.socket9.thetsl.extensions.replaceFragment
-import com.socket9.thetsl.extensions.toast
+import com.socket9.thetsl.gcm.MyGcmListenerService
 import com.socket9.thetsl.utils.DialogUtil
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
@@ -30,19 +30,22 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
     private var carTrackingFragment: CarTrackingFragment? = null
     private var onChangedTabListener: OnChangeTabListener? = null
     private var isLaunchedByGcm: Boolean = false
+    private var type: String = ""
 
     /** Static method zone **/
     companion object {
         val ARG_1 = "ARG_1"
         val ARG_2 = "ARG_2"
+        val ARG_3 = "ARG_3"
         val EMERGENCY = 0
         val SERVICE_TRACKING = 1
         val CAR_TRACKING = 2
 
-        fun newInstance(param1: Int, onChangeTabListener: OnChangeTabListener, launchedByGcm: Boolean): BottomNavigationFragment {
+        fun newInstance(param1: Int, onChangeTabListener:
+        OnChangeTabListener, launchedByGcm: Boolean): BottomNavigationFragment {
             var bundle: Bundle = Bundle()
             bundle.putInt(ARG_1, param1)
-            bundle.putBoolean(ARG_2, launchedByGcm)
+            bundle.putBoolean(ARG_3, launchedByGcm)
             val bottomNavigationFragment: BottomNavigationFragment = BottomNavigationFragment()
             bottomNavigationFragment.arguments = bundle
             bottomNavigationFragment.onChangedTabListener = onChangeTabListener
@@ -58,13 +61,14 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
         if (savedInstanceState == null) {
             /* if newly created */
             bottomBarIndex = arguments.getInt(ARG_1)
-            isLaunchedByGcm = arguments.getBoolean(ARG_2)
+            isLaunchedByGcm = arguments.getBoolean(ARG_3)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView: View = inflater!!.inflate(R.layout.fragment_bottom_navigation, container, false)
         bottomBar = BottomBar.attach(rootView, null)
+        bottomBar?.useFixedMode()
         return bottomBar
     }
 
@@ -97,7 +101,6 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
             override fun onMenuTabSelected(menuItemId: Int) {
                 when (menuItemId) {
                     R.id.menu_bottom_emergency -> {
-                        toast("Bottom Emergency")
                         replaceFragment(R.id.fragmentContainer, emergencyFragment!!)
                         onChangedTabListener?.onChangedTab(MainActivity.FRAGMENT_DISPLAY_EMERGENCY)
                     }
@@ -120,7 +123,7 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
 
     }
 
-    fun setTab(index: Int, isLaunchedByGcm: Boolean) {
+    fun setTab(index: Int, isLaunchedByGcm: Boolean, type: String) {
         try {
             if (isLaunchedByGcm) {
                 when (index) {
@@ -130,9 +133,11 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
                         }, 1000)
                     }
                     1 -> {
-                        Handler().postDelayed({
-                            showServiceConfirmationDialog()
-                        }, 1000)
+                        if (type.equals(MyGcmListenerService.SERVICE_BOOKING)) {
+                            Handler().postDelayed({
+                                showServiceConfirmationDialog()
+                            }, 1000)
+                        }
                     }
                 }
             }
@@ -147,14 +152,16 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
 
     private fun showServiceConfirmationDialog() {
         val dialog = DialogUtil.getServiceBookingConfirmationDialog(context)
-        val view = dialog.customView!!
+        val view = dialog.customView
 
         with(view) {
-            val tvType = find<TextView>(R.id.tvType)
-            val tvDate = find<TextView>(R.id.tvDate)
-            val tvTime = find<TextView>(R.id.tvTime)
-            val tvBranch = find<TextView>(R.id.tvBranch)
+            val tvType = this?.find<TextView>(R.id.tvType)
+            val tvDate = this?.find<TextView>(R.id.tvDate)
+            val tvTime = this?.find<TextView>(R.id.tvTime)
+            val tvBranch = this?.find<TextView>(R.id.tvBranch)
         }
+
+        /* TODO: setup service confirm dialog */
 
         dialog.show()
     }

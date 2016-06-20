@@ -21,10 +21,7 @@ import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.fragment_new_booking_service.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.find
-import org.jetbrains.anko.info
-import org.jetbrains.anko.onClick
+import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.selector
@@ -148,16 +145,19 @@ class NewBookingFragment : Fragment(), AnkoLogger {
             } else {
 
                 try {
-//                    val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
-//                            basicData!!.data.brandServices[choosenModelIndex],
-//                            dateTime,
-//                            basicData!!.data.serviceTypes[    choosenTypeIndex],
-//                            basicData!!.data.branches[choosenBranchIndex],
-//                            etMoreInfo.text.toString(),
-//                            phone)
 
-//                    info { newBooking }
-//                    book(newBooking)
+                    val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
+                            btnChooseModel.text.toString(),
+                            btnChooseBrand.text.toString(),
+                            dateTime,
+                            basicData!!.data.serviceTypes[chosenTypeIndex].id,
+                            basicData!!.data.branches[chosenBranchIndex].id,
+                            etMoreInfo.text.toString(),
+                            phone)
+
+                    info { newBooking }
+
+                    book(newBooking)
 
                 } catch(e: Exception) {
 
@@ -310,11 +310,17 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
         HttpManager.bookService(newBooking)
                 .subscribe ({
-                    progressDialog?.dismiss()
-                    toast(getString(R.string.toast_service_booking_successful))
-                    info { it }
-                    activity.setResult(Activity.RESULT_OK)
-                    activity.finish()
+                    if(it.result){
+                        progressDialog?.dismiss()
+                        toast(getString(R.string.toast_service_booking_successful))
+                        info { it }
+                        activity.setResult(Activity.RESULT_OK)
+                        activity.finish()
+                    }else{
+                        toast(it.message)
+                        warn { it }
+                    }
+
                 }, {
                     progressDialog?.dismiss()
                     toast(getString(R.string.toast_internet_connection_problem))

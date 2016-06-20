@@ -25,6 +25,7 @@ import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import retrofit2.adapter.rxjava.HttpException
 import rx.Subscription
 
 /**
@@ -185,7 +186,11 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         }, { error ->
             error.printStackTrace()
             dialog?.dismiss()
-            toast(getString(R.string.toast_internet_connection_problem))
+            if (error.message!!.contains("Internal Server")) {
+                toast(error.message!!)
+            } else {
+                toast(getString(R.string.toast_internet_connection_problem))
+            }
         })
     }
 

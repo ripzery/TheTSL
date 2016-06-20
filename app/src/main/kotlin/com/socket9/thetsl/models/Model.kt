@@ -98,8 +98,7 @@ object Model {
         }
     }
 
-    @PaperParcel
-    data class ContactEntity(val id: Int,
+    @PaperParcel data class ContactEntity(val id: Int,
                              val titleEn: String,
                              val subTitle: String? = null,
                              val icon: Int,
@@ -122,19 +121,39 @@ object Model {
         }
     }
 
-    data class BasicData(val id: Int, val nameEn: String, val nameTh: String) {
+    @PaperParcel data class BasicData(val id: Int, val nameEn: String, val nameTh: String) : PaperParcelable {
         fun getName(): String {
             return if (SharePref.isEnglish()) nameEn else nameTh
         }
+
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(BasicData::class.java)
+        }
     }
 
-    data class BrandServiceData(val name: String, var modelServices: MutableList<String>)
+    @PaperParcel data class BrandServiceData(val name: String, var modelServices: MutableList<String>) : PaperParcelable {
 
-    data class BasicDataList(val branches: MutableList<BasicData>,
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(BrandServiceData::class.java)
+        }
+    }
+
+    @PaperParcel data class BasicDataList(val branches: MutableList<BasicData>,
                              val serviceTypes: MutableList<BasicData>,
-                             val brandServices: MutableList<BrandServiceData>)
+                             val brandServices: MutableList<BrandServiceData>) : PaperParcelable {
 
-    data class ServiceBasicData(val result: Boolean, val message: String? = null, val data: BasicDataList)
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(BasicDataList::class.java)
+        }
+    }
+
+
+    @PaperParcel data class ServiceBasicData(val result: Boolean, val message: String? = null, val data: BasicDataList) : PaperParcelable {
+
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(ServiceBasicData::class.java)
+        }
+    }
 
     data class NewBooking(val licensePlate: String,
                           val modelService: String,

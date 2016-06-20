@@ -1,12 +1,15 @@
 package com.socket9.thetsl.fragments
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.transition.Slide
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +24,11 @@ import com.socket9.thetsl.utils.DialogUtil
 import kotlinx.android.synthetic.main.fragment_service.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
+import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
-import retrofit2.adapter.rxjava.HttpException
 import rx.Subscription
 
 /**
@@ -42,6 +45,8 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
     private var serviceList: Model.ServiceBookingList? = null
     private var trackingList: Model.ServiceTrackingList? = null
     private var isLast: Boolean = false
+    private var progressDialog: ProgressDialog? = null
+    private var loadNewBookingSubscription: Subscription? = null
 
     /** Static method zone **/
     companion object {
@@ -83,7 +88,9 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
     override fun onPause() {
         super.onPause()
         loadDataSubscription?.unsubscribe()
+        loadNewBookingSubscription?.unsubscribe()
         dialog?.dismiss()
+        progressDialog?.dismiss()
 
     }
 
@@ -116,11 +123,19 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             selector(getString(R.string.booking_service_type_title), serviceAddedType) { position ->
                 when (position) {
                     0 -> {
-                        val intent = Intent(activity, NewBookingActivity::class.java)
-                        intent.putExtra("isNewBooking", true)
-                        startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY)
+                        loadNewBookingDataThen {
+                            val intent = Intent(activity, NewBookingActivity::class.java)
+                            intent.putExtra(NewBookingActivity.EXTRA_IS_NEW_BOOKING, true)
+                            intent.putExtra(NewBookingActivity.EXTRA_NEW_BOOKING_DATA, it)
+//                            startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
+                            startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY)
+                            activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+                        }
                     }
-                    1 -> startActivity<NewBookingActivity>("isNewBooking" to false)
+                    1 ->{
+                        startActivity<NewBookingActivity>(NewBookingActivity.EXTRA_IS_NEW_BOOKING to false)
+                        activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+                    }
                 }
             }
         }
@@ -191,6 +206,23 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             } else {
                 toast(getString(R.string.toast_internet_connection_problem))
             }
+        })
+    }
+
+    private fun loadNewBookingDataThen(action: (Model.ServiceBasicData) -> Unit) {
+        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
+
+        /* Loading spinner data */
+        loadNewBookingSubscription = HttpManager.getServiceBasicData().subscribe ({
+            action(it)
+            progressDialog?.dismiss()
+            //            setSpinnerData(it)
+        }, { error ->
+            progressDialog?.dismiss()
+            info { error }
+            toast(getString(R.string.toast_internet_connection_problem))
         })
     }
 

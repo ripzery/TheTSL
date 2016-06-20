@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
 import android.text.SpannableString
+import android.transition.Explode
+import android.transition.Slide
+import android.transition.TransitionInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -378,7 +381,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
     private fun startEditProfile() {
         try {
             startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE)
+            overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         } catch (e: Exception) {
+
             loadProfile(true)
         }
     }

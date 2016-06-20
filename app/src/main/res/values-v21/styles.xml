@@ -8,6 +8,7 @@
         <item name="android:colorControlHighlight">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="ToolbarThemeOverlay" parent="ThemeOverlay.AppCompat.Light">

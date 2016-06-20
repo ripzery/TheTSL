@@ -2,6 +2,8 @@ package com.socket9.thetsl.activities
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
+import android.transition.Slide
 import android.view.Menu
 import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
@@ -9,6 +11,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.KnownServiceNumberFragment
 import com.socket9.thetsl.fragments.NewBookingFragment
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -25,6 +28,8 @@ class NewBookingActivity : ToolbarActivity() {
     /** Static method zone **/
     companion object {
         val NEW_BOOKING_ACTIVITY = 1000
+        val EXTRA_NEW_BOOKING_DATA = "newBookingData"
+        val EXTRA_IS_NEW_BOOKING = "isNewBooking"
     }
 
     /** Lifecycle  zone **/
@@ -32,7 +37,9 @@ class NewBookingActivity : ToolbarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_booking)
+        window.enterTransition = Slide()
         initInstance()
+
     }
 
     override fun onResume() {
@@ -48,13 +55,17 @@ class NewBookingActivity : ToolbarActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            android.R.id.home ->{
+        when (item?.itemId) {
+            android.R.id.home -> {
                 if (newBookingFragment.isModified()) {
-                    DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which -> finish() }).show()
+                    DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
+                        finish()
+                        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                    }).show()
                     return true
                 } else {
                     finish()
+                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                     return true
                 }
             }
@@ -65,9 +76,13 @@ class NewBookingActivity : ToolbarActivity() {
 
     override fun onBackPressed() {
         if (newBookingFragment.isModified()) {
-            DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which -> finish() }).show()
+            DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
+                finish()
+                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+            }).show()
         } else {
             finish()
+            overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
         }
     }
 
@@ -78,14 +93,16 @@ class NewBookingActivity : ToolbarActivity() {
     /** Method zone **/
 
     private fun initInstance() {
-        val isNewBooking: Boolean = intent.getBooleanExtra("isNewBooking", true)
+        val isNewBooking: Boolean = intent.getBooleanExtra(EXTRA_IS_NEW_BOOKING, true)
 
         setupToolbar(if (isNewBooking) getString(R.string.fragment_new_booking_service_title) else "Service Tracking")
 
-        newBookingFragment = NewBookingFragment.newInstance("NewBookingFragment")
+        val data: Model.ServiceBasicData? = intent.getParcelableExtra<Model.ServiceBasicData>(EXTRA_NEW_BOOKING_DATA)
+
+        newBookingFragment = NewBookingFragment.newInstance("NewBookingFragment", data)
         knownServiceNumberFragment = KnownServiceNumberFragment.newInstance("KnownServiceNumberFragment")
 
-        replaceFragment(fragment = if(isNewBooking) newBookingFragment else knownServiceNumberFragment)
+        replaceFragment(fragment = if (isNewBooking) newBookingFragment else knownServiceNumberFragment)
     }
 
     private fun initToolbar(newBooking: Boolean) {

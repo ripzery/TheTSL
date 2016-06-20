@@ -125,6 +125,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
                         progressDialog?.dismiss()
                         val contact = it.data.copy(titleEn = model.titleEn, subTitle = model.subTitle)
                         startActivity<BranchDetailActivity>("contact" to contact)
+                        activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
 
                     }, {
                         progressDialog?.dismiss()

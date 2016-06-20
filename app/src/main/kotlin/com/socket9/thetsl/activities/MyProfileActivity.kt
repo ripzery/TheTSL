@@ -76,10 +76,12 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
                     DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                         setResult(RESULT_CANCELED)
                         finish()
+                        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                     }).show()
                 } else {
                     setResult(RESULT_CANCELED)
                     finish()
+                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                 }
                 return true
             }
@@ -121,10 +123,12 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
             DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                 setResult(RESULT_CANCELED)
                 finish()
+                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
             }).show()
         } else {
             setResult(RESULT_CANCELED)
             finish()
+            overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
         }
     }
 
@@ -196,6 +200,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
                     toast(it.message)
                     setResult(RESULT_OK)
                     finish()
+                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                 }, { error ->
                     progressDialog.dismiss()
                     error.printStackTrace()

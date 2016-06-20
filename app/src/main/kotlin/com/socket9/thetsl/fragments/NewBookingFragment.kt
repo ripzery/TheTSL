@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.transition.Slide
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +40,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     lateinit var param1: String
     private var dataSubscription: Subscription? = null
     private var progressDialog: ProgressDialog? = null
-    private var basicData: Model.ServiceBasicData? = null
+    lateinit var basicData: Model.ServiceBasicData
     private var datePicker: CalendarDatePickerDialogFragment? = null
     private var timePicker: RadialTimePickerDialogFragment? = null
     private var dateTime: String = ""
@@ -53,10 +55,12 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     /** Static method zone **/
     companion object {
         val ARG_1 = "ARG_1"
+        val ARG_2 = "ARG_2"
 
-        fun newInstance(param1: String): NewBookingFragment {
+        fun newInstance(param1: String, param2: Model.ServiceBasicData?): NewBookingFragment {
             val bundle: Bundle = Bundle()
             bundle.putString(ARG_1, param1)
+            bundle.putParcelable(ARG_2, param2)
             val newBookingFragment: NewBookingFragment = NewBookingFragment()
             newBookingFragment.arguments = bundle
             return newBookingFragment
@@ -71,6 +75,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         if (savedInstanceState == null) {
             /* if newly created */
             param1 = arguments.getString(ARG_1)
+            basicData = arguments.getParcelable<Model.ServiceBasicData>(ARG_2)
         }
     }
 
@@ -128,9 +133,6 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 .setCancelText("Cancel")
 
         initListener()
-
-        loadData()
-
     }
 
     private fun showCustomInputDialog(hint: String, action: (name: String) -> Unit) {
@@ -150,7 +152,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         }
     }
 
-    public fun isModified(): Boolean {
+    fun isModified(): Boolean {
         return isModified
     }
 
@@ -191,21 +193,6 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 //        spinnerType.adapter = typeAdapter
 //    }
 
-    private fun loadData() {
-        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
-        progressDialog?.setCancelable(false)
-        progressDialog?.show()
-
-        /* Loading spinner data */
-        dataSubscription = HttpManager.getServiceBasicData().subscribe ({
-            basicData = it
-            progressDialog?.dismiss()
-            //            setSpinnerData(it)
-        }, { error ->
-            progressDialog?.dismiss()
-            toast(getString(R.string.toast_internet_connection_problem))
-        })
-    }
 
     private fun getListNameFromBasicData(dataList: MutableList<Model.BasicData>): List<String> {
         val list: MutableList<String> = mutableListOf()

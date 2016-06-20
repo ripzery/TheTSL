@@ -57,10 +57,18 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        when(item?.itemId){
-            android.R.id.home -> finish()
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -87,7 +95,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
 
         })
 
-        if(contactLatLng != null){
+        if (contactLatLng != null) {
             mMap.addMarker(MarkerOptions().position(contactLatLng).title(contact.getTitle()))
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(contactLatLng, 15f))
         }
@@ -101,8 +109,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
 
     private fun initInstance() {
         contact = intent.getParcelableExtra<Model.ContactEntity>("contact")
-        if(contact.lat != null && contact.lng != null)
-            contactLatLng = LatLng(contact.lat!!, contact.lng!!)
+        if (contact.lat != null && contact.lng != null) contactLatLng = LatLng(contact.lat!!, contact.lng!!)
 
         //        setToolbar()
         setupToolbar(contact.getTitle())
@@ -120,7 +127,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
         //        toolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
         tvPhone.text = contact.phone?.plainText()
         tvEmail.text = contact.email?.plainText()
-        if(contact.businessHours != null) tvHours.text = Html.fromHtml(contact.businessHours)
+        if (contact.businessHours != null) tvHours.text = Html.fromHtml(contact.businessHours)
         tvAddress.text = contact.address?.plainText()
     }
 

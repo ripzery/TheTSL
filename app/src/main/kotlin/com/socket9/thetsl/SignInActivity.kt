@@ -128,6 +128,8 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
 
         btnRegister.setOnClickListener {
             startActivity<CreateAccountActivity>()
+            overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+
         }
 
         btnLogin.setOnClickListener {

@@ -44,10 +44,16 @@ class NewCarTrackingActivity : AppCompatActivity() {
         when (item!!.itemId) {
             android.R.id.home -> {
                 finish()
+                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                 return true
             }
         }
         return false
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
     }
 
     override fun attachBaseContext(newBase: Context?) {

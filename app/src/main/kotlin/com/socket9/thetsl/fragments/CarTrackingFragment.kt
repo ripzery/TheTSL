@@ -92,6 +92,7 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
     private fun initListener(){
         btnAddService.setOnClickListener {
             startActivity<NewCarTrackingActivity>()
+            activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         }
 
         btnLeft.setOnClickListener {

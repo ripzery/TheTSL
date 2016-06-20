@@ -91,6 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:hint="@string/fragment_new_booking_choose_brand_first"
                     android:enabled="false"
                     android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                     android:background="?attr/selectableItemBackgroundBorderless"

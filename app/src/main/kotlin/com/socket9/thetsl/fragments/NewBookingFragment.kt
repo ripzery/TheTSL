@@ -133,6 +133,96 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
     }
 
+    private fun showCustomInputDialog(hint: String, action: (name: String) -> Unit) {
+        val customInput: View = LayoutInflater.from(context).inflate(R.layout.dialog_enter_other, null)
+
+        val alertInput = alert {
+            customView(customInput)
+        }.show()
+
+        val etOther = customInput.find<MaterialEditText>(R.id.etOther)
+        val btnEnter = customInput.find<Button>(R.id.btnEnter)
+        etOther.hint = hint
+        etOther.floatingLabelText = hint
+        btnEnter.onClick {
+            action(etOther.text.toString())
+            alertInput.dismiss()
+        }
+    }
+
+    public fun isModified(): Boolean {
+        return isModified
+    }
+
+    private fun book(newBooking: Model.NewBooking) {
+
+        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_save_service_content, R.string.dialog_progress_title)
+        progressDialog?.setCancelable(false)
+
+        HttpManager.bookService(newBooking)
+                .subscribe ({
+                    if (it.result) {
+                        progressDialog?.dismiss()
+                        toast(getString(R.string.toast_service_booking_successful))
+                        info { it }
+                        activity.setResult(Activity.RESULT_OK)
+                        activity.finish()
+                    } else {
+                        toast(it.message)
+                        warn { it }
+                    }
+
+                }, {
+                    progressDialog?.dismiss()
+                    toast(getString(R.string.toast_internet_connection_problem))
+                })
+    }
+
+
+//    private fun setSpinnerData(it: Model.ServiceBasicData) {
+//        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
+//        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerBranch.adapter = branchAdapter
+//        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
+//        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerModel.adapter = modelAdapter
+//        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
+//        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerType.adapter = typeAdapter
+//    }
+
+    private fun loadData() {
+        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
+
+        /* Loading spinner data */
+        dataSubscription = HttpManager.getServiceBasicData().subscribe ({
+            basicData = it
+            progressDialog?.dismiss()
+            //            setSpinnerData(it)
+        }, { error ->
+            progressDialog?.dismiss()
+            toast(getString(R.string.toast_internet_connection_problem))
+        })
+    }
+
+    private fun getListNameFromBasicData(dataList: MutableList<Model.BasicData>): List<String> {
+        val list: MutableList<String> = mutableListOf()
+        for (item in dataList) {
+            list.add(item.getName())
+        }
+        return list
+    }
+
+    private fun getListBrandNameFromBranchService(dataList: MutableList<Model.BrandServiceData>): MutableList<String> {
+        val list: MutableList<String> = mutableListOf()
+        for (item in dataList) {
+            list.add(item.name)
+        }
+        return list
+    }
+
     private fun initListener() {
         btnBook.setOnClickListener {
 
@@ -232,7 +322,10 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
                 val brandServiceData = basicData!!.data.brandServices[chosenBrandIndex]
 
+                brandServiceData.modelServices = addOtherToModelIfNeeded(brandServiceData.modelServices)
+
                 /* show model list */
+
                 selector(getString(R.string.fragment_new_booking_service_select_model_hint), brandServiceData.modelServices, { index ->
 
                     /* if user doesn't select other model */
@@ -252,6 +345,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                     }
                     isModified = true
                 })
+
 
             } else {/* User select other brand */
 
@@ -282,94 +376,13 @@ class NewBookingFragment : Fragment(), AnkoLogger {
 
     }
 
-    private fun showCustomInputDialog(hint: String, action: (name: String) -> Unit) {
-        val customInput: View = LayoutInflater.from(context).inflate(R.layout.dialog_enter_other, null)
+    private fun addOtherToModelIfNeeded(modelServices: MutableList<String>): MutableList<String> {
 
-        val alertInput = alert {
-            customView(customInput)
-        }.show()
-
-        val etOther = customInput.find<MaterialEditText>(R.id.etOther)
-        val btnEnter = customInput.find<Button>(R.id.btnEnter)
-        etOther.hint = hint
-        etOther.floatingLabelText = hint
-        btnEnter.onClick {
-            action(etOther.text.toString())
-            alertInput.dismiss()
+        if (modelServices.find { it.equals("Other") } == null) {
+            modelServices.add("Other")
         }
-    }
 
-    public fun isModified(): Boolean {
-        return isModified
-    }
-
-    private fun book(newBooking: Model.NewBooking) {
-
-        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_save_service_content, R.string.dialog_progress_title)
-        progressDialog?.setCancelable(false)
-
-        HttpManager.bookService(newBooking)
-                .subscribe ({
-                    if(it.result){
-                        progressDialog?.dismiss()
-                        toast(getString(R.string.toast_service_booking_successful))
-                        info { it }
-                        activity.setResult(Activity.RESULT_OK)
-                        activity.finish()
-                    }else{
-                        toast(it.message)
-                        warn { it }
-                    }
-
-                }, {
-                    progressDialog?.dismiss()
-                    toast(getString(R.string.toast_internet_connection_problem))
-                })
-    }
-
-
-//    private fun setSpinnerData(it: Model.ServiceBasicData) {
-//        val branchAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.branches))
-//        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinnerBranch.adapter = branchAdapter
-//        val modelAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.modelCategories))
-//        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinnerModel.adapter = modelAdapter
-//        val typeAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, getListNameFromBasicData(it.data.serviceTypes))
-//        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinnerType.adapter = typeAdapter
-//    }
-
-    private fun loadData() {
-        progressDialog = indeterminateProgressDialog(R.string.dialog_progress_service_content, R.string.dialog_progress_title)
-        progressDialog?.setCancelable(false)
-        progressDialog?.show()
-
-        /* Loading spinner data */
-        dataSubscription = HttpManager.getServiceBasicData().subscribe ({
-            basicData = it
-            progressDialog?.dismiss()
-            //            setSpinnerData(it)
-        }, { error ->
-            progressDialog?.dismiss()
-            toast(getString(R.string.toast_internet_connection_problem))
-        })
-    }
-
-    private fun getListNameFromBasicData(dataList: MutableList<Model.BasicData>): List<String> {
-        val list: MutableList<String> = mutableListOf()
-        for (item in dataList) {
-            list.add(item.getName())
-        }
-        return list
-    }
-
-    private fun getListBrandNameFromBranchService(dataList: MutableList<Model.BrandServiceData>): MutableList<String> {
-        val list: MutableList<String> = mutableListOf()
-        for (item in dataList) {
-            list.add(item.name)
-        }
-        return list
+        return modelServices
     }
 }
 

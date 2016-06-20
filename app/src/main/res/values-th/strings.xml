@@ -211,4 +211,5 @@
     <string name="validate.phone">เบอร์โทรศัพท์ต้องมีจำนวน 10 ตัวอักษร (กรูณาใส่ให้ถูกต้อง)</string>
     <string name="fragment.new.booking.service.brand">ยี่ห้อ</string>
     <string name="fragment.new.booking.service.select.brand.hint">เลือกยี่ห้อ</string>
+    <string name="fragment_new_booking_choose_brand_first">เลือกยี่ห้อก่อน</string>
 </resources>

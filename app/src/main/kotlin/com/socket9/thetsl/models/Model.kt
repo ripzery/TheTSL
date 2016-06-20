@@ -128,7 +128,7 @@ object Model {
         }
     }
 
-    data class BrandServiceData(val name: String, val modelServices: MutableList<String>)
+    data class BrandServiceData(val name: String, var modelServices: MutableList<String>)
 
     data class BasicDataList(val branches: MutableList<BasicData>,
                              val serviceTypes: MutableList<BasicData>,

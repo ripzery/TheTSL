@@ -253,6 +253,7 @@
     <string name="validate.password">Password must not less than 8 characters</string>
     <string name="validate.confirm.password">Your password and confirmation password do not match</string>
     <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
+    <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
 
 
 </resources>

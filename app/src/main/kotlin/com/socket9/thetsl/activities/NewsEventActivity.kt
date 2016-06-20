@@ -24,8 +24,13 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class NewsEventActivity : ToolbarActivity() {
 
     /** Variable zone **/
+    lateinit private var data: Model.NewsEventEntity
     lateinit private var sendIntent: Intent
     private var mShareActionProvider: ShareActionProvider? = null
+
+    companion object {
+        val EXTRA_NEWS_EVENT_DATA = "data"
+    }
 
     /** Lifecycle  zone **/
 
@@ -56,7 +61,10 @@ class NewsEventActivity : ToolbarActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> {
+                finish()
+                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+            }
             R.id.menu_item_share -> startActivity(Intent.createChooser(sendIntent, getString(R.string.share)))
         }
 
@@ -67,20 +75,17 @@ class NewsEventActivity : ToolbarActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
-        setupToolbar("")
-
-        val isNews: Boolean = intent.getBooleanExtra("isNews", true)
-        val id: Int = intent.getIntExtra("id", 1)
-
-        if (isNews) {
-            HttpManager.getEvent(id).subscribe { setInfo(it.data) }
-        } else {
-            HttpManager.getNews(id).subscribe { setInfo(it.data) }
-        }
-
+        data = intent.getParcelableExtra<Model.NewsEventEntity>(EXTRA_NEWS_EVENT_DATA)
+        setInfo(data)
+        setupToolbar(data.getTitle())
     }
 
     private fun setInfo(data: Model.NewsEventEntity) {

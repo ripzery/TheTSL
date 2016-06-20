@@ -1,8 +1,10 @@
 package com.socket9.thetsl.fragments
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -121,8 +124,24 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
 
     }
 
+    private fun loadNewsEventData(id: Int, action: (Model.NewsEventEntity) -> Unit){
+        if (isNews) {
+            HttpManager.getEvent(id).subscribe { action(it.data) }
+        } else {
+            HttpManager.getNews(id).subscribe { action(it.data) }
+        }
+    }
+
     /** Listener zone **/
     override fun onClickedEvent(index: Int, model: Model.NewsEventEntity) {
-        startActivity<NewsEventActivity>("id" to model.id, "isNews" to isNews)
+        dialogNewsProgress = indeterminateProgressDialog(getString( if(isNews) R.string.dialog_progress_news_list_content else R.string.dialog_progress_event_list_content), "Please wait")
+        dialogNewsProgress?.setCancelable(false)
+        dialogNewsProgress?.show()
+        loadNewsEventData(model.id) {
+            dialogNewsProgress?.dismiss()
+            info { it }
+            startActivity(Intent(activity, NewsEventActivity::class.java).putExtra(NewsEventActivity.EXTRA_NEWS_EVENT_DATA, it))
+            activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+        }
     }
 }

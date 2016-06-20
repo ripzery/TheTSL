@@ -212,6 +212,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/fragment.new.booking.service.branch.hint"
                     android:maxLines="1"
+                    android:maxWidth="240dp"
+                    android:ellipsize="end"
                     android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:textColor="@color/colorPrimary"/>

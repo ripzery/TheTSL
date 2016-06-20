@@ -77,20 +77,20 @@ object Model {
 
     @PaperParcel
     data class NewsEventEntity(val id: Int,
-                               val titleTh: String,
+                               val titleTh: String? = null,
                                val titleEn: String,
                                val pic: String? = null,
-                               val type: String,
+                               val type: String? = null,
                                val date: String,
                                val contentEn: String,
-                               val contentTh: String) {
+                               val contentTh: String? = null) : PaperParcelable {
 
         fun getTitle(): String {
-            return if (SharePref.isEnglish()) titleEn else titleTh
+            return if (SharePref.isEnglish()) titleEn else { titleTh ?: titleEn }
         }
 
         fun getContent(): String {
-            return if (SharePref.isEnglish()) contentEn else contentTh
+            return if (SharePref.isEnglish()) contentEn else { contentTh ?: contentEn }
         }
 
         companion object {

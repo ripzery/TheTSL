@@ -130,7 +130,7 @@ object ApiService {
 
         @FormUrlEncoded
         @POST("newCarTracking")
-        fun newCarTracking(@Field("token") token: String, @Field("preemption") preemption: String, @Field("idCard")idCard: String): Observable<Model.CarTrackingList>
+        fun newCarTracking(@Field("token") token: String, @Field("preemption") preemption: String, @Field("idCard")idCard: String): Observable<Model.CarTrackingSaveList>
 
         @FormUrlEncoded
         @POST("getServiceBookingByUser")
@@ -165,7 +165,7 @@ object ApiService {
         @POST("serviceCarTracking")
         fun serviceCarTracking(@Field("token") token: String,
                                @Field("serviceJobNumber") order: String,
-                               @Field("trackingid") trackingId: String): Observable<Model.ServiceTrackingList>
+                               @Field("trackingid") trackingId: String): Observable<Model.ServiceCarTrackingList>
 
 
 

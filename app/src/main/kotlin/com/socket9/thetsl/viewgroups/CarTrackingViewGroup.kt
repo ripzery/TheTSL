@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.viewgroup_service.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -94,13 +95,15 @@ class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Method zone **/
 
-    fun setModel(model: Model.ServiceTrackingEntity) {
-
+    fun setModel(model: Model.CarTrackingEntity) {
     //  TODO: SetModel for service view group
+        val lastStatus = model.detail.last()
+        Glide.with(context).load(model.image!!).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
         tvServiceName.text = model.model
-        tvStatus.text = "Status"
-        tvLastUpdate.text = model.detail[model.detail.size-1].dateFinish
+        tvEmpty.visibility = View.GONE
+        tvStatus.text = "${if(SharePref.isEnglish()) { "Status : " } else { "สถานะ : " } } ${lastStatus.getStatus()}"
+        tvLastUpdate.text = "${if(SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
         tvLicensePlate.text = model.licensePlate
-
+        tvLicensePlate.visibility = View.GONE
     }
 }

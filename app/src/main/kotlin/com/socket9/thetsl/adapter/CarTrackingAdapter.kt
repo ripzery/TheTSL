@@ -11,12 +11,12 @@ import com.socket9.thetsl.viewgroups.CarTrackingViewGroup
 /**
  * Created by Euro (ripzery@gmail.com) on 4/27/16 AD.
  */
-class CarTrackingAdapter(var serviceTrackingList: MutableList<Model.ServiceTrackingEntity>) : RecyclerView.Adapter<CarTrackingAdapter.CarTrackingViewHolder>() {
+class CarTrackingAdapter(var carTrackingList: MutableList<Model.CarTrackingEntity>) : RecyclerView.Adapter<CarTrackingAdapter.CarTrackingViewHolder>() {
 
     var carTrackingInteractionListener: CarTrackingInteractionListener? = null
 
     override fun onBindViewHolder(holder: CarTrackingViewHolder?, position: Int) {
-        holder?.setModel(serviceTrackingList[position])
+        holder?.setModel(carTrackingList[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CarTrackingViewHolder? {
@@ -25,7 +25,7 @@ class CarTrackingAdapter(var serviceTrackingList: MutableList<Model.ServiceTrack
     }
 
     override fun getItemCount(): Int {
-        return serviceTrackingList.size
+        return carTrackingList.size
     }
 
     fun setListener(carTrackingInteractionListener: CarTrackingInteractionListener){
@@ -52,8 +52,8 @@ class CarTrackingAdapter(var serviceTrackingList: MutableList<Model.ServiceTrack
             }
         }
 
-        fun setModel(serviceTrackingEntity: Model.ServiceTrackingEntity) {
-            carTrackingViewGroup?.setModel(serviceTrackingEntity)
+        fun setModel(carTrackingEntity: Model.CarTrackingEntity) {
+            carTrackingViewGroup?.setModel(carTrackingEntity)
         }
     }
 }

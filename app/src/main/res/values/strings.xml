@@ -8,6 +8,7 @@
     <string name="title.activity.news.event">NewsEventActivity</string>
     <string name="title.activity.place.detail">PlaceDetailActivity</string>
     <string name="title.activity.my.profile">MyProfileActivity</string>
+    <string name="title.activity.my.profile.title">My Profile</string>
 
     <!-- Toolbar title -->
     <string name="toolbar.branch.detail">Contact Info</string>
@@ -85,6 +86,7 @@
     <string name="dialog.progress.event.list.content">Loading events…</string>
     <string name="dialog.progress.service.content">Loading service data…</string>
     <string name="dialog.progress.save.service.content">Saving service data…</string>
+    <string name="dialog.progress.save.car.tracking.content">Saving car tracking data…</string>
     <string name="dialog.progress.service.list.content">Loading service booking list…</string>
     <string name="dialog.progress.service.list.history.content">Loading service booking history list…</string>
     <string name="dialog.progress.create.account.content">Creating account…</string>
@@ -97,6 +99,7 @@
     <string name="toast.token.invalid">Someone has access your account, please login again.</string>
     <string name="toast.update.google.play.services">Please update Google Play Services</string>
     <string name="toast.login.successful">Login successful</string>
+    <string name="toast.save.car.tracking.successful">Save car tracking successful</string>
     <string name="toast.unknown.error.try.again">Something went wrong, please try again</string>
     <string name="toast.internet.connection.problem">Please check your internet connect and try again</string>
     <string name="toast.fill.all.field">Please fill all fields</string>
@@ -250,6 +253,8 @@
     <string name="fragment.car.tracking.last">last</string>
     <string name="fragment.car.tracking.empty.list">Empty list</string>
     <string name="fragment.new.booking.service.date.time">Date time</string>
+    <string name="fragment.car.tracking.title">New car tracking</string>
+    <string name="fragment.car.tracking.detail.title">Car detail</string>
 
     <!-- Validator -->
     <string name="validate.name">Name must not be empty</string>
@@ -260,6 +265,9 @@
     <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
     <string name="nav.miracle">MIRACLE CLUB</string>
     <string name="nav.website">WEBSITE</string>
+    <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
+    <string name="fragment.new.car.tracking.preemption.number">Preemption number</string>
+    <string name="fragment.new.car.tracking.toast.error">Please enter valid citizenId and preemption number</string>
 
 
 </resources>

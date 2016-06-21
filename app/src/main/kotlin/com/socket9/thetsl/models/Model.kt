@@ -248,9 +248,13 @@ object Model {
 
     }
 
+    data class CarTrackingSaveList(val result: Boolean, val message: String? = null, val data: CarTrackingEntity)
+
     data class CarTrackingList(val result: Boolean, val message: String? = null, val data: MutableList<CarTrackingEntity>)
 
     data class ServiceBookingList(val result: Boolean, val message: String? = null, val data: MutableList<ServiceBookingEntity>)
 
     data class ServiceTrackingList(val result: Boolean, val message: String? = null, val data: MutableList<ServiceTrackingEntity>)
+
+    data class ServiceCarTrackingList(val result: Boolean, val message: String? = null, val data: ServiceTrackingEntity)
 }

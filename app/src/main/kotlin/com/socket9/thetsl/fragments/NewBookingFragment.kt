@@ -43,7 +43,8 @@ class NewBookingFragment : Fragment(), AnkoLogger {
     lateinit var basicData: Model.ServiceBasicData
     private var datePicker: CalendarDatePickerDialogFragment? = null
     private var timePicker: RadialTimePickerDialogFragment? = null
-    private var dateTime: String = ""
+    private var date: String = ""
+    private var time: String = ""
     private var isModified: Boolean = false
     private var isDateSet: Boolean = false
     private var isTimeSet: Boolean = false
@@ -111,9 +112,9 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 .setDateRange(minDate, null)
                 .setOnDateSetListener({ calendarDatePickerDialogFragment, year, monthOfYear, dayOfMonth ->
                     info { "$dayOfMonth/${monthOfYear + 1}/$year" }
-                    dateTime = "$year-${String.format("%02d", monthOfYear + 1)}-${String.format("%02d", dayOfMonth)} "
+                    date = "$year-${String.format("%02d", monthOfYear + 1)}-${String.format("%02d", dayOfMonth)} "
                     isDateSet = true
-                    btnDate.text = dateTime
+                    btnDate.text = date
                     //                    timePicker?.show(childFragmentManager, "TimePicker")
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -124,7 +125,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                 .setOnTimeSetListener({ radialTimePickerDialogFragment, hour, minute ->
                     info { "$hour:$minute" }
                     btnTime.text = "${String.format("%02d", hour)}:${String.format("%02d", minute)}:00"
-                    dateTime += "${String.format("%02d", hour)}:${String.format("%02d", minute)}:00"
+                    time = "${String.format("%02d", hour)}:${String.format("%02d", minute)}:00"
                     isModified = true
                     isTimeSet = true
                 })
@@ -170,6 +171,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                         activity.setResult(Activity.RESULT_OK)
                         activity.finish()
                     } else {
+                        progressDialog?.dismiss()
                         toast(it.message)
                         warn { it }
                     }
@@ -226,7 +228,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
                     val newBooking = Model.NewBooking(etLicensePlate.text.toString(),
                             btnChooseModel.text.toString(),
                             btnChooseBrand.text.toString(),
-                            dateTime,
+                            "$date$time",
                             basicData!!.data.serviceTypes[chosenTypeIndex].id,
                             basicData!!.data.branches[chosenBranchIndex].id,
                             etMoreInfo.text.toString(),

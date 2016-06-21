@@ -218,4 +218,12 @@
     <string name="nav.miracle">MIRACLE CLUB</string>
     <string name="nav.website">WEBSITE</string>
     <string name="dialog.progress.service.list.history.content">Loading service booking history list…</string>
+    <string name="fragment.car.tracking.title">New car tracking</string>
+    <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
+    <string name="fragment.new.car.tracking.preemption.number">Preemption number</string>
+    <string name="fragment.new.car.tracking.toast.error">Please enter valid citizenId and preemption number</string>
+    <string name="dialog.progress.save.car.tracking.content">Saving car tracking data…</string>
+    <string name="toast.save.car.tracking.successful">Save car tracking successful</string>
+    <string name="fragment.car.tracking.detail.title">Car detail</string>
+    <string name="title.activity.my.profile.title">My Profile</string>
 </resources>

@@ -3,13 +3,14 @@ package com.socket9.thetsl.fragments
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
+import com.socket9.thetsl.activities.CarDetailActivity
 import com.socket9.thetsl.activities.NewCarTrackingActivity
+import com.socket9.thetsl.activities.ServiceDetailActivity
 import com.socket9.thetsl.adapter.CarTrackingAdapter
 import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.toast
@@ -23,7 +24,7 @@ import rx.Subscription
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractionListener{
+class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractionListener {
 
 
     /** Variable zone **/
@@ -31,14 +32,14 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
     private var loadDataSubscription: Subscription? = null
     private var dialog: ProgressDialog? = null
     private var carAdapter: CarTrackingAdapter? = null
-    private var carList: Model.ServiceTrackingList? = null
+    private var carList: Model.CarTrackingList? = null
 
 
     /** Static method zone **/
-    companion object{
+    companion object {
         val ARG_1 = "ARG_1"
 
-        fun newInstance(param1:String) : CarTrackingFragment {
+        fun newInstance(param1: String): CarTrackingFragment {
             var bundle: Bundle = Bundle()
             bundle.putString(ARG_1, param1)
             val carTrackingFragment: CarTrackingFragment = CarTrackingFragment()
@@ -52,7 +53,7 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             /* if newly created */
             param1 = arguments.getString(ARG_1)
         }
@@ -80,7 +81,7 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
 
     /** Method zone **/
 
-    private fun initInstance(){
+    private fun initInstance() {
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = linearLayoutManager
@@ -90,31 +91,31 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
         initListener()
     }
 
-    private fun initListener(){
+    private fun initListener() {
         btnAddService.setOnClickListener {
             startActivity<NewCarTrackingActivity>()
             applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         }
 
-        btnLeft.setOnClickListener {
-            btnLeft.setTextColor(ContextCompat.getColor(activity, R.color.colorTextPrimary))
-            btnLeft.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_left)
-            btnRight.setTextColor(ContextCompat.getColor(activity, R.color.colorTextSecondary))
-            btnRight.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_right_white)
-
-            /* Loading new booking by first order */
-            loadData("first")
-        }
-
-        btnRight.setOnClickListener {
-            btnLeft.setTextColor(ContextCompat.getColor(activity, R.color.colorTextSecondary))
-            btnLeft.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_left_white)
-            btnRight.setTextColor(ContextCompat.getColor(activity, R.color.colorTextPrimary))
-            btnRight.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_right)
-
-            /* Loading new booking by last order */
-            loadData("last")
-        }
+//        btnLeft.setOnClickListener {
+//            btnLeft.setTextColor(ContextCompat.getColor(activity, R.color.colorTextPrimary))
+//            btnLeft.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_left)
+//            btnRight.setTextColor(ContextCompat.getColor(activity, R.color.colorTextSecondary))
+//            btnRight.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_right_white)
+//
+//            /* Loading new booking by first order */
+//            loadData("first")
+//        }
+//
+//        btnRight.setOnClickListener {
+//            btnLeft.setTextColor(ContextCompat.getColor(activity, R.color.colorTextSecondary))
+//            btnLeft.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_left_white)
+//            btnRight.setTextColor(ContextCompat.getColor(activity, R.color.colorTextPrimary))
+//            btnRight.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_right)
+//
+//            /* Loading new booking by last order */
+//            loadData("last")
+//        }
     }
 
     private fun loadData(orderType: String) {
@@ -122,7 +123,7 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
         dialog?.setCancelable(false)
         dialog?.show()
 
-        loadDataSubscription = HttpManager.getServiceTrackingList(orderType).subscribe({
+        loadDataSubscription = HttpManager.getCarTrackingList().subscribe({
             carList = it
 
             dialog?.dismiss()
@@ -130,8 +131,8 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
 
             if (carAdapter == null) {
                 carAdapter = CarTrackingAdapter(it.data)
-            }else{
-                carAdapter!!.serviceTrackingList = it.data
+            } else {
+                carAdapter!!.carTrackingList = it.data
                 carAdapter!!.notifyDataSetChanged()
             }
 
@@ -149,6 +150,6 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
     /** Listener zone **/
 
     override fun onCardClicked(position: Int) {
-
+        startActivity<CarDetailActivity>(ServiceDetailActivity.ARG_1 to carList!!.data[position])
     }
 }

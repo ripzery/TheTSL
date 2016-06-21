@@ -1,132 +1,146 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
+    <include
+        layout="@layout/layout_app_bar"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include
-            layout="@layout/layout_app_bar"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivUser"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:transitionName="civUser"
-            android:src="@drawable/default_photo"
-            app:civ_border_color="@color/colorTextPrimary"
-            app:civ_border_width="2dp"/>
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile.name.title"/>
-
-            <EditText
-                android:id="@+id/etName"
-                style="@style/editTextContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:hint="@string/profile.name.hint"
-                android:background="@null"
-                android:inputType="text"/>
-
-
-            <TextView
-                style="@style/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivUser"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="@string/profile.phone.title"/>
+                android:transitionName="civUser"
+                android:src="@drawable/default_photo"
+                app:civ_border_color="@color/colorTextPrimary"
+                app:civ_border_width="2dp"/>
 
 
-            <EditText
-                android:id="@+id/etPhone"
-                style="@style/editTextContent"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile.phone.hint"
-                android:inputType="phone"
-                android:singleLine="true"
-                android:maxEms="10"
-                android:maxLength="10"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@null"/>
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile.name.title"/>
+
+                <EditText
+                    android:id="@+id/etName"
+                    style="@style/editTextContent"
+                    android:layout_width="match_parent"
+                    android:gravity="start"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:hint="@string/profile.name.hint"
+                    android:background="@null"
+                    android:inputType="text"/>
 
 
-            <TextView
-                style="@style/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/profile.email.title"/>
+                <TextView
+                    style="@style/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/profile.phone.title"/>
 
 
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                fontPath="fonts/samakarn/Samakarn-Light.ttf"
-                android:layout_marginTop="@dimen/activity_vertical_margin"/>
+                <EditText
+                    android:id="@+id/etPhone"
+                    style="@style/editTextContent"
+                    android:layout_width="match_parent"
+                    android:gravity="start"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/profile.phone.hint"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:maxEms="10"
+                    android:maxLength="10"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@null"/>
 
 
-            <TextView
-                style="@style/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/profile.password.title"/>
+                <TextView
+                    style="@style/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/profile.email.title"/>
 
 
-            <EditText
-                android:id="@+id/etPassword"
-                style="@style/editTextContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:hint="@string/profile.password.hint"
-                android:inputType="textPassword"
-                android:background="@null"/>
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    fontPath="fonts/samakarn/Samakarn-Light.ttf"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
 
-            <TextView
-                style="@style/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/profile.address.title"/>
+                <TextView
+                    style="@style/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/profile.password.title"/>
 
 
-            <EditText
-                android:id="@+id/etAddress"
-                style="@style/editTextContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:hint="@string/profile.address.hint"
-                android:background="@null"
-                android:inputType="text"/>
+                <EditText
+                    android:id="@+id/etPassword"
+                    style="@style/editTextContent"
+                    android:layout_width="match_parent"
+                    android:gravity="start"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:hint="@string/profile.password.hint"
+                    android:inputType="textPassword"
+                    android:background="@null"/>
+
+
+                <TextView
+                    style="@style/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/profile.address.title"/>
+
+
+                <EditText
+                    android:id="@+id/etAddress"
+                    style="@style/editTextContent"
+                    android:layout_width="match_parent"
+                    android:gravity="start"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:hint="@string/profile.address.hint"
+                    android:background="@null"
+                    android:inputType="text"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+
+</LinearLayout>
+
 
 

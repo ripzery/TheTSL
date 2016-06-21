@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_app_bar"/>
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -14,8 +16,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:context="com.socket9.tsl.BranchDetailActivity">
-
-            <include layout="@layout/layout_app_bar"/>
 
             <FrameLayout
                 android:id="@+id/mapContainer"
@@ -109,6 +109,7 @@
                     android:textSize="16sp" />
 
                 <ImageView
+                    android:id="@+id/ivPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_call_grey_500_24dp" />
@@ -146,9 +147,10 @@
                     android:textSize="16sp" />
 
                 <ImageView
+                    android:id="@+id/ivEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_gravity="end|center_vertical"
                     android:src="@drawable/ic_email_grey_500_24dp" />
 
             </LinearLayout>

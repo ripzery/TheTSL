@@ -2,9 +2,9 @@ package com.socket9.thetsl.viewgroups
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -64,7 +64,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         if (!isInEditMode) {
             cardClickedObservable = PublishSubject.create()
         }
-            // findViewById here
+        // findViewById here
         tvServiceName = viewContainer.findViewById(R.id.tvServiceName) as TextView
         tvStatus = viewContainer.findViewById(R.id.tvStatus) as TextView
         tvLastUpdate = viewContainer.findViewById(R.id.tvLastUpdate) as TextView
@@ -100,32 +100,62 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     fun setModel(model: Model.ServiceBookingEntity) {
 
-    //  TODO: SetModel for service view group
+        //  TODO: SetModel for service view group
         tvServiceName.text = model.getService()
-        tvStatus.text = if(model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
-        tvLastUpdate.text = "${if(SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "}${model.dateBooking.substring(0, model.dateBooking.length - 3)}"
+        tvStatus.text = if (model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
+        tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "}${model.dateBooking.substring(0, model.dateBooking.length - 3)}"
         tvLicensePlate.text = model.licensePlate
         ivArrow.visibility = View.GONE
     }
 
     fun setModel(model: Model.ServiceTrackingEntity) {
 
-    //  TODO: SetModel for service view group
+        //  TODO: SetModel for service view group
         info { model }
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()
         tvStatus.text = lastStatus.getStatus()
-        tvLastUpdate.text = "${if(SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
+        tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
         tvLicensePlate.text = model.licensePlate
         ivArrow.visibility = View.VISIBLE
 
     }
+
     fun setModelDetail(model: Model.ServiceTrackingEntity) {
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()
-        tvStatus.text = "${if(SharePref.isEnglish()) { "Detail : " } else { "รายละเอียด : " } } ${lastStatus.getStatus()}"
+        tvStatus.text = "${if (SharePref.isEnglish()) {
+            "Detail : "
+        } else {
+            "รายละเอียด : "
+        } } ${lastStatus.getStatus()}"
         tvLastUpdate.visibility = View.GONE
         ivArrow.visibility = View.GONE
         tvLicensePlate.text = model.licensePlate
+    }
+
+    fun setModelCarDetail(model: Model.CarTrackingEntity) {
+        val lastStatus = model.detail[model.detail.size - 1]
+        tvServiceName.text = model.model
+
+        try {
+            Glide.with(context).load(model.image).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
+        } catch(e: Exception) {
+            Log.d("ServiceViewGroup", e.toString())
+        }
+        tvEmpty.visibility = View.GONE
+
+//        tvServiceName.visibility = View.GONE
+//        tvStatus.text = "${if (SharePref.isEnglish()) {
+//            "Detail : "
+//        } else {
+//            "รายละเอียด : "
+//        } } ${lastStatus.getStatus()}"
+
+        tvStatus.visibility = View.GONE
+        tvLastUpdate.visibility = View.GONE
+        ivArrow.visibility = View.GONE
+        tvLicensePlate.visibility = View.GONE
+//        tvLicensePlate.text = model.licensePlate
     }
 }

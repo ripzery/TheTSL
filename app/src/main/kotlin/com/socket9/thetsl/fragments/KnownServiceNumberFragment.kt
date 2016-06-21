@@ -87,7 +87,7 @@ class KnownServiceNumberFragment : Fragment(), AnkoLogger {
                     }, {
                         it.printStackTrace()
                         progressDialog?.dismiss()
-
+                        toast(getString(R.string.toast_internet_connection_problem))
                     })
         }
     }

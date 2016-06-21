@@ -12,45 +12,16 @@
 
         <Button
             android:id="@+id/btnAddService"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_64"
             android:theme="@style/BaseButton.Primary"
             android:text="@string/fragment.car.tracking.add.new.car"
             android:drawableLeft="@drawable/ic_action_add"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
+            android:drawablePadding="-80dp"
+            android:paddingLeft="110dp"
             android:layout_gravity="center" />
 
     </FrameLayout>
-
-    <!-- Layout new/last toggle button -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnLeft"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment.car.tracking.first"
-            android:layout_marginRight="-4dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_corner_left"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/btnRight"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-4dp"
-            android:text="@string/fragment.car.tracking.last"
-            android:background="@drawable/button_corner_right_white"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

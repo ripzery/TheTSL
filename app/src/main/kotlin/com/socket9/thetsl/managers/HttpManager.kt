@@ -291,7 +291,7 @@ object HttpManager {
 
 
 
-    fun serviceCarTracking(serviceJobNumber: String, trackingId: String): Observable<Model.ServiceTrackingList> {
+    fun serviceCarTracking(serviceJobNumber: String, trackingId: String): Observable<Model.ServiceCarTrackingList> {
         return ApiService.getAPI().serviceCarTracking(SharePref.getToken(), serviceJobNumber, trackingId)
                 .doOnNext {
                     checkToken(it.result, it.message)
@@ -301,7 +301,7 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
-    fun newCarTracking(preemption: String, idCard: String): Observable<Model.CarTrackingList> {
+    fun newCarTracking(preemption: String, idCard: String): Observable<Model.CarTrackingSaveList> {
         return ApiService.getAPI().newCarTracking(SharePref.getToken(), preemption, idCard)
                 .doOnNext {
                     checkToken(it.result, it.message)

@@ -1,58 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_margin="16dp"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment.known.service.number.service.number"
-            android:theme="@style/BasicText"/>
-
-        <EditText
-            android:id="@+id/etServiceNumber"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"/>
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment.new.car.tracking.preemption.number"
+                fontPath="fonts/samakarn/Samakarn-Bold.ttf"
+                android:theme="@style/BasicText"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical">
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/etPreemptionNumber"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:ems="10"
+                android:gravity="end"
+                android:layout_marginLeft="16dp"
+                app:met_floatingLabel="none"
+                app:met_hideUnderline="true"
+                app:met_maxCharacters="10"
+                app:met_minCharacters="1"
+                android:hint="@string/fragment.new.car.tracking.preemption.number"
+                android:textColor="@android:color/black"
+                android:alpha="0.54"
+                android:maxLength="10"
+                android:layout_height="wrap_content"
+                android:maxLines="1"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment.new.car.tracking.tracking.id"
-            android:theme="@style/BasicText"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/etTrackingId"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"/>
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment.new.car.tracking.citizen.id"
+                android:inputType="number"
+                fontPath="fonts/samakarn/Samakarn-Bold.ttf"
+                android:theme="@style/BasicText"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/etCitizenId"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:alpha="0.54"
+                android:maxLength="13"
+                app:met_floatingLabel="none"
+                app:met_hideUnderline="true"
+                app:met_minCharacters="13"
+                android:inputType="number"
+                app:met_maxCharacters="13"
+                android:hint="@string/fragment.new.car.tracking.citizen.id"
+                android:ems="13"
+                android:gravity="end"
+                android:layout_marginLeft="16dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_64"
+            android:text="@string/fragment.new.car.tracking.submit"
+            android:theme="@style/BaseButton.Primary"/>
 
     </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_64"
-        android:text="@string/fragment.new.car.tracking.submit"
-        android:theme="@style/BaseButton.Primary"/>
-
-</LinearLayout>
+</ScrollView>

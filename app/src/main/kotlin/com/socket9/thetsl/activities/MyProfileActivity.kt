@@ -135,7 +135,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
-        setupToolbar("My Profile")
+        setupToolbar(getString(R.string.title_activity_my_profile_title))
 
         myProfile = intent.getParcelableExtra<Model.Profile>("myProfile")
 

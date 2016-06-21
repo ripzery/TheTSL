@@ -3,29 +3,35 @@ package com.socket9.thetsl.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.socket9.thetsl.R
-import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.replaceFragment
-import com.socket9.thetsl.fragments.NewCarTrackingFragment
+import com.socket9.thetsl.fragments.CarDetailFragment
+import com.socket9.thetsl.fragments.ServiceDetailFragment
+import com.socket9.thetsl.models.Model
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class NewCarTrackingActivity : ToolbarActivity() {
+class CarDetailActivity : ToolbarActivity() {
 
     /** Variable zone **/
-    var newCarTrackingFragment: NewCarTrackingFragment? = null
+    private var carDetailFragment: CarDetailFragment? = null
+    private var carTrackingEntity: Model.CarTrackingEntity? = null
+
+    /** Static method zone **/
+    companion object{
+        val ARG_1 = "trackingEntity"
+    }
 
     /** Lifecycle  zone **/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_car_tracking)
+        setContentView(R.layout.activity_service_detail)
         initInstance()
     }
 
@@ -42,19 +48,14 @@ class NewCarTrackingActivity : ToolbarActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+        when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                 return true
             }
         }
-        return false
-    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+        return super.onOptionsItemSelected(item)
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -64,11 +65,15 @@ class NewCarTrackingActivity : ToolbarActivity() {
     /** Method zone **/
 
     private fun initInstance() {
-        setupToolbar(getString(R.string.fragment_car_tracking_title))
+        //        setToolbar()
+        setupToolbar(getString(R.string.fragment_car_tracking_detail_title))
 
-        newCarTrackingFragment = NewCarTrackingFragment.newInstance("NewCarTracking")
-        replaceFragment(fragment = newCarTrackingFragment!!)
-        //        replaceFragment()
+        /* get intent serviceTrackingEntity */
+        carTrackingEntity = intent.getParcelableExtra<Model.CarTrackingEntity>(ARG_1)
+
+        carDetailFragment = CarDetailFragment.newInstance(carTrackingEntity!!)
+
+        replaceFragment(fragment = carDetailFragment!!)
     }
 
     /** Listener zone **/

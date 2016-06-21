@@ -22,6 +22,9 @@
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            fontPath="fonts/samakarn/Samakarn-Bold.ttf"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
             android:text="Status"/>
 
 
@@ -29,6 +32,9 @@
             android:id="@+id/tvDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:alpha="0.54"
+            android:textSize="12sp"
             android:layout_marginTop="16dp"
             android:text="Date time"/>
 

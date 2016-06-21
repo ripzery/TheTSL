@@ -207,13 +207,11 @@ object Model {
 
         fun getStatus(): String {
             return "${if (SharePref.isEnglish()) {
-                "Status : $statusEn"
+                statusEn
             } else {
-                "สถานะ : $statusTh"
+                statusTh
             } }"
         }
-
-
 
     }
 

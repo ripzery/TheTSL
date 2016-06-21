@@ -67,9 +67,9 @@ class ServiceDetailFragment : Fragment(){
         recyclerView.adapter = adapter
 
         /* Init service viewgroup */
-        serviceViewGroup.setModel(serviceTrackingEntity)
+        serviceViewGroup.setModelDetail(serviceTrackingEntity)
 
         /* Init car receive date  */
-        tvCarReceiveDate.text = tvCarReceiveDate.text.toString() + serviceTrackingEntity.detail[0].dateReceive
+        tvCarReceiveDate.text = tvCarReceiveDate.text.toString() + " " + serviceTrackingEntity.detail[0].dateReceive.substring(0, serviceTrackingEntity.detail[0].dateReceive.length - 3)
     }
 }

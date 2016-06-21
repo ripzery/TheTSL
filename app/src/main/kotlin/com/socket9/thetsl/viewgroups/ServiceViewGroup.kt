@@ -120,4 +120,12 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         ivArrow.visibility = View.VISIBLE
 
     }
+    fun setModelDetail(model: Model.ServiceTrackingEntity) {
+        val lastStatus = model.detail[model.detail.size - 1]
+        tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()
+        tvStatus.text = "${if(SharePref.isEnglish()) { "Detail : " } else { "รายละเอียด : " } } ${lastStatus.getStatus()}"
+        tvLastUpdate.visibility = View.GONE
+        ivArrow.visibility = View.GONE
+        tvLicensePlate.text = model.licensePlate
+    }
 }

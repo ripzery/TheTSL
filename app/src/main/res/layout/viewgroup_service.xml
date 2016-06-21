@@ -67,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
+                fontPath="fonts/samakarn/Samakarn-Regular.ttf"
                 android:textSize="14sp"
                 style="@style/BasicText"
                 android:text="Text2"/>

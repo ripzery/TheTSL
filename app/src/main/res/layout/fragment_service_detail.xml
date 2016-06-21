@@ -9,13 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/tvCarReceiveDate"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:text="@string/fragment.service.detail.receive.date"/>
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/tvCarReceiveDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:textColor="@color/white"
+            fontPath="fonts/samakarn/Samakarn-Bold.ttf"
+            android:text="@string/fragment.service.detail.receive.date"/>
+
+    </FrameLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

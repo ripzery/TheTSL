@@ -89,7 +89,7 @@ class ServiceDetailViewGroup : BaseCustomViewGroup, AnkoLogger {
 
         //  TODO: SetModel for service view group
         tvStatus.text = model.getStatus()
-        tvDateTime.text = model.dateFinish
+        tvDateTime.text = "${ if(SharePref.isEnglish()) "Update : "  else "อัพเดทล่าสุด : "}${model.dateFinish.substring(0, model.dateFinish.length - 3)} "
     }
 
 }

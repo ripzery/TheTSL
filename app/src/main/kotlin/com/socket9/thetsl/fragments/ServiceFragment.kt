@@ -1,16 +1,12 @@
 package com.socket9.thetsl.fragments
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.transition.Slide
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -130,10 +126,10 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
                             intent.putExtra(NewBookingActivity.EXTRA_IS_NEW_BOOKING, true)
                             intent.putExtra(NewBookingActivity.EXTRA_NEW_BOOKING_DATA, it)
                             startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY)
-                            applyTransition(R.anim.activity_forward_enter, R.anim.activity_backward_exit)
+                            applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
                         }
                     }
-                    1 ->{
+                    1 -> {
                         startActivity<NewBookingActivity>(NewBookingActivity.EXTRA_IS_NEW_BOOKING to false)
                         applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
                     }
@@ -160,7 +156,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             btnRight.background = ContextCompat.getDrawable(activity, R.drawable.button_corner_right)
 
             /* Loading new booking by last order */
-            loadData("last")
+            loadHistoryData("first")
 
             isLast = true
         }
@@ -193,7 +189,49 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
                 serviceAdapter!!.notifyDataSetChanged()
             }
 
-            if (serviceList!!.data.size + it.data.size > 0) tvEmpty.visibility = View.GONE
+            tvEmpty.visibility = if (serviceList!!.data.size + it.data.size > 0) View.GONE else View.VISIBLE
+
+            recyclerView.adapter = serviceAdapter
+
+            serviceAdapter?.setListener(this)
+
+        }, { error ->
+            error.printStackTrace()
+            dialog?.dismiss()
+            if (error.message!!.contains("Internal Server")) {
+                toast(error.message!!)
+            } else {
+                toast(getString(R.string.toast_internet_connection_problem))
+            }
+        })
+    }
+
+    /* Load booking service history data, then load service tracking history data, and push to the stack. */
+    private fun loadHistoryData(orderType: String) {
+        dialog = indeterminateProgressDialog(R.string.dialog_progress_service_list_history_content, R.string.dialog_progress_title)
+        dialog?.setCancelable(false)
+        dialog?.show()
+
+        // TODO: Load data from tracking and booking
+
+        loadDataSubscription = HttpManager.getServiceBookingHistoryList(orderType)
+                .flatMap {
+                    serviceList = it
+                    HttpManager.getServiceTrackingHistoryList(orderType)
+                }.subscribe ({
+
+            dialog?.dismiss()
+            trackingList = it
+
+            if (serviceAdapter == null) {
+                serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
+            } else {
+                serviceAdapter!!.serviceBookingList = serviceList!!.data
+                serviceAdapter!!.serviceTrackingList = trackingList!!.data
+                serviceAdapter!!.notifyDataSetChanged()
+            }
+
+            tvEmpty.visibility = if (serviceList!!.data.size + it.data.size > 0) View.GONE else View.VISIBLE
 
             recyclerView.adapter = serviceAdapter
 

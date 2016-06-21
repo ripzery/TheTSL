@@ -216,4 +216,5 @@
     <string name="fragment.new.booking.status.booking.pending">กำลังรอการยืนยัน</string>
     <string name="nav.miracle">มิราเคิล คลับ</string>
     <string name="nav.website">เว็บไซต์</string>
+    <string name="dialog.progress.service.list.history.content">กำลังโหลดประวัติการจอง…</string>
 </resources>

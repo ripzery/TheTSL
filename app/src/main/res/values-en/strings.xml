@@ -199,7 +199,7 @@
     <string name="fragment.new.booking.service.date.hint">Choose date</string>
     <string name="fragment.new.booking.service.time.hint">Choose time</string>
     <string name="fragment.new.booking.service.type.hint">Choose type</string>
-    <string name="bottom.emergency">Emergency</string>
+    <string name="bottom.emergency">EMERGENCY</string>
     <string name="dialog.update.phone.content">Enter your mobile phone number</string>
     <string name="dialog.update.phone.input.hint">Phone number</string>
     <string name="dialog.update.phone.negative">Cancel</string>
@@ -217,4 +217,5 @@
     <string name="fragment.new.booking.status.booking.pending">Pending</string>
     <string name="nav.miracle">MIRACLE CLUB</string>
     <string name="nav.website">WEBSITE</string>
+    <string name="dialog.progress.service.list.history.content">Loading service booking history list…</string>
 </resources>

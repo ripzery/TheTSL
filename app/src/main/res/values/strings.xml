@@ -86,6 +86,7 @@
     <string name="dialog.progress.service.content">Loading service data…</string>
     <string name="dialog.progress.save.service.content">Saving service data…</string>
     <string name="dialog.progress.service.list.content">Loading service booking list…</string>
+    <string name="dialog.progress.service.list.history.content">Loading service booking history list…</string>
     <string name="dialog.progress.create.account.content">Creating account…</string>
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.login.content">Logging in…</string>
@@ -126,7 +127,7 @@
     <string name="nav.news">News &amp; Events</string>
     <string name="nav.contact">CONTACT</string>
     <string name="nav.emergency">EMERGENCY CALL</string>
-    <string name="bottom.emergency">Emergency</string>
+    <string name="bottom.emergency">EMERGENCY</string>
     <string name="nav.signout">Sign Out</string>
     <string name="nav.change.lang.thai">Thai</string>
     <string name="nav.change.lang.english">English</string>

@@ -259,6 +259,16 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
+    fun getServiceTrackingHistoryList(order: String): Observable<Model.ServiceTrackingList> {
+        return ApiService.getAPI().getServiceTrackingHistoryList(SharePref.getToken(), order)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
     fun getCarTrackingList(): Observable<Model.CarTrackingList> {
         return ApiService.getAPI().getCarTrackingList(SharePref.getToken())
                 .doOnNext {

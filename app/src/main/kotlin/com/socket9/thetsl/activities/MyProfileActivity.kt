@@ -75,13 +75,11 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
                 if (save!!.isVisible) {
                     DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                         setResult(RESULT_CANCELED)
-                        finish()
-                        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                        supportFinishAfterTransition()
                     }).show()
                 } else {
                     setResult(RESULT_CANCELED)
-                    finish()
-                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                    supportFinishAfterTransition()
                 }
                 return true
             }
@@ -122,13 +120,11 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
         if (save!!.isVisible) {
             DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                 setResult(RESULT_CANCELED)
-                finish()
-                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                supportFinishAfterTransition()
             }).show()
         } else {
             setResult(RESULT_CANCELED)
-            finish()
-            overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+            supportFinishAfterTransition()
         }
     }
 
@@ -199,8 +195,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
                     progressDialog.dismiss()
                     toast(it.message)
                     setResult(RESULT_OK)
-                    finish()
-                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                    supportFinishAfterTransition()
                 }, { error ->
                     progressDialog.dismiss()
                     error.printStackTrace()

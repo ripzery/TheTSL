@@ -18,3 +18,7 @@ fun Fragment.replaceFragment(fragmentContainer:Int , fragment: Fragment) {
             .replace(fragmentContainer, fragment)
             .commit()
 }
+
+fun Fragment.applyTransition(enter: Int, exit: Int){
+    activity.overridePendingTransition(enter, exit)
+}

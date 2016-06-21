@@ -249,8 +249,50 @@ object HttpManager {
                 .unsubscribeOn(Schedulers.io())
     }
 
+    fun getServiceBookingHistoryList(order: String): Observable<Model.ServiceBookingList> {
+        return ApiService.getAPI().getServiceBookingHistoryList(SharePref.getToken(), order)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getCarTrackingList(): Observable<Model.CarTrackingList> {
+        return ApiService.getAPI().getCarTrackingList(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun getCarTrackingHistoryList(order: String): Observable<Model.CarTrackingList> {
+        return ApiService.getAPI().getCarTrackingHistoryList(SharePref.getToken())
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+
+
     fun serviceCarTracking(serviceJobNumber: String, trackingId: String): Observable<Model.ServiceTrackingList> {
         return ApiService.getAPI().serviceCarTracking(SharePref.getToken(), serviceJobNumber, trackingId)
+                .doOnNext {
+                    checkToken(it.result, it.message)
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+    }
+
+    fun newCarTracking(preemption: String, idCard: String): Observable<Model.CarTrackingList> {
+        return ApiService.getAPI().newCarTracking(SharePref.getToken(), preemption, idCard)
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
@@ -269,7 +311,7 @@ object HttpManager {
                         .putExtra("invalidToken", true))
 
             }
-        }catch(e: Exception){
+        } catch(e: Exception) {
 //            e.printStackTrace()
         }
     }

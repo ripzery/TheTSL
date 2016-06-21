@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:drawableEnd="@drawable/language"
+                android:drawableStart="@drawable/language"
                 android:drawablePadding="8dp"
                 android:text="@string/nav.change.lang.english"
                 android:textAllCaps="true"

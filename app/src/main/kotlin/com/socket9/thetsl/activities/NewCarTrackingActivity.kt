@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.NewCarTrackingFragment
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -44,7 +45,7 @@ class NewCarTrackingActivity : AppCompatActivity() {
         when (item!!.itemId) {
             android.R.id.home -> {
                 finish()
-                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                 return true
             }
         }
@@ -53,7 +54,7 @@ class NewCarTrackingActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
     }
 
     override fun attachBaseContext(newBase: Context?) {

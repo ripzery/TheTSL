@@ -86,11 +86,15 @@ object Model {
                                val contentTh: String? = null) : PaperParcelable {
 
         fun getTitle(): String {
-            return if (SharePref.isEnglish()) titleEn else { titleTh ?: titleEn }
+            return if (SharePref.isEnglish()) titleEn else {
+                titleTh ?: titleEn
+            }
         }
 
         fun getContent(): String {
-            return if (SharePref.isEnglish()) contentEn else { contentTh ?: contentEn }
+            return if (SharePref.isEnglish()) contentEn else {
+                contentTh ?: contentEn
+            }
         }
 
         companion object {
@@ -99,17 +103,17 @@ object Model {
     }
 
     @PaperParcel data class ContactEntity(val id: Int,
-                             val titleEn: String,
-                             val subTitle: String? = null,
-                             val icon: Int,
-                             val titleTh: String? = null,
-                             @SerializedName("Phone") val phone: String? = null,
-                             @SerializedName("Address") val address: String? = null,
-                             @SerializedName("Fax") val fax: String? = null,
-                             @SerializedName("Email") val email: String? = null,
-                             @SerializedName("Business Hours") val businessHours: String? = null,
-                             val lng: Double? = null,
-                             val lat: Double? = null) : PaperParcelable {
+                                          val titleEn: String,
+                                          val subTitle: String? = null,
+                                          val icon: Int,
+                                          val titleTh: String? = null,
+                                          @SerializedName("Phone") val phone: String? = null,
+                                          @SerializedName("Address") val address: String? = null,
+                                          @SerializedName("Fax") val fax: String? = null,
+                                          @SerializedName("Email") val email: String? = null,
+                                          @SerializedName("Business Hours") val businessHours: String? = null,
+                                          val lng: Double? = null,
+                                          val lat: Double? = null) : PaperParcelable {
 
 
         fun getTitle(): String {
@@ -139,14 +143,13 @@ object Model {
     }
 
     @PaperParcel data class BasicDataList(val branches: MutableList<BasicData>,
-                             val serviceTypes: MutableList<BasicData>,
-                             val brandServices: MutableList<BrandServiceData>) : PaperParcelable {
+                                          val serviceTypes: MutableList<BasicData>,
+                                          val brandServices: MutableList<BrandServiceData>) : PaperParcelable {
 
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(BasicDataList::class.java)
         }
     }
-
 
     @PaperParcel data class ServiceBasicData(val result: Boolean, val message: String? = null, val data: BasicDataList) : PaperParcelable {
 
@@ -197,14 +200,20 @@ object Model {
     }
 
     @PaperParcel
-    data class ServiceTrackingStatus(val dateFinish: String, val dateReceive: String, val iconId: Int, val statusTh: String, val statusEn: String) : PaperParcelable {
+    data class ServiceTrackingStatus(val dateFinish: String, val dateReceive: String, val iconid: Int, val statusTh: String, val statusEn: String) : PaperParcelable {
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingStatus::class.java)
         }
 
         fun getStatus(): String {
-            return if (SharePref.isEnglish()) statusEn else statusTh
+            return "${if (SharePref.isEnglish()) {
+                "Status : $statusEn"
+            } else {
+                "สถานะ : $statusTh"
+            } }"
         }
+
+
 
     }
 
@@ -213,13 +222,35 @@ object Model {
                                      val licensePlate: String,
                                      val model: String,
                                      val serviceJobNumber: String,
+                                     val serviceTypeEn: String? = null,
+                                     val serviceTypeTh: String? = null,
                                      val trackingid: String) : PaperParcelable {
 
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingEntity::class.java)
         }
 
+        fun getServiceType(): String? {
+            return "${if (SharePref.isEnglish()) serviceTypeEn else serviceTypeTh}"
+        }
+
     }
+
+    @PaperParcel
+    data class CarTrackingEntity(val detail: MutableList<ServiceTrackingStatus>,
+                                 val licensePlate: String,
+                                 val model: String,
+                                 val image: String? = null,
+                                 val preemption: String,
+                                 val idCard: String? = null) : PaperParcelable {
+
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(CarTrackingEntity::class.java)
+        }
+
+    }
+
+    data class CarTrackingList(val result: Boolean, val message: String? = null, val data: MutableList<CarTrackingEntity>)
 
     data class ServiceBookingList(val result: Boolean, val message: String? = null, val data: MutableList<ServiceBookingEntity>)
 

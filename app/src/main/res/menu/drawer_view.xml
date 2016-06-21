@@ -30,19 +30,30 @@
             android:id="@+id/nav_service"
             android:title="@string/nav.service"/>
 
-        <!-- Hide car tracking for now -->
         <item
             android:id="@+id/nav_car_tracking"
             android:title="@string/nav.car.tracking" />
 
         <item
-            android:id="@+id/nav_news"
-            android:icon="@drawable/news"
-            android:title="@string/nav.news" />
+            android:id="@+id/nav_miracle_club"
+            android:title="@string/nav.miracle" />
+
+
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/contactus"
             android:title="@string/nav.contact" />
+
+        <item
+            android:id="@+id/nav_website"
+            android:title="@string/nav.website" />
+
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/news"
+            android:visible="false"
+            android:title="@string/nav.news" />
+
 
         <!--<item-->
         <!--android:id="@+id/nav_sign_out"-->

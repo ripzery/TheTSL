@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.activity_news_event.*
@@ -63,7 +64,7 @@ class NewsEventActivity : ToolbarActivity() {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
             }
             R.id.menu_item_share -> startActivity(Intent.createChooser(sendIntent, getString(R.string.share)))
         }
@@ -77,7 +78,7 @@ class NewsEventActivity : ToolbarActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
     }
 
     /** Method zone **/

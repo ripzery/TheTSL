@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewBookingActivity
 import com.socket9.thetsl.activities.ServiceDetailActivity
 import com.socket9.thetsl.adapter.ServiceAdapter
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
@@ -127,14 +129,13 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
                             val intent = Intent(activity, NewBookingActivity::class.java)
                             intent.putExtra(NewBookingActivity.EXTRA_IS_NEW_BOOKING, true)
                             intent.putExtra(NewBookingActivity.EXTRA_NEW_BOOKING_DATA, it)
-//                            startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
                             startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_ACTIVITY)
-                            activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+                            applyTransition(R.anim.activity_forward_enter, R.anim.activity_backward_exit)
                         }
                     }
                     1 ->{
                         startActivity<NewBookingActivity>(NewBookingActivity.EXTRA_IS_NEW_BOOKING to false)
-                        activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+                        applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
                     }
                 }
             }

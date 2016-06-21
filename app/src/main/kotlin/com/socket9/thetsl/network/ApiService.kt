@@ -126,6 +126,12 @@ object ApiService {
                         @Field("phone") phone: String,
                         @Field("branchesid") branchesid: Int): Observable<Model.BaseModel>
 
+
+
+        @FormUrlEncoded
+        @POST("newCarTracking")
+        fun newCarTracking(@Field("token") token: String, @Field("preemption") preemption: String, @Field("idCard")idCard: String): Observable<Model.CarTrackingList>
+
         @FormUrlEncoded
         @POST("getServiceBookingByUser")
         fun getServiceBookingList(@Field("token") token: String,
@@ -137,10 +143,31 @@ object ApiService {
                                    @Field("order") order: String): Observable<Model.ServiceTrackingList>
 
         @FormUrlEncoded
+        @POST("getNewCarTrackingByUser")
+        fun getCarTrackingList(@Field("token") token: String) :Observable<Model.CarTrackingList>
+
+        @FormUrlEncoded
+        @POST("getNewCarTrackingByUser2")
+        fun getCarTrackingHistoryList(@Field("token") token: String): Observable<Model.CarTrackingList>
+
+
+        @FormUrlEncoded
+        @POST("getServiceBookingByUser2")
+        fun getServiceBookingHistoryList(@Field("token") token: String,
+                                  @Field("order") order: String): Observable<Model.ServiceBookingList>
+
+        @FormUrlEncoded
+        @POST("getServiceTrackingByUser2")
+        fun getServiceTrackingHistoryList(@Field("token") token: String,
+                                   @Field("order") order: String): Observable<Model.ServiceTrackingList>
+
+        @FormUrlEncoded
         @POST("serviceCarTracking")
         fun serviceCarTracking(@Field("token") token: String,
                                @Field("serviceJobNumber") order: String,
                                @Field("trackingid") trackingId: String): Observable<Model.ServiceTrackingList>
+
+
 
         @FormUrlEncoded
         @POST("saveDeviceByToken")

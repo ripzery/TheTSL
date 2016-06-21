@@ -61,8 +61,8 @@
     <!-- Navigation Drawer -->
     <string name="nav.home">Home</string>
     <string name="nav.news">News &amp; Events</string>
-    <string name="nav.contact">Contact Us</string>
-    <string name="nav.emergency">Emergency Call</string>
+    <string name="nav.contact">CONTACT</string>
+    <string name="nav.emergency">EMERGENCY CALL</string>
     <string name="nav.signout">Sign Out</string>
     <string name="nav.change.lang.thai">Thai</string>
     <string name="nav.change.lang.english">English</string>
@@ -165,8 +165,8 @@
     <string name="fragment.service.last">service history</string>
     <string name="menu.event.share">Share</string>
     <string name="menu.profile.save">Save</string>
-    <string name="nav.car.tracking">Car tracking</string>
-    <string name="nav.service">Service</string>
+    <string name="nav.car.tracking">SALE</string>
+    <string name="nav.service">SERVICE</string>
     <string name="toast.enable.location">Please enable location setting first</string>
     <string name="toast.fill.all.field">Please fill all fields</string>
     <string name="toast.internet.connection.problem">Please check your internet connect and try again</string>
@@ -213,4 +213,8 @@
     <string name="fragment.new.booking.service.brand">Brand</string>
     <string name="fragment.new.booking.service.select.brand.hint">Choose brand</string>
     <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
+    <string name="fragment.new.booking.status.booking.confirmed">Confirmed</string>
+    <string name="fragment.new.booking.status.booking.pending">Pending</string>
+    <string name="nav.miracle">MIRACLE CLUB</string>
+    <string name="nav.website">WEBSITE</string>
 </resources>

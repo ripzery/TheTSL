@@ -9,6 +9,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowContentTransitions">true</item>
+
+        <!-- shared element transition -->
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>
+
+        <!-- content transition -->
     </style>
 
     <style name="ToolbarThemeOverlay" parent="ThemeOverlay.AppCompat.Light">

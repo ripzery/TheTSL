@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.utils.SharePref
 import kotlinx.android.synthetic.main.viewgroup_service.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -100,21 +101,23 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
     fun setModel(model: Model.ServiceBookingEntity) {
 
     //  TODO: SetModel for service view group
-        tvServiceName.text = model.serviceTypeEn
-        tvStatus.text = if(model.dateConfirm.isNullOrEmpty()) "Pending" else "Confirmed"
-        tvLastUpdate.text = if(model.dateConfirm.isNullOrEmpty()) model.dateBooking else model.dateConfirm
+        tvServiceName.text = model.getService()
+        tvStatus.text = if(model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
+        tvLastUpdate.text = "${if(SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "}${model.dateBooking.substring(0, model.dateBooking.length - 3)}"
         tvLicensePlate.text = model.licensePlate
-
+        ivArrow.visibility = View.GONE
     }
 
     fun setModel(model: Model.ServiceTrackingEntity) {
 
     //  TODO: SetModel for service view group
+        info { model }
         val lastStatus = model.detail[model.detail.size - 1]
-        tvServiceName.text = model.model
+        tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()
         tvStatus.text = lastStatus.getStatus()
-        tvLastUpdate.text = if(lastStatus.dateFinish.isNullOrEmpty()) lastStatus.dateReceive else lastStatus.dateFinish
+        tvLastUpdate.text = "${if(SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
         tvLicensePlate.text = model.licensePlate
+        ivArrow.visibility = View.VISIBLE
 
     }
 }

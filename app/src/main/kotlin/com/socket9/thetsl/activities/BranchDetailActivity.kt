@@ -15,6 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.plainText
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.activity_branch_detail.*
@@ -60,7 +61,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -68,7 +69,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
     }
 
     override fun onMapReady(map: GoogleMap?) {

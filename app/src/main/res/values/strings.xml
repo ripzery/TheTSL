@@ -124,8 +124,8 @@
     <!-- Navigation Drawer -->
     <string name="nav.home">Home</string>
     <string name="nav.news">News &amp; Events</string>
-    <string name="nav.contact">Contact Us</string>
-    <string name="nav.emergency">Emergency Call</string>
+    <string name="nav.contact">CONTACT</string>
+    <string name="nav.emergency">EMERGENCY CALL</string>
     <string name="bottom.emergency">Emergency</string>
     <string name="nav.signout">Sign Out</string>
     <string name="nav.change.lang.thai">Thai</string>
@@ -191,8 +191,8 @@
     <string name="lorem">Lorem ipsum dolor sit amet, congue malesuada. Mauris integer, pellentesque purus nam. Ipsum interdum felis facilisi ipsum aliquam. Tincidunt ornare non iaculis nec vitae, consectetur in.</string>
     <string name="toolbar.contact">CONTACT US</string>
     <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string>
-    <string name="nav.service">Service</string>
-    <string name="nav.car.tracking">Car tracking</string>
+    <string name="nav.service">SERVICE</string>
+    <string name="nav.car.tracking">SALE</string>
     <string name="menu.profile.save">Save</string>
     <string name="menu.event.share">Share</string>
 
@@ -240,6 +240,9 @@
     <string name="fragment.new.booking.service.more.info">More information</string>
     <string name="fragment.new.booking.service.more.info.hint">Put additional information here</string>
     <string name="fragment.new.booking.service.book">Book</string>
+    <string name="fragment.new.booking.status.booking.pending">Pending</string>
+    <string name="fragment.new.booking.status.booking.confirmed">Confirmed</string>
+
 
     <!-- Car tracking-->
     <string name="fragment.car.tracking.first">first</string>
@@ -254,6 +257,8 @@
     <string name="validate.confirm.password">Your password and confirmation password do not match</string>
     <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
     <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
+    <string name="nav.miracle">MIRACLE CLUB</string>
+    <string name="nav.website">WEBSITE</string>
 
 
 </resources>

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewsEventActivity
 import com.socket9.thetsl.adapter.EventAdapter
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_event.*
@@ -141,7 +142,7 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
             dialogNewsProgress?.dismiss()
             info { it }
             startActivity(Intent(activity, NewsEventActivity::class.java).putExtra(NewsEventActivity.EXTRA_NEWS_EVENT_DATA, it))
-            activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+            applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         }
     }
 }

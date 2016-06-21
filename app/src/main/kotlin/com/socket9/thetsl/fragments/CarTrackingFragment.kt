@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.NewCarTrackingActivity
 import com.socket9.thetsl.adapter.CarTrackingAdapter
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -92,7 +93,7 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
     private fun initListener(){
         btnAddService.setOnClickListener {
             startActivity<NewCarTrackingActivity>()
-            activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+            applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         }
 
         btnLeft.setOnClickListener {

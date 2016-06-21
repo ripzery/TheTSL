@@ -103,6 +103,8 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
                     R.id.menu_bottom_emergency -> {
                         replaceFragment(R.id.fragmentContainer, emergencyFragment!!)
                         onChangedTabListener?.onChangedTab(MainActivity.FRAGMENT_DISPLAY_EMERGENCY)
+
+
                     }
                     R.id.menu_bottom_service_tracking -> {
                         replaceFragment(R.id.fragmentContainer, serviceFragment!!)

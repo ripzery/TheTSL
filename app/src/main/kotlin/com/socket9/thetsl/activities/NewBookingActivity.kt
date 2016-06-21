@@ -2,12 +2,11 @@ package com.socket9.thetsl.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
-import android.transition.Slide
 import android.view.Menu
 import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
 import com.socket9.thetsl.R
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.fragments.KnownServiceNumberFragment
 import com.socket9.thetsl.fragments.NewBookingFragment
@@ -37,7 +36,7 @@ class NewBookingActivity : ToolbarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_booking)
-        window.enterTransition = Slide()
+//        window.enterTransition = Slide()
         initInstance()
 
     }
@@ -60,12 +59,12 @@ class NewBookingActivity : ToolbarActivity() {
                 if (newBookingFragment.isModified()) {
                     DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                         finish()
-                        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                     }).show()
                     return true
                 } else {
                     finish()
-                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                    applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                     return true
                 }
             }
@@ -78,11 +77,11 @@ class NewBookingActivity : ToolbarActivity() {
         if (newBookingFragment.isModified()) {
             DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                 finish()
-                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
             }).show()
         } else {
             finish()
-            overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+            applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
         }
     }
 

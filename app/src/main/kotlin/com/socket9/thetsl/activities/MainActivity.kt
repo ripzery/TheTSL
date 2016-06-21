@@ -6,15 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
 import android.text.SpannableString
-import android.transition.Explode
-import android.transition.Slide
-import android.transition.TransitionInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,10 +23,7 @@ import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
 import com.socket9.thetsl.R
 import com.socket9.thetsl.SignInActivity
-import com.socket9.thetsl.extensions.getSp
-import com.socket9.thetsl.extensions.replaceFragment
-import com.socket9.thetsl.extensions.saveSp
-import com.socket9.thetsl.extensions.toast
+import com.socket9.thetsl.extensions.*
 import com.socket9.thetsl.fragments.*
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -61,6 +56,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         val FRAGMENT_DISPLAY_EVENT = 6
         val FRAGMENT_DISPLAY_SERVICE = 7
         val FRAGMENT_DISPLAY_CAR_TRACKING = 8
+        val FRAGMENT_DISPLAY_MIRACLE_CLUB = 9
+        val FRAGMENT_DISPLAY_WEBSITE = 10
     }
 
     private var homeFragment: HomeFragment? = null
@@ -70,6 +67,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
     private var eventFragment: NewsEventFragment? = null
     private var serviceFragment: ServiceFragment? = null
     private var carTrackingFragment: CarTrackingFragment? = null
+    private var websiteFragment: WebsiteFragment? = null
+    private var miracleClubFragment: MiracleClubFragment? = null
     private var bottomNavigationFragment: BottomNavigationFragment? = null
     private var currentFragmentIndex: Int = 4
     lateinit var myProfile: Model.Profile;
@@ -223,6 +222,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                 FRAGMENT_DISPLAY_CONTACT -> mTitle = getString(R.string.nav_contact)
                 FRAGMENT_DISPLAY_SERVICE -> mTitle = getString(R.string.nav_service)
                 FRAGMENT_DISPLAY_CAR_TRACKING -> mTitle = getString(R.string.nav_car_tracking)
+                FRAGMENT_DISPLAY_WEBSITE -> mTitle = getString(R.string.nav_website)
+                FRAGMENT_DISPLAY_MIRACLE_CLUB -> mTitle = getString(R.string.nav_miracle)
                 FRAGMENT_DISPLAY_NEWS -> {
                 }
             }
@@ -233,6 +234,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
 
     }
 
+    fun setToolbarTitle(title: String) {
+        toolbarTitle.text = title
+    }
+
     private fun initFragment() {
         homeFragment = HomeFragment.newInstance("homeFragment")
         newsFragment = NewsEventFragment.newInstance(true)
@@ -241,6 +246,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         carTrackingFragment = CarTrackingFragment.newInstance("CarTrackingFragment")
         emergencyFragment = EmergencyFragment.newInstance("EmergencyFragment")
         serviceFragment = ServiceFragment.newInstance("ServiceFragment")
+        miracleClubFragment = MiracleClubFragment.newInstance("MiracleFragment")
+        websiteFragment = WebsiteFragment.newInstance("WebsiteFragment")
         bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, isLaunchedByGcm)
     }
 
@@ -268,6 +275,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                 replaceFragment(fragment = bottomNavigationFragment!!)
                 bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, isLaunchedByGcm, type)
             }
+            FRAGMENT_DISPLAY_MIRACLE_CLUB -> {
+                replaceFragment(fragment = miracleClubFragment!!)
+            }
+            FRAGMENT_DISPLAY_WEBSITE -> {
+                replaceFragment(fragment = websiteFragment!!)
+            }
         }
         currentFragmentIndex = mode
         onFragmentAttached(mode)
@@ -281,6 +294,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
             FRAGMENT_DISPLAY_EMERGENCY -> navView.setCheckedItem(R.id.nav_emergency_call)
             FRAGMENT_DISPLAY_SERVICE -> navView.setCheckedItem(R.id.nav_service)
             FRAGMENT_DISPLAY_CAR_TRACKING -> navView.setCheckedItem(R.id.nav_car_tracking)
+            FRAGMENT_DISPLAY_MIRACLE_CLUB -> navView.setCheckedItem(R.id.nav_miracle_club)
+            FRAGMENT_DISPLAY_WEBSITE -> navView.setCheckedItem(R.id.nav_website)
         }
     }
 
@@ -369,6 +384,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                     changeFragment(FRAGMENT_DISPLAY_CAR_TRACKING)
                     menuItem.isChecked = true
                 }
+                R.id.nav_website -> {
+                    changeFragment(FRAGMENT_DISPLAY_WEBSITE)
+                    menuItem.isChecked = true
+                }
+                R.id.nav_miracle_club -> {
+                    changeFragment(FRAGMENT_DISPLAY_MIRACLE_CLUB)
+                    menuItem.isChecked = true
+                }
             }
 
             //            navView.setChe
@@ -380,8 +403,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
 
     private fun startEditProfile() {
         try {
-            startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE)
-            overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+            val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, cvUserImage as View, "civUser")
+            startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE, options.toBundle())
+            applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         } catch (e: Exception) {
 
             loadProfile(true)
@@ -456,5 +480,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
     /* ButtomBar onchanged tab listener */
     override fun onChangedTab(index: Int) {
         setCheckedItem(index)
+        onFragmentAttached(index)
     }
 }

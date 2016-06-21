@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.BranchDetailActivity
 import com.socket9.thetsl.adapter.ContactAdapter
+import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -107,7 +108,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
     private fun addContact(listContact: MutableList<Model.ContactEntity>): MutableList<Model.ContactEntity> {
         listContact.add(Model.ContactEntity(BASE_ID + 1, getString(R.string.contact_us_email), "services@tsl.co.th", R.drawable.ic_email_grey_500_24dp))
         listContact.add(Model.ContactEntity(BASE_ID + 2, getString(R.string.contact_us_call_center), "02-269-9999", R.drawable.call_grey))
-        listContact.add(Model.ContactEntity(BASE_ID + 3, getString(R.string.contact_us_website), "www.tsl.co.th", R.drawable.www_grey))
+//        listContact.add(Model.ContactEntity(BASE_ID + 3, getString(R.string.contact_us_website), "www.tsl.co.th", R.drawable.www_grey))
         listContact.add(Model.ContactEntity(BASE_ID + 4, getString(R.string.contact_us_facebook), "TSL Auto Corporation", R.drawable.fb_grey))
         listContact.add(Model.ContactEntity(BASE_ID + 5, getString(R.string.contact_us_instagram), "TSL_Auto", R.drawable.ig_grey))
         return listContact
@@ -125,7 +126,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
                         progressDialog?.dismiss()
                         val contact = it.data.copy(titleEn = model.titleEn, subTitle = model.subTitle)
                         startActivity<BranchDetailActivity>("contact" to contact)
-                        activity.overridePendingTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+                        applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
 
                     }, {
                         progressDialog?.dismiss()

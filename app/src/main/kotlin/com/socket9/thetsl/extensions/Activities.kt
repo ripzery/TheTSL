@@ -23,4 +23,8 @@ fun Activity.toast(msg: String) {
     toaster?.show()
 }
 
+fun Activity.applyTransition(enter: Int, exit: Int){
+    overridePendingTransition(enter, exit)
+}
+
 var toaster: Toast? = null

@@ -76,11 +76,11 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
                 if (!isFormEmpty()) {
                     DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                         finish()
-                        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                     }).show()
                 } else {
                     finish()
-                    overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                    applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                 }
                 return true
             }
@@ -98,11 +98,11 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
         if (!isFormEmpty()) {
             DialogUtil.getUpdateProfileDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
                 finish()
-                overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
             }).show()
         } else {
             finish()
-            overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+            applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
         }
     }
 
@@ -147,7 +147,7 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
                     if (it.result) {
                         toast(getString(R.string.toast_activate_account))
                         finish()
-                        overridePendingTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
+                        applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                     } else if (it.message!!.contains("required")) {
                         toast(getString(R.string.toast_create_account_failed))
                     } else {

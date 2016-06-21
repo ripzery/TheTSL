@@ -164,7 +164,7 @@
     <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
     <string name="fragment.service.detail.receive.date">กำหนดการรับรถ :&#160;</string>
     <string name="fragment.service.empty.list">ไม่มีรายการในขณะนี้</string>
-    <string name="nav.car.tracking">ติดตามรถ</string>
+    <string name="nav.car.tracking">ฝ่ายขาย</string>
     <string name="menu.profile.save">บันทึก</string>
     <string name="menu.event.share">แชร์&#160;</string>
     <string name="nav.service">บริการ</string>
@@ -212,4 +212,8 @@
     <string name="fragment.new.booking.service.brand">ยี่ห้อ</string>
     <string name="fragment.new.booking.service.select.brand.hint">เลือกยี่ห้อ</string>
     <string name="fragment_new_booking_choose_brand_first">เลือกยี่ห้อก่อน</string>
+    <string name="fragment.new.booking.status.booking.confirmed">การจองสำเร็จ</string>
+    <string name="fragment.new.booking.status.booking.pending">กำลังรอการยืนยัน</string>
+    <string name="nav.miracle">มิราเคิล คลับ</string>
+    <string name="nav.website">เว็บไซต์</string>
 </resources>

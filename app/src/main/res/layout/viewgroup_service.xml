@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardService"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="128dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="match_parent">
 
         <!-- Image -->
         <FrameLayout
@@ -54,6 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 fontPath="fonts/samakarn/Samakarn-Bold.ttf"
                 style="@style/BasicText"
                 android:text="Text1"/>
@@ -62,7 +66,8 @@
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textSize="14sp"
                 style="@style/BasicText"
                 android:text="Text2"/>
 
@@ -70,12 +75,23 @@
                 android:id="@+id/tvLastUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                fontPath="fonts/samakarn/Samakarn-Light.ttf"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textSize="12sp"
+                tools:text="Update : 2016:04-20 11:55:00"
+                android:textColor="@color/colorTextSecondary"
+                fontPath="fonts/samakarn/Samakarn-Regular.ttf"
                 style="@style/BasicText"
                 android:text="Text3"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_keyboard_arrow_right_grey_700_24dp" />
 
     </LinearLayout>
 

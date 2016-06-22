@@ -124,9 +124,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
         when (requestCode) {
             EmergencyFragment.REQUEST_CODE_LOCATION_SETTING -> {
                 if (resultCode == RESULT_OK) {
-                    emergencyFragment?.userEnabledLocation()
+                    try {
+                        emergencyFragment?.userEnabledLocation()
+                    }catch(e: Exception){
+                        info { e }
+                    }
                 } else {
-                    emergencyFragment?.userNotEnabledLocation()
+                    toast(getString(R.string.toast_enable_location))
+//                    emergencyFragment?.userNotEnabledLocation()
                 }
             }
             HomeFragment.REQUEST_MY_PROFILE -> {

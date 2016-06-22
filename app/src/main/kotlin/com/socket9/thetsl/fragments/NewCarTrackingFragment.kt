@@ -99,4 +99,37 @@ class NewCarTrackingFragment : Fragment(), AnkoLogger{
             }
         }
     }
+
+    private fun testCitizenId(citizenID:String): Boolean {
+//        for(i=0, sum=0; i < 12; i++)
+//        sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12)))
+//            return false; return true;
+        var sum:Float = 0f
+        for(i in 0..11){
+            sum += citizenID[i].toFloat() * (13 - i)
+
+        }
+
+        if((11-sum%11)%10 != citizenID[12].toFloat()){
+            return false
+        }
+
+        return true
+
+    }
+
+    private fun validateCitizenID(citizen: String): Boolean {
+        var citizenID:Long = citizen.toLong()
+        var base = 100000000000L
+        var currentBase: Int
+        var sum = 0
+        for (i in 12 downTo 1) {
+            currentBase = Math.floor((citizenID / base).toDouble()).toInt()
+            citizenID -= currentBase * base
+            sum += currentBase * i
+            base /= 10
+        }
+        val checkBit = (11 - sum % 11) % 10
+        return checkBit == citizen[12].toInt()
+    }
 }

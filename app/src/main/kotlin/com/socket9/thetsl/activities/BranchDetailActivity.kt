@@ -131,12 +131,11 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
     }
 
     private fun setData() {
-        //        toolbarTitle.text = contact.getTitle()
-        //        toolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
         tvPhone.text = contact.phone?.plainText()
-        tvEmail.text = contact.email?.plainText()
-        if (contact.businessHours != null) tvHours.text = Html.fromHtml(contact.businessHours)
-        tvAddress.text = contact.address?.plainText()
+        tvEmail.text = contact.email?.plainText()?.replace("\r", "")?.replace("\n", "")?.replace("\t", "")
+
+        if (contact.businessHours != null) tvHours.text = Html.fromHtml(contact.businessHours?.replace("\r", "")?.replace("\n", "")?.replace("\t", ""))
+        tvAddress.text = contact.address?.plainText()?.replace("\r", "")?.replace("\n", "")?.replace("\t", "")
     }
 
     private fun setToolbar() {

@@ -21,10 +21,11 @@
                 android:id="@+id/ivLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:transitionName="ivLogo"
                 android:scaleType="centerCrop"/>
 
             <TextView
-                android:id="@+id/tvEmpty"
+                android:id="@+id/tvEmptyView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

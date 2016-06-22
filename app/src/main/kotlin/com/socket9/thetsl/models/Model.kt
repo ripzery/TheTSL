@@ -170,20 +170,18 @@ object Model {
     @PaperParcel
     data class ServiceBookingEntity(val licensePlate: String,
                                     val dateBooking: String,
-                                    val modelCategoryTh: String,
-                                    val modelCategoryEn: String,
+                                    val modelCategoryTh: String? = null,
+                                    val modelCategoryEn: String? = null,
+                                    val modelService: String,
                                     val serviceTypeTh: String,
                                     val serviceTypeEn: String,
                                     val note: String,
+                                    val image: String,
                                     val phone: String,
                                     val branchesTh: String,
                                     val branchesEn: String,
                                     val isCancel: Boolean,
                                     val dateConfirm: String) : PaperParcelable {
-
-        fun getModelCategory(): String {
-            return if (SharePref.isEnglish()) modelCategoryEn else modelCategoryTh
-        }
 
         fun getBranch(): String {
             return if (SharePref.isEnglish()) branchesEn else branchesTh

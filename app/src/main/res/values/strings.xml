@@ -34,7 +34,7 @@
     <string name="dialog.update.phone.input.hint">Phone number</string>
 
     <!-- Update profile dialog -->
-    <string name="dialog.update.profile.title">Confirmation</string>
+    <string name="dialog.update.profile.title">Your Booking Confirmation</string>
     <string name="dialog.update.profile.content">Exit without saving your changed?</string>
     <string name="dialog.update.profile.positive">Yes</string>
     <string name="dialog.update.profile.negative">No</string>
@@ -104,7 +104,7 @@
     <string name="toast.internet.connection.problem">Please check your internet connect and try again</string>
     <string name="toast.fill.all.field">Please fill all fields</string>
     <string name="toast.service.booking.successful">Service has been booked successful</string>
-    <string name="toast.waiting.confirmation">Waiting for confirmation…</string>
+    <string name="toast.waiting.confirmation">Waiting for confirmation.</string>
     <string name="toast.enable.location">Please enable location setting first</string>
     <string name="toast.create.account.failed">Please fill all required fields correctly</string>
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>

@@ -42,7 +42,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
     private var serviceAdapter: ServiceAdapter? = null
     private var serviceList: Model.ServiceBookingList? = null
     private var trackingList: Model.ServiceTrackingList? = null
-    private var isLast: Boolean = false
+    private var isServiceHistory: Boolean = false
     private var progressDialog: ProgressDialog? = null
     private var loadNewBookingSubscription: Subscription? = null
 
@@ -97,7 +97,20 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         when (requestCode) {
             NewBookingActivity.NEW_BOOKING_ACTIVITY -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    loadData("first")
+                    if(isServiceHistory){
+                        loadHistoryData("first")
+                    }else{
+                        loadData("first")
+                    }
+                }
+            }
+            NewBookingActivity.NEW_BOOKING_KNOWN_SERVICE_ACTIVITY -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    if(isServiceHistory){
+                        loadHistoryData("first")
+                    }else{
+                        loadData("first")
+                    }
                 }
             }
         }
@@ -113,7 +126,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         initListener()
 
         /* Loading data */
-        loadData(if (isLast) "last" else "first")
+        loadData(if (isServiceHistory) "last" else "first")
     }
 
     private fun initListener() {
@@ -130,7 +143,9 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
                         }
                     }
                     1 -> {
-                        startActivity<NewBookingActivity>(NewBookingActivity.EXTRA_IS_NEW_BOOKING to false)
+                        val intent = Intent(activity, NewBookingActivity::class.java)
+                        intent.putExtra(NewBookingActivity.EXTRA_IS_NEW_BOOKING, false)
+                        startActivityForResult(intent, NewBookingActivity.NEW_BOOKING_KNOWN_SERVICE_ACTIVITY)
                         applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
                     }
                 }
@@ -146,7 +161,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             /* Loading new booking by first order */
             loadData("first")
 
-            isLast = false
+            isServiceHistory = false
         }
 
         btnRight.setOnClickListener {
@@ -158,7 +173,7 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
             /* Loading new booking by last order */
             loadHistoryData("first")
 
-            isLast = true
+            isServiceHistory = true
         }
 
 

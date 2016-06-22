@@ -1,5 +1,6 @@
 package com.socket9.thetsl.fragments
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -80,6 +81,7 @@ class KnownServiceNumberFragment : Fragment(), AnkoLogger {
                         info { it }
                         if (it.result) {
                             toast("Add successfully")
+                            activity.setResult(Activity.RESULT_OK)
                             activity.finish()
                         } else {
                             toast(it.message!!)

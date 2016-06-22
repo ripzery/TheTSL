@@ -23,7 +23,7 @@
     <string name="dialog.forgot.pw.negative">Cancel</string>
     <string name="dialog.forgot.pw.input.hint">Your email</string>
 
-    <string name="dialog.update.profile.title">Confirmation</string>
+    <string name="dialog.update.profile.title">Your Booking Confirmation</string>
     <string name="dialog.update.profile.content">Exit without saving your changed?</string>
     <string name="dialog.update.profile.positive">Yes</string>
     <string name="dialog.update.profile.negative">No</string>
@@ -173,7 +173,7 @@
     <string name="toast.login.successful">Login successful</string>
     <string name="toast.service.booking.successful">Service has been booked successful</string>
     <string name="toast.unknown.error.try.again">Something went wrong, please try again</string>
-    <string name="toast.waiting.confirmation">Waiting for confirmation…</string>
+    <string name="toast.waiting.confirmation">Waiting for confirmation.</string>
     <string name="viewgroup.contact">TSL SATORN</string>
     <string name="dialog.progress.emergency.call.content">Requesting…</string>
     <string name="dialog.progress.event.list.content">Loading events…</string>

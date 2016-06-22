@@ -1,7 +1,9 @@
 package com.socket9.thetsl.fragments
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import kotlinx.android.synthetic.main.fragment_service.*
+import kotlinx.android.synthetic.main.viewgroup_service.*
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.startActivity
 import rx.Subscription
@@ -149,7 +152,10 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
 
     /** Listener zone **/
 
-    override fun onCardClicked(position: Int) {
-        startActivity<CarDetailActivity>(ServiceDetailActivity.ARG_1 to carList!!.data[position])
+    override fun onCardClicked(position: Int, sharedView: View) {
+        val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, sharedView.transitionName)
+        val intent:Intent = Intent(context, CarDetailActivity::class.java)
+        intent.putExtra(ServiceDetailActivity.ARG_1, carList!!.data[position])
+        startActivity(intent, options.toBundle())
     }
 }

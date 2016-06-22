@@ -95,9 +95,17 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                             .putExtra("type", EMERGENCY_CALL)
                 }
                 SERVICE_BOOKING -> {
+
+                    val data = if (SharePref.isEnglish()) {
+                        JSONObject(message).getJSONObject("en_data")
+                    } else {
+                        JSONObject(message).getJSONObject("th_data")
+                    }
+
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("isGcm", true)
                             .putExtra("type", SERVICE_BOOKING)
+                            .putExtra("data", data.toString())
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_TRACKING -> {

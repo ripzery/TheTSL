@@ -35,7 +35,7 @@ class CarTrackingAdapter(var carTrackingList: MutableList<Model.CarTrackingEntit
     /** Listener zone **/
 
     interface CarTrackingInteractionListener {
-        fun onCardClicked(position:Int)
+        fun onCardClicked(position:Int, sharedView:View)
     }
 
     /** Inner class zone **/
@@ -48,7 +48,7 @@ class CarTrackingAdapter(var carTrackingList: MutableList<Model.CarTrackingEntit
             carTrackingViewGroup = itemView.findViewById(R.id.carTrackingViewGroup) as CarTrackingViewGroup
 
             carTrackingViewGroup?.getCardClickedObservable()?.subscribe {
-                carTrackingInteractionListener?.onCardClicked(adapterPosition)
+                carTrackingInteractionListener?.onCardClicked(adapterPosition, carTrackingViewGroup!!.getImage())
             }
         }
 

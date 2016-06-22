@@ -23,7 +23,7 @@
     <string name="dialog.forgot.pw.negative">ยกเลิก</string>
     <string name="dialog.forgot.pw.input.hint">อีเมล์ของคุณ</string>
 
-    <string name="dialog.update.profile.title">ยืนยัน</string>
+    <string name="dialog.update.profile.title">ยืนยันข้อมูลการจอง</string>
     <string name="dialog.update.profile.content">คุณแน่ใจหรือว่าจะไม่บันทึกการเปลี่ยนแปลงนี้?</string>
     <string name="dialog.update.profile.positive">ใช่</string>
     <string name="dialog.update.profile.negative">ไม่ใช่</string>
@@ -174,7 +174,7 @@
     <string name="toast.login.successful">เข้าสู่ระบบสำเร็จ</string>
     <string name="toast.service.booking.successful">ข้อมูลถูกจองสำเร็จ</string>
     <string name="toast.unknown.error.try.again">เกิดข้อผิพลาดขึ้น กรุณาลองใหม่อีกครั้ง</string>
-    <string name="toast.waiting.confirmation">โปรดรอการยืนยัน...</string>
+    <string name="toast.waiting.confirmation">โปรดรอการยืนยัน</string>
     <string name="viewgroup.contact">ทีเอสแอล สาธร</string>
     <string name="dialog.progress.emergency.call.content">กำลังแจ้ง...</string>
     <string name="dialog.progress.service.car.tracking.content">กำลังตรวจสอบข้อมูล...</string>

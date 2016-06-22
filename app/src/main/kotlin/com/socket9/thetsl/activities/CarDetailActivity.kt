@@ -50,7 +50,7 @@ class CarDetailActivity : ToolbarActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                finish()
+                supportFinishAfterTransition()
                 return true
             }
         }
@@ -58,10 +58,14 @@ class CarDetailActivity : ToolbarActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
+    }
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
-
+    
     /** Method zone **/
 
     private fun initInstance() {

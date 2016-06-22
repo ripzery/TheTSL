@@ -27,6 +27,7 @@ class NewBookingActivity : ToolbarActivity() {
     /** Static method zone **/
     companion object {
         val NEW_BOOKING_ACTIVITY = 1000
+        val NEW_BOOKING_KNOWN_SERVICE_ACTIVITY = 1001
         val EXTRA_NEW_BOOKING_DATA = "newBookingData"
         val EXTRA_IS_NEW_BOOKING = "isNewBooking"
     }

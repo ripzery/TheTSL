@@ -143,7 +143,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         } catch(e: Exception) {
             Log.d("ServiceViewGroup", e.toString())
         }
-        tvEmpty.visibility = View.GONE
+        tvEmptyView.visibility = View.GONE
 
 //        tvServiceName.visibility = View.GONE
 //        tvStatus.text = "${if (SharePref.isEnglish()) {

@@ -74,6 +74,10 @@ class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     }
 
+    fun getImage() : View{
+        return ivLogo
+    }
+
     fun getCardClickedObservable(): Observable<Int> {
         return cardClickedObservable.subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
     }
@@ -100,7 +104,7 @@ class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
         val lastStatus = model.detail.last()
         Glide.with(context).load(model.image!!).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
         tvServiceName.text = model.model
-        tvEmpty.visibility = View.GONE
+        tvEmptyView.visibility = View.GONE
         tvStatus.text = "${if(SharePref.isEnglish()) { "Status : " } else { "สถานะ : " } } ${lastStatus.getStatus()}"
         tvLastUpdate.text = "${if(SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
         tvLicensePlate.text = model.licensePlate

@@ -272,7 +272,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                 //                replaceFragment(fragment = serviceFragment!!)
                 bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.SERVICE_TRACKING, this, isLaunchedByGcm)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm, type)
+                val data = intent.getStringExtra("data")
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm, type, data)
             }
             FRAGMENT_DISPLAY_CAR_TRACKING -> {
                 //                replaceFragment(fragment = carTrackingFragment!!)

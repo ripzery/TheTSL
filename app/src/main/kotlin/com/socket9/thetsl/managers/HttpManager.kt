@@ -313,7 +313,7 @@ object HttpManager {
 
     private fun checkToken(result: Boolean, message: String? = null) {
         try {
-            if (!result && message!!.contains("token")) {
+            if (!result && message!!.contains("Token")) {
                 saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "")
                 Contextor.context!!.startActivity(Intent(Contextor.context, SignInActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

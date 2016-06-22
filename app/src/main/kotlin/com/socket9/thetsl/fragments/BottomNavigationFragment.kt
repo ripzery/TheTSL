@@ -14,8 +14,10 @@ import com.socket9.thetsl.activities.MainActivity
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.gcm.MyGcmListenerService
 import com.socket9.thetsl.utils.DialogUtil
+import kotlinx.android.synthetic.main.dialog_booking_confirmation.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
+import org.json.JSONObject
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -125,7 +127,7 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
 
     }
 
-    fun setTab(index: Int, isLaunchedByGcm: Boolean, type: String) {
+    fun setTab(index: Int, isLaunchedByGcm: Boolean, type: String, data: String? = null) {
         try {
             if (isLaunchedByGcm) {
                 when (index) {
@@ -137,7 +139,7 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
                     1 -> {
                         if (type.equals(MyGcmListenerService.SERVICE_BOOKING)) {
                             Handler().postDelayed({
-                                showServiceConfirmationDialog()
+                                showServiceConfirmationDialog(JSONObject(data))
                             }, 1000)
                         }
                     }
@@ -152,7 +154,7 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
         DialogUtil.getEmergencyConfirmationDialog(context).show()
     }
 
-    private fun showServiceConfirmationDialog() {
+    private fun showServiceConfirmationDialog(jsonObject: JSONObject) {
         val dialog = DialogUtil.getServiceBookingConfirmationDialog(context)
         val view = dialog.customView
 
@@ -161,6 +163,11 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
             val tvDate = this?.find<TextView>(R.id.tvDate)
             val tvTime = this?.find<TextView>(R.id.tvTime)
             val tvBranch = this?.find<TextView>(R.id.tvBranch)
+
+            tvType?.text = jsonObject.getString("type")
+            tvDate?.text = jsonObject.getString("date")
+            tvTime?.text = jsonObject.getString("time")
+            tvBranch?.text = jsonObject.getString("branch")
         }
 
         /* TODO: setup service confirm dialog */

@@ -1,6 +1,8 @@
 package com.socket9.thetsl.utils
 
 import android.content.Context
+import android.text.InputType
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.getSp
@@ -23,6 +25,18 @@ object DialogUtil {
 
     fun getEmergencyConfirmationDialog(context: Context): MaterialDialog {
         return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_emergency_confirmation_title)).content(getString(context, R.string.dialog_emergency_confirmation_content)).positiveText(getString(context, R.string.dialog_emergency_confirmation_positive)).build()
+    }
+
+    fun getRequiredPhoneDialog(context: Context, callback: MaterialDialog.InputCallback): MaterialDialog{
+        return MaterialDialog.Builder(context)
+                .title(getString(context, R.string.dialog_emergency_call_required_phone_title))
+                .content(getString(context, R.string.dialog_emergency_call_required_phone_note))
+                .inputRange(10, 10)
+                .inputType(InputType.TYPE_CLASS_PHONE)
+                .input(getString(context, R.string.dialog_emergency_call_required_phone_content), null, false, callback)
+                .negativeText(getString(context, R.string.dialog_emergency_call_negative))
+                .positiveText(getString(context, R.string.dialog_emergency_confirmation_positive))
+                .build()
     }
 
     fun getUpdateProfileDialog(context: Context, callback: MaterialDialog.SingleButtonCallback): MaterialDialog {

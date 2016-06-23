@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
 import android.text.SpannableString
@@ -29,6 +28,7 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_navigation_header.*
 import org.jetbrains.anko.AnkoLogger
@@ -43,7 +43,7 @@ import java.util.*
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.OnChangeTabListener {
+class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment.OnChangeTabListener {
 
     /** Variable zone **/
 
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                 if (resultCode == RESULT_OK) {
                     try {
                         emergencyFragment?.userEnabledLocation()
-                    }catch(e: Exception){
+                    } catch(e: Exception) {
                         info { e }
                     }
                 } else {
@@ -451,6 +451,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                         info { it }
                         HttpManager.getProfile()
                     }
+//                    .bindToLifecycle(this)
                     .subscribe({
                         updateProfileUI(isFromEditProfile, it)
 
@@ -460,6 +461,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
                     })
         } else {
             getProfileSubscriber = HttpManager.getProfile()
+//                    .bindToLifecycle(this)
                     .subscribe({
                         updateProfileUI(isFromEditProfile, it)
                     }, { error ->
@@ -472,7 +474,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger, BottomNavigationFragment.O
     private fun updateProfileUI(isFromEditProfile: Boolean, it: Model.Profile) {
         dialog?.dismiss()
         myProfile = it
-        Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
+        if (it.data?.pic != null || it.data?.facebookPic != null) {
+            Glide.with(this).load(it.data?.pic ?: it.data?.facebookPic).centerCrop().into(cvUserImage)
+        }else{
+            Glide.with(this).load(R.drawable.default_photo).centerCrop().into(cvUserImage)
+        }
         tvName?.text = it.data?.nameEn
 
         /* check if load data because user tap on user profile

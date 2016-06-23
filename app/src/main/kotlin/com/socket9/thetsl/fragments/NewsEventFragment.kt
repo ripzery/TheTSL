@@ -3,8 +3,6 @@ package com.socket9.thetsl.fragments
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,18 +13,18 @@ import com.socket9.thetsl.adapter.EventAdapter
 import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_event.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
-import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionListener {
+class NewsEventFragment : RxFragment(), AnkoLogger, EventAdapter.EventInteractionListener {
 
     /** Variable zone **/
     private var getListNewsEventSubscription: Subscription? = null
@@ -98,6 +96,7 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
                 dialogNewsProgress?.setCancelable(false)
                 dialogNewsProgress?.show()
                 getListNewsEventSubscription = HttpManager.getListNews()
+//                        .bindToLifecycle(this)
                         .subscribe ({
                             dialogNewsProgress?.dismiss()
                             eventNewsAdapter?.setList(it.data)
@@ -108,10 +107,11 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
                         })
             }
             false -> {
-                dialogEventProgress= indeterminateProgressDialog(R.string.dialog_progress_event_list_content, R.string.dialog_progress_title)
+                dialogEventProgress = indeterminateProgressDialog(R.string.dialog_progress_event_list_content, R.string.dialog_progress_title)
                 dialogEventProgress?.setCancelable(false)
                 dialogEventProgress?.show()
                 getListNewsEventSubscription = HttpManager.getListEvent()
+//                        .bindToLifecycle(this)
                         .subscribe ({
                             dialogEventProgress?.dismiss()
                             eventNewsAdapter?.setList(it.data)
@@ -125,17 +125,21 @@ class NewsEventFragment : Fragment(), AnkoLogger, EventAdapter.EventInteractionL
 
     }
 
-    private fun loadNewsEventData(id: Int, action: (Model.NewsEventEntity) -> Unit){
+    private fun loadNewsEventData(id: Int, action: (Model.NewsEventEntity) -> Unit) {
         if (isNews) {
-            HttpManager.getEvent(id).subscribe { action(it.data) }
+            HttpManager.getEvent(id)
+//                    .bindToLifecycle(this)
+                    .subscribe { action(it.data) }
         } else {
-            HttpManager.getNews(id).subscribe { action(it.data) }
+            HttpManager.getNews(id)
+//                    .bindToLifecycle(this)
+                    .subscribe { action(it.data) }
         }
     }
 
     /** Listener zone **/
     override fun onClickedEvent(index: Int, model: Model.NewsEventEntity) {
-        dialogNewsProgress = indeterminateProgressDialog(getString( if(isNews) R.string.dialog_progress_news_list_content else R.string.dialog_progress_event_list_content), "Please wait")
+        dialogNewsProgress = indeterminateProgressDialog(getString(if (isNews) R.string.dialog_progress_news_list_content else R.string.dialog_progress_event_list_content), "Please wait")
         dialogNewsProgress?.setCancelable(false)
         dialogNewsProgress?.show()
         loadNewsEventData(model.id) {

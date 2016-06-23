@@ -9,7 +9,6 @@ import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref
 import io.fabric.sdk.android.Fabric
-import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 /**
@@ -30,7 +29,6 @@ class BaseApp: Application() {
         if ((getSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "") as String).isEmpty()) saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, "en")
 
         Contextor.context = this
-        Timber.plant(Timber.DebugTree())
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder().setDefaultFontPath("fonts/samakarn/Samakarn-Regular.ttf").setFontAttrId(R.attr.fontPath).build())
     }
 

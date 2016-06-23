@@ -2,7 +2,6 @@ package com.socket9.thetsl.fragments
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_contact.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -25,21 +25,21 @@ import rx.Subscription
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
 
-class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractionListener{
+class ContactFragment : RxFragment(), AnkoLogger, ContactAdapter.ContactInteractionListener {
 
 
     /** Variable zone **/
     lateinit var param1: String
     private val BASE_ID = 1000000
-    private var contactSubscription:Subscription? = null
-    private var progressDialog:ProgressDialog? = null
+    private var contactSubscription: Subscription? = null
+    private var progressDialog: ProgressDialog? = null
 
 
     /** Static method zone **/
-    companion object{
+    companion object {
         val ARG_1 = "ARG_1"
 
-        fun newInstance(param1:String) : ContactFragment {
+        fun newInstance(param1: String): ContactFragment {
             var bundle: Bundle = Bundle()
             bundle.putString(ARG_1, param1)
             val contactFragment: ContactFragment = ContactFragment()
@@ -53,7 +53,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             /* if newly created */
             param1 = arguments.getString(ARG_1)
         }
@@ -78,27 +78,27 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
 
     /** Method zone **/
 
-    private fun initInstance(){
+    private fun initInstance() {
         progressDialog = indeterminateProgressDialog(R.string.dialog_progress_contact_content, R.string.dialog_progress_title)
         progressDialog?.setCancelable(false)
         progressDialog?.show()
 
         contactSubscription = loadContacts()
-            .subscribe ({
-                info { it }
-                progressDialog?.dismiss()
-                val contactAdapter = ContactAdapter(addContact(it.data), this)
-                val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
-                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-                recyclerView.layoutManager = linearLayoutManager
-                recyclerView.adapter = contactAdapter
+                .subscribe ({
+                    info { it }
+                    progressDialog?.dismiss()
+                    val contactAdapter = ContactAdapter(addContact(it.data), this)
+                    val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+                    linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                    recyclerView.layoutManager = linearLayoutManager
+                    recyclerView.adapter = contactAdapter
 
-            }, {error ->
-                progressDialog?.dismiss()
-                error.printStackTrace()
-                info { error.message }
-                toast(getString(R.string.toast_internet_connection_problem))
-            })
+                }, { error ->
+                    progressDialog?.dismiss()
+                    error.printStackTrace()
+                    info { error.message }
+                    toast(getString(R.string.toast_internet_connection_problem))
+                })
     }
 
     private fun loadContacts(): Observable<Model.ListContacts> {
@@ -122,6 +122,7 @@ class ContactFragment : Fragment(), AnkoLogger, ContactAdapter.ContactInteractio
             progressDialog?.show()
 
             HttpManager.getContact(model.id)
+//                    .bindToLifecycle(this)
                     .subscribe({
                         progressDialog?.dismiss()
                         val contact = it.data.copy(titleEn = model.titleEn, subTitle = model.subTitle)

@@ -34,7 +34,7 @@
             android:layout_width="@dimen/btn_width_large"
             android:layout_height="wrap_content"
             android:hint="@string/sign.in.username.hint"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textColor="@color/colorTextPrimary"
             android:textColorHint="@color/colorTextSecondary"/>
 

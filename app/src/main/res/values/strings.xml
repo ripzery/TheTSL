@@ -63,6 +63,13 @@
     <string name="dialog.emergency.call.positive">Call</string>
     <string name="dialog.emergency.call.negative">Cancel</string>
 
+    <!-- Emergency call phone dialog -->
+    <string name="dialog.emergency.call.required.phone.title">Required phone number</string>
+    <string name="dialog.emergency.call.required.phone.content">Phone number</string>
+    <string name="dialog.emergency.call.required.phone.helper">Your current phone number</string>
+    <string name="dialog.emergency.call.required.phone.note">Phone number is required. The technician will get back to you later.</string>
+
+
     <!-- Emergency confirmation dialog -->
     <string name="dialog.emergency.confirmation.title">Confirmation</string>
     <string name="dialog.emergency.confirmation.content">Thank you for using TSL Emergency call service. The technician will get back to you within 30 mins.</string>

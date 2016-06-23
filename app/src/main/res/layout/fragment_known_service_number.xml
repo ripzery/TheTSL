@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_margin="16dp"
@@ -17,13 +18,31 @@
             fontPath="fonts/samakarn/Samakarn-Bold.ttf"
             android:theme="@style/BasicText"/>
 
-        <EditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/etServiceNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
+            android:gravity="end"
+            android:layout_marginLeft="16dp"
             android:singleLine="true"
-            android:layout_marginLeft="16dp"/>
+            app:met_hideUnderline="true"
+            app:met_floatingLabel="none"
+            android:maxLength="10"
+            android:inputType="number"
+            app:met_minCharacters="1"
+            app:met_maxCharacters="10"
+            android:textSize="14sp"
+            android:hint="@string/fragment.known.service.number.service.number"
+            />
+
+        <!--<EditText-->
+            <!--android:id="@+id/etServiceNumber"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:imeOptions="actionNext"-->
+            <!--android:singleLine="true"-->
+            <!--android:layout_marginLeft="16dp"/>-->
 
     </LinearLayout>
 
@@ -40,15 +59,34 @@
             fontPath="fonts/samakarn/Samakarn-Bold.ttf"
             android:theme="@style/BasicText"/>
 
-        <EditText
+
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/etTrackingId"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:maxLength="15"
             android:imeOptions="actionDone"
-            android:layout_marginLeft="16dp"/>
+            android:maxLength="10"
+            android:gravity="end"
+            android:layout_marginLeft="16dp"
+            android:singleLine="true"
+            app:met_hideUnderline="true"
+            app:met_floatingLabel="none"
+            android:inputType="number"
+            app:met_minCharacters="1"
+            app:met_maxCharacters="10"
+            android:textSize="14sp"
+            android:hint="@string/fragment.known.service.number.tracking.id"
+            />
+
+        <!--<EditText-->
+            <!--android:id="@+id/etTrackingId"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:singleLine="true"-->
+            <!--android:maxLength="15"-->
+            <!--android:imeOptions="actionDone"-->
+            <!--android:layout_marginLeft="16dp"/>-->
 
     </LinearLayout>
 

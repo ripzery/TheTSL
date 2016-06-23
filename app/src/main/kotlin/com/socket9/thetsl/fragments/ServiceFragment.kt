@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -19,6 +18,7 @@ import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_service.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
@@ -32,7 +32,7 @@ import rx.Subscription
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractionListener {
+class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteractionListener {
     /** Variable zone **/
     lateinit var param1: String
     private var serviceAddedType = listOf("")
@@ -97,18 +97,18 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         when (requestCode) {
             NewBookingActivity.NEW_BOOKING_ACTIVITY -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    if(isServiceHistory){
+                    if (isServiceHistory) {
                         loadHistoryData("first")
-                    }else{
+                    } else {
                         loadData("first")
                     }
                 }
             }
             NewBookingActivity.NEW_BOOKING_KNOWN_SERVICE_ACTIVITY -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    if(isServiceHistory){
+                    if (isServiceHistory) {
                         loadHistoryData("first")
-                    }else{
+                    } else {
                         loadData("first")
                     }
                 }
@@ -188,37 +188,40 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         // TODO: Load data from tracking and booking
 
         loadDataSubscription = HttpManager.getServiceBookingList(orderType)
+//                .bindToLifecycle(this)
                 .flatMap {
                     serviceList = it
                     HttpManager.getServiceTrackingList(orderType)
-                }.subscribe ({
+                }
+//                .bindToLifecycle(this)
+                .subscribe ({
 
-            dialog?.dismiss()
-            trackingList = it
+                    dialog?.dismiss()
+                    trackingList = it
 
-            if (serviceAdapter == null) {
-                serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
-            } else {
-                serviceAdapter!!.serviceBookingList = serviceList!!.data
-                serviceAdapter!!.serviceTrackingList = trackingList!!.data
-                serviceAdapter!!.notifyDataSetChanged()
-            }
+                    if (serviceAdapter == null) {
+                        serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
+                    } else {
+                        serviceAdapter!!.serviceBookingList = serviceList!!.data
+                        serviceAdapter!!.serviceTrackingList = trackingList!!.data
+                        serviceAdapter!!.notifyDataSetChanged()
+                    }
 
-            tvEmpty.visibility = if (serviceList!!.data.size + it.data.size > 0) View.GONE else View.VISIBLE
+                    tvEmpty.visibility = if (serviceList!!.data.size + it.data.size > 0) View.GONE else View.VISIBLE
 
-            recyclerView.adapter = serviceAdapter
+                    recyclerView.adapter = serviceAdapter
 
-            serviceAdapter?.setListener(this)
+                    serviceAdapter?.setListener(this)
 
-        }, { error ->
-            error.printStackTrace()
-            dialog?.dismiss()
-            if (error.message!!.contains("Internal Server")) {
-                toast(error.message!!)
-            } else {
-                toast(getString(R.string.toast_internet_connection_problem))
-            }
-        })
+                }, { error ->
+                    error.printStackTrace()
+                    dialog?.dismiss()
+                    if (error.message!!.contains("Internal Server")) {
+                        toast(error.message!!)
+                    } else {
+                        toast(getString(R.string.toast_internet_connection_problem))
+                    }
+                })
     }
 
     /* Load booking service history data, then load service tracking history data, and push to the stack. */
@@ -230,37 +233,40 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         // TODO: Load data from tracking and booking
 
         loadDataSubscription = HttpManager.getServiceBookingHistoryList(orderType)
+//                .bindToLifecycle(this)
                 .flatMap {
                     serviceList = it
                     HttpManager.getServiceTrackingHistoryList(orderType)
-                }.subscribe ({
+                }
+//                .bindToLifecycle(this)
+                .subscribe ({
 
-            dialog?.dismiss()
-            trackingList = it
+                    dialog?.dismiss()
+                    trackingList = it
 
-            if (serviceAdapter == null) {
-                serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
-            } else {
-                serviceAdapter!!.serviceBookingList = serviceList!!.data
-                serviceAdapter!!.serviceTrackingList = trackingList!!.data
-                serviceAdapter!!.notifyDataSetChanged()
-            }
+                    if (serviceAdapter == null) {
+                        serviceAdapter = ServiceAdapter(serviceList!!.data, trackingList!!.data)
+                    } else {
+                        serviceAdapter!!.serviceBookingList = serviceList!!.data
+                        serviceAdapter!!.serviceTrackingList = trackingList!!.data
+                        serviceAdapter!!.notifyDataSetChanged()
+                    }
 
-            tvEmpty.visibility = if (serviceList!!.data.size + it.data.size > 0) View.GONE else View.VISIBLE
+                    tvEmpty.visibility = if (serviceList!!.data.size + it.data.size > 0) View.GONE else View.VISIBLE
 
-            recyclerView.adapter = serviceAdapter
+                    recyclerView.adapter = serviceAdapter
 
-            serviceAdapter?.setListener(this)
+                    serviceAdapter?.setListener(this)
 
-        }, { error ->
-            error.printStackTrace()
-            dialog?.dismiss()
-            if (error.message!!.contains("Internal Server")) {
-                toast(error.message!!)
-            } else {
-                toast(getString(R.string.toast_internet_connection_problem))
-            }
-        })
+                }, { error ->
+                    error.printStackTrace()
+                    dialog?.dismiss()
+                    if (error.message!!.contains("Internal Server")) {
+                        toast(error.message!!)
+                    } else {
+                        toast(getString(R.string.toast_internet_connection_problem))
+                    }
+                })
     }
 
     private fun loadNewBookingDataThen(action: (Model.ServiceBasicData) -> Unit) {
@@ -269,15 +275,17 @@ class ServiceFragment : Fragment(), AnkoLogger, ServiceAdapter.ServiceInteractio
         progressDialog?.show()
 
         /* Loading spinner data */
-        loadNewBookingSubscription = HttpManager.getServiceBasicData().subscribe ({
-            action(it)
-            progressDialog?.dismiss()
-            //            setSpinnerData(it)
-        }, { error ->
-            progressDialog?.dismiss()
-            info { error }
-            toast(getString(R.string.toast_internet_connection_problem))
-        })
+        loadNewBookingSubscription = HttpManager.getServiceBasicData()
+//                .bindToLifecycle(this)
+                .subscribe ({
+                    action(it)
+                    progressDialog?.dismiss()
+                    //            setSpinnerData(it)
+                }, { error ->
+                    progressDialog?.dismiss()
+                    info { error }
+                    toast(getString(R.string.toast_internet_connection_problem))
+                })
     }
 
     /* show dialog if coming from gcm */

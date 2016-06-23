@@ -208,7 +208,7 @@
     <string name="validate.email">อีเมล์ไม่ถูกต้อง</string>
     <string name="validate.name">กรุณาใส่ชื่อ</string>
     <string name="validate.password">รหัสผ่านต้องมีจำนวน 8 ตัวขึ้นไป</string>
-    <string name="validate.phone">เบอร์โทรศัพท์ต้องมีจำนวน 10 ตัวอักษร (กรูณาใส่ให้ถูกต้อง)</string>
+    <string name="validate.phone">เบอร์โทรศัพท์ต้องมีจำนวน 10 ตัวอักษร (กรุณาใส่ให้ถูกต้อง)</string>
     <string name="fragment.new.booking.service.brand">ยี่ห้อ</string>
     <string name="fragment.new.booking.service.select.brand.hint">เลือกยี่ห้อ</string>
     <string name="fragment_new_booking_choose_brand_first">เลือกยี่ห้อก่อน</string>
@@ -225,4 +225,8 @@
     <string name="toast.save.car.tracking.successful">บันทึกสำเร็จ</string>
     <string name="fragment.car.tracking.detail.title">รายละเอียดสถานะรถใหม่</string>
     <string name="title.activity.my.profile.title">ข้อมูลส่วนตัว</string>
+    <string name="dialog.emergency.call.required.phone.content">หมายเลขโทรศัพท์</string>
+    <string name="dialog.emergency.call.required.phone.title">กรอกหมายเลขโทรศัพท์</string>
+    <string name="dialog.emergency.call.required.phone.note">คุณจำเป็นต้องกรอกหมายเลขโทรศัพท์ เนื่องจากเจ้าหน้าที่จะติดต่อกลับมาในภายหลัง</string>
+    <string name="dialog.emergency.call.required.phone.helper">กรอกหมายเลขที่คุณใช้ในตอนนี้</string>
 </resources>

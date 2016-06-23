@@ -105,6 +105,12 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         tvStatus.text = if (model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
         tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "}${model.dateBooking.substring(0, model.dateBooking.length - 3)}"
         tvLicensePlate.text = model.licensePlate
+
+        if (!model.image.isNullOrBlank()) {
+            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.icon_app_512).into(ivLogo)
+            tvEmptyView.visibility = View.GONE
+        }
+
         ivArrow.visibility = View.GONE
     }
 
@@ -119,6 +125,11 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         tvLicensePlate.text = model.licensePlate
         ivArrow.visibility = View.VISIBLE
 
+        if (!model.image.isNullOrBlank()) {
+            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.icon_app_512).into(ivLogo)
+            tvEmptyView.visibility = View.GONE
+
+        }
     }
 
     fun setModelDetail(model: Model.ServiceTrackingEntity) {

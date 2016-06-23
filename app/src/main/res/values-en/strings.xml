@@ -226,4 +226,8 @@
     <string name="toast.save.car.tracking.successful">Save car tracking successful</string>
     <string name="fragment.car.tracking.detail.title">Car detail</string>
     <string name="title.activity.my.profile.title">My Profile</string>
+    <string name="dialog.emergency.call.required.phone.content">Phone number</string>
+    <string name="dialog.emergency.call.required.phone.title">Missing phone number</string>
+    <string name="dialog.emergency.call.required.phone.helper">Your current phone number</string>
+    <string name="dialog.emergency.call.required.phone.note">Phone number is required. The technician will get back to you later.</string>
 </resources>

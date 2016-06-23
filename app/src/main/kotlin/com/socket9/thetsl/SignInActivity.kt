@@ -22,15 +22,16 @@ import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.gcm.RegistrationIntentService
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.jetbrains.anko.*
 import org.json.JSONException
 import rx.Subscription
-import timber.log.Timber
 
-class SignInActivity : AppCompatActivity(), AnkoLogger {
+class SignInActivity : RxAppCompatActivity(), AnkoLogger {
 
     /** Variable zone **/
     private val PLAY_SERVICES_RESOLUTION_REQUEST = 9000
@@ -159,12 +160,10 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
 
             override fun onCancel() {
                 // App code
-                Timber.d("cancel")
             }
 
             override fun onError(exception: FacebookException) {
                 // App code
-                Timber.d(exception.message)
             }
         })
 
@@ -213,6 +212,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
         loginProgressDialog?.show()
 
         loginSubscription = HttpManager.login(etUsername.text.toString(), etPassword.text.toString(), getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)
+                .compose(this.bindToLifecycle<Model.User>())
                 .subscribe ({
                     loginProgressDialog?.dismiss()
                     info { it.message }
@@ -252,6 +252,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
                     else saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, it.data.token)
                 }
                 .filter { it.result }
+                .compose(this.bindToLifecycle<Model.User>())
                 .subscribe ({
                     loginProgressDialog?.dismiss()
                     info { it.toString() }
@@ -273,6 +274,7 @@ class SignInActivity : AppCompatActivity(), AnkoLogger {
             loginProgressDialog?.show()
 
             HttpManager.forgetPassword(input.toString())
+                    .compose(this.bindToLifecycle<Model.BaseModel>())
                     .subscribe ({
                         loginProgressDialog?.dismiss()
                         toast(it.message)

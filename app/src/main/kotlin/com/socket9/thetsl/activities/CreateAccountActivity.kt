@@ -12,6 +12,7 @@ import com.rengwuxian.materialedittext.validation.METValidator
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.*
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.DialogUtil
 import kotlinx.android.synthetic.main.activity_create_account.*
@@ -143,6 +144,7 @@ class CreateAccountActivity : ToolbarActivity(), AnkoLogger {
 
         HttpManager.registerUser(etEmail.text.toString(), etPassword.text.toString(), etUsername.text.toString(),
                 etAddress.text.toString(), etPhone.text.toString(), "", "")
+                .compose(this.bindToLifecycle<Model.User>())
                 .subscribe ({
                     if (it.result) {
                         toast(getString(R.string.toast_activate_account))

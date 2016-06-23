@@ -25,6 +25,7 @@ import com.socket9.thetsl.managers.PickImageChooserManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.PhotoUtil
+import com.socket9.thetsl.utils.SharePref
 import com.socket9.thetsl.utils.ValidatorUtil
 import com.soundcloud.android.crop.Crop
 import kotlinx.android.synthetic.main.activity_my_profile.*
@@ -104,8 +105,8 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
 
         info { "result code : $resultCode, requestCode : $requestCode" }
 
-        if(resultCode == RESULT_OK) {
-            if ( requestCode != Crop.REQUEST_CROP) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode != Crop.REQUEST_CROP) {
                 cacheCropImg = File(cacheDir, "cropped")
                 val destination = Uri.fromFile(cacheCropImg)
                 val px = PhotoUtil.convertDpToPx(this, 128)
@@ -137,10 +138,12 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
     private fun initInstance() {
         setupToolbar(getString(R.string.title_activity_my_profile_title))
 
-        myProfile = intent.getParcelableExtra<Model.Profile>("myProfile")
+//        myProfile = intent.getParcelableExtra<Model.Profile>("myProfile")
+
+        myProfile = SharePref.getProfile()
 
         with(myProfile.data!!) {
-            Glide.with(this@MyProfileActivity).load(pic ?: facebookPic).into(ivUser)
+            if (pic != null || facebookPic != null) Glide.with(this@MyProfileActivity).load(pic ?: facebookPic).into(ivUser)
             etName.setText(if (getName().isNullOrBlank()) "" else getName())
             etAddress.setText(if (address.isNullOrBlank()) "" else address)
             etPhone.setText(if (phone.isNullOrBlank()) "" else phone)
@@ -191,6 +194,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
 
         /* call updateProfile api */
         HttpManager.updateProfile(etName.text.toString(), etName.text.toString(), etPassword.text.toString(), etPhone.text.toString(), etAddress.text.toString(), picturePath)
+                .compose(this.bindToLifecycle<Model.BaseModel>())
                 .subscribe ({
                     progressDialog.dismiss()
                     toast(it.message)
@@ -206,9 +210,11 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
 
     private fun uploadPhoto(imagePath: String) {
         HttpManager.uploadPhoto(imagePath)
+//                .bindToLifecycle(this)
+                .compose(this.bindToLifecycle<Model.Photo>())
                 .subscribe ({
                     photo = it.data
-                    Glide.with(this).load(photo?.pathUse).into(ivUser)
+                    Glide.with(this).load(photo?.pathUse).centerCrop().into(ivUser)
                 }, { error ->
                     toast(getString(R.string.toast_internet_connection_problem))
                 })

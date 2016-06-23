@@ -3,11 +3,11 @@ package com.socket9.thetsl.fragments
 import android.app.ProgressDialog
 import android.location.Location
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationSettingsRequest
@@ -17,14 +17,20 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.rengwuxian.materialedittext.MaterialEditText
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
+import com.socket9.thetsl.utils.SharePref
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_emergency.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.find
 import org.jetbrains.anko.info
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.makeCall
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
@@ -33,7 +39,7 @@ import rx.Subscription
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
+class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
 
     /** Variable zone **/
@@ -41,7 +47,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
     private var isMechanic = true
     private var myPosition: LatLng? = null
     private var requestEmergency = "MECHANIC"
-    private var dialog: ProgressDialog ? = null
+    private var progressDialog: ProgressDialog ? = null
     lateinit private var supportMapsFragment: SupportMapFragment
     lateinit private var locationProvider: ReactiveLocationProvider
     lateinit private var locationRequestSubscription: Subscription
@@ -104,7 +110,7 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
     override fun onStop() {
         super.onStop()
         try {
-            dialog?.dismiss()
+            progressDialog?.dismiss()
             lastKnownLocationSubscription.unsubscribe()
             locationRequestSubscription.unsubscribe()
 
@@ -112,7 +118,6 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
             e.printStackTrace()
         }
     }
-
 
     /** Method zone **/
 
@@ -160,27 +165,62 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
 
         btnRequest.setOnClickListener {
             info { myPosition }
-            dialog = indeterminateProgressDialog(getString(R.string.dialog_progress_emergency_call_content), getString(R.string.dialog_progress_title))
-            dialog?.setCancelable(false)
-            dialog?.show()
-            //            indeterminateProgressDialog("Requesting")
-            HttpManager.emergencyCall(myPosition?.latitude.toString(), myPosition?.longitude.toString(), requestEmergency)
-                    .subscribe({
-                        dialog?.dismiss()
-                        toast(it.message)
 
-                        if (it.result) {
-                            info { it }
-                            showCallDialog()
-                        }
+            val profile = SharePref.getProfile()
 
-                    }, { error ->
-                        dialog?.dismiss()
-                        toast(error.message.toString())
-                        showCallDialog()
-                    })
+            if(profile.data?.phone.isNullOrEmpty()){
+
+                val requiredPhoneDialog = DialogUtil.getRequiredPhoneDialog(context, MaterialDialog.InputCallback { dialog, input ->
+                    progressDialog = indeterminateProgressDialog(getString(R.string.dialog_progress_emergency_call_content), getString(R.string.dialog_progress_title))
+                    progressDialog?.setCancelable(false)
+                    progressDialog?.show()
+                    HttpManager.updatePhone(input.toString())
+                            .compose(bindToLifecycle<Model.BaseModel>())
+                            .subscribe ({
+                                progressDialog?.dismiss()
+                                if(it.result){
+                                    toast(it.message)
+                                    emergencyCall()
+                                }else{
+                                    toast(it.message)
+                                }
+                            }, { error ->
+                                progressDialog?.dismiss()
+                                info { error }
+                                toast(getString(R.string.toast_internet_connection_problem))
+                            })
+                })
+
+                requiredPhoneDialog.show()
+
+            }else{
+                emergencyCall()
+            }
+
         }
 
+    }
+
+    private fun emergencyCall() {
+        progressDialog = indeterminateProgressDialog(getString(R.string.dialog_progress_emergency_call_content), getString(R.string.dialog_progress_title))
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
+        HttpManager.emergencyCall(myPosition?.latitude.toString(), myPosition?.longitude.toString(), requestEmergency)
+                .compose(this.bindToLifecycle<Model.BaseModel>())
+                .subscribe({
+                    progressDialog?.dismiss()
+                    toast(it.message)
+
+                    if (it.result) {
+                        info { it }
+                        showCallDialog()
+                    }
+
+                }, { error ->
+                    progressDialog?.dismiss()
+                    toast(error.message.toString())
+                    showCallDialog()
+                })
     }
 
     private fun showCallDialog() {
@@ -223,6 +263,23 @@ class EmergencyFragment : Fragment(), OnMapReadyCallback, AnkoLogger {
         myPosition = LatLng(location.latitude, location.longitude)
         map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(with(location) { LatLng(latitude, longitude) }, 17.0f))
 
+    }
+
+    private fun showCustomInputDialog(hint: String, action: (name: String) -> Unit) {
+        val customInput: View = LayoutInflater.from(context).inflate(R.layout.dialog_enter_other, null)
+
+        val alertInput = alert {
+            customView(customInput)
+        }.show()
+
+        val etOther = customInput.find<MaterialEditText>(R.id.etOther)
+        val btnEnter = customInput.find<Button>(R.id.btnEnter)
+        etOther.hint = hint
+        etOther.floatingLabelText = hint
+        btnEnter.setOnClickListener {
+            action(etOther.text.toString())
+            alertInput.dismiss()
+        }
     }
 
 }

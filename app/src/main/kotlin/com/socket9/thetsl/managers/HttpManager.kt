@@ -8,6 +8,8 @@ import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.network.ApiService
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -15,7 +17,7 @@ import rx.schedulers.Schedulers
 /**
  * Created by Euro (ripzery@gmail.com) on 4/11/16 AD.
  */
-object HttpManager {
+object HttpManager: AnkoLogger {
 
     val BASE_IMAGE_PATH = "http://www.tsl.co.th/"
     // TODO: use compose to subscribeOn, observeOn, and unsubscribeOn (DON'T REPEAT YOURSELF!)
@@ -23,6 +25,7 @@ object HttpManager {
     fun registerUser(email: String, password: String, name: String, hometown: String, phone: String, facebookId: String, fbPhoto: String): Observable<Model.User> {
         return ApiService.getAPI().registerUser(email, password, name, name, email, hometown, phone, facebookId, fbPhoto)
                 .subscribeOn(Schedulers.io())
+                .doOnUnsubscribe { info{ "Unsubscribing registerUser subscription" } }
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
@@ -30,6 +33,7 @@ object HttpManager {
     fun login(email: String, password: String, deviceId: String): Observable<Model.User> {
         return ApiService.getAPI().login(email, password, deviceId)
                 .subscribeOn(Schedulers.io())
+                .doOnUnsubscribe { info{ "Unsubscribing login subscription" } }
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
@@ -37,6 +41,7 @@ object HttpManager {
     fun loginWithFb(facebookId: String, fbPhoto: String, deviceId: String): Observable<Model.User> {
         return ApiService.getAPI().loginWithFb(facebookId, fbPhoto, deviceId)
                 .subscribeOn(Schedulers.io())
+                .doOnUnsubscribe { info{ "Unsubscribing loginFb subscription" } }
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
@@ -53,6 +58,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing emergencyCall subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -65,23 +71,26 @@ object HttpManager {
                     val originalProfile = SharePref.getProfile()
                     val profile = originalProfile.copy(data = Model.ProfileEntity(nameTh, nameEn, phone, password, address, originalProfile.data!!.email,
                             if (!picture.isEmpty()) BASE_IMAGE_PATH + picture else originalProfile.data.pic, originalProfile.data.facebookPic))
+                    info { profile }
                     Log.d("HttpManager", "testUpdateProfile " + profile.toString())
                     SharePref.saveProfile(profile)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing updateProfile subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
 
-    fun updatePhone(nameEn: String, nameTh: String, password: String, phone: String, address: String, picture: String): Observable<Model.BaseModel> {
-        return ApiService.getAPI().updateProfile(SharePref.getToken(), nameEn, nameTh, password, phone, address, picture)
+    fun updatePhone(phone: String): Observable<Model.BaseModel> {
+        val profile = SharePref.getProfile().data
+
+        return ApiService.getAPI().updateProfile(SharePref.getToken(), profile!!.nameEn, profile.nameTh, profile.password ?: "", phone, profile.address ?: "", profile.pic ?: profile.facebookPic ?: "")
                 .doOnNext {
                     checkToken(it.result, it.message)
-                    val originalProfile = SharePref.getProfile()
-                    val profile = originalProfile.copy(data = Model.ProfileEntity(nameTh, nameEn, phone, password, address, originalProfile.data!!.email,
-                            if (!picture.isEmpty()) BASE_IMAGE_PATH + picture else originalProfile.data.pic, originalProfile.data.facebookPic))
+                    profile.phone = phone
                     Log.d("HttpManager", "testUpdateProfile " + profile.toString())
-                    SharePref.saveProfile(profile)
+                    val model = SharePref.getProfile()
+                    SharePref.saveProfile(model.copy(data = profile))
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -94,6 +103,7 @@ object HttpManager {
             /* if profile has existed in share preference then just grab it! */
             return Observable.just(SharePref.getProfile())
                     .subscribeOn(Schedulers.io())
+                    .doOnUnsubscribe { info{ "Unsubscribing getProfile subscription" } }
                     .observeOn(AndroidSchedulers.mainThread())
                     .unsubscribeOn(Schedulers.io())
 
@@ -119,6 +129,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getListNews subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -127,6 +138,7 @@ object HttpManager {
     fun forgetPassword(email: String): Observable<Model.BaseModel> {
         return ApiService.getAPI().forgetPassword(email)
                 .subscribeOn(Schedulers.io())
+                .doOnUnsubscribe { info{ "Unsubscribing forgetPassword" } }
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
     }
@@ -136,6 +148,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getNews subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -146,6 +159,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getListEvent subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -156,6 +170,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getEvent subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -166,6 +181,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getListContact subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -186,6 +202,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getContact subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -206,6 +223,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getServiceBasicData subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -224,6 +242,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing bookService subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -234,6 +253,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getServiceBookingList subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -244,6 +264,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getServiceTrackingList subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -254,6 +275,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getBookingHistoryList subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -264,6 +286,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getServiceTrackingHistoryList subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -274,6 +297,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing getCarTrackingList subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -296,6 +320,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing serviceCarTracking subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -306,6 +331,7 @@ object HttpManager {
                 .doOnNext {
                     checkToken(it.result, it.message)
                 }
+                .doOnUnsubscribe { info{ "Unsubscribing newCarTracking subscription" } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

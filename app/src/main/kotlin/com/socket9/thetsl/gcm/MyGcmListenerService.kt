@@ -17,6 +17,7 @@
 package com.socket9.thetsl.gcm
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.media.RingtoneManager
@@ -30,7 +31,6 @@ import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.utils.SharePref
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.jetbrains.anko.notificationManager
 import org.json.JSONObject
 
 class MyGcmListenerService : GcmListenerService(), AnkoLogger {
@@ -135,7 +135,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     .setContentIntent(intentPending)
                     .setContentText(messageData);
 
-            notificationManager.notify(1, mBuilder.build())
+            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1, mBuilder.build())
 
         } catch (e: Exception) {
             e.printStackTrace()

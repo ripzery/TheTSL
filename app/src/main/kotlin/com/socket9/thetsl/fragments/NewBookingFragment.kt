@@ -3,9 +3,6 @@ package com.socket9.thetsl.fragments
 import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.transition.Slide
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +19,7 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_new_booking_service.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.alert
@@ -34,7 +32,7 @@ import java.util.*
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class NewBookingFragment : Fragment(), AnkoLogger {
+class NewBookingFragment : RxFragment(), AnkoLogger {
 
     /** Variable zone **/
     lateinit var param1: String
@@ -147,7 +145,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         val btnEnter = customInput.find<Button>(R.id.btnEnter)
         etOther.hint = hint
         etOther.floatingLabelText = hint
-        btnEnter.onClick {
+        btnEnter.setOnClickListener {
             action(etOther.text.toString())
             alertInput.dismiss()
         }
@@ -163,6 +161,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         progressDialog?.setCancelable(false)
 
         HttpManager.bookService(newBooking)
+//                .bindToLifecycle(this)
                 .subscribe ({
                     if (it.result) {
                         progressDialog?.dismiss()
@@ -269,7 +268,7 @@ class NewBookingFragment : Fragment(), AnkoLogger {
         //        spinnerModel.onItemSelectedListener = spinSelectedListener
         //        spinnerType.onItemSelectedListener = spinSelectedListener
 
-        btnChooseBrand.onClick {
+        btnChooseBrand.setOnClickListener {
             val brandList = getListBrandNameFromBranchService(basicData!!.data.brandServices)
 
             /* show brand list  */

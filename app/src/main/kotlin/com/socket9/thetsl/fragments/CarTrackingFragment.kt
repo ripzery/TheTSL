@@ -4,7 +4,6 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +17,8 @@ import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_service.*
-import kotlinx.android.synthetic.main.viewgroup_service.*
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.startActivity
 import rx.Subscription
@@ -27,7 +26,7 @@ import rx.Subscription
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractionListener {
+class CarTrackingFragment : RxFragment(), CarTrackingAdapter.CarTrackingInteractionListener {
 
 
     /** Variable zone **/
@@ -126,35 +125,37 @@ class CarTrackingFragment : Fragment(), CarTrackingAdapter.CarTrackingInteractio
         dialog?.setCancelable(false)
         dialog?.show()
 
-        loadDataSubscription = HttpManager.getCarTrackingList().subscribe({
-            carList = it
+        loadDataSubscription = HttpManager.getCarTrackingList()
+//                .bindToLifecycle(this)
+                .subscribe({
+                    carList = it
 
-            dialog?.dismiss()
-            tvEmpty.visibility = if (it.data.size > 0) View.VISIBLE else View.GONE
+                    dialog?.dismiss()
+                    tvEmpty.visibility = if (it.data.size > 0) View.VISIBLE else View.GONE
 
-            if (carAdapter == null) {
-                carAdapter = CarTrackingAdapter(it.data)
-            } else {
-                carAdapter!!.carTrackingList = it.data
-                carAdapter!!.notifyDataSetChanged()
-            }
+                    if (carAdapter == null) {
+                        carAdapter = CarTrackingAdapter(it.data)
+                    } else {
+                        carAdapter!!.carTrackingList = it.data
+                        carAdapter!!.notifyDataSetChanged()
+                    }
 
-            recyclerView.adapter = carAdapter
+                    recyclerView.adapter = carAdapter
 
-            carAdapter?.setListener(this)
+                    carAdapter?.setListener(this)
 
-        }, { error ->
-            dialog?.dismiss()
-            toast(getString(R.string.toast_internet_connection_problem))
-            error.printStackTrace()
-        })
+                }, { error ->
+                    dialog?.dismiss()
+                    toast(getString(R.string.toast_internet_connection_problem))
+                    error.printStackTrace()
+                })
     }
 
     /** Listener zone **/
 
     override fun onCardClicked(position: Int, sharedView: View) {
         val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, sharedView.transitionName)
-        val intent:Intent = Intent(context, CarDetailActivity::class.java)
+        val intent: Intent = Intent(context, CarDetailActivity::class.java)
         intent.putExtra(ServiceDetailActivity.ARG_1, carList!!.data[position])
         startActivity(intent, options.toBundle())
     }

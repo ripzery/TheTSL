@@ -3,7 +3,6 @@ package com.socket9.thetsl.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import com.socket9.thetsl.activities.MyProfileActivity
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
+import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -22,7 +22,7 @@ import rx.Subscription
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class HomeFragment : Fragment(), AnkoLogger {
+class HomeFragment : RxFragment(), AnkoLogger {
 
     /** Variable zone **/
     lateinit var param1: String
@@ -94,14 +94,14 @@ class HomeFragment : Fragment(), AnkoLogger {
         }
     }
 
-
     private fun getProfile() {
         var dialog = indeterminateProgressDialog (R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
         dialog.setCancelable(false)
         dialog.show()
         getProfileSubscriber = HttpManager.getProfile()
+                .compose(this.bindToLifecycle<Model.Profile>())
                 .doOnNext {
-                    if (!it.result && it.message != null ) toast(it.message)
+                    if (!it.result && it.message != null) toast(it.message)
                 }
                 .subscribe({
                     dialog.dismiss()

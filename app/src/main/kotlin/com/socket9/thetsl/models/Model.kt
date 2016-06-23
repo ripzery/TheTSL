@@ -59,7 +59,7 @@ object Model {
     @PaperParcel
     data class ProfileEntity(val nameTh: String,
                              val nameEn: String,
-                             val phone: String,
+                             var phone: String,
                              val password: String? = null,
                              val address: String ? = null,
                              val email: String,
@@ -217,6 +217,7 @@ object Model {
     data class ServiceTrackingEntity(val detail: MutableList<ServiceTrackingStatus>,
                                      val licensePlate: String,
                                      val model: String,
+                                     val image: String? = null,
                                      val serviceJobNumber: String,
                                      val serviceTypeEn: String? = null,
                                      val serviceTypeTh: String? = null,

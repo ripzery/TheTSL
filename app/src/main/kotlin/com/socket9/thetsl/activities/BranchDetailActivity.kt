@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_branch_detail.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.email
 import org.jetbrains.anko.makeCall
-import org.jetbrains.anko.onClick
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -122,10 +121,10 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
 
         tvPhone.setOnClickListener { makeCall(contact.phone!!.plainText().split(" ")[0]) }
         tvEmail.setOnClickListener { email(contact.email!!.plainText()) }
-        ivPhone.onClick {
+        ivPhone.setOnClickListener {
             makeCall(contact.phone!!.plainText().split(" ")[0])
         }
-        ivEmail.onClick {
+        ivEmail.setOnClickListener {
             email(contact.email!!.plainText())
         }
     }

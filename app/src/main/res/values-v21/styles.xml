@@ -10,6 +10,9 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowContentTransitions">true</item>
 
+        <item name="md_medium_font">samakarn/Samakarn-Bold.ttf</item>
+        <item name="md_regular_font">samakarn/Samakarn-Regular.ttf</item>
+
         <!-- shared element transition -->
         <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
         <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>

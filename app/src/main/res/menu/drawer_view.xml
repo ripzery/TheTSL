@@ -13,18 +13,26 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <!--<item-->
-            <!--android:id="@+id/nav_home"-->
-            <!--android:icon="@drawable/home"-->
-            <!--android:title="@string/nav.home" />-->
+        <!--android:id="@+id/nav_home"-->
+        <!--android:icon="@drawable/home"-->
+        <!--android:title="@string/nav.home" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_emergency_call"-->
+            <!--android:icon="@drawable/emergency_call"-->
+            <!--app:actionLayout="@layout/viewgroup_drawer_menu"-->
+            <!--android:title="@string/nav.emergency"/>-->
 
         <item
             android:id="@+id/nav_emergency_call"
             android:icon="@drawable/emergency_call"
-            android:title="@string/nav.emergency" />
+            android:actionLayout="@layout/viewgroup_drawer_menu"
+            android:title="@string/nav.emergency"/>
 
         <item
             android:id="@+id/nav_service"
@@ -32,27 +40,27 @@
 
         <item
             android:id="@+id/nav_car_tracking"
-            android:title="@string/nav.car.tracking" />
+            android:title="@string/nav.car.tracking"/>
 
         <item
             android:id="@+id/nav_miracle_club"
-            android:title="@string/nav.miracle" />
+            android:title="@string/nav.miracle"/>
 
 
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/contactus"
-            android:title="@string/nav.contact" />
+            android:title="@string/nav.contact"/>
 
         <item
             android:id="@+id/nav_website"
-            android:title="@string/nav.website" />
+            android:title="@string/nav.website"/>
 
         <item
             android:id="@+id/nav_news"
             android:icon="@drawable/news"
             android:visible="false"
-            android:title="@string/nav.news" />
+            android:title="@string/nav.news"/>
 
 
         <!--<item-->

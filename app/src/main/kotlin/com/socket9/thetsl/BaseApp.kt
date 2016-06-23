@@ -8,6 +8,7 @@ import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.utils.Contextor
 import com.socket9.thetsl.utils.SharePref
+import com.socket9.thetsl.viewgroups.FontsOverride
 import io.fabric.sdk.android.Fabric
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
@@ -30,6 +31,8 @@ class BaseApp: Application() {
 
         Contextor.context = this
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder().setDefaultFontPath("fonts/samakarn/Samakarn-Regular.ttf").setFontAttrId(R.attr.fontPath).build())
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/samakarn/Samakarn-Regular.ttf")
+
     }
 
 }

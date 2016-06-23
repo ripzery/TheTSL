@@ -191,14 +191,14 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
     }
 
     private fun setupNavigationViewFont() {
-        for (i in 0..navView.menu.size() - 1) {
-            val menuItem = navView.menu.getItem(i)
-            val t = CalligraphyTypefaceSpan(Typeface.createFromAsset(assets, "fonts/samakarn/Samakarn-Regular.ttf"))
-            val spannableString = SpannableString(menuItem.title)
-            info { menuItem.title }
-            spannableString.setSpan(t, 0, spannableString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            menuItem?.title = spannableString
-        }
+//        for (i in 0..navView.menu.size() - 1) {
+//            val menuItem = navView.menu.getItem(i)
+//            val t = CalligraphyTypefaceSpan(Typeface.createFromAsset(assets, "fonts/samakarn/Samakarn-Regular.ttf"))
+//            val spannableString = SpannableString(menuItem.title)
+//            info { menuItem.title }
+//            spannableString.setSpan(t, 0, spannableString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//            menuItem?.title = spannableString
+//        }
     }
 
     private fun checkIfEnterFromUrl() {

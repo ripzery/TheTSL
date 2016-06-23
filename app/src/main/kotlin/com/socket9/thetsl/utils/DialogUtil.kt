@@ -64,7 +64,13 @@ object DialogUtil {
     }
 
     fun getChangeLangDialog(context: Context, callback: MaterialDialog.ListCallbackSingleChoice): MaterialDialog {
-        return MaterialDialog.Builder(context).title(getString(context, R.string.dialog_change_lang_title)).items(R.array.change_language).itemsCallbackSingleChoice(if (getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "").equals("en")) 1 else 0, callback).negativeText(getString(context, R.string.dialog_change_lang_cancel)).positiveText(getString(context, R.string.dialog_change_lang_choose)).build()
+        return MaterialDialog.Builder(context)
+                .title(getString(context, R.string.dialog_change_lang_title))
+                .items(R.array.change_language)
+                .itemsCallbackSingleChoice(if (getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "").equals("en")) 1 else 0, callback)
+                .negativeText(getString(context, R.string.dialog_change_lang_cancel))
+                .positiveText(getString(context, R.string.dialog_change_lang_choose))
+                .build()
     }
 
     private fun getString(context: Context, id: Int): String {

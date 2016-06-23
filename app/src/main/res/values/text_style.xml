@@ -23,6 +23,13 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="itemTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:typeface">monospace</item>
+    </style>
 
     <!-- style text input layout -->
     <style name="TextInputStyle" parent="TextAppearance.AppCompat">

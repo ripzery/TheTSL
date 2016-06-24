@@ -90,6 +90,7 @@
         android:layout_gravity="start"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
+        app:itemBackground="@drawable/selector_drawer_item"
         app:itemIconTint="@color/colorTextPrimary"
         app:itemTextAppearance="@style/itemTextStyle"
         app:itemTextColor="@color/colorTextPrimary"

@@ -6,13 +6,13 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
   compileSdkVersion 23
-  buildToolsVersion '24.0.0'
+  buildToolsVersion '23.0.3'
   defaultConfig {
     applicationId "com.socket9.thetsl"
     minSdkVersion 19
     targetSdkVersion 23
     vectorDrawables.useSupportLibrary = true
-    versionCode 8
+    versionCode 10
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }

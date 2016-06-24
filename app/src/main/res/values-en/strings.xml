@@ -166,7 +166,7 @@
     <string name="menu.event.share">Share</string>
     <string name="menu.profile.save">Save</string>
     <string name="nav.car.tracking">SALE</string>
-    <string name="nav.service">SERVICE</string>
+    <string name="nav.service">TSL SERVICE</string>
     <string name="toast.enable.location">Please enable location setting first</string>
     <string name="toast.fill.all.field">Please fill all fields</string>
     <string name="toast.internet.connection.problem">Please check your internet connect and try again</string>

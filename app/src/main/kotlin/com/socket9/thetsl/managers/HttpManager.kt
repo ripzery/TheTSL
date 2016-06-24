@@ -2,7 +2,7 @@ package com.socket9.thetsl.managers
 
 import android.content.Intent
 import android.util.Log
-import com.socket9.thetsl.SignInActivity
+import com.socket9.thetsl.ui.signin.SignInActivity
 import com.socket9.thetsl.extensions.saveSp
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.network.ApiService

@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="16dp"
-    tools:context="com.socket9.thetsl.fragments.HomeFragment">
+    tools:context="com.socket9.thetsl.ui.main.HomeFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivUser"

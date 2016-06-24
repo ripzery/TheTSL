@@ -45,11 +45,11 @@
             android:value="afecd6b52175568d2af1c42b69cd51e92dd7bff4"/>
 
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.signin.SignInActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".activities.EntryActivity">
+        <activity android:name=".ui.signin.EntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -58,7 +58,7 @@
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -73,14 +73,14 @@
         </activity>
 
         <activity
-            android:name=".activities.MyProfileActivity"
+            android:name=".ui.main.profile.MyProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
-            android:name=".activities.BranchDetailActivity"
+            android:name=".ui.main.contact.BranchDetailActivity"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -96,27 +96,27 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <activity
-            android:name=".activities.NewBookingActivity"
+            android:name="com.socket9.thetsl.ui.main.tracking.service.NewBookingActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activities.NewCarTrackingActivity"
+            android:name="com.socket9.thetsl.ui.main.tracking.sale.NewCarTrackingActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activities.ServiceDetailActivity"
+            android:name="com.socket9.thetsl.ui.main.tracking.service.ServiceDetailActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activities.CarDetailActivity"
+            android:name="com.socket9.thetsl.ui.main.tracking.sale.CarDetailActivity"
             android:screenOrientation="portrait"/>
 
 
         <activity
-            android:name=".activities.CreateAccountActivity"
+            android:name=".ui.signin.CreateAccountActivity"
             android:screenOrientation="portrait"/>
 
         <!-- [START gcm_receiver] -->

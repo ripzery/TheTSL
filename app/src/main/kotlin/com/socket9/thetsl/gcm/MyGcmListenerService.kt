@@ -26,7 +26,7 @@ import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
-import com.socket9.thetsl.activities.MainActivity
+import com.socket9.thetsl.ui.main.MainActivity
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.SharePref

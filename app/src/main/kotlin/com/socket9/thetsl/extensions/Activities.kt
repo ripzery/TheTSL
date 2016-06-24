@@ -1,6 +1,7 @@
 package com.socket9.thetsl.extensions
 
 import android.app.Activity
+import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -25,6 +26,21 @@ fun Activity.toast(msg: String) {
 
 fun Activity.applyTransition(enter: Int, exit: Int){
     overridePendingTransition(enter, exit)
+}
+
+
+fun Activity.supportsLollipop(code: () -> Unit){
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        code()
+    }else{
+        // This is not supported !
+    }
+}
+
+fun Activity.supportsBackward(code: () -> Unit){
+    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+        code()
+    }
 }
 
 var toaster: Toast? = null

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.socket9.thetsl.viewgroups.ServiceViewGroup
+    <com.socket9.thetsl.ui.main.tracking.ServiceViewGroup
         android:id="@+id/serviceViewGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

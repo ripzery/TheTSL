@@ -6,7 +6,7 @@
     android:background="@drawable/bg2"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.socket9.thetsl.SignInActivity">
+    tools:context="com.socket9.thetsl.ui.signin.SignInActivity">
 
     <ImageView
         android:id="@+id/ivLogo"

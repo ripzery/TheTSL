@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
@@ -138,6 +139,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
     private fun initInstance() {
         setupToolbar(getString(R.string.title_activity_my_profile_title))
 
+
 //        myProfile = intent.getParcelableExtra<Model.Profile>("myProfile")
 
         myProfile = SharePref.getProfile()
@@ -149,6 +151,18 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
             etPhone.setText(if (phone.isNullOrBlank()) "" else phone)
             tvEmail.text = if (email.isNullOrBlank()) "" else email
             etPassword.setText(if (password.isNullOrBlank()) "" else password)
+        }
+
+        ivUser.setOnTouchListener { view, motionEvent ->
+
+            val x = motionEvent.rawX
+            val y = motionEvent.rawY
+
+            when(motionEvent.action){
+                MotionEvent.ACTION_DOWN -> {  }
+            }
+
+            return@setOnTouchListener true
         }
 
         ivUser.setOnClickListener { startActivityForResult(PickImageChooserManager.getPickCaptureChooserIntent(this), 200) }

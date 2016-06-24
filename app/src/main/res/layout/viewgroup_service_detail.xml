@@ -5,7 +5,7 @@
     android:padding="16dp"
     android:layout_height="100dp">
 
-    <com.socket9.thetsl.views.SquareImageView
+    <com.socket9.thetsl.customviews.SquareImageView
         android:id="@+id/ivIcon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

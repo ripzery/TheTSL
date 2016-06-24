@@ -65,7 +65,7 @@ class WebsiteFragment : Fragment() {
         webView.settings.javaScriptEnabled = true
         webView.loadUrl(URL_WEBSITE)
         val progressDialog = indeterminateProgressDialog(R.string.dialog_progress_web_content, R.string.dialog_progress_title)
-        progressDialog.setCancelable(false)
+        progressDialog.setCancelable(true)
         progressDialog.show()
 
         webView.setWebViewClient(object : WebViewClient() {

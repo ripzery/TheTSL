@@ -20,6 +20,7 @@ import rx.schedulers.Schedulers
 object HttpManager: AnkoLogger {
 
     val BASE_IMAGE_PATH = "http://www.tsl.co.th/"
+//    val BASE_IMAGE_PATH = ""
     // TODO: use compose to subscribeOn, observeOn, and unsubscribeOn (DON'T REPEAT YOURSELF!)
 
     fun registerUser(email: String, password: String, name: String, hometown: String, phone: String, facebookId: String, fbPhoto: String): Observable<Model.User> {
@@ -32,6 +33,7 @@ object HttpManager: AnkoLogger {
 
     fun login(email: String, password: String, deviceId: String): Observable<Model.User> {
         return ApiService.getAPI().login(email, password, deviceId)
+                .doOnNext { info { "Login " + it } }
                 .subscribeOn(Schedulers.io())
                 .doOnUnsubscribe { info{ "Unsubscribing login subscription" } }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -40,6 +42,7 @@ object HttpManager: AnkoLogger {
 
     fun loginWithFb(facebookId: String, fbPhoto: String, deviceId: String): Observable<Model.User> {
         return ApiService.getAPI().loginWithFb(facebookId, fbPhoto, deviceId)
+                .doOnNext { info { "LoginWithFb " + it } }
                 .subscribeOn(Schedulers.io())
                 .doOnUnsubscribe { info{ "Unsubscribing loginFb subscription" } }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,8 +72,10 @@ object HttpManager: AnkoLogger {
                 .doOnNext {
                     checkToken(it.result, it.message)
                     val originalProfile = SharePref.getProfile()
+
                     val profile = originalProfile.copy(data = Model.ProfileEntity(nameTh, nameEn, phone, password, address, originalProfile.data!!.email,
                             if (!picture.isEmpty()) BASE_IMAGE_PATH + picture else originalProfile.data.pic, originalProfile.data.facebookPic))
+
                     info { profile }
                     Log.d("HttpManager", "testUpdateProfile " + profile.toString())
                     SharePref.saveProfile(profile)
@@ -102,6 +107,7 @@ object HttpManager: AnkoLogger {
         try {
             /* if profile has existed in share preference then just grab it! */
             return Observable.just(SharePref.getProfile())
+                    .doOnNext { info { "GetLocalProfile " + it } }
                     .subscribeOn(Schedulers.io())
                     .doOnUnsubscribe { info{ "Unsubscribing getProfile subscription" } }
                     .observeOn(AndroidSchedulers.mainThread())

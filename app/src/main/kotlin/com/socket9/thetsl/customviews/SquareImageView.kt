@@ -1,4 +1,4 @@
-package com.socket9.thetsl.views
+package com.socket9.thetsl.customviews
 
 import android.content.Context
 import android.util.AttributeSet

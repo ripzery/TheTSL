@@ -216,7 +216,7 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
                 }, { error ->
                     error.printStackTrace()
                     dialog?.dismiss()
-                    if (error.message!!.contains("Internal Server")) {
+                    if (error.message != null && error.message!!.contains("Internal Server")) {
                         toast(error.message!!)
                     } else {
                         toast(getString(R.string.toast_internet_connection_problem))

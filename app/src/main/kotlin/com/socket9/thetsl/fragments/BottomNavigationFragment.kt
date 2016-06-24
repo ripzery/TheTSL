@@ -13,8 +13,8 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.MainActivity
 import com.socket9.thetsl.extensions.replaceFragment
 import com.socket9.thetsl.gcm.MyGcmListenerService
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
-import kotlinx.android.synthetic.main.dialog_booking_confirmation.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.json.JSONObject
@@ -44,10 +44,10 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
         val CAR_TRACKING = 2
 
         fun newInstance(param1: Int, onChangeTabListener:
-        OnChangeTabListener, launchedByGcm: Boolean): BottomNavigationFragment {
+        OnChangeTabListener, gcmData: Model.GCMData? = null): BottomNavigationFragment {
             var bundle: Bundle = Bundle()
             bundle.putInt(ARG_1, param1)
-            bundle.putBoolean(ARG_3, launchedByGcm)
+            bundle.putParcelable(ARG_3, gcmData)
             val bottomNavigationFragment: BottomNavigationFragment = BottomNavigationFragment()
             bottomNavigationFragment.arguments = bundle
             bottomNavigationFragment.onChangedTabListener = onChangeTabListener
@@ -127,19 +127,21 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
 
     }
 
-    fun setTab(index: Int, isLaunchedByGcm: Boolean, type: String, data: String? = null) {
+    fun setTab(index: Int, gcmData: Model.GCMData?) {
         try {
-            if (isLaunchedByGcm) {
+            if (gcmData != null) {
                 when (index) {
                     0 -> {
-                        Handler().postDelayed({
-                            showEmergencyConfirmationDialog()
-                        }, 1000)
+                        if (gcmData.statusId == 2) {
+                            Handler().postDelayed({
+                                showEmergencyConfirmationDialog()
+                            }, 1000)
+                        }
                     }
                     1 -> {
-                        if (type.equals(MyGcmListenerService.SERVICE_BOOKING)) {
+                        if (gcmData.type.equals(MyGcmListenerService.SERVICE_BOOKING)) {
                             Handler().postDelayed({
-                                showServiceConfirmationDialog(JSONObject(data))
+                                showServiceConfirmationDialog(JSONObject(gcmData.data))
                             }, 1000)
                         }
                     }

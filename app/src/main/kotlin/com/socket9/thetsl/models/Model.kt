@@ -256,4 +256,11 @@ object Model {
     data class ServiceTrackingList(val result: Boolean, val message: String? = null, val data: MutableList<ServiceTrackingEntity>)
 
     data class ServiceCarTrackingList(val result: Boolean, val message: String? = null, val data: ServiceTrackingEntity)
+
+    @PaperParcel
+    data class GCMData(val type: String = "", val statusId: Int = -1, val data: String? = null) : PaperParcelable {
+        companion object {
+            @JvmField val CREATOR = PaperParcelable.Creator(GCMData::class.java)
+        }
+    }
 }

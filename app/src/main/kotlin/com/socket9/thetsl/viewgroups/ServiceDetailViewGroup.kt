@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.SharePref
-import com.socket9.thetsl.views.SquareImageView
+import com.socket9.thetsl.customviews.SquareImageView
 import org.jetbrains.anko.AnkoLogger
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers

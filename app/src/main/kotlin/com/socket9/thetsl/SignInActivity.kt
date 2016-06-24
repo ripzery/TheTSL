@@ -91,9 +91,11 @@ class SignInActivity : RxAppCompatActivity(), AnkoLogger {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        callbackManager?.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(data != null) {
+            super.onActivityResult(requestCode, resultCode, data)
+            callbackManager?.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

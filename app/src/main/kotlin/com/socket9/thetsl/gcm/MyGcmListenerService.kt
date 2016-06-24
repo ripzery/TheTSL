@@ -28,6 +28,7 @@ import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.MainActivity
 import com.socket9.thetsl.extensions.getSp
+import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.SharePref
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -84,6 +85,9 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
 
             when (type) {
                 EMERGENCY_CALL -> {
+
+                    val statusId: Int = JSONObject(message).getInt("statusId")
+
                     intent.putExtra("currentFragmentIndex",
                             if (message.equals("เปิดใบแจ้งซ่อมแล้ว") || message.equals("Start service job")) {
                                 MainActivity.FRAGMENT_DISPLAY_SERVICE
@@ -91,8 +95,8 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                                 MainActivity.FRAGMENT_DISPLAY_EMERGENCY
                             }
                     )
-                            .putExtra("isGcm", true).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            .putExtra("type", EMERGENCY_CALL)
+                            .putExtra("gcmData", Model.GCMData(type, statusId))
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_BOOKING -> {
 
@@ -103,21 +107,17 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     }
 
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
-                            .putExtra("isGcm", true)
-                            .putExtra("type", SERVICE_BOOKING)
-                            .putExtra("data", data.toString())
+                            .putExtra("gcmData", Model.GCMData(type, -1, data.toString()))
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_TRACKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
-                            .putExtra("isGcm", true)
-                            .putExtra("type", SERVICE_TRACKING)
+                            .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 NEW_CAR -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
-                            .putExtra("isGcm", true)
-                            .putExtra("type", NEW_CAR)
+                            .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
             }

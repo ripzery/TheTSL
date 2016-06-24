@@ -19,6 +19,8 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_service.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.startActivity
 import rx.Subscription
@@ -26,7 +28,7 @@ import rx.Subscription
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
  */
-class CarTrackingFragment : RxFragment(), CarTrackingAdapter.CarTrackingInteractionListener {
+class CarTrackingFragment : RxFragment(), AnkoLogger, CarTrackingAdapter.CarTrackingInteractionListener {
 
 
     /** Variable zone **/
@@ -131,7 +133,8 @@ class CarTrackingFragment : RxFragment(), CarTrackingAdapter.CarTrackingInteract
                     carList = it
 
                     dialog?.dismiss()
-                    tvEmpty.visibility = if (it.data.size > 0) View.VISIBLE else View.GONE
+                    info { it.data }
+                    tvEmpty.visibility = if (it.data.size == 0) View.VISIBLE else View.GONE
 
                     if (carAdapter == null) {
                         carAdapter = CarTrackingAdapter(it.data)

@@ -60,6 +60,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         val FRAGMENT_DISPLAY_WEBSITE = 10
     }
 
+
     private var homeFragment: HomeFragment? = null
     private var newsFragment: NewsEventFragment? = null
     private var contactFragment: ContactFragment? = null
@@ -77,8 +78,9 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
     private var dialogDeviceId: ProgressDialog ? = null
     private var tvName: TextView ? = null
     private var headerView: View? = null
-    private var isLaunchedByGcm: Boolean = false
-    private var type: String = ""
+//    private var isLaunchedByGcm: Boolean = false
+//    private var type: String = ""
+    private var gcmData: Model.GCMData? = null
 
     /** Lifecycle  zone **/
 
@@ -180,11 +182,15 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         loadProfile(false)
 
         /* set boolean if this activity is launched by gcm  */
-        isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
-        type = intent.getStringExtra("type") ?: ""
+        gcmData = intent.getParcelableExtra("gcmData")
+
+//        isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
+//        type = intent.getStringExtra("type") ?: ""
+
 
         /* set currentFragment when change language */
         currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
+
         changeFragment(currentFragmentIndex)
         setCheckedItem(currentFragmentIndex)
 
@@ -253,7 +259,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         serviceFragment = ServiceFragment.newInstance("ServiceFragment")
         miracleClubFragment = MiracleClubFragment.newInstance("MiracleFragment")
         websiteFragment = WebsiteFragment.newInstance("WebsiteFragment")
-        bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, isLaunchedByGcm)
+        bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, gcmData)
     }
 
     private fun changeFragment(mode: Int) {
@@ -263,23 +269,30 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
             FRAGMENT_DISPLAY_CONTACT -> replaceFragment(fragment = contactFragment!!)
             FRAGMENT_DISPLAY_EMERGENCY -> {
                 //                replaceFragment(fragment = emergencyFragment!!)
-                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, isLaunchedByGcm)
+                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, gcmData)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.EMERGENCY, isLaunchedByGcm, type)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.EMERGENCY, gcmData)
+
+                /* cancel isLaunched flag */
+                gcmData = null
             }
             FRAGMENT_DISPLAY_EVENT -> replaceFragment(fragment = eventFragment!!)
             FRAGMENT_DISPLAY_SERVICE -> {
                 //                replaceFragment(fragment = serviceFragment!!)
-                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.SERVICE_TRACKING, this, isLaunchedByGcm)
+                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.SERVICE_TRACKING, this, gcmData)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                val data = intent.getStringExtra("data")
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, isLaunchedByGcm, type, data)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.SERVICE_TRACKING, gcmData)
+
+                /* cancel isLaunched flag */
+                gcmData = null
             }
             FRAGMENT_DISPLAY_CAR_TRACKING -> {
                 //                replaceFragment(fragment = carTrackingFragment!!)
-                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.CAR_TRACKING, this, isLaunchedByGcm)
+                bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.CAR_TRACKING, this, gcmData)
                 replaceFragment(fragment = bottomNavigationFragment!!)
-                bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, isLaunchedByGcm, type)
+                bottomNavigationFragment!!.setTab(BottomNavigationFragment.CAR_TRACKING, gcmData)
+
+                /* cancel isLaunched flag */
             }
             FRAGMENT_DISPLAY_MIRACLE_CLUB -> {
                 replaceFragment(fragment = miracleClubFragment!!)
@@ -288,6 +301,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
                 replaceFragment(fragment = websiteFragment!!)
             }
         }
+        gcmData = null
         currentFragmentIndex = mode
         onFragmentAttached(mode)
     }
@@ -494,4 +508,5 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         setCheckedItem(index)
         onFragmentAttached(index)
     }
+
 }

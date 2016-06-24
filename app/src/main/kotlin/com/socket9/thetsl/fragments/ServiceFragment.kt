@@ -19,7 +19,9 @@ import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.trello.rxlifecycle.components.support.RxFragment
+import kotlinx.android.synthetic.main.dialog_booking_confirmation.*
 import kotlinx.android.synthetic.main.fragment_service.*
+import kotlinx.android.synthetic.main.layout_empty_states.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.info
@@ -289,7 +291,7 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
     }
 
     /* show dialog if coming from gcm */
-    fun showConfirmationDialog() {
+    fun showConfirmationDialog(serviceBookingEntity: Model.ServiceBookingEntity) {
         val dialog = DialogUtil.getServiceBookingConfirmationDialog(activity)
         val view = dialog.customView!!
 
@@ -298,8 +300,14 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
             val tvDate = find<TextView>(R.id.tvDate)
             val tvTime = find<TextView>(R.id.tvTime)
             val tvBranch = find<TextView>(R.id.tvBranch)
-        }
 
+            with(serviceBookingEntity){
+                tvType.text = getService()
+                tvDate.text = getDate()
+                tvTime.text = getTime()
+                tvBranch.text = getBranch()
+            }
+        }
         dialog.show()
 
     }
@@ -311,7 +319,11 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
         if (position >= serviceList!!.data.size) {
             startActivity<ServiceDetailActivity>(ServiceDetailActivity.ARG_1 to trackingList!!.data[position - serviceList!!.data.size])
         } else {
-            toast(getString(R.string.toast_waiting_confirmation))
+            if(serviceList!!.data[position].dateConfirm.isNullOrBlank()){
+                toast(getString(R.string.toast_waiting_confirmation))
+            }else{
+                showConfirmationDialog(serviceList!!.data[position])
+            }
         }
     }
 }

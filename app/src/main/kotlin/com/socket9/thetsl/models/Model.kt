@@ -181,7 +181,7 @@ object Model {
                                     val branchesTh: String,
                                     val branchesEn: String,
                                     val isCancel: Boolean,
-                                    val dateConfirm: String) : PaperParcelable {
+                                    val dateConfirm: String? = null) : PaperParcelable {
 
         fun getBranch(): String {
             return if (SharePref.isEnglish()) branchesEn else branchesTh
@@ -189,6 +189,22 @@ object Model {
 
         fun getService(): String {
             return if (SharePref.isEnglish()) serviceTypeEn else serviceTypeTh
+        }
+
+        fun getDate(): String {
+            val dateFormat = if(dateConfirm.isNullOrEmpty()) dateBooking else dateConfirm
+            return dateFormat!!.split(" ")[0]
+        }
+
+        fun getTime(): String {
+            var dateFormat = if(dateConfirm.isNullOrEmpty()) dateBooking else dateConfirm
+            dateFormat = dateFormat!!.substring(0, dateFormat.length - 3)
+            return dateFormat.split(" ")[1]
+        }
+
+        fun getDateTime(): String {
+            val dateFormat = if(dateConfirm.isNullOrEmpty()) dateBooking else dateConfirm
+            return dateFormat!!.substring(0, dateFormat.length-3)
         }
 
         companion object {

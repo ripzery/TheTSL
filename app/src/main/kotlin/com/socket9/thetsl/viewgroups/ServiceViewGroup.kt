@@ -103,12 +103,15 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         //  TODO: SetModel for service view group
         tvServiceName.text = model.getService()
         tvStatus.text = if (model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
-        tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "}${model.dateBooking.substring(0, model.dateBooking.length - 3)}"
+
+        val date = model.getDateTime()
+
+        tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "}$date"
         tvLicensePlate.text = model.licensePlate
 
-        if (!model.image.isNullOrBlank()) {
-            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.icon_app_512).into(ivLogo)
-            tvEmptyView.visibility = View.GONE
+        if (!model.image.isNullOrEmpty()) {
+            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.ic_directions_car_24dp).into(ivLogo)
+//            tvEmptyView.visibility = View.GONE
         }
 
         ivArrow.visibility = View.GONE
@@ -125,10 +128,9 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         tvLicensePlate.text = model.licensePlate
         ivArrow.visibility = View.VISIBLE
 
-        if (!model.image.isNullOrBlank()) {
-            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.icon_app_512).into(ivLogo)
-            tvEmptyView.visibility = View.GONE
-
+        if (!model.image.isNullOrEmpty()) {
+            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.ic_directions_car_24dp).into(ivLogo)
+//            tvEmptyView.visibility = View.GONE
         }
     }
 
@@ -150,7 +152,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         tvServiceName.text = model.model
 
         try {
-            Glide.with(context).load(model.image).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
+            Glide.with(context).load(model.image).placeholder(R.drawable.ic_directions_car_24dp).centerCrop().into(ivLogo)
         } catch(e: Exception) {
             Log.d("ServiceViewGroup", e.toString())
         }

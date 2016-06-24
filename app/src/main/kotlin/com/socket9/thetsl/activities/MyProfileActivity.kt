@@ -158,8 +158,15 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
             val x = motionEvent.rawX
             val y = motionEvent.rawY
 
+
             when(motionEvent.action){
-                MotionEvent.ACTION_DOWN -> {  }
+                MotionEvent.ACTION_MOVE -> {
+                    ivUser.x = x
+                    ivUser.y = y
+                }
+                MotionEvent.ACTION_DOWN -> {
+
+                }
             }
 
             return@setOnTouchListener true

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -11,15 +12,16 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin">
 
-        <Button
+        <com.socket9.thetsl.customviews.CenteredIconButton
             android:id="@+id/btnAddService"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_64"
             android:theme="@style/BaseButton.Primary"
             android:text="@string/fragment.car.tracking.add.new.car"
-            android:drawableLeft="@drawable/ic_action_add"
-            android:drawablePadding="-80dp"
-            android:paddingLeft="110dp"
+            fontPath="fonts/samakarn/Samakarn-Bold.ttf"
+            android:drawableStart="@drawable/ic_action_add"
+            android:drawablePadding="8dp"
+            android:gravity="center"
             android:layout_gravity="center" />
 
     </FrameLayout>
@@ -29,14 +31,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tvEmpty"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/fragment.car.tracking.empty.list"
-            android:textSize="36sp"
-            android:alpha="0.38"/>
+        <include layout="@layout/layout_empty_states"/>
 
         <!-- Layout for list -->
         <android.support.v7.widget.RecyclerView

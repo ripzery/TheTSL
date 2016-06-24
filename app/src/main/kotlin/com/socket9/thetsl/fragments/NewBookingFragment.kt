@@ -228,8 +228,8 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
                             btnChooseModel.text.toString(),
                             btnChooseBrand.text.toString(),
                             "$date$time",
-                            basicData!!.data.serviceTypes[chosenTypeIndex].id,
-                            basicData!!.data.branches[chosenBranchIndex].id,
+                            basicData.data.serviceTypes[chosenTypeIndex].id,
+                            basicData.data.branches[chosenBranchIndex].id,
                             etMoreInfo.text.toString(),
                             phone)
 
@@ -269,7 +269,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
         //        spinnerType.onItemSelectedListener = spinSelectedListener
 
         btnChooseBrand.setOnClickListener {
-            val brandList = getListBrandNameFromBranchService(basicData!!.data.brandServices)
+            val brandList = getListBrandNameFromBranchService(basicData.data.brandServices)
 
             /* show brand list  */
             selector(getString(R.string.fragment_new_booking_service_select_model_hint), brandList, { index ->
@@ -278,7 +278,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
                 if (!brandList[index].equals("OTHER")) {
 
                     /* set text to the one that user has selected*/
-                    btnChooseBrand.text = basicData!!.data.brandServices[index].name
+                    btnChooseBrand.text = basicData.data.brandServices[index].name
 
                     /* set selected index */
                     chosenBrandIndex = index
@@ -303,12 +303,12 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
 
         btnChooseModel.setOnClickListener {
 
-            val brandList = getListBrandNameFromBranchService(basicData!!.data.brandServices)
+            val brandList = getListBrandNameFromBranchService(basicData.data.brandServices)
 
             /* If user doesn't select other brand */
             if (!brandList[chosenBrandIndex].equals("OTHER")) {
 
-                val brandServiceData = basicData!!.data.brandServices[chosenBrandIndex]
+                val brandServiceData = basicData.data.brandServices[chosenBrandIndex]
 
                 brandServiceData.modelServices = addOtherToModelIfNeeded(brandServiceData.modelServices)
 
@@ -347,16 +347,16 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
         }
 
         btnChooseType.setOnClickListener {
-            selector(getString(R.string.fragment_new_booking_service_type_hint), getListNameFromBasicData(basicData!!.data.serviceTypes), {
-                btnChooseType.text = basicData!!.data.serviceTypes[it].getName()
+            selector(getString(R.string.fragment_new_booking_service_type_hint), getListNameFromBasicData(basicData.data.serviceTypes), {
+                btnChooseType.text = basicData.data.serviceTypes[it].getName()
                 chosenTypeIndex = it
                 isModified = true
             })
         }
 
         btnChooseBranch.setOnClickListener {
-            selector(getString(R.string.fragment_new_booking_service_branch_hint), getListNameFromBasicData(basicData!!.data.branches), {
-                btnChooseBranch.text = basicData!!.data.branches[it].getName()
+            selector(getString(R.string.fragment_new_booking_service_branch_hint), getListNameFromBasicData(basicData.data.branches), {
+                btnChooseBranch.text = basicData.data.branches[it].getName()
                 chosenBranchIndex = it
                 isModified = true
             })

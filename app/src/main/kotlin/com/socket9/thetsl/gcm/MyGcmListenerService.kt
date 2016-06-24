@@ -100,14 +100,14 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                 }
                 SERVICE_BOOKING -> {
 
-                    val data = if (SharePref.isEnglish()) {
+                    val dateBooking = if (SharePref.isEnglish()) {
                         JSONObject(message).getJSONObject("en_data")
                     } else {
                         JSONObject(message).getJSONObject("th_data")
                     }
 
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
-                            .putExtra("gcmData", Model.GCMData(type, -1, data.toString()))
+                            .putExtra("gcmData", Model.GCMData(type, -1, dateBooking.toString()))
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 SERVICE_TRACKING -> {

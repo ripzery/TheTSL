@@ -24,7 +24,7 @@ class BaseApp: Application() {
         Fabric.with(this, Crashlytics());
         FacebookSdk.sdkInitialize(applicationContext);
         AppEventsLogger.activateApp(this);
-        SharePref.sharePref = getSharedPreferences(getString(R.string.tsl_app_name), MODE_PRIVATE)
+        SharePref.sharePref = getSharedPreferences(getString(R.string.app_name_tsl), MODE_PRIVATE)
 
         /* Initial english language if no language set */
         if ((getSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "") as String).isEmpty()) saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, "en")

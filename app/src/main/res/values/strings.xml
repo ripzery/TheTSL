@@ -1,5 +1,5 @@
 <resources>
-    <string name="tsl.app.name" translatable="false">TSL</string>
+    <string name="app.name.tsl" translatable="false">TSL</string>
 
     <string name="hello.world">Hello world!</string>
     <string name="action.settings">Settings</string>

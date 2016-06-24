@@ -29,9 +29,11 @@ import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_navigation_header.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.find
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.info
 import rx.Subscription
@@ -373,7 +375,8 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
             }).show()
         }
 
-        headerView?.setOnClickListener {
+        val ivUser = headerView!!.find<CircleImageView>(R.id.cvUserImage)
+        ivUser.setOnClickListener {
             startEditProfile()
         }
 

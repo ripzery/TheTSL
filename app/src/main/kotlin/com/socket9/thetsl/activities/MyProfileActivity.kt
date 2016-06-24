@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.PointF
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -151,25 +152,6 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
             etPhone.setText(if (phone.isNullOrBlank()) "" else phone)
             tvEmail.text = if (email.isNullOrBlank()) "" else email
             etPassword.setText(if (password.isNullOrBlank()) "" else password)
-        }
-
-        ivUser.setOnTouchListener { view, motionEvent ->
-
-            val x = motionEvent.rawX
-            val y = motionEvent.rawY
-
-
-            when(motionEvent.action){
-                MotionEvent.ACTION_MOVE -> {
-                    ivUser.x = x
-                    ivUser.y = y
-                }
-                MotionEvent.ACTION_DOWN -> {
-
-                }
-            }
-
-            return@setOnTouchListener true
         }
 
         ivUser.setOnClickListener { startActivityForResult(PickImageChooserManager.getPickCaptureChooserIntent(this), 200) }

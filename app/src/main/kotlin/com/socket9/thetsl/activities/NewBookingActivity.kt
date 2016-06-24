@@ -95,7 +95,7 @@ class NewBookingActivity : ToolbarActivity() {
     private fun initInstance() {
         val isNewBooking: Boolean = intent.getBooleanExtra(EXTRA_IS_NEW_BOOKING, true)
 
-        setupToolbar(if (isNewBooking) getString(R.string.fragment_new_booking_service_title) else "Service Tracking")
+        setupToolbar(if (isNewBooking) getString(R.string.fragment_new_booking_service_title) else getString(R.string.title_activity_new_service_tracking_title))
 
         val data: Model.ServiceBasicData? = intent.getParcelableExtra<Model.ServiceBasicData>(EXTRA_NEW_BOOKING_DATA)
 

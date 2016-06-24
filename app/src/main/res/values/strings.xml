@@ -9,6 +9,7 @@
     <string name="title.activity.place.detail">PlaceDetailActivity</string>
     <string name="title.activity.my.profile">MyProfileActivity</string>
     <string name="title.activity.my.profile.title">My Profile</string>
+    <string name="title.activity.new.service.tracking.title">Service Tracking</string>
 
     <!-- Toolbar title -->
     <string name="toolbar.branch.detail">Contact Info</string>

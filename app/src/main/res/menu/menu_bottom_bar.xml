@@ -3,7 +3,7 @@
     <item
         android:id="@+id/menu_bottom_emergency"
         android:icon="@drawable/ic_maps_local_phone"
-        android:title="@string/bottom.emergency"/>
+        android:title="@string/nav.emergency"/>
     <item
         android:id="@+id/menu_bottom_service_tracking"
         android:icon="@drawable/ic_build_black_24dp"

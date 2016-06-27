@@ -99,7 +99,6 @@ class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
     /** Method zone **/
 
     fun setModel(model: Model.CarTrackingEntity) {
-        //  TODO: SetModel for service view group
         val lastStatus = model.detail.last()
         Glide.with(context).load(model.image!!).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
         tvServiceName.text = model.model

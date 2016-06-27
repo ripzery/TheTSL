@@ -384,7 +384,6 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
             //                    menuItem.isChecked = true
             //                }
                 R.id.nav_news -> {
-                    //TODO: Save states is news or event is lastly visible
                     changeFragment(FRAGMENT_DISPLAY_NEWS)
                     menuItem.isChecked = true
                 }

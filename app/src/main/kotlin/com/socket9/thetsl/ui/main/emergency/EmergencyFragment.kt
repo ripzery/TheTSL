@@ -1,5 +1,6 @@
 package com.socket9.thetsl.ui.main.emergency
 
+import android.Manifest
 import android.app.ProgressDialog
 import android.location.Location
 import android.os.Bundle
@@ -18,11 +19,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.replaceFragment
+import com.socket9.thetsl.extensions.requestPhonePermission
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
+import com.tbruyelle.rxpermissions.RxPermissions
 import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_emergency.*
 import org.jetbrains.anko.AnkoLogger
@@ -90,9 +93,15 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initInstance()
 
-
+        RxPermissions.getInstance(activity).request(Manifest.permission_group.LOCATION)
+                .subscribe { granted ->
+                    if (granted) {
+                        initInstance()
+                    } else {
+                        toast(getString(R.string.permission_location_required))
+                    }
+                }
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -118,6 +127,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
+
         supportMapsFragment = SupportMapFragment.newInstance()
         replaceFragment(R.id.mapContainer, supportMapsFragment)
         supportMapsFragment.getMapAsync(this)
@@ -176,7 +186,11 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
                                 progressDialog?.dismiss()
                                 if (it.result) {
                                     toast(it.message)
-                                    emergencyCall()
+
+                                    requestPhonePermission {
+                                        emergencyCall()
+                                    }
+
                                 } else {
                                     toast(it.message)
                                 }
@@ -190,7 +204,9 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
                 requiredPhoneDialog.show()
 
             } else {
-                emergencyCall()
+                requestPhonePermission {
+                    emergencyCall()
+                }
             }
 
         }

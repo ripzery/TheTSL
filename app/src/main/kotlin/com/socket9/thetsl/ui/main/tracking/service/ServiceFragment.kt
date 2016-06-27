@@ -184,8 +184,6 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
         dialog?.setCancelable(false)
         dialog?.show()
 
-        // TODO: Load data from tracking and booking
-
         loadDataSubscription = HttpManager.getServiceBookingList(orderType)
                 .compose(bindToLifecycle<Model.ServiceBookingList>())
                 .flatMap {
@@ -228,8 +226,6 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
         dialog = indeterminateProgressDialog(R.string.dialog_progress_service_list_history_content, R.string.dialog_progress_title)
         dialog?.setCancelable(false)
         dialog?.show()
-
-        // TODO: Load data from tracking and booking
 
         loadDataSubscription = HttpManager.getServiceBookingHistoryList(orderType)
                 .compose(bindToLifecycle<Model.ServiceBookingList>())

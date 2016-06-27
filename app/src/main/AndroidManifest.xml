@@ -23,6 +23,7 @@
         android:allowBackup="true"
         android:icon="@drawable/icon_app_512"
         android:label="@string/app.name.tsl"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true"
         android:name=".BaseApp"
         android:theme="@style/AppTheme">

@@ -21,7 +21,6 @@ object HttpManager: AnkoLogger {
 
     val BASE_IMAGE_PATH = "http://www.tsl.co.th/"
 //    val BASE_IMAGE_PATH = ""
-    // TODO: use compose to subscribeOn, observeOn, and unsubscribeOn (DON'T REPEAT YOURSELF!)
 
     fun registerUser(email: String, password: String, name: String, hometown: String, phone: String, facebookId: String, fbPhoto: String): Observable<Model.User> {
         return ApiService.getAPI().registerUser(email, password, name, name, email, hometown, phone, facebookId, fbPhoto)

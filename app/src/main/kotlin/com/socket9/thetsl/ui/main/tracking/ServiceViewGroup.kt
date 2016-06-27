@@ -101,7 +101,6 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     fun setModel(model: Model.ServiceBookingEntity) {
 
-        //  TODO: SetModel for service view group
         tvServiceName.text = model.getService()
         tvStatus.text = if (model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
 
@@ -120,7 +119,6 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     fun setModel(model: Model.ServiceTrackingEntity) {
 
-        //  TODO: SetModel for service view group
         info { model }
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()

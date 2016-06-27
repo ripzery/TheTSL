@@ -1,6 +1,7 @@
 package com.socket9.thetsl.ui.main.profile
 
 
+import android.Manifest
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.signature.MediaStoreSignature
+import com.jakewharton.rxbinding.view.RxView
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.ToolbarActivity
@@ -29,6 +31,7 @@ import com.socket9.thetsl.utils.PhotoUtil
 import com.socket9.thetsl.utils.SharePref
 import com.socket9.thetsl.utils.ValidatorUtil
 import com.soundcloud.android.crop.Crop
+import com.tbruyelle.rxpermissions.RxPermissions
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.indeterminateProgressDialog
@@ -37,8 +40,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.File
 
 /**
-* Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
-*/
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
+ */
 
 class MyProfileActivity : ToolbarActivity(), AnkoLogger {
 
@@ -154,7 +157,17 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
             etPassword.setText(if (password.isNullOrBlank()) "" else password)
         }
 
-        ivUser.setOnClickListener { startActivityForResult(PickImageChooserManager.getPickCaptureChooserIntent(this), 200) }
+        RxView.clicks(ivUser)
+                .compose(bindToLifecycle<Void>())
+                .compose(RxPermissions.getInstance(this).ensure(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                .subscribe { granted ->
+                    if (granted) {
+                        startActivityForResult(PickImageChooserManager.getPickCaptureChooserIntent(this), 200)
+                    } else {
+                        toast(getString(R.string.permission_camera_storage_required))
+                    }
+
+                }
 
         RxTextView.afterTextChangeEvents(etName)
                 .subscribe { save?.isVisible = true }

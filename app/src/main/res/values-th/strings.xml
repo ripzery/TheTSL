@@ -244,4 +244,11 @@
     <string name="toast.save.car.tracking.successful">บันทึกสำเร็จ</string>
     <string name="fragment.car.tracking.detail.title">รายละเอียดสถานะรถใหม่</string>
 
+    <!-- Permission -->
+    <string name="permission.camera.required">ต้องการสิทธ์ิการเข้าถึงกล้องเพื่อแก้ไขรูปโปรไฟล์</string>
+    <string name="permission.phone.required">ต้องการสิทธ์การเข้าถึงโทรศัพท์เพื่อทำการโทรออก</string>
+    <string name="permission.location.required">ต้องการสิทธ์การเข้าถึงตำแหน่งเพื่อหาตำแหน่งของคุณ</string>
+    <string name="permission.storage.required">ต้องการสิทธ์การเขียนไฟล์เพื่อแก้ไขรูปโปรไฟล์</string>
+    <string name="permission.camera.storage.required">ต้องการสิทธ์การใช้กล้องและเขียนไฟล์เพื่อแก้ไขรูปโปรไฟล์</string>
+
 </resources>

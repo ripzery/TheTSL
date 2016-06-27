@@ -171,8 +171,6 @@ class BottomNavigationFragment : Fragment(), AnkoLogger {
             tvBranch?.text = jsonObject.getString("branch")
         }
 
-        /* TODO: setup service confirm dialog */
-
         dialog.show()
     }
 

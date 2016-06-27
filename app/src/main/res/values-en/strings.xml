@@ -230,4 +230,8 @@
     <string name="dialog.emergency.call.required.phone.helper">Your current phone number</string>
     <string name="dialog.emergency.call.required.phone.note">Phone number is required. The technician will get back to you later.</string>
     <string name="title.activity.new.service.tracking.title">Service Tracking</string>
+    <string name="permission.camera.required">Required camera permission for take a photo</string>
+    <string name="permission.location.required">Required location permission to find your location</string>
+    <string name="permission.phone.required">Required phone permission to make a call</string>
+    <string name="permission.storage.required">Required write storage permission for take a photo</string>
 </resources>

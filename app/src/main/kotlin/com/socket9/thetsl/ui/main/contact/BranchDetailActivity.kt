@@ -1,6 +1,7 @@
 package com.socket9.thetsl.ui.main.contact
 
 
+import android.Manifest
 import android.content.Context
 import android.os.Bundle
 import android.text.Html
@@ -14,11 +15,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.jakewharton.rxbinding.view.RxView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.activities.ToolbarActivity
 import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.plainText
+import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.models.Model
+import com.tbruyelle.rxpermissions.RxPermissions
 import kotlinx.android.synthetic.main.activity_branch_detail.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.email
@@ -120,11 +124,35 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
         supportMapsFragment = mapFragment as SupportMapFragment
         supportMapsFragment.getMapAsync(this)
 
-        tvPhone.setOnClickListener { makeCall(contact.phone!!.plainText().split(" ")[0]) }
+//        tvPhone.setOnClickListener { makeCall(contact.phone!!.plainText().split(" ")[0]) }
         tvEmail.setOnClickListener { email(contact.email!!.plainText()) }
-        ivPhone.setOnClickListener {
-            makeCall(contact.phone!!.plainText().split(" ")[0])
-        }
+
+        RxView.clicks(tvPhone)
+            .compose(RxPermissions.getInstance(this).ensure(Manifest.permission.CALL_PHONE))
+            .subscribe { granted ->
+                if(granted){
+                    makeCall(contact.phone!!.plainText().split(" ")[0])
+                }else{
+                    toast(getString(R.string.permission_phone_required))
+                }
+
+            }
+
+        RxView.clicks(ivPhone)
+            .compose(RxPermissions.getInstance(this).ensure(Manifest.permission.CALL_PHONE))
+            .subscribe { granted ->
+                if(granted){
+                    makeCall(contact.phone!!.plainText().split(" ")[0])
+                }else{
+                    toast(getString(R.string.permission_phone_required))
+                }
+
+            }
+//        ivPhone.setOnClickListener {
+
+//            makeCall(contact.phone!!.plainText().split(" ")[0])
+//        }
+
         ivEmail.setOnClickListener {
             email(contact.email!!.plainText())
         }

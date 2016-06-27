@@ -1,5 +1,6 @@
 package com.socket9.thetsl.ui.signin
 
+import android.Manifest
 import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -15,6 +16,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.jakewharton.rxbinding.view.RxView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.extensions.saveSp
@@ -24,6 +26,7 @@ import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.ui.main.MainActivity
 import com.socket9.thetsl.utils.DialogUtil
 import com.socket9.thetsl.utils.SharePref
+import com.tbruyelle.rxpermissions.RxPermissions
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.jetbrains.anko.*
@@ -146,11 +149,23 @@ class SignInActivity : RxAppCompatActivity(), AnkoLogger {
             forgetPassword()
         }
 
-        tvCall.setOnClickListener {
-            DialogUtil.getCallUsDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
-                makeCall("022699999")
-            }).show()
-        }
+        RxView.clicks(tvCall)
+                .compose(RxPermissions.getInstance(this).ensure(Manifest.permission.CALL_PHONE))
+                .subscribe { granted ->
+                    if (granted) {
+                        makeCall("022699999")
+
+                    } else {
+                        toast(getString(R.string.permission_phone_required))
+                    }
+                }
+
+//        tvCall.setOnClickListener {
+//            DialogUtil.getCallUsDialog(this, MaterialDialog.SingleButtonCallback { dialog, which ->
+//                /* TODO: Handle call phone permission here */
+//                makeCall("022699999")
+//            }).show()
+//        }
     }
 
     private fun setupFacebook() {

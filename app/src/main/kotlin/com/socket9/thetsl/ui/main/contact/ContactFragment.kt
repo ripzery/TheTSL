@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.applyTransition
+import com.socket9.thetsl.extensions.requestPhonePermission
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -140,7 +141,9 @@ class ContactFragment : RxFragment(), AnkoLogger, ContactAdapter.ContactInteract
                     email(model.subTitle!!)
                 }
                 2 -> {
-                    makeCall(model.subTitle!!)
+                    requestPhonePermission {
+                        makeCall(model.subTitle!!)
+                    }
                 }
                 3 -> {
                     browse("http://${model.subTitle!!}")

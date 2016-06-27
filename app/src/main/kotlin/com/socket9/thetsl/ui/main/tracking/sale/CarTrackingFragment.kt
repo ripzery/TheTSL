@@ -129,7 +129,7 @@ class CarTrackingFragment : RxFragment(), AnkoLogger, CarTrackingAdapter.CarTrac
         dialog?.show()
 
         loadDataSubscription = HttpManager.getCarTrackingList()
-//                .bindToLifecycle(this)
+                .compose(bindToLifecycle<Model.CarTrackingList>())
                 .subscribe({
                     carList = it
 

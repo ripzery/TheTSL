@@ -39,7 +39,7 @@ class NewsEventFragment : RxFragment(), AnkoLogger, EventAdapter.EventInteractio
         val MODE_IS_NEWS = "IS_NEWS_MODE"
 
         fun newInstance(isModeNews: Boolean): NewsEventFragment {
-            var bundle: Bundle = Bundle()
+            val bundle: Bundle = Bundle()
             bundle.putBoolean(MODE_IS_NEWS, isModeNews)
             val newsEventFragment: NewsEventFragment = NewsEventFragment()
             newsEventFragment.arguments = bundle
@@ -96,7 +96,7 @@ class NewsEventFragment : RxFragment(), AnkoLogger, EventAdapter.EventInteractio
                 dialogNewsProgress?.setCancelable(false)
                 dialogNewsProgress?.show()
                 getListNewsEventSubscription = HttpManager.getListNews()
-//                        .bindToLifecycle(this)
+                        .compose(bindToLifecycle<Model.ListNewsEvent>())
                         .subscribe ({
                             dialogNewsProgress?.dismiss()
                             eventNewsAdapter?.setList(it.data)
@@ -111,7 +111,7 @@ class NewsEventFragment : RxFragment(), AnkoLogger, EventAdapter.EventInteractio
                 dialogEventProgress?.setCancelable(false)
                 dialogEventProgress?.show()
                 getListNewsEventSubscription = HttpManager.getListEvent()
-//                        .bindToLifecycle(this)
+                        .compose(bindToLifecycle<Model.ListNewsEvent>())
                         .subscribe ({
                             dialogEventProgress?.dismiss()
                             eventNewsAdapter?.setList(it.data)
@@ -128,11 +128,11 @@ class NewsEventFragment : RxFragment(), AnkoLogger, EventAdapter.EventInteractio
     private fun loadNewsEventData(id: Int, action: (Model.NewsEventEntity) -> Unit) {
         if (isNews) {
             HttpManager.getEvent(id)
-//                    .bindToLifecycle(this)
+                    .compose(bindToLifecycle<Model.NewsEvent>())
                     .subscribe { action(it.data) }
         } else {
             HttpManager.getNews(id)
-//                    .bindToLifecycle(this)
+                    .compose(bindToLifecycle<Model.NewsEvent>())
                     .subscribe { action(it.data) }
         }
     }

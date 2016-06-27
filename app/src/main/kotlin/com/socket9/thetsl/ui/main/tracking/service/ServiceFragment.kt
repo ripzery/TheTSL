@@ -29,8 +29,8 @@ import org.jetbrains.anko.support.v4.toast
 import rx.Subscription
 
 /**
-* Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
-*/
+ * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
+ */
 class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteractionListener {
     /** Variable zone **/
     lateinit var param1: String
@@ -187,12 +187,12 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
         // TODO: Load data from tracking and booking
 
         loadDataSubscription = HttpManager.getServiceBookingList(orderType)
-//                .bindToLifecycle(this)
+                .compose(bindToLifecycle<Model.ServiceBookingList>())
                 .flatMap {
                     serviceList = it
                     HttpManager.getServiceTrackingList(orderType)
+                        .compose(bindToLifecycle<Model.ServiceTrackingList>())
                 }
-//                .bindToLifecycle(this)
                 .subscribe ({
 
                     dialog?.dismiss()
@@ -232,12 +232,12 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
         // TODO: Load data from tracking and booking
 
         loadDataSubscription = HttpManager.getServiceBookingHistoryList(orderType)
-//                .bindToLifecycle(this)
+                .compose(bindToLifecycle<Model.ServiceBookingList>())
                 .flatMap {
                     serviceList = it
                     HttpManager.getServiceTrackingHistoryList(orderType)
+                            .compose(bindToLifecycle<Model.ServiceTrackingList>())
                 }
-//                .bindToLifecycle(this)
                 .subscribe ({
 
                     dialog?.dismiss()
@@ -275,7 +275,7 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
 
         /* Loading spinner data */
         loadNewBookingSubscription = HttpManager.getServiceBasicData()
-//                .bindToLifecycle(this)
+                .compose(bindToLifecycle<Model.ServiceBasicData>())
                 .subscribe ({
                     action(it)
                     progressDialog?.dismiss()

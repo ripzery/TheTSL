@@ -425,7 +425,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         try {
             val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, cvUserImage as View, "civUser")
             startActivityForResult(Intent(this, MyProfileActivity::class.java).putExtra("myProfile", myProfile), HomeFragment.REQUEST_MY_PROFILE, options.toBundle())
-            applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+//            applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         } catch (e: Exception) {
 
             loadProfile(true)
@@ -461,9 +461,11 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
 
         if (intent.data != null) {
             getProfileSubscriber = HttpManager.saveDeviceId(getSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "") as String)
+                    .compose(bindToLifecycle<Model.BaseModel>())
                     .flatMap {
                         info { it }
                         HttpManager.getProfile()
+                                .compose(bindToLifecycle<Model.Profile>())
                     }
 //                    .bindToLifecycle(this)
                     .subscribe({
@@ -476,6 +478,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         } else {
             getProfileSubscriber = HttpManager.getProfile()
 //                    .bindToLifecycle(this)
+                    .compose(bindToLifecycle<Model.Profile>())
                     .subscribe({
                         updateProfileUI(isFromEditProfile, it)
                     }, { error ->

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.socket9.thetsl.R
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.models.Model
 import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_known_service_number.*
 import org.jetbrains.anko.AnkoLogger
@@ -75,7 +76,7 @@ class KnownServiceNumberFragment : RxFragment(), AnkoLogger {
             progressDialog?.setCancelable(false)
 
             HttpManager.serviceCarTracking(etServiceNumber.text.toString(), etTrackingId.text.toString())
-//                    .bindToLifecycle(this)
+                    .compose(bindToLifecycle<Model.ServiceCarTrackingList>())
                     .subscribe({
                         progressDialog?.dismiss()
                         info { it }

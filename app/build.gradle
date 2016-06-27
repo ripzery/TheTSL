@@ -12,9 +12,17 @@ android {
     minSdkVersion 19
     targetSdkVersion 23
     vectorDrawables.useSupportLibrary = true
-    versionCode 10
+    versionCode 11
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  signingConfigs {
+    tsl_keystore {
+      keyAlias 'tsl_keystore'
+      keyPassword 's9715###'
+      storeFile file('/Users/visit/Desktop/Android PracticeProject/TheTSL/tsl_keystore.jks')
+      storePassword 's9715###'
+    }
   }
   buildTypes {
     debug {
@@ -30,9 +38,12 @@ android {
     main.java.srcDirs += 'src/main/kotlin'
     androidTest.java.srcDirs += 'src/androidTest/kotlin'
   }
-
   aaptOptions {
     additionalParameters "--no-version-vectors"
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
   }
 }
 
@@ -45,6 +56,7 @@ kapt {
 //}
 
 def APPCOMPAT_VERSION = "23.4.0"
+
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'

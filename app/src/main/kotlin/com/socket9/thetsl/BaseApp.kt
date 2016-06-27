@@ -1,6 +1,7 @@
 package com.socket9.thetsl
 
 import android.app.Application
+import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
@@ -31,8 +32,12 @@ class BaseApp: Application() {
 
         Contextor.context = this
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder().setDefaultFontPath("fonts/samakarn/Samakarn-Regular.ttf").setFontAttrId(R.attr.fontPath).build())
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/samakarn/Samakarn-Regular.ttf")
 
+        try {
+            FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/samakarn/Samakarn-Regular.ttf")
+        }catch(e: RuntimeException){
+            Log.w("FontsOverride", "Font asset not found fonts/samakarn/Samakarn-Regular.ttf")
+        }
     }
 
 }

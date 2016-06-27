@@ -161,7 +161,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
         progressDialog?.setCancelable(false)
 
         HttpManager.bookService(newBooking)
-//                .bindToLifecycle(this)
+                .compose(bindToLifecycle<Model.BaseModel>())
                 .subscribe ({
                     if (it.result) {
                         progressDialog?.dismiss()
@@ -275,7 +275,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
             selector(getString(R.string.fragment_new_booking_service_select_model_hint), brandList, { index ->
 
                 /* if user doesn't select other  */
-                if (!brandList[index].equals("OTHER")) {
+                if (!brandList[index].equals("OTHER", true)) {
 
                     /* set text to the one that user has selected*/
                     btnChooseBrand.text = basicData.data.brandServices[index].name
@@ -306,7 +306,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
             val brandList = getListBrandNameFromBranchService(basicData.data.brandServices)
 
             /* If user doesn't select other brand */
-            if (!brandList[chosenBrandIndex].equals("OTHER")) {
+            if (!brandList[chosenBrandIndex].equals("OTHER", true)) {
 
                 val brandServiceData = basicData.data.brandServices[chosenBrandIndex]
 
@@ -317,7 +317,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
                 selector(getString(R.string.fragment_new_booking_service_select_model_hint), brandServiceData.modelServices, { index ->
 
                     /* if user doesn't select other model */
-                    if (!brandServiceData.modelServices[index].equals("Other")) {
+                    if (!brandServiceData.modelServices[index].equals("Other", true)) {
                         btnChooseModel.text = brandServiceData.modelServices[index]
                         chosenModelIndex = index
 
@@ -366,7 +366,7 @@ class NewBookingFragment : RxFragment(), AnkoLogger {
 
     private fun addOtherToModelIfNeeded(modelServices: MutableList<String>): MutableList<String> {
 
-        if (modelServices.find { it.equals("Other") } == null) {
+        if (modelServices.find { it.equals("Other", true) } == null) {
             modelServices.add("Other")
         }
 

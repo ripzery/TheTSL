@@ -54,6 +54,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
         initInstance()
+        supportStartPostponedEnterTransition()
 
     }
 
@@ -212,7 +213,7 @@ class MyProfileActivity : ToolbarActivity(), AnkoLogger {
 
     private fun uploadPhoto(imagePath: String) {
         HttpManager.uploadPhoto(imagePath)
-//                .bindToLifecycle(this)
+                .compose(bindToLifecycle<Model.Photo>())
                 .compose(this.bindToLifecycle<Model.Photo>())
                 .subscribe ({
                     photo = it.data

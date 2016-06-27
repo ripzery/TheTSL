@@ -14,10 +14,15 @@
         <item name="md_regular_font">samakarn/Samakarn-Regular.ttf</item>
 
         <!-- shared element transition -->
-        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
-        <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>
+        <!--<item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>-->
+        <!--<item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>-->
 
         <!-- content transition -->
+    </style>
+
+    <style name="AppTheme.MyProfile">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/transition_my_profile_enter</item>
     </style>
 
     <style name="ToolbarThemeOverlay" parent="ThemeOverlay.AppCompat.Light">

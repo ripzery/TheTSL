@@ -100,7 +100,7 @@ class ContactFragment : RxFragment(), AnkoLogger, ContactAdapter.ContactInteract
     }
 
     private fun loadContacts(): Observable<Model.ListContacts> {
-        return HttpManager.getListContact()
+        return HttpManager.getListContact().compose(bindToLifecycle<Model.ListContacts>())
     }
 
     private fun addContact(listContact: MutableList<Model.ContactEntity>): MutableList<Model.ContactEntity> {
@@ -120,7 +120,7 @@ class ContactFragment : RxFragment(), AnkoLogger, ContactAdapter.ContactInteract
             progressDialog?.show()
 
             HttpManager.getContact(model.id)
-//                    .bindToLifecycle(this)
+                    .compose(bindToLifecycle<Model.Contact>())
                     .subscribe({
                         progressDialog?.dismiss()
                         val contact = it.data.copy(titleEn = model.titleEn, subTitle = model.subTitle)

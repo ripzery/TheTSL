@@ -9,6 +9,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.applyTransition
 import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.managers.HttpManager
+import com.socket9.thetsl.models.Model
 import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_new_car_tracking.*
 import org.jetbrains.anko.AnkoLogger
@@ -79,7 +80,7 @@ class NewCarTrackingFragment : RxFragment(), AnkoLogger {
                 progressDialog?.setCancelable(false)
 
                 HttpManager.newCarTracking(preemptionNumber, citizenId)
-//                        .bindToLifecycle(this)
+                        .compose(bindToLifecycle<Model.CarTrackingSaveList>())
                         .subscribe ({
                             progressDialog?.dismiss()
                             if (it.result) {

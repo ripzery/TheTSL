@@ -2,11 +2,24 @@ package com.socket9.thetsl.customviews
 
 import android.content.Context
 import android.graphics.Rect
+import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.widget.Button
 
-class CenteredIconButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.buttonStyle) : Button(context, attrs, defStyle) {
+class CenteredIconButton : AppCompatButton {
+
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+
+    }
+
+    constructor(context: Context) : super(context) {
+
+    }
 
     // Pre-allocate objects for layout measuring
     private val textBounds = Rect()

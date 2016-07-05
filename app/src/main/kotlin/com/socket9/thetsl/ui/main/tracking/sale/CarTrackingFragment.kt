@@ -1,5 +1,6 @@
 package com.socket9.thetsl.ui.main.tracking.sale
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -33,6 +34,7 @@ class CarTrackingFragment : RxFragment(), AnkoLogger, CarTrackingAdapter.CarTrac
 
 
     /** Variable zone **/
+    private val NEW_TRACKING_REQUEST_CODE = 1
     lateinit var param1: String
     private var loadDataSubscription: Subscription? = null
     private var dialog: ProgressDialog? = null
@@ -84,6 +86,13 @@ class CarTrackingFragment : RxFragment(), AnkoLogger, CarTrackingAdapter.CarTrac
         super.onResume()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            loadData()
+        }
+    }
+
     /** Method zone **/
 
     private fun initInstance() {
@@ -98,7 +107,7 @@ class CarTrackingFragment : RxFragment(), AnkoLogger, CarTrackingAdapter.CarTrac
 
     private fun initListener() {
         btnAddService.setOnClickListener {
-            startActivity<NewCarTrackingActivity>()
+            startActivityForResult(Intent(context, NewCarTrackingActivity::class.java), NEW_TRACKING_REQUEST_CODE)
             applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
         }
 

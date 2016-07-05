@@ -8,11 +8,14 @@
         <item name="colorControlHighlight">@color/colorTextSecondary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
-
-
         <item name="md_medium_font">samakarn/Samakarn-Bold.ttf</item>
         <item name="md_regular_font">samakarn/Samakarn-Regular.ttf</item>
 
+    </style>
+
+    <style name="AppTheme.MyProfile">
+        <!--<item name="android:windowContentTransitions">true</item>-->
+        <!--<item name="android:windowEnterTransition">@transition/transition_my_profile_enter</item>-->
     </style>
 
     <style name="AppThemeWithActionbar" parent="Theme.AppCompat.Light.DarkActionBar">

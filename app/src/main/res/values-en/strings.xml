@@ -234,4 +234,5 @@
     <string name="permission.location.required">Required location permission to find your location</string>
     <string name="permission.phone.required">Required phone permission to make a call</string>
     <string name="permission.storage.required">Required write storage permission for take a photo</string>
+    <string name="permission.camera.storage.required">Required location and camera permission for take a photo</string>
 </resources>

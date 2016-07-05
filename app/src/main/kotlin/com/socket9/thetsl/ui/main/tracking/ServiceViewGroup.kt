@@ -2,6 +2,7 @@ package com.socket9.thetsl.ui.main.tracking
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.util.Log
@@ -140,7 +141,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
             "Detail : "
         } else {
             "รายละเอียด : "
-        } } ${lastStatus.getStatus()}"
+        }} ${lastStatus.getStatus()}"
         tvLastUpdate.visibility = View.GONE
         ivArrow.visibility = View.GONE
         tvLicensePlate.text = model.licensePlate
@@ -150,8 +151,9 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = model.model
 
+        info { model }
         try {
-            Glide.with(context).load(model.image).placeholder(R.drawable.ic_directions_car_24dp).centerCrop().into(ivLogo)
+            Glide.with(context).load(model.image).placeholder(ContextCompat.getDrawable(context, R.drawable.ic_directions_car_24dp)).centerCrop().into(ivLogo)
         } catch(e: Exception) {
             Log.d("ServiceViewGroup", e.toString())
         }

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BaseButton" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="BaseButton" parent="@style/ThemeOverlay.AppCompat.Dark">
     </style>
 
     <style name="BaseButton.Teal">
         <item name="colorButtonNormal">@color/colorTeal</item>
+        <item name="colorAccent">@color/colorTeal</item>
     </style>
 
     <style name="BaseButton.Primary">
         <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 </resources>

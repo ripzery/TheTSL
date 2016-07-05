@@ -102,7 +102,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
         })
 
         if (contactLatLng != null) {
-            mMap.addMarker(MarkerOptions().position(contactLatLng).title(contact.getTitle()))
+            mMap.addMarker(MarkerOptions().position(contactLatLng!!).title(contact.getTitle()))
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(contactLatLng, 15f))
         }
     }

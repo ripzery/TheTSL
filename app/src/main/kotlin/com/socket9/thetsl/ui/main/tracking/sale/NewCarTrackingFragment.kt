@@ -1,5 +1,6 @@
 package com.socket9.thetsl.ui.main.tracking.sale
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -85,6 +86,7 @@ class NewCarTrackingFragment : RxFragment(), AnkoLogger {
                             progressDialog?.dismiss()
                             if (it.result) {
                                 toast(getString(R.string.toast_save_car_tracking_successful))
+                                activity.setResult(Activity.RESULT_OK)
                                 activity.finish()
                                 applyTransition(R.anim.activity_backward_enter, R.anim.activity_backward_exit)
                             } else {

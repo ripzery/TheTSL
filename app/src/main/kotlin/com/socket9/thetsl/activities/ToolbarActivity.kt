@@ -15,6 +15,5 @@ open class ToolbarActivity : RxAppCompatActivity(), AnkoLogger {
         toolbarTitle.text = title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

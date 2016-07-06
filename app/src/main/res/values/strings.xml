@@ -1,13 +1,7 @@
 <resources>
     <string name="app.name.tsl" translatable="false">TSL</string>
 
-    <string name="hello.world">Hello world!</string>
     <string name="action.settings">Settings</string>
-    <string name="title.activity.sign.in">SignInActivity</string>
-    <string name="title.activity.create.account">CreateAccountActivity</string>
-    <string name="title.activity.news.event">NewsEventActivity</string>
-    <string name="title.activity.place.detail">PlaceDetailActivity</string>
-    <string name="title.activity.my.profile">MyProfileActivity</string>
     <string name="title.activity.my.profile.title">My Profile</string>
     <string name="title.activity.new.service.tracking.title">Service Tracking</string>
 
@@ -84,7 +78,7 @@
     <string name="dialog.change.lang.choose">Choose</string>
 
 
-    <!-- Progress dialog -->
+    <!-- Progress loading dialog -->
     <string name="dialog.progress.title">Please wait</string>
     <string name="dialog.progress.profile.content">Updating profile…</string>
     <string name="dialog.progress.forgot.password.content">Sending email…</string>
@@ -141,6 +135,8 @@
     <string name="nav.signout">Sign Out</string>
     <string name="nav.change.lang.thai">Thai</string>
     <string name="nav.change.lang.english">English</string>
+    <string name="nav.miracle">MIRACLE CLUB</string>
+    <string name="nav.website">WEBSITE</string>
 
     <!-- New booking service type dialog -->
     <string name="booking.service.type.title">Choose booking type</string>
@@ -154,7 +150,6 @@
     <string name="profile.address.title">ADDRESS</string>
     <string name="profile.address.hint">Your address</string>
     <string name="profile.name.title">NAME</string>
-    <string name="profile.name.content">Annop Vor</string>
     <string name="profile.name.hint">Your name</string>
     <string name="profile.phone.title">PHONE</string>
     <string name="profile.phone.content">0817137036</string>
@@ -198,8 +193,6 @@
     <!-- Share -->
     <string name="share">Share to&#8230;</string>
 
-
-    <string name="lorem">Lorem ipsum dolor sit amet, congue malesuada. Mauris integer, pellentesque purus nam. Ipsum interdum felis facilisi ipsum aliquam. Tincidunt ornare non iaculis nec vitae, consectetur in.</string>
     <string name="toolbar.contact">CONTACT US</string>
     <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string>
     <string name="nav.service">TSL SERVICE</string>
@@ -207,15 +200,19 @@
     <string name="menu.profile.save">Save</string>
     <string name="menu.event.share">Share</string>
 
-
     <!-- Known service number -->
     <string name="fragment.known.service.number.service.number">Service number</string>
     <string name="fragment.known.service.number.tracking.id">Tracking ID</string>
     <string name="fragment.known.service.number.submit">Submit</string>
 
+    <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
+    <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
+
     <!-- New car tracking -->
     <string name="fragment.new.car.tracking.tracking.id">Tracking ID</string>
     <string name="fragment.new.car.tracking.submit">Submit</string>
+    <string name="fragment.new.car.tracking.preemption.number">Preemption number</string>
+    <string name="fragment.new.car.tracking.toast.error">Please enter valid citizenId and preemption number</string>
 
     <!-- car tracking -->
     <string name="fragment.car.tracking.add.new.car">Add new car</string>
@@ -227,9 +224,8 @@
     <string name="fragment.service.last">service history</string>
     <string name="fragment.service.empty.list">Empty list</string>
 
-    <!-- view group contact-->
+    <!-- View group contact-->
     <string name="viewgroup.contact">TSL SATORN</string>
-
 
     <!-- New booking service -->
     <string name="fragment.new.booking.service.title">New Booking</string>
@@ -269,12 +265,6 @@
     <string name="validate.password">Password must not less than 8 characters</string>
     <string name="validate.confirm.password">Your password and confirmation password do not match</string>
     <string name="validate.phone">Phone must be 10 characters (make sure to correct your phone number)</string>
-    <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
-    <string name="nav.miracle">MIRACLE CLUB</string>
-    <string name="nav.website">WEBSITE</string>
-    <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
-    <string name="fragment.new.car.tracking.preemption.number">Preemption number</string>
-    <string name="fragment.new.car.tracking.toast.error">Please enter valid citizenId and preemption number</string>
 
     <!-- Permissions -->
     <string name="permission.camera.required">Required camera permission for take a photo</string>
@@ -282,7 +272,5 @@
     <string name="permission.phone.required">Required phone permission to make a call</string>
     <string name="permission.location.required">Required location permission to find your location</string>
     <string name="permission.camera.storage.required">Required location and camera permission for take a photo</string>
-
-
 
 </resources>

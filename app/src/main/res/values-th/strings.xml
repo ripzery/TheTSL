@@ -1,11 +1,6 @@
 <resources>
-    <string name="hello.world">สวัสดีโลก !</string>
     <string name="action.settings">ตั้งค่า</string>
-    <string name="title.activity.sign.in">SignInActivity</string>
-    <string name="title.activity.create.account">CreateAccountActivity</string>
-    <string name="title.activity.news.event">NewsEventActivity</string>
-    <string name="title.activity.place.detail">PlaceDetailActivity</string>
-    <string name="title.activity.my.profile">MyProfileActivity</string>
+
     <string name="title.activity.new.service.tracking.title">ดูสถานะรถที่เข้าใช้บริการ</string>
     <string name="title.activity.my.profile.title">ข้อมูลส่วนตัว</string>
 
@@ -46,6 +41,14 @@
     <string name="dialog.change.lang.cancel">ยกเลิก</string>
     <string name="dialog.change.lang.choose">เลือก</string>
 
+    <string name="dialog.quit.title">ออกจากแอพลิเคชั่น</string>
+    <string name="dialog.quit.positive">ใช่</string>
+    <string name="dialog.quit.negative">ไม่</string>
+    <string name="dialog.quit.content">คุณแน่ใจว่าต้องการออกหรือไม่</string>
+
+    <string name="viewgroup.contact">ทีเอสแอล สาธร</string>
+
+    <!-- Dialog emergency call  -->
     <string name="dialog.emergency.call.content">คุณต้องการติดต่อช่างเทคนิคหรือไม่</string>
     <string name="dialog.emergency.call.positive">โทร</string>
     <string name="dialog.emergency.call.negative">ยกเลิก</string>
@@ -69,7 +72,20 @@
     <string name="dialog.progress.service.content">กำลังโหลดข้อมูลซ่อม...</string>
     <string name="dialog.progress.save.service.content">กำลังบันทึกข้อมูลการซ่อม...</string>
     <string name="dialog.progress.service.list.content">กำลังโหลดรายการจอง...</string>
+    <string name="dialog.progress.save.car.tracking.content">กำลังบันทึกข้อมูล…</string>
+    <string name="dialog.progress.service.list.history.content">กำลังโหลดประวัติการจอง…</string>
+    <string name="dialog.progress.web.content">กำลังโหลดเว็บไซต์&#160;</string>
     <string name="dialog.progress.title">กรุณารอสักครู่</string>
+    <string name="dialog.progress.emergency.call.content">กำลังแจ้ง...</string>
+    <string name="dialog.progress.service.car.tracking.content">กำลังตรวจสอบข้อมูล...</string>
+    <string name="dialog.progress.save.device.content">กำลังส่งข้อมูลสำหรับรับการแจ้งเตือน...</string>
+
+    <!-- Dialog update -->
+    <string name="dialog.update.phone.content">กรุณาใส่หมายเลขโทรศัพท์</string>
+    <string name="dialog.update.phone.negative">ยกเลิก</string>
+    <string name="dialog.update.phone.input.hint">หมายเลขโทรศัพท์</string>
+    <string name="dialog.update.phone.positive">อัพเดท</string>
+    <string name="dialog.update.phone.title">เปลี่ยนแปลงเบอร์โทรศัพท์</string>
 
     <!-- Toast -->
     <string name="toast.token.invalid">มีใครบางคนพยายามจะเข้าสู่บัญชีของคุณ กรุณาเข้าสู่ระบบอีกครั้ง</string>
@@ -100,11 +116,17 @@
     <!-- Emergency Call -->
     <string name="emergency.call.request">โทร</string>
 
+    <!-- Create account -->
+    <string name="create.account.required.confirmpw">กรุณากรอกรหัสผ่านอีกครั้ง</string>
+    <string name="create.account.required.email">กรุณากรอกอีเมล</string>
+    <string name="create.account.required.name">กรุณากรอกชื่อ</string>
+    <string name="create.account.required.password">กรุณากรอกรหัสผ่าน</string>
+    <string name="create.account.not.match.confirmpw">รหัสผ่านไม่ตรงกัน</string>
+
     <!-- Profile -->
     <string name="profile.address.title">ที่อยู่</string>
     <string name="profile.address.content">31 ตึกพญาไท, พญาไท, กรุงเทพ 10400, Thailand</string>
     <string name="profile.name.title">ชื่อ</string>
-    <string name="profile.name.content">Annop Vor</string>
     <string name="profile.phone.title">เบอร์โทร</string>
     <string name="profile.phone.content">0817137036</string>
     <string name="profile.email.title">อีเมล์&#160;</string>
@@ -156,17 +178,54 @@
     <string name="fragment.new.booking.service.select.model.hint">เลือกรุ่น</string>
     <string name="fragment.new.booking.service.select.service.hint">เลือกบริการ</string>
     <string name="fragment.new.booking.service.type">ประเภท</string>
+    <string name="fragment.new.booking.service.time">เวลา</string>
+    <string name="fragment.new.booking.service.date">วันที่</string>
+    <string name="fragment.new.booking.service.title">นัดหมายเข้ารับบริการ</string>
+    <string name="fragment.new.booking.service.date.hint">เลือกวัน</string>
+    <string name="fragment.new.booking.service.time.hint">เลือกเวลา</string>
+    <string name="fragment.new.booking.service.type.hint">เลือกประเภท</string>
 
     <!-- Car tracking -->
     <string name="fragment.car.tracking.add.new.car">เพิ่มรายการใหม่</string>
     <string name="fragment.car.tracking.empty.list">ไม่มีรายการในขณะนี้</string>
     <string name="fragment.car.tracking.first">ก่อน</string>
     <string name="fragment.car.tracking.last">ล่าสุด</string>
+    <string name="fragment.car.tracking.detail.title">รายละเอียดสถานะรถใหม่</string>
+    <string name="fragment.car.tracking.title">เช็คสถานะรถใหม่</string>
+
+    <!-- New car tracking -->
+    <string name="fragment.new.car.tracking.tracking.id">หมายเลขติดตาม</string>
+    <string name="fragment.new.car.tracking.submit">ส่งข้อมูล</string>
+    <string name="fragment.new.car.tracking.citizen.id">หมายเลขบัตรประชาชน</string>
+    <string name="fragment.new.car.tracking.preemption.number">หมายเลขใบจอง</string>
+    <string name="fragment.new.car.tracking.toast.error">กรุณากรอกข้อมูลให้ถูกต้อง</string>
+
+    <!-- Service tracking -->
+    <string name="fragment.service.first">ขณะนี้</string>
+    <string name="fragment.service.last">ประวัติการใช้บริการ</string>
+    <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
+    <string name="fragment.service.detail.receive.date">กำหนดการรับรถ :&#160;</string>
+    <string name="fragment.service.empty.list">ไม่มีรายการในขณะนี้</string>
+
+    <string name="fragment.known.service.number.tracking.id">หมายเลขติดตาม</string>
+    <string name="fragment.known.service.number.service.number">เลขที่ใบแจ้งซ่อม</string>
+    <string name="fragment.known.service.number.submit">ส่งข้อมูล</string>
+
+    <!-- Toast -->
+    <string name="toast.enable.location">กรุณาโหมดเปิดการเข้าถึงตำแหน่งก่อน</string>
+    <string name="toast.fill.all.field">กรุณากรอกข้อมูลให้ครบ</string>
+    <string name="toast.internet.connection.problem">ตรวจสอบอินเทอร์เน็ตและลองใหม่อีกครั้ง</string>
+    <string name="toast.login.successful">เข้าสู่ระบบสำเร็จ</string>
+    <string name="toast.service.booking.successful">ข้อมูลถูกจองสำเร็จ</string>
+    <string name="toast.save.car.tracking.successful">บันทึกสำเร็จ</string>
+    <string name="toast.create.booking.validate.date.time">กรุณาใส่วันที่และเวลา</string>
+    <string name="toast.create.account.failed">กรุณากรอกข้อมูลที่จำเป็นให้ถูกต้อง</string>
+    <string name="toast.unknown.error.try.again">เกิดข้อผิพลาดขึ้น กรุณาลองใหม่อีกครั้ง</string>
+    <string name="toast.waiting.confirmation">โปรดรอการยืนยัน</string>
 
     <!-- Share -->
     <string name="share">แชร์ไปยัง&#8230;</string>
 
-    <string name="lorem">ลอเร็ม ยิปมันส์ ดอเลอร์ ซิท อเมท, คองกิว มาเลซูดาร์. เมาริส อินทีเจอร์, เพลเลนเทส พูรัส น้ำ. ยิปมันส์ อินเทอร์ดัม เฟลิส ฟาซิลิซิ ยิปมัน อาลิคูอัม. ทินซิดันท์ ออนาเร่ นอน อิอาคูลิส เนส วิต้า, คอนเซคคัว อิน.</string>
     <string name="toolbar.Contact">ติดต่อ</string>
     <string name="profile.address.hint">ที่อยู่ของคุณ</string>
     <string name="profile.email.hint">อีเมล์&#160;</string>
@@ -174,75 +233,20 @@
     <string name="profile.password.hint">รหัสผ่าน</string>
     <string name="profile.phone.hint">เบอร์โทรศัพท์&#160;</string>
 
-    <string name="dialog.progress.web.content">กำลังโหลดเว็บไซต์&#160;</string>
     <string name="booking.service.type.known.service.number">รู้เลขที่ใบแจ้งซ่อม</string>
     <string name="booking.service.type.new.booking.service">จองซ่อม</string>
     <string name="booking.service.type.title">เลือกการจอง</string>
 
-    <string name="dialog.quit.title">ออกจากแอพลิเคชั่น</string>
-    <string name="dialog.quit.positive">ใช่</string>
-    <string name="dialog.quit.negative">ไม่</string>
-    <string name="dialog.quit.content">คุณแน่ใจว่าต้องการออกหรือไม่</string>
-
-    <string name="fragment.service.first">ขณะนี้</string>
-    <string name="fragment.service.last">ประวัติการใช้บริการ</string>
-    <string name="fragment.known.service.number.tracking.id">หมายเลขติดตาม</string>
-    <string name="fragment.known.service.number.service.number">เลขที่ใบแจ้งซ่อม</string>
-    <string name="fragment.known.service.number.submit">ส่งข้อมูล</string>
-
-    <string name="fragment.new.car.tracking.tracking.id">หมายเลขติดตาม</string>
-    <string name="fragment.new.car.tracking.submit">ส่งข้อมูล</string>
-    <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
-    <string name="fragment.service.detail.receive.date">กำหนดการรับรถ :&#160;</string>
-    <string name="fragment.service.empty.list">ไม่มีรายการในขณะนี้</string>
     <string name="menu.profile.save">บันทึก</string>
     <string name="menu.event.share">แชร์&#160;</string>
     <string name="nav.service">ทีเอสแอล เซอร์วิส</string>
-    <string name="toast.enable.location">กรุณาโหมดเปิดการเข้าถึงตำแหน่งก่อน</string>
-    <string name="toast.fill.all.field">กรุณากรอกข้อมูลให้ครบ</string>
-    <string name="toast.internet.connection.problem">ตรวจสอบอินเทอร์เน็ตและลองใหม่อีกครั้ง</string>
-    <string name="toast.login.successful">เข้าสู่ระบบสำเร็จ</string>
-    <string name="toast.service.booking.successful">ข้อมูลถูกจองสำเร็จ</string>
-    <string name="toast.unknown.error.try.again">เกิดข้อผิพลาดขึ้น กรุณาลองใหม่อีกครั้ง</string>
-    <string name="toast.waiting.confirmation">โปรดรอการยืนยัน</string>
-    <string name="viewgroup.contact">ทีเอสแอล สาธร</string>
-    <string name="dialog.progress.emergency.call.content">กำลังแจ้ง...</string>
-    <string name="dialog.progress.service.car.tracking.content">กำลังตรวจสอบข้อมูล...</string>
-    <string name="toast.create.account.failed">กรุณากรอกข้อมูลที่จำเป็นให้ถูกต้อง</string>
-    <string name="create.account.required.confirmpw">กรุณากรอกรหัสผ่านอีกครั้ง</string>
-    <string name="create.account.required.email">กรุณากรอกอีเมล</string>
-    <string name="create.account.required.name">กรุณากรอกชื่อ</string>
-    <string name="create.account.required.password">กรุณากรอกรหัสผ่าน</string>
-    <string name="create.account.not.match.confirmpw">รหัสผ่านไม่ตรงกัน</string>
-    <string name="dialog.progress.save.device.content">กำลังส่งข้อมูลสำหรับรับการแจ้งเตือน...</string>
-    <string name="fragment.new.booking.service.time">เวลา</string>
-    <string name="fragment.new.booking.service.date">วันที่</string>
-    <string name="toast.create.booking.validate.date.time">กรุณาใส่วันที่และเวลา</string>
 
-    <string name="fragment.new.booking.service.title">นัดหมายเข้ารับบริการ</string>
-    <string name="fragment.new.booking.service.date.hint">เลือกวัน</string>
-    <string name="fragment.new.booking.service.time.hint">เลือกเวลา</string>
-    <string name="fragment.new.booking.service.type.hint">เลือกประเภท</string>
-    <string name="dialog.update.phone.content">กรุณาใส่หมายเลขโทรศัพท์</string>
-    <string name="dialog.update.phone.negative">ยกเลิก</string>
-    <string name="dialog.update.phone.input.hint">หมายเลขโทรศัพท์</string>
-    <string name="dialog.update.phone.positive">อัพเดท</string>
-    <string name="dialog.update.phone.title">เปลี่ยนแปลงเบอร์โทรศัพท์</string>
+
     <string name="validate.confirm.password">รหัสผ่านไม่ตรงกัน</string>
     <string name="validate.email">อีเมล์ไม่ถูกต้อง</string>
     <string name="validate.name">กรุณาใส่ชื่อ</string>
     <string name="validate.password">รหัสผ่านต้องมีจำนวน 8 ตัวขึ้นไป</string>
     <string name="validate.phone">เบอร์โทรศัพท์ต้องมีจำนวน 10 ตัวอักษร (กรุณาใส่ให้ถูกต้อง)</string>
-
-
-    <string name="dialog.progress.service.list.history.content">กำลังโหลดประวัติการจอง…</string>
-    <string name="fragment.car.tracking.title">เช็คสถานะรถใหม่</string>
-    <string name="fragment.new.car.tracking.citizen.id">หมายเลขบัตรประชาชน</string>
-    <string name="fragment.new.car.tracking.preemption.number">หมายเลขใบจอง</string>
-    <string name="fragment.new.car.tracking.toast.error">กรุณากรอกข้อมูลให้ถูกต้อง</string>
-    <string name="dialog.progress.save.car.tracking.content">กำลังบันทึกข้อมูล…</string>
-    <string name="toast.save.car.tracking.successful">บันทึกสำเร็จ</string>
-    <string name="fragment.car.tracking.detail.title">รายละเอียดสถานะรถใหม่</string>
 
     <!-- Permission -->
     <string name="permission.camera.required">ต้องการสิทธ์ิการเข้าถึงกล้องเพื่อแก้ไขรูปโปรไฟล์</string>

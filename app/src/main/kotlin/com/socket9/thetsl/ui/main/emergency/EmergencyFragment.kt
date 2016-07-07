@@ -144,6 +144,9 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
                 })
 
+
+        initEmergencyIcon()
+
         ivTowCar.setOnClickListener {
             if (isMechanic) {
                 if (SharePref.isEnglish()) {
@@ -216,6 +219,16 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
         }
 
+    }
+
+    private fun initEmergencyIcon() {
+        if(SharePref.isEnglish()){
+            ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_en))
+            ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_en))
+        }else{
+            ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_th))
+            ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_th))
+        }
     }
 
     private fun emergencyCall() {

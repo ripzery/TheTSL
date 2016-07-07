@@ -232,4 +232,5 @@
     <string name="permission.phone.required">Required phone permission to make a call</string>
     <string name="permission.storage.required">Required write storage permission for take a photo</string>
     <string name="permission.camera.storage.required">Required location and camera permission for take a photo</string>
+    <string name="toast.branch.detail.location.null">Location is not found</string>
 </resources>

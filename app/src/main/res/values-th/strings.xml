@@ -87,11 +87,6 @@
     <string name="dialog.update.phone.positive">อัพเดท</string>
     <string name="dialog.update.phone.title">เปลี่ยนแปลงเบอร์โทรศัพท์</string>
 
-    <!-- Toast -->
-    <string name="toast.token.invalid">มีใครบางคนพยายามจะเข้าสู่บัญชีของคุณ กรุณาเข้าสู่ระบบอีกครั้ง</string>
-    <string name="toast.update.google.play.services">กรุณาอัพเดท Google Play Services</string>
-    <string name="toast.activate.account">สร้างบัญชีสำเร็จ คุณสามารถปลดล็อกบัญชีได้ที่อีเมล์ของคุณ</string>
-
     <!-- CreateAccount Activity -->
     <string name="create.account.et.name">ชื่อของคุณ (จำเป็น)</string>
     <string name="create.account.et.email">อีเมล์ (จำเป็น)</string>
@@ -222,6 +217,11 @@
     <string name="toast.create.account.failed">กรุณากรอกข้อมูลที่จำเป็นให้ถูกต้อง</string>
     <string name="toast.unknown.error.try.again">เกิดข้อผิพลาดขึ้น กรุณาลองใหม่อีกครั้ง</string>
     <string name="toast.waiting.confirmation">โปรดรอการยืนยัน</string>
+    <string name="toast.branch.detail.location.null">ไม่พบตำแหน่ง</string>
+    <string name="toast.token.invalid">มีใครบางคนพยายามจะเข้าสู่บัญชีของคุณ กรุณาเข้าสู่ระบบอีกครั้ง</string>
+    <string name="toast.update.google.play.services">กรุณาอัพเดท Google Play Services</string>
+    <string name="toast.activate.account">สร้างบัญชีสำเร็จ คุณสามารถปลดล็อกบัญชีได้ที่อีเมล์ของคุณ</string>
+
 
     <!-- Share -->
     <string name="share">แชร์ไปยัง&#8230;</string>

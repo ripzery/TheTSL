@@ -124,7 +124,7 @@ class ContactFragment : RxFragment(), AnkoLogger, ContactAdapter.ContactInteract
                     .compose(bindToLifecycle<Model.Contact>())
                     .subscribe({
                         progressDialog?.dismiss()
-                        val contact = it.data.copy(titleEn = model.titleEn, subTitle = model.subTitle)
+                        val contact = it.data.copy(id = model.id, titleEn = model.titleEn, titleTh = model.titleTh, subTitle = model.subTitle)
                         startActivity<BranchDetailActivity>("contact" to contact)
                         applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
 

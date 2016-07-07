@@ -22,18 +22,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
-                <fragment
-                    android:id="@+id/mapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
-
                 <ImageView
                     android:id="@+id/ivTransparent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@android:color/transparent"/>
+                    android:layout_height="match_parent"/>
 
             </FrameLayout>
 
@@ -65,6 +57,7 @@
                     android:layout_weight="1" />
 
                 <ImageView
+                    android:id="@+id/ivLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"

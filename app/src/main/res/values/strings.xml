@@ -111,6 +111,7 @@
     <string name="toast.create.account.failed">Please fill all required fields correctly</string>
     <string name="toast.activate.account">Create account successful. Please activate account in your email.</string>
     <string name="toast.create.booking.validate.date.time">Please set date and time</string>
+    <string name="toast.branch.detail.location.null">Location is not found</string>
 
     <!-- CreateAccount Activity -->
     <string name="create.account.et.name">Name (required)</string>

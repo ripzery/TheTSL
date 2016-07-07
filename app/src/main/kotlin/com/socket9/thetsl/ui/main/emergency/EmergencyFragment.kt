@@ -49,8 +49,6 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     private var progressDialog: ProgressDialog ? = null
     lateinit private var supportMapsFragment: SupportMapFragment
     lateinit private var locationProvider: ReactiveLocationProvider
-    lateinit private var locationRequestSubscription: Subscription
-    lateinit private var lastKnownLocationSubscription: Subscription
     lateinit private var mMap: GoogleMap
     private val locationRequest = LocationRequest.create()
             .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
@@ -116,9 +114,6 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
         super.onStop()
         try {
             progressDialog?.dismiss()
-            lastKnownLocationSubscription.unsubscribe()
-            locationRequestSubscription.unsubscribe()
-
         } catch(e: Exception) {
             e.printStackTrace()
         }
@@ -131,7 +126,6 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
         supportMapsFragment = SupportMapFragment.newInstance()
         replaceFragment(R.id.mapContainer, supportMapsFragment)
         supportMapsFragment.getMapAsync(this)
-
 
         locationProvider = ReactiveLocationProvider(activity)
 
@@ -254,7 +248,8 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     }
 
     private fun startSubscribeUserLocation() {
-        locationRequestSubscription = locationProvider.getUpdatedLocation(locationRequest)
+        locationProvider.getUpdatedLocation(locationRequest)
+                .compose(bindToLifecycle<Location>())
                 .subscribe ({
                     moveToLocation(mMap, it)
                 }, {
@@ -263,7 +258,9 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     }
 
     private fun startSubscribeUserLastKnownLocation() {
-        lastKnownLocationSubscription = ReactiveLocationProvider(activity).lastKnownLocation
+        ReactiveLocationProvider(activity)
+                .lastKnownLocation
+                .compose(bindToLifecycle<Location>())
                 .subscribe ({
                     moveToLocation(mMap, it)
                 }, {

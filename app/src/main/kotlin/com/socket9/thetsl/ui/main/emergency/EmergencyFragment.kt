@@ -33,7 +33,6 @@ import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.makeCall
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
-import rx.Subscription
 
 /**
  * Created by Euro (ripzery@gmail.com) on 3/10/16 AD.
@@ -131,7 +130,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
         locationProvider.checkLocationSettings(LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
                 .setAlwaysShow(true).build())
-                .subscribe ({
+                .subscribe({
                     val status = it.status
                     if (status.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
                         try {
@@ -147,8 +146,14 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
         ivTowCar.setOnClickListener {
             if (isMechanic) {
-                ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_active_en))
-                ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_en))
+                if (SharePref.isEnglish()) {
+                    ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_active_en))
+                    ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_en))
+                } else {
+                    ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_active_th))
+                    ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_th))
+                }
+
                 requestEmergency = TOWCAR
                 isMechanic = false
             }
@@ -156,8 +161,14 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
         ivMechanic.setOnClickListener {
             if (!isMechanic) {
-                ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_en))
-                ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_en))
+                if (SharePref.isEnglish()) {
+                    ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_en))
+                    ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_en))
+                } else {
+                    ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_th))
+                    ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_th))
+                }
+
                 requestEmergency = MECHANIC
                 isMechanic = true
             }
@@ -176,7 +187,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
                     progressDialog?.show()
                     HttpManager.updatePhone(input.toString())
                             .compose(bindToLifecycle<Model.BaseModel>())
-                            .subscribe ({
+                            .subscribe({
                                 progressDialog?.dismiss()
                                 if (it.result) {
                                     toast(it.message)
@@ -250,7 +261,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     private fun startSubscribeUserLocation() {
         locationProvider.getUpdatedLocation(locationRequest)
                 .compose(bindToLifecycle<Location>())
-                .subscribe ({
+                .subscribe({
                     moveToLocation(mMap, it)
                 }, {
                     toast(getString(R.string.toast_unknown_error_try_again))
@@ -261,7 +272,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
         ReactiveLocationProvider(activity)
                 .lastKnownLocation
                 .compose(bindToLifecycle<Location>())
-                .subscribe ({
+                .subscribe({
                     moveToLocation(mMap, it)
                 }, {
                     toast(getString(R.string.toast_unknown_error_try_again))

@@ -127,7 +127,7 @@ class BranchDetailActivity : ToolbarActivity(), OnMapReadyCallback, AnkoLogger {
         setupToolbar(contact.getTitle())
         setData()
 
-//        supportMapsFragment = mapFragment as SupportMapFragment
+//        supportMapsFragment = mapFrament as SupportMapFragment
 //        supportMapsFragment.getMapAsync(this)
 
 //        tvPhone.setOnClickListener { makeCall(contact.phone!!.plainText().split(" ")[0]) }

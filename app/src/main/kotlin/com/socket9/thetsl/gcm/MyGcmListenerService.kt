@@ -116,7 +116,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 NEW_CAR -> {
-                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
+                    intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_CAR_TRACKING)
                             .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }

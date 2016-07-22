@@ -90,15 +90,9 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initInstance()
 
-        RxPermissions.getInstance(activity).request(Manifest.permission_group.LOCATION)
-                .subscribe { granted ->
-                    if (granted) {
-                        initInstance()
-                    } else {
-                        toast(getString(R.string.permission_location_required))
-                    }
-                }
+
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -128,21 +122,31 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
         locationProvider = ReactiveLocationProvider(activity)
 
-        locationProvider.checkLocationSettings(LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-                .setAlwaysShow(true).build())
-                .subscribe({
-                    val status = it.status
-                    if (status.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
-                        try {
-                            status.startResolutionForResult(activity, REQUEST_CODE_LOCATION_SETTING)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }
-                }, { error ->
-                    toast(getString(R.string.toast_unknown_error_try_again))
+        RxPermissions.getInstance(activity).request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe ({ granted ->
+                    if (granted) {
+                        locationProvider.checkLocationSettings(LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+                                .setAlwaysShow(true).build())
+                                .subscribe({
+                                    val status = it.status
+                                    if (status.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
+                                        try {
+                                            status.startResolutionForResult(activity, REQUEST_CODE_LOCATION_SETTING)
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }, { error ->
+                                    toast(getString(R.string.toast_unknown_error_try_again))
 
+                                })
+                    } else {
+                        toast(getString(R.string.permission_location_required))
+                    }
+                },{
+                    it.printStackTrace()
                 })
+
 
 
         initEmergencyIcon()

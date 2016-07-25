@@ -14,12 +14,18 @@
     <string name="toolbar.home">Home</string>
     <string name="toolbar.my.profile">PROFILE</string>
 
-    <!-- Dialog -->
+    <!-- Forgot dialog -->
     <string name="dialog.forgot.pw.title">Forgot Password</string>
     <string name="dialog.forgot.pw.content">Enter your email address to request a password reset.</string>
     <string name="dialog.forgot.pw.positive">Request</string>
     <string name="dialog.forgot.pw.negative">Cancel</string>
     <string name="dialog.forgot.pw.input.hint">Your email</string>
+
+    <!-- Update profile dialog -->
+    <string name="dialog.update.profile.title">Your Booking Confirmation</string>
+    <string name="dialog.update.profile.content">Exit without saving your changed?</string>
+    <string name="dialog.update.profile.positive">Yes</string>
+    <string name="dialog.update.profile.negative">No</string>
 
     <!-- Update phone dialog -->
     <string name="dialog.update.phone.title">Update phone number</string>
@@ -27,12 +33,6 @@
     <string name="dialog.update.phone.positive">Update</string>
     <string name="dialog.update.phone.negative">Cancel</string>
     <string name="dialog.update.phone.input.hint">Phone number</string>
-
-    <!-- Update profile dialog -->
-    <string name="dialog.update.profile.title">Your Booking Confirmation</string>
-    <string name="dialog.update.profile.content">Exit without saving your changed?</string>
-    <string name="dialog.update.profile.positive">Yes</string>
-    <string name="dialog.update.profile.negative">No</string>
 
     <!-- Signout dialog -->
     <string name="dialog.signout.title">Sign Out</string>
@@ -63,7 +63,6 @@
     <string name="dialog.emergency.call.required.phone.content">Phone number</string>
     <string name="dialog.emergency.call.required.phone.helper">Your current phone number</string>
     <string name="dialog.emergency.call.required.phone.note">Phone number is required. The technician will get back to you later.</string>
-
 
     <!-- Emergency confirmation dialog -->
     <string name="dialog.emergency.confirmation.title">Confirmation</string>
@@ -121,7 +120,6 @@
     <string name="create.account.et.mobile">Mobile Phone (optional)</string>
     <string name="create.account.et.address">Address (optional)</string>
     <string name="create.account.btn.register">REGISTER </string>
-
     <string name="create.account.required.name">Please fill name</string>
     <string name="create.account.required.email">Please fill email</string>
     <string name="create.account.required.password">Please fill password</string>
@@ -136,6 +134,8 @@
     <string name="nav.signout">Sign Out</string>
     <string name="nav.change.lang.thai">Thai</string>
     <string name="nav.change.lang.english">English</string>
+    <string name="nav.car.tracking">SALE</string>
+    <string name="nav.service">TSL SERVICE</string>
     <string name="nav.miracle">MIRACLE CLUB</string>
     <string name="nav.website">WEBSITE</string>
 
@@ -149,21 +149,19 @@
 
     <!-- Profile -->
     <string name="profile.address.title">ADDRESS</string>
+    <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string> <!-- ข้อมูล mockup -->
     <string name="profile.address.hint">Your address</string>
     <string name="profile.name.title">NAME</string>
     <string name="profile.name.hint">Your name</string>
     <string name="profile.phone.title">PHONE</string>
-    <string name="profile.phone.content">0817137036</string>
+    <string name="profile.phone.content">0817137036</string> <!-- ข้อมูล mockup -->
     <string name="profile.phone.hint">Your phone number</string>
     <string name="profile.email.title">EMAIL</string>
-    <string name="profile.email.content">pop@socket9.com</string>
+    <string name="profile.email.content">pop@socket9.com</string> <!-- ข้อมูล mockup -->
     <string name="profile.email.hint">Your email</string>
     <string name="profile.password.title">PASSWORD</string>
-    <string name="profile.password.content">123214das</string>
+    <string name="profile.password.content">123214das</string> <!-- ข้อมูล mockup -->
     <string name="profile.password.hint">Your password</string>
-
-    <!-- Api key -->
-    <string name="facebook.app.id" translatable="false">1622350878031018</string>
 
     <!-- Branch Detail -->
     <string name="contact.business.hours">Business Hours</string>
@@ -195,9 +193,6 @@
     <string name="share">Share to&#8230;</string>
 
     <string name="toolbar.contact">CONTACT US</string>
-    <string name="profile.address.content">31 Phayathai Building, Phayathai, BKK 10400, Thailand</string>
-    <string name="nav.service">TSL SERVICE</string>
-    <string name="nav.car.tracking">SALE</string>
     <string name="menu.profile.save">Save</string>
     <string name="menu.event.share">Share</string>
 
@@ -206,59 +201,54 @@
     <string name="fragment.known.service.number.tracking.id">Tracking ID</string>
     <string name="fragment.known.service.number.submit">Submit</string>
 
-    <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
-    <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
+    <!-- Car tracking-->
+    <string name="fragment.car.tracking.first">first</string>
+    <string name="fragment.car.tracking.last">last</string>
+    <string name="fragment.car.tracking.empty.list">Empty list</string>
+    <string name="fragment.car.tracking.title">New car tracking</string>
+    <string name="fragment.car.tracking.detail.title">Car detail</string>
+    <string name="fragment.car.tracking.add.new.car">Add new car</string>
 
     <!-- New car tracking -->
+    <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
     <string name="fragment.new.car.tracking.tracking.id">Tracking ID</string>
     <string name="fragment.new.car.tracking.submit">Submit</string>
     <string name="fragment.new.car.tracking.preemption.number">Preemption number</string>
     <string name="fragment.new.car.tracking.toast.error">Please enter valid citizenId and preemption number</string>
 
-    <!-- car tracking -->
-    <string name="fragment.car.tracking.add.new.car">Add new car</string>
-
-    <!-- service -->
+    <!-- Service tracking -->
     <string name="fragment.service.add.new.service">Add new service</string>
     <string name="fragment.service.detail.receive.date">Receive car date : </string>
     <string name="fragment.service.first">current service</string>
     <string name="fragment.service.last">service history</string>
     <string name="fragment.service.empty.list">Empty list</string>
 
-    <!-- View group contact-->
-    <string name="viewgroup.contact">TSL SATORN</string>
-
     <!-- New booking service -->
     <string name="fragment.new.booking.service.title">New Booking</string>
     <string name="fragment.new.booking.service.license.plate">License Plate</string>
-    <string name="fragment.new.booking.service.license.plate.hint">Put license plate</string>
     <string name="fragment.new.booking.service.brand">Brand</string>
     <string name="fragment.new.booking.service.model">Model</string>
-    <string name="fragment.new.booking.service.select.brand.hint">Choose brand</string>
-    <string name="fragment.new.booking.service.select.model.hint">Choose model</string>
+    <string name="fragment.new.booking.service.branch">Branch</string>
+    <string name="fragment.new.booking.service.type">Type</string>
     <string name="fragment.new.booking.service.date">Date</string>
     <string name="fragment.new.booking.service.time">Time</string>
+    <string name="fragment.new.booking.service.more.info">More information</string>
+    <string name="fragment.new.booking.service.license.plate.hint">Put license plate</string>
+    <string name="fragment.new.booking.service.select.brand.hint">Choose brand</string>
+    <string name="fragment.new.booking.service.select.model.hint">Choose model</string>
+    <string name="fragment.new.booking.service.select.service.hint">Choose service</string>
+    <string name="fragment.new.booking.service.branch.hint">Choose branch</string>
+    <string name="fragment.new.booking.service.type.hint">Choose type</string>
     <string name="fragment.new.booking.service.date.hint">Choose date</string>
     <string name="fragment.new.booking.service.time.hint">Choose time</string>
-    <string name="fragment.new.booking.service.type">Type</string>
-    <string name="fragment.new.booking.service.type.hint">Choose type</string>
-    <string name="fragment.new.booking.service.select.service.hint">Choose service</string>
-    <string name="fragment.new.booking.service.branch">Branch</string>
-    <string name="fragment.new.booking.service.branch.hint">Choose branch</string>
-    <string name="fragment.new.booking.service.more.info">More information</string>
     <string name="fragment.new.booking.service.more.info.hint">Put additional information here</string>
     <string name="fragment.new.booking.service.book">Book</string>
     <string name="fragment.new.booking.status.booking.pending">Pending</string>
     <string name="fragment.new.booking.status.booking.confirmed">Confirmed</string>
-
-
-    <!-- Car tracking-->
-    <string name="fragment.car.tracking.first">first</string>
-    <string name="fragment.car.tracking.last">last</string>
-    <string name="fragment.car.tracking.empty.list">Empty list</string>
     <string name="fragment.new.booking.service.date.time">Date time</string>
-    <string name="fragment.car.tracking.title">New car tracking</string>
-    <string name="fragment.car.tracking.detail.title">Car detail</string>
+    <string name="fragment_new_booking_choose_brand_first">Choose brand first</string>
+
+
 
     <!-- Validator -->
     <string name="validate.name">Name must not be empty</string>
@@ -274,4 +264,9 @@
     <string name="permission.location.required">Required location permission to find your location</string>
     <string name="permission.camera.storage.required">Required location and camera permission for take a photo</string>
 
+    <!-- View group contact-->
+    <string name="viewgroup.contact">TSL SATORN</string>
+
+    <!-- Api key -->
+    <string name="facebook.app.id" translatable="false">1622350878031018</string>
 </resources>

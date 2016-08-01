@@ -115,11 +115,13 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
-        RxPermissions.getInstance(activity).request(Manifest.permission.ACCESS_FINE_LOCATION)
+        supportMapsFragment = SupportMapFragment.newInstance()
+        replaceFragment(R.id.mapContainer, supportMapsFragment)
+
+        RxPermissions.getInstance(context).request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe({ granted ->
+                    info{ granted }
                     if (granted) {
-                        supportMapsFragment = SupportMapFragment.newInstance()
-                        replaceFragment(R.id.mapContainer, supportMapsFragment)
                         supportMapsFragment.getMapAsync(this)
 
                         locationProvider = ReactiveLocationProvider(activity)

@@ -363,10 +363,10 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
             DialogUtil.getSignOutDialog(this@MainActivity, MaterialDialog.SingleButtonCallback { materialDialog, dialogAction ->
                 LoginManager.getInstance().logOut()
                 saveSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "")
-                saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, "en")
+                saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, "th")
                 saveSp(SharePref.SHARE_PREF_KEY_USER_DATA, "")
                 saveSp(SharePref.SHARE_PREF_KEY_GCM_TOKEN, "")
-                setLocale("en")
+                setLocale("th")
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
                 finish()
             }).show()

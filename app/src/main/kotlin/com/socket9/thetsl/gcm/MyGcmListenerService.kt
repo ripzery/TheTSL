@@ -74,7 +74,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
             var messageData: String = message!!
 
             try {
-                val language = getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "en") as String
+                val language = getSp(SharePref.SHARE_PREF_KEY_APP_LANG, "th") as String
                 messageData = JSONObject(message).getString(language)
 
             } catch (e: Exception) {

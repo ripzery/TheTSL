@@ -27,8 +27,8 @@ class BaseApp: Application() {
         AppEventsLogger.activateApp(this);
         SharePref.sharePref = getSharedPreferences(getString(R.string.app_name_tsl), MODE_PRIVATE)
 
-        /* Initial english language if no language set */
-        if ((getSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "") as String).isEmpty()) saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, "en")
+        /* Initial thai language if no language set */
+        if ((getSp(SharePref.SHARE_PREF_KEY_API_TOKEN, "") as String).isEmpty()) saveSp(SharePref.SHARE_PREF_KEY_APP_LANG, "th")
 
         Contextor.context = this
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder().setDefaultFontPath("fonts/samakarn/Samakarn-Regular.ttf").setFontAttrId(R.attr.fontPath).build())

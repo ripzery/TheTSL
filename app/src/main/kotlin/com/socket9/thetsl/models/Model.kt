@@ -214,7 +214,7 @@ object Model {
     }
 
     @PaperParcel
-    data class ServiceTrackingStatus(val dateFinish: String, val dateReceive: String, val iconid: Int, val statusTh: String, val statusEn: String) : PaperParcelable {
+    data class ServiceTrackingStatus(val dateFinish: String, val dateReceive: String, val iconid: Int, val icon: String, val statusTh: String, val statusEn: String) : PaperParcelable {
         companion object {
             @JvmField val CREATOR = PaperParcelable.Creator(ServiceTrackingStatus::class.java)
         }

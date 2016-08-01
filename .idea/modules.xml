@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TheTSL.iml" filepath="$PROJECT_DIR$/TheTSL.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tsl_app.iml" filepath="$PROJECT_DIR$/tsl_app.iml" />
     </modules>
   </component>
 </project>

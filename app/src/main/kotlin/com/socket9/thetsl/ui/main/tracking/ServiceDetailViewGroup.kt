@@ -6,11 +6,13 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.socket9.thetsl.R
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.utils.SharePref
 import com.socket9.thetsl.customviews.SquareImageView
 import com.socket9.thetsl.viewgroups.BaseCustomViewGroup
+import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.AnkoLogger
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -22,7 +24,7 @@ class ServiceDetailViewGroup : BaseCustomViewGroup, AnkoLogger {
     lateinit private var viewContainer: View
     lateinit private var tvDateTime: TextView
     lateinit private var tvStatus: TextView
-    lateinit private var ivLogo: ImageView
+    lateinit private var ivIcon: CircleImageView
     private var cardClickedObservable: PublishSubject<Int>? = null
 
 
@@ -62,7 +64,7 @@ class ServiceDetailViewGroup : BaseCustomViewGroup, AnkoLogger {
         // findViewById here
         tvStatus = viewContainer.findViewById(R.id.tvStatus) as TextView
         tvDateTime = viewContainer.findViewById(R.id.tvDateTime) as TextView
-        ivLogo = viewContainer.findViewById(R.id.ivIcon) as ImageView
+        ivIcon = viewContainer.findViewById(R.id.ivIcon) as CircleImageView
 
     }
 
@@ -91,6 +93,7 @@ class ServiceDetailViewGroup : BaseCustomViewGroup, AnkoLogger {
 
         tvStatus.text = model.getStatus()
         tvDateTime.text = "${ if(SharePref.isEnglish()) "Update : "  else "อัพเดทล่าสุด : "}${model.dateFinish.substring(0, model.dateFinish.length - 3)} "
+        Glide.with(context).load(model.icon).into(ivIcon)
     }
 
 }

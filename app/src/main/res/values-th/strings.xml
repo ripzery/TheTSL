@@ -7,7 +7,7 @@
     <!-- Toolbar title -->
     <string name="toolbar.branch.detail">ข้อมูลติดต่อ</string>
     <string name="toolbar.create.account">ลงทะเบียน</string>
-    <string name="toolbar.emergency">ฉุนเฉิน</string>
+    <string name="toolbar.emergency">แจ้งเหตุฉุนเฉิน</string>
     <string name="toolbar.main">เมนูหลัก</string>
     <string name="toolbar.home">เมนูหลัก</string>
     <string name="toolbar.contact">ติดต่อเรา</string>
@@ -60,7 +60,7 @@
     <!-- Emergency call phone dialog -->
     <string name="dialog.emergency.call.required.phone.title">กรอกหมายเลขโทรศัพท์</string>
     <string name="dialog.emergency.call.required.phone.content">หมายเลขโทรศัพท์</string>
-    <string name="dialog.emergency.call.required.phone.note">คุณจำเป็นต้องกรอกหมายเลขโทรศัพท์ เนื่องจากเจ้าหน้าที่จะติดต่อกลับมาในภายหลัง</string>
+    <string name="dialog.emergency.call.required.phone.note">คุณจำเป็นต้องกรอกหมายเลขโทรศัพท์ เพื่อให้เจ้าหน้าที่จะติดต่อกลับมาในภายหลัง</string>
     <string name="dialog.emergency.call.required.phone.helper">กรอกหมายเลขที่คุณใช้ในตอนนี้</string>
 
     <!-- Emergency confirmation dialog -->
@@ -133,7 +133,7 @@
     <string name="nav.change.lang.thai">ไทย</string>
     <string name="nav.change.lang.english">อังกฤษ</string>
     <string name="nav.car.tracking">เช็คสถานะรถใหม่</string>
-    <string name="nav.service">ทีเอสแอล เซอร์วิส</string>
+    <string name="nav.service">ทีเอสแอล ออโต้ เซอร์วิส</string>
     <string name="nav.miracle">มิราเคิล คลับ</string>
     <string name="nav.website">เว็บไซต์</string>
 

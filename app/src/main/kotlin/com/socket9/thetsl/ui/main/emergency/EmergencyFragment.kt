@@ -115,16 +115,15 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     /** Method zone **/
 
     private fun initInstance() {
-
-        supportMapsFragment = SupportMapFragment.newInstance()
-        replaceFragment(R.id.mapContainer, supportMapsFragment)
-        supportMapsFragment.getMapAsync(this)
-
-        locationProvider = ReactiveLocationProvider(activity)
-
         RxPermissions.getInstance(activity).request(Manifest.permission.ACCESS_FINE_LOCATION)
-                .subscribe ({ granted ->
+                .subscribe({ granted ->
                     if (granted) {
+                        supportMapsFragment = SupportMapFragment.newInstance()
+                        replaceFragment(R.id.mapContainer, supportMapsFragment)
+                        supportMapsFragment.getMapAsync(this)
+
+                        locationProvider = ReactiveLocationProvider(activity)
+
                         locationProvider.checkLocationSettings(LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
                                 .setAlwaysShow(true).build())
                                 .subscribe({
@@ -143,7 +142,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
                     } else {
                         toast(getString(R.string.permission_location_required))
                     }
-                },{
+                }, {
                     it.printStackTrace()
                 })
 
@@ -226,10 +225,10 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     }
 
     private fun initEmergencyIcon() {
-        if(SharePref.isEnglish()){
+        if (SharePref.isEnglish()) {
             ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_en))
             ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_en))
-        }else{
+        } else {
             ivTowCar.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.towcar_th))
             ivMechanic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.mechanic_active_th))
         }

@@ -36,15 +36,18 @@
 
         <item
             android:id="@+id/nav_service"
-            android:title="@string/nav.service"/>
+            android:title="@string/nav.service"
+            android:icon="@drawable/service" />
 
         <item
             android:id="@+id/nav_car_tracking"
-            android:title="@string/nav.car.tracking"/>
+            android:title="@string/nav.car.tracking"
+            android:icon="@drawable/sale"/>
 
         <item
             android:id="@+id/nav_miracle_club"
-            android:title="@string/nav.miracle"/>
+            android:title="@string/nav.miracle"
+            android:icon="@drawable/miracle_card"/>
 
 
         <item
@@ -54,7 +57,8 @@
 
         <item
             android:id="@+id/nav_website"
-            android:title="@string/nav.website"/>
+            android:title="@string/nav.website"
+            android:icon="@drawable/website"/>
 
         <item
             android:id="@+id/nav_news"

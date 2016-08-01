@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_bottom_emergency"
-        android:icon="@drawable/ic_maps_local_phone"
+        android:icon="@drawable/selector_bottom_bar_emergency"
         android:title="@string/nav.emergency"/>
     <item
         android:id="@+id/menu_bottom_service_tracking"
-        android:icon="@drawable/ic_build_black_24dp"
+        android:icon="@drawable/selector_bottom_bar_service"
         android:title="@string/nav.service"/>
     <item
         android:id="@+id/menu_bottom_car_tracking"
-        android:icon="@drawable/ic_maps_directions_car"
+        android:icon="@drawable/selector_bottom_bar_sale"
         android:title="@string/nav.car.tracking"/>
 </menu>

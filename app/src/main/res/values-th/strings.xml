@@ -206,6 +206,7 @@
     <string name="fragment.car.tracking.title">เช็คสถานะรถใหม่</string>
     <string name="fragment.car.tracking.detail.title">รายละเอียดสถานะรถใหม่</string>
     <string name="fragment.car.tracking.add.new.car">เพิ่มรายการใหม่</string>
+    <string name="fragment.car.tracking.status.prefix">สถานะ : </string>
 
     <!-- New car tracking -->
     <string name="fragment.new.car.tracking.citizen.id">หมายเลขบัตรประชาชน</string>
@@ -220,6 +221,7 @@
     <string name="fragment.service.add.new.service">เพิ่มการจอง</string>
     <string name="fragment.service.detail.receive.date">กำหนดการรับรถ :&#160;</string>
     <string name="fragment.service.empty.list">ไม่มีรายการในขณะนี้</string>
+    <string name="fragment.service.status.prefix">สถานะ : </string>
 
     <!-- New booking service -->
     <string name="fragment.new.booking.service.title">นัดหมายเข้ารับบริการ</string>
@@ -245,6 +247,7 @@
     <string name="fragment.new.booking.status.booking.confirmed">การจองสำเร็จ</string>
     <string name="fragment.new.booking.service.date.time">วันที่และเวลา</string>
     <string name="fragment_new_booking_choose_brand_first">เลือกยี่ห้อก่อน</string>
+
 
     <!-- Validator -->
     <string name="validate.name">กรุณาใส่ชื่อ</string>

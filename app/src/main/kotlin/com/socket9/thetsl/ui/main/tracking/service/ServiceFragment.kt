@@ -171,11 +171,8 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
 
             /* Loading new booking by last order */
             loadHistoryData("first")
-
             isServiceHistory = true
         }
-
-
     }
 
     /* Load booking service data, then load service tracking data, and push to the stack. */
@@ -192,7 +189,6 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
                         .compose(bindToLifecycle<Model.ServiceTrackingList>())
                 }
                 .subscribe ({
-
                     dialog?.dismiss()
                     trackingList = it
 

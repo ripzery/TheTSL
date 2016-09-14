@@ -103,11 +103,7 @@ class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
         Glide.with(context).load(model.image!!).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
         tvServiceName.text = model.model
         tvEmptyView.visibility = View.GONE
-        tvStatus.text = "${if (SharePref.isEnglish()) {
-            "Status : "
-        } else {
-            "สถานะ : "
-        } } ${lastStatus.getStatus()}"
+        tvStatus.text = "${context.getString(R.string.fragment_car_tracking_status_prefix)} ${lastStatus.getStatus()}"
         tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
         tvLicensePlate.text = model.licensePlate
         tvLicensePlate.visibility = View.GONE

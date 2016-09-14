@@ -139,6 +139,8 @@
     <string name="fragment.car.tracking.empty.list">Empty list</string>
     <string name="fragment.car.tracking.first">first</string>
     <string name="fragment.car.tracking.last">last</string>
+    <string name="fragment.car.tracking.status.prefix">Status : </string>
+
     <string name="fragment.known.service.number.tracking.id">Tracking ID</string>
     <string name="fragment.known.service.number.service.number">Service number</string>
     <string name="fragment.known.service.number.submit">Submit</string>
@@ -161,6 +163,7 @@
     <string name="fragment.service.empty.list">Empty list</string>
     <string name="fragment.service.first">current</string>
     <string name="fragment.service.last">service history</string>
+    <string name="fragment.service.status.prefix">Status : </string>
     <string name="menu.event.share">Share</string>
     <string name="menu.profile.save">Save</string>
     <string name="nav.car.tracking">SALE</string>

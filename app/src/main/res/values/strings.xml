@@ -208,6 +208,7 @@
     <string name="fragment.car.tracking.title">New car tracking</string>
     <string name="fragment.car.tracking.detail.title">Car detail</string>
     <string name="fragment.car.tracking.add.new.car">Add new car</string>
+    <string name="fragment.car.tracking.status.prefix">Status : </string>
 
     <!-- New car tracking -->
     <string name="fragment.new.car.tracking.citizen.id">Citizen id</string>
@@ -222,6 +223,7 @@
     <string name="fragment.service.first">current service</string>
     <string name="fragment.service.last">service history</string>
     <string name="fragment.service.empty.list">Empty list</string>
+    <string name="fragment.service.status.prefix">Status : </string>
 
     <!-- New booking service -->
     <string name="fragment.new.booking.service.title">New Booking</string>

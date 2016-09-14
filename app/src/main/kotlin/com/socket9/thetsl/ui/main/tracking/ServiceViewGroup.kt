@@ -103,7 +103,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
     fun setModel(model: Model.ServiceBookingEntity) {
 
         tvServiceName.text = model.getService()
-        tvStatus.text = if (model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
+        tvStatus.text = context.getString(R.string.fragment_service_status_prefix) + " " + if (model.dateConfirm.isNullOrEmpty()) context.getString(R.string.fragment_new_booking_status_booking_pending) else context.getString(R.string.fragment_new_booking_status_booking_confirmed)
 
         val date = model.getDateTime()
 
@@ -123,7 +123,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         info { model }
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()
-        tvStatus.text = lastStatus.getStatus()
+        tvStatus.text = context.getString(R.string.fragment_service_status_prefix) + " " + lastStatus.getStatus()
         tvLastUpdate.text = "${if (SharePref.isEnglish()) "Update : " else "อัพเดทล่าสุด : "} ${lastStatus.dateFinish.substring(0, lastStatus.dateFinish.length - 3)}"
         tvLicensePlate.text = model.licensePlate
         ivArrow.visibility = View.VISIBLE

@@ -3,10 +3,9 @@ package com.socket9.thetsl.ui.main.tracking.service
 import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.socket9.thetsl.R
+import com.socket9.thetsl.customviews.ZoomPhotoDialog
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.trello.rxlifecycle.components.support.RxFragment
@@ -40,7 +39,21 @@ class KnownServiceNumberFragment : RxFragment(), AnkoLogger {
 
     }
 
-    /** Activity method zone  **/
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.menu_known_service -> {
+                val zoomPhotoDialog = ZoomPhotoDialog.newInstance()
+                zoomPhotoDialog.show(childFragmentManager, "PhotoZoomDialog")
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.menu_known_service, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +61,7 @@ class KnownServiceNumberFragment : RxFragment(), AnkoLogger {
             /* if newly created */
             param1 = arguments.getString(ARG_1)
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

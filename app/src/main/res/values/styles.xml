@@ -52,4 +52,10 @@
         <item name="android:actionMenuTextColor">@color/colorTextBlack</item>
     </style>
 
+    <style name="ZoomImageDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_scale_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_fade_out</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

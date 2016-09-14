@@ -23,7 +23,7 @@
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:transitionName="ivLogo"
-                app:srcCompat="@drawable/ic_directions_car_24dp"
+                app:srcCompat="@drawable/car_default"
                 android:scaleType="centerCrop"/>
 
             <TextView

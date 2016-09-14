@@ -241,6 +241,7 @@
                     android:textSize="14sp"
                     android:hint="@string/fragment.new.booking.service.more.info.hint"
                     android:background="@null"
+                    android:lines="3"
                     android:maxLines="3"/>
 
             </LinearLayout>

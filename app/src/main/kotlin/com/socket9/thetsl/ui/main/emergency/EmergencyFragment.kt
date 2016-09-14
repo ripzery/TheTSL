@@ -59,7 +59,7 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
     companion object {
         val ARG_1 = "ARG_1"
         val REQUEST_CODE_LOCATION_SETTING = 100
-        val MECHANIC = "REQUIRE MECHANIC"
+        val MECHANIC = "MECHANIC"
         val TOWCAR = "TOW CAR"
 
         fun newInstance(param1: String): EmergencyFragment {

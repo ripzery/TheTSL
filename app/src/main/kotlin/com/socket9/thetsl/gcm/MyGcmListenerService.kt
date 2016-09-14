@@ -26,9 +26,9 @@ import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
-import com.socket9.thetsl.ui.main.MainActivity
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.models.Model
+import com.socket9.thetsl.ui.main.MainActivity
 import com.socket9.thetsl.utils.SharePref
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -122,21 +122,19 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                 }
             }
 
-
             val intentPending: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-
 
             val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.ic_noti)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
+                    .setContentIntent(intentPending)
                     .setContentTitle(type)
                     .setContentText(messageData)
                     .setStyle(NotificationCompat.BigTextStyle()
                             .setBigContentTitle(type)
                             .bigText(messageData))
-
             (getSystemService(GcmListenerService.NOTIFICATION_SERVICE) as NotificationManager).notify(1, mBuilder.build())
 
         } catch (e: Exception) {

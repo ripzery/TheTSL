@@ -1,11 +1,15 @@
 package com.socket9.thetsl.ui.main
 
 
+import android.app.Notification
+import android.app.NotificationManager
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.widget.Toolbar
@@ -17,6 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
+import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.*
 import com.socket9.thetsl.fragments.NewsEventFragment
@@ -259,6 +264,23 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         miracleClubFragment = MiracleClubFragment.newInstance("MiracleFragment")
         websiteFragment = WebsiteFragment.newInstance("WebsiteFragment")
         bottomNavigationFragment = BottomNavigationFragment.newInstance(BottomNavigationFragment.EMERGENCY, this, gcmData)
+
+//        testNotification()
+    }
+
+    private fun testNotification(type: String = "Type", messageData: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"){
+        val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_noti)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
+                .setContentTitle(type)
+                .setContentText(messageData)
+                .setStyle(NotificationCompat.BigTextStyle()
+                        .setBigContentTitle(type)
+                        .bigText(messageData))
+
+        (getSystemService(GcmListenerService.NOTIFICATION_SERVICE) as NotificationManager).notify(1, mBuilder.build())
     }
 
     private fun changeFragment(mode: Int) {

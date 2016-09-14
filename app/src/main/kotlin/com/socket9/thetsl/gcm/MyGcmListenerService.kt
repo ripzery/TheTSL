@@ -42,7 +42,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
         val EMERGENCY_CALL = "EMERGENCY CALL"
         val SERVICE_BOOKING = "SERVICE BOOKING"
         val SERVICE_TRACKING = "SERVICE TRACKING"
-        val NEW_CAR = "NEW CAR"
+        val NEW_CAR = "NEW CAR TRACKING"
 
     }
 
@@ -132,15 +132,16 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
                     .setContentTitle(type)
-                    .setContentIntent(intentPending)
-                    .setContentText(messageData);
+                    .setContentText(messageData)
+                    .setStyle(NotificationCompat.BigTextStyle()
+                            .setBigContentTitle(type)
+                            .bigText(messageData))
 
-            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1, mBuilder.build())
+            (getSystemService(GcmListenerService.NOTIFICATION_SERVICE) as NotificationManager).notify(1, mBuilder.build())
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
 }

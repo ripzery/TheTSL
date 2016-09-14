@@ -143,7 +143,7 @@ class CarTrackingFragment : RxFragment(), AnkoLogger, CarTrackingAdapter.CarTrac
                     carList = it
 
                     dialog?.dismiss()
-                    info { it.data }
+//                    info { it.data }
                     tvEmpty.visibility = if (it.data.size == 0) View.VISIBLE else View.GONE
 
                     if (carAdapter == null) {

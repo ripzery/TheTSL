@@ -60,8 +60,7 @@ class CarDetailFragment : Fragment(){
     private fun initInstance(){
 
         /* Init recyclerview */
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, true)
         recyclerView.layoutManager = linearLayoutManager
         val adapter = ServiceDetailAdapter(carTrackingEntity.detail)
         recyclerView.adapter = adapter
@@ -70,6 +69,6 @@ class CarDetailFragment : Fragment(){
         serviceViewGroup.setModelCarDetail(carTrackingEntity)
 
         /* Init car receive date  */
-        tvCarReceiveDate.text = tvCarReceiveDate.text.toString() + " " + carTrackingEntity.detail[0].dateReceive.substring(0, carTrackingEntity.detail[0].dateReceive.length - 3)
+        tvCarReceiveDate.text = tvCarReceiveDate.text.toString() + " " + carTrackingEntity.detail[0].dateReceive
     }
 }

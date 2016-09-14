@@ -14,6 +14,7 @@ import com.socket9.thetsl.models.Model
 import com.trello.rxlifecycle.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_new_car_tracking.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.warn
 
@@ -75,6 +76,8 @@ class NewCarTrackingFragment : RxFragment(), AnkoLogger {
             val preemptionNumber = etPreemptionNumber.text.toString()
             val citizenId = etCitizenId.text.toString()
             val valid: Boolean = preemptionNumber.length > 0 && citizenId.length == 13
+
+            info { preemptionNumber }
 
             if (valid) {
                 progressDialog = indeterminateProgressDialog(R.string.dialog_progress_save_car_tracking_content, R.string.dialog_progress_title)

@@ -60,8 +60,7 @@ class ServiceDetailFragment : Fragment(){
     private fun initInstance(){
 
         /* Init recyclerview */
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, true)
         recyclerView.layoutManager = linearLayoutManager
         val adapter = ServiceDetailAdapter(serviceTrackingEntity.detail)
         recyclerView.adapter = adapter

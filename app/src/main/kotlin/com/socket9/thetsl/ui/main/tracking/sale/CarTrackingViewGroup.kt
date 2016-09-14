@@ -100,7 +100,7 @@ class CarTrackingViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     fun setModel(model: Model.CarTrackingEntity) {
         val lastStatus = model.detail.last()
-        Glide.with(context).load(model.image!!).placeholder(R.mipmap.ic_launcher).centerCrop().into(ivLogo)
+        Glide.with(context).load(model.image!!).placeholder(R.drawable.car_default).centerCrop().into(ivLogo)
         tvServiceName.text = model.model
         tvEmptyView.visibility = View.GONE
         tvStatus.text = "${context.getString(R.string.fragment_car_tracking_status_prefix)} ${lastStatus.getStatus()}"

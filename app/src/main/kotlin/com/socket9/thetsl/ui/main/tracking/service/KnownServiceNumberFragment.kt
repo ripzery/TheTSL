@@ -3,6 +3,7 @@ package com.socket9.thetsl.ui.main.tracking.service
 import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.view.*
 import com.socket9.thetsl.R
 import com.socket9.thetsl.customviews.ZoomPhotoDialog
@@ -43,6 +44,7 @@ class KnownServiceNumberFragment : RxFragment(), AnkoLogger {
         when(item!!.itemId){
             R.id.menu_known_service -> {
                 val zoomPhotoDialog = ZoomPhotoDialog.newInstance()
+                zoomPhotoDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen)
                 zoomPhotoDialog.show(childFragmentManager, "PhotoZoomDialog")
                 return true
             }

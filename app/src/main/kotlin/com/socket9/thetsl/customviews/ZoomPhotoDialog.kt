@@ -65,7 +65,6 @@ class ZoomPhotoDialog : DialogFragment(), AnkoLogger {
         photoViewAttacher = PhotoViewAttacher(ivZoomPhoto)
         photoViewAttacher!!.setZoomInterpolator(AccelerateDecelerateInterpolator())
         photoViewAttacher!!.setOnMatrixChangeListener {
-            info{ it.top }
             ivClose!!.y = it.top
         }
         ivClose!!.setOnClickListener { this@ZoomPhotoDialog.dismiss() }

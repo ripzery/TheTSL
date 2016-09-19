@@ -187,40 +187,44 @@ class EmergencyFragment : RxFragment(), OnMapReadyCallback, AnkoLogger {
 
             val profile = SharePref.getProfile()
 
-            if (profile.data?.phone.isNullOrEmpty()) {
-
-                val requiredPhoneDialog = DialogUtil.getRequiredPhoneDialog(context, MaterialDialog.InputCallback { dialog, input ->
-                    progressDialog = indeterminateProgressDialog(getString(R.string.dialog_progress_emergency_call_content), getString(R.string.dialog_progress_title))
-                    progressDialog?.setCancelable(false)
-                    progressDialog?.show()
-                    HttpManager.updatePhone(input.toString())
-                            .compose(bindToLifecycle<Model.BaseModel>())
-                            .subscribe({
-                                progressDialog?.dismiss()
-                                if (it.result) {
-                                    toast(it.message)
-
-                                    requestPhonePermission {
-                                        emergencyCall()
-                                    }
-
-                                } else {
-                                    toast(it.message)
-                                }
-                            }, { error ->
-                                progressDialog?.dismiss()
-                                info { error }
-                                toast(getString(R.string.toast_internet_connection_problem))
-                            })
-                })
-
-                requiredPhoneDialog.show()
-
-            } else {
-                requestPhonePermission {
-                    emergencyCall()
-                }
+            requestPhonePermission {
+                emergencyCall()
             }
+
+//            if (profile.data?.phone.isNullOrEmpty()) {
+//
+//                val requiredPhoneDialog = DialogUtil.getRequiredPhoneDialog(context, MaterialDialog.InputCallback { dialog, input ->
+//                    progressDialog = indeterminateProgressDialog(getString(R.string.dialog_progress_emergency_call_content), getString(R.string.dialog_progress_title))
+//                    progressDialog?.setCancelable(false)
+//                    progressDialog?.show()
+//                    HttpManager.updatePhone(input.toString())
+//                            .compose(bindToLifecycle<Model.BaseModel>())
+//                            .subscribe({
+//                                progressDialog?.dismiss()
+//                                if (it.result) {
+//                                    toast(it.message)
+//
+//                                    requestPhonePermission {
+//                                        emergencyCall()
+//                                    }
+//
+//                                } else {
+//                                    toast(it.message)
+//                                }
+//                            }, { error ->
+//                                progressDialog?.dismiss()
+//                                info { error }
+//                                toast(getString(R.string.toast_internet_connection_problem))
+//                            })
+//                })
+//
+//                requiredPhoneDialog.show()
+//
+//            } else {
+//                requestPhonePermission {
+//                    emergencyCall()
+//                }
+//            }
 
         }
 

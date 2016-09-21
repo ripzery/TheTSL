@@ -82,14 +82,14 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
             }
 
             var intent: Intent = Intent(this, MainActivity::class.java)
-
+            info { messageData }
             when (type) {
                 EMERGENCY_CALL -> {
 
                     val statusId: Int = JSONObject(message).getInt("statusId")
 
                     intent.putExtra("currentFragmentIndex",
-                            if (message.equals("เปิดใบแจ้งซ่อมแล้ว") || message.equals("Start service job")) {
+                            if (messageData.equals("ดำเนินการรับแจ้งซ่อมแล้ว") || messageData.equals("Start service job.")) {
                                 MainActivity.FRAGMENT_DISPLAY_SERVICE
                             } else {
                                 MainActivity.FRAGMENT_DISPLAY_EMERGENCY

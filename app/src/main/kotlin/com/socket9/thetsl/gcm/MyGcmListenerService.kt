@@ -96,7 +96,8 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                             }
                     )
                             .putExtra("gcmData", Model.GCMData(type, statusId))
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
                 SERVICE_BOOKING -> {
 
@@ -108,17 +109,20 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
 
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("gcmData", Model.GCMData(type, -1, dateBooking.toString()))
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
                 SERVICE_TRACKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("gcmData", Model.GCMData(type))
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
                 NEW_CAR -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_CAR_TRACKING)
                             .putExtra("gcmData", Model.GCMData(type))
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
             }
 

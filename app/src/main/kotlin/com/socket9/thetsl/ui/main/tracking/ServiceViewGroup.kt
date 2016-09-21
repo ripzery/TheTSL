@@ -111,7 +111,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         tvLicensePlate.text = model.licensePlate
 
         if (!model.image.isNullOrEmpty()) {
-            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.ic_directions_car_24dp).into(ivLogo)
+            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.car_default).into(ivLogo)
 //            tvEmptyView.visibility = View.GONE
         }
 
@@ -129,7 +129,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
         ivArrow.visibility = View.VISIBLE
 
         if (!model.image.isNullOrEmpty()) {
-            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.ic_directions_car_24dp).into(ivLogo)
+            Glide.with(context).load(model.image).centerCrop().placeholder(R.drawable.car_default).into(ivLogo)
 //            tvEmptyView.visibility = View.GONE
         }
     }
@@ -137,8 +137,16 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
     fun setModelDetail(model: Model.ServiceTrackingEntity) {
         val lastStatus = model.detail[model.detail.size - 1]
         tvServiceName.text = if (model.getServiceType().isNullOrBlank()) "Untitled service" else model.getServiceType()
+
+        try {
+            Glide.with(context).load(model.image).placeholder(ContextCompat.getDrawable(context, R.drawable.car_default)).centerCrop().into(ivLogo)
+        } catch(e: Exception) {
+            Log.d("ServiceViewGroup", e.toString())
+        }
+
         tvStatus.text = "${if (SharePref.isEnglish()) {
             "Detail : "
+
         } else {
             "รายละเอียด : "
         }} ${lastStatus.getStatus()}"
@@ -153,7 +161,7 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
         info { model }
         try {
-            Glide.with(context).load(model.image).placeholder(ContextCompat.getDrawable(context, R.drawable.ic_directions_car_24dp)).centerCrop().into(ivLogo)
+            Glide.with(context).load(model.image).placeholder(ContextCompat.getDrawable(context, R.drawable.car_default)).centerCrop().into(ivLogo)
         } catch(e: Exception) {
             Log.d("ServiceViewGroup", e.toString())
         }

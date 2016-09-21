@@ -100,6 +100,10 @@ class ServiceViewGroup : BaseCustomViewGroup, AnkoLogger {
 
     /** Method zone **/
 
+    fun getImage() : ImageView{
+        return ivLogo
+    }
+
     fun setModel(model: Model.ServiceBookingEntity) {
 
         tvServiceName.text = model.getService()

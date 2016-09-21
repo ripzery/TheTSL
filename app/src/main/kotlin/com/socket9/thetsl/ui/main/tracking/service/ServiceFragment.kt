@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.applyTransition
+import com.socket9.thetsl.extensions.supportsBackward
+import com.socket9.thetsl.extensions.supportsLollipop
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.ui.main.tracking.ServiceAdapter
@@ -302,11 +305,21 @@ class ServiceFragment : RxFragment(), AnkoLogger, ServiceAdapter.ServiceInteract
     }
 
     /** Listener zone **/
-    override fun onCardClicked(position: Int) {
+    override fun onCardClicked(position: Int, sharedView: View) {
 
         /* click on tracking list card */
         if (position >= serviceList!!.data.size) {
-            startActivity<ServiceDetailActivity>(ServiceDetailActivity.ARG_1 to trackingList!!.data[position - serviceList!!.data.size])
+            val intent = Intent(context, ServiceDetailActivity::class.java)
+            intent.putExtra(ServiceDetailActivity.ARG_1, trackingList!!.data[position - serviceList!!.data.size])
+
+            supportsLollipop {
+                val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, sharedView.transitionName)
+                startActivity(intent, options.toBundle())
+            }
+            supportsBackward {
+                startActivity(intent)
+                applyTransition(R.anim.activity_forward_enter, R.anim.activity_forward_exit)
+            }
         } else {
             if (serviceList!!.data[position].dateConfirm.isNullOrBlank()) {
                 toast(getString(R.string.toast_waiting_confirmation))

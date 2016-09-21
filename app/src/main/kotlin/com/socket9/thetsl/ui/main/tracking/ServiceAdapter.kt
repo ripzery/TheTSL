@@ -38,7 +38,7 @@ class ServiceAdapter(var serviceBookingList: MutableList<Model.ServiceBookingEnt
     /** Listener zone **/
 
     interface ServiceInteractionListener {
-        fun onCardClicked(position: Int)
+        fun onCardClicked(position: Int, sharedView: View)
     }
 
     /** Inner class zone **/
@@ -51,7 +51,7 @@ class ServiceAdapter(var serviceBookingList: MutableList<Model.ServiceBookingEnt
             serviceViewGroup = itemView.findViewById(R.id.serviceViewGroup) as ServiceViewGroup
 
             serviceViewGroup?.getCardClickedObservable()?.subscribe {
-                serviceInteractionListener?.onCardClicked(adapterPosition)
+                serviceInteractionListener?.onCardClicked(adapterPosition, serviceViewGroup!!.getImage())
             }
         }
 

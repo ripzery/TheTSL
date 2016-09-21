@@ -49,12 +49,16 @@ class ServiceDetailActivity : ToolbarActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                finish()
+                supportFinishAfterTransition()
                 return true
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
     }
 
     override fun attachBaseContext(newBase: Context?) {

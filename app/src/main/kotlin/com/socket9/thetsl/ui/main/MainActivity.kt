@@ -23,7 +23,10 @@ import com.facebook.FacebookSdk
 import com.facebook.login.LoginManager
 import com.google.android.gms.gcm.GcmListenerService
 import com.socket9.thetsl.R
-import com.socket9.thetsl.extensions.*
+import com.socket9.thetsl.extensions.getSp
+import com.socket9.thetsl.extensions.replaceFragment
+import com.socket9.thetsl.extensions.saveSp
+import com.socket9.thetsl.extensions.toast
 import com.socket9.thetsl.fragments.NewsEventFragment
 import com.socket9.thetsl.managers.HttpManager
 import com.socket9.thetsl.models.Model
@@ -36,6 +39,7 @@ import com.socket9.thetsl.ui.main.tracking.service.ServiceFragment
 import com.socket9.thetsl.ui.main.website.WebsiteFragment
 import com.socket9.thetsl.ui.signin.SignInActivity
 import com.socket9.thetsl.utils.DialogUtil
+import com.socket9.thetsl.utils.NotiNavigatorUtil
 import com.socket9.thetsl.utils.SharePref
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import de.hdodenhof.circleimageview.CircleImageView
@@ -69,7 +73,6 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         val FRAGMENT_DISPLAY_WEBSITE = 10
     }
 
-
     private var homeFragment: HomeFragment? = null
     private var newsFragment: NewsEventFragment? = null
     private var contactFragment: ContactFragment? = null
@@ -83,8 +86,8 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
     private var currentFragmentIndex: Int = 4
     lateinit var myProfile: Model.Profile;
     private var getProfileSubscriber: Subscription? = null
-    private var dialog: ProgressDialog ? = null
-    private var tvName: TextView ? = null
+    private var dialog: ProgressDialog? = null
+    private var tvName: TextView? = null
     private var headerView: View? = null
     //    private var isLaunchedByGcm: Boolean = false
 //    private var type: String = ""
@@ -190,18 +193,24 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         loadProfile(false)
 
         /* set boolean if this activity is launched by gcm  */
-        gcmData = intent.getParcelableExtra("gcmData")
+//        gcmData = intent.getParcelableExtra("gcmData")
+        gcmData = NotiNavigatorUtil.gcmData?.copy()
 
 //        isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
 //        type = intent.getStringExtra("type") ?: ""
 
-
         /* set currentFragment when change language */
-        currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
+//        currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
+        currentFragmentIndex = NotiNavigatorUtil.currentFragmentIndex
+
+        info { "currentFragmentIndex : $currentFragmentIndex" }
 
         changeFragment(currentFragmentIndex)
         setCheckedItem(currentFragmentIndex)
 
+        /* clear NotiNavigator singleton */
+        NotiNavigatorUtil.gcmData = null
+        NotiNavigatorUtil.currentFragmentIndex = FRAGMENT_DISPLAY_EMERGENCY
     }
 
     private fun setupNavigationViewFont() {
@@ -268,7 +277,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
 //        testNotification()
     }
 
-    private fun testNotification(type: String = "Type", messageData: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"){
+    private fun testNotification(type: String = "Type", messageData: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book") {
         val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_noti)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -475,7 +484,7 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
     }
 
     private fun loadProfile(isFromEditProfile: Boolean) {
-        dialog = indeterminateProgressDialog (R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
+        dialog = indeterminateProgressDialog(R.string.dialog_progress_profile_content, R.string.dialog_progress_title)
         dialog?.setCancelable(false)
         dialog?.show()
 

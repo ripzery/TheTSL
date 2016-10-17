@@ -29,6 +29,7 @@ import com.socket9.thetsl.R
 import com.socket9.thetsl.extensions.getSp
 import com.socket9.thetsl.models.Model
 import com.socket9.thetsl.ui.main.MainActivity
+import com.socket9.thetsl.utils.NotiNavigatorUtil
 import com.socket9.thetsl.utils.SharePref
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -88,16 +89,18 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
 
                     val statusId: Int = JSONObject(message).getInt("statusId")
 
-                    intent.putExtra("currentFragmentIndex",
-                            if (messageData.equals("ดำเนินการรับแจ้งซ่อมแล้ว") || messageData.equals("Start service job.")) {
-                                MainActivity.FRAGMENT_DISPLAY_SERVICE
-                            } else {
-                                MainActivity.FRAGMENT_DISPLAY_EMERGENCY
-                            }
-                    )
-                            .putExtra("gcmData", Model.GCMData(type, statusId))
+                    if (messageData.equals("ดำเนินการรับแจ้งซ่อมแล้ว") || messageData.equals("Start service job.")) {
+                        MainActivity.FRAGMENT_DISPLAY_SERVICE
+                        NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
+                    } else {
+                        MainActivity.FRAGMENT_DISPLAY_EMERGENCY
+                        NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_EMERGENCY
+                    }
+                    intent.putExtra("gcmData", Model.GCMData(type, statusId))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+                    NotiNavigatorUtil.gcmData = Model.GCMData(type, statusId)
                 }
                 SERVICE_BOOKING -> {
 
@@ -111,18 +114,27 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                             .putExtra("gcmData", Model.GCMData(type, -1, dateBooking.toString()))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+                    NotiNavigatorUtil.gcmData = Model.GCMData(type, -1, dateBooking.toString())
+                    NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
                 }
                 SERVICE_TRACKING -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+                    NotiNavigatorUtil.gcmData = Model.GCMData(type)
+                    NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
                 }
                 NEW_CAR -> {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_CAR_TRACKING)
                             .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+                    NotiNavigatorUtil.gcmData = Model.GCMData(type)
+                    NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_CAR_TRACKING
                 }
             }
 

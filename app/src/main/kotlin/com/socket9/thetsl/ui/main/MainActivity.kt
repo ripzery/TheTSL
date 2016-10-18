@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -193,15 +194,17 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         loadProfile(false)
 
         /* set boolean if this activity is launched by gcm  */
-//        gcmData = intent.getParcelableExtra("gcmData")
-        gcmData = NotiNavigatorUtil.gcmData?.copy()
+        gcmData = intent.getParcelableExtra("gcmData")
+
+        info { gcmData }
+//        gcmData = NotiNavigatorUtil.gcmData?.copy()
 
 //        isLaunchedByGcm = intent.getBooleanExtra("isGcm", false)
 //        type = intent.getStringExtra("type") ?: ""
 
         /* set currentFragment when change language */
-//        currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
-        currentFragmentIndex = NotiNavigatorUtil.currentFragmentIndex
+        currentFragmentIndex = intent.getIntExtra("currentFragmentIndex", 4)
+//        currentFragmentIndex = NotiNavigatorUtil.currentFragmentIndex
 
         info { "currentFragmentIndex : $currentFragmentIndex" }
 
@@ -209,8 +212,14 @@ class MainActivity : RxAppCompatActivity(), AnkoLogger, BottomNavigationFragment
         setCheckedItem(currentFragmentIndex)
 
         /* clear NotiNavigator singleton */
-        NotiNavigatorUtil.gcmData = null
-        NotiNavigatorUtil.currentFragmentIndex = FRAGMENT_DISPLAY_EMERGENCY
+//        NotiNavigatorUtil.gcmData = null
+//        NotiNavigatorUtil.currentFragmentIndex = FRAGMENT_DISPLAY_EMERGENCY
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d("OnNewIntent", "${intent!!.getIntExtra("currentFragmentIndex", 4)}")
+        setIntent(intent)
     }
 
     private fun setupNavigationViewFont() {

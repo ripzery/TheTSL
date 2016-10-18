@@ -82,23 +82,23 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                 info { "Can't parse json" }
             }
 
-            var intent: Intent = Intent(this, MainActivity::class.java)
+            var intent: Intent = Intent().setClass(applicationContext, MainActivity::class.java)
             info { messageData }
             when (type) {
                 EMERGENCY_CALL -> {
 
                     val statusId: Int = JSONObject(message).getInt("statusId")
-
-                    if (messageData.equals("ดำเนินการรับแจ้งซ่อมแล้ว") || messageData.equals("Start service job.")) {
-                        MainActivity.FRAGMENT_DISPLAY_SERVICE
-                        NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
-                    } else {
-                        MainActivity.FRAGMENT_DISPLAY_EMERGENCY
-                        NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_EMERGENCY
-                    }
-                    intent.putExtra("gcmData", Model.GCMData(type, statusId))
+                    intent.putExtra("currentFragmentIndex",
+                            if (messageData.equals("ดำเนินการรับแจ้งซ่อมแล้ว") || messageData.equals("Start service job.")) {
+                                MainActivity.FRAGMENT_DISPLAY_SERVICE
+//                        NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
+                            } else {
+                                MainActivity.FRAGMENT_DISPLAY_EMERGENCY
+//                        NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_EMERGENCY
+                            })
+                            .putExtra("gcmData", Model.GCMData(type, statusId))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).action = "emergencyCall"
 
                     NotiNavigatorUtil.gcmData = Model.GCMData(type, statusId)
                 }
@@ -113,7 +113,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("gcmData", Model.GCMData(type, -1, dateBooking.toString()))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).action = System.currentTimeMillis().toString()
 
                     NotiNavigatorUtil.gcmData = Model.GCMData(type, -1, dateBooking.toString())
                     NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
@@ -122,7 +122,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_SERVICE)
                             .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).action = System.currentTimeMillis().toString()
 
                     NotiNavigatorUtil.gcmData = Model.GCMData(type)
                     NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_SERVICE
@@ -131,7 +131,7 @@ class MyGcmListenerService : GcmListenerService(), AnkoLogger {
                     intent.putExtra("currentFragmentIndex", MainActivity.FRAGMENT_DISPLAY_CAR_TRACKING)
                             .putExtra("gcmData", Model.GCMData(type))
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).action = System.currentTimeMillis().toString()
 
                     NotiNavigatorUtil.gcmData = Model.GCMData(type)
                     NotiNavigatorUtil.currentFragmentIndex = MainActivity.FRAGMENT_DISPLAY_CAR_TRACKING
